@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>InnerVerse — Learning Hub</title>
+<meta name="description" content="A growing garden of wisdom—practical, compassionate, and powerful tools for life's ups and downs."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Oswald:wght@500;600&family=Space+Mono:wght@400;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#0f141c; --card:#121827; --muted:#8c94a8; --text:#e8ecf7;
+    --accent:#7ce2cc; --accent2:#a6b2ff; --gold:#f3d08b; --rose:#f7b1c3; --lime:#c7ffa7;
+    --radius:22px; --shadow:0 12px 30px rgba(0,0,0,.35);
+    --sidebar-w:270px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--text);
+    background:
+      radial-gradient(1400px 700px at 10% -10%, #142030 0%, transparent 50%),
+      radial-gradient(900px 600px at 90% -10%, #1a2336 0%, transparent 50%),
+      linear-gradient(180deg, #0b0f14, #0b0f14);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    line-height:1.6;
+  }
+
+  /* Header */
+  .site-header{position:sticky;top:0;z-index:40;backdrop-filter:blur(8px);background:rgba(10,14,20,.55);border-bottom:1px solid rgba(255,255,255,.06)}
+  .container{width:min(1160px,92%);margin-inline:auto}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(180deg,var(--accent2),var(--accent));display:grid;place-items:center;color:#0b0f14;font-weight:800}
+  .brand-text{font-weight:700;letter-spacing:.25px}
+  .btn{--pad:10px 16px;display:inline-flex;align-items:center;gap:10px;padding:var(--pad);border-radius:999px;text-decoration:none;color:#0b0f14;background:linear-gradient(180deg,var(--accent2),var(--accent));font-weight:700;border:none;cursor:pointer;box-shadow:var(--shadow)}
+  .btn.subtle{background:rgba(255,255,255,.06);color:var(--text);box-shadow:none}
+  .btn.subtle:hover{background:rgba(255,255,255,.12)}
+  .btn.outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.15)}
+  .dot{width:8px;height:8px;background:#7f89a4;border-radius:50%}
+  .dot.on{background:#7df0c7;box-shadow:0 0 0 3px rgba(125,240,199,.28)}
+  .icon-btn{background:transparent;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+  /* Layout with left sidebar */
+  .layout{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:calc(100vh - 68px)}
+  .sidebar{
+    position:sticky; top:68px; align-self:start; height:calc(100vh - 68px);
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    border-right:1px solid rgba(255,255,255,.07);
+    padding:18px 14px; overflow:auto;
+  }
+  .side-title{font-family:"Playfair Display", serif; font-size:18px; margin:6px 10px 12px}
+  .dir{display:flex;flex-direction:column;gap:6px}
+  .dir a{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;
+    color:var(--text);text-decoration:none;opacity:.9;
+  }
+  .dir a[data-active="true"]{background:rgba(255,255,255,.08);opacity:1}
+  .dir .pill{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+  .pill.ok{border-color:rgba(124,226,204,.4);color:#b5ffe5}
+  .pill.soon{border-color:rgba(255,255,255,.14);color:#cfd7ee}
+  .side-foot{margin-top:14px;padding:12px;border-radius:14px;border:1px dashed rgba(255,255,255,.12);font-size:12px;color:var(--muted)}
+  .mobile-only{display:none}
+  @media (max-width:960px){
+    .layout{grid-template-columns:1fr}
+    .sidebar{position:fixed;inset:68px auto 0 0;width:min(80%,320px);transform:translateX(-102%);transition:transform .25s ease;z-index:45;border-right:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow)}
+    .sidebar.open{transform:none}
+    .mobile-only{display:inline-flex}
+  }
+
+  /* Content scaffolding */
+  main{background:transparent}
+  .content{padding:22px}
+  .hero{padding:56px 0 12px;background-image:radial-gradient(900px 300px at 50% -60%, rgba(166,178,255,.23), transparent 60%)}
+  .title{font-family:"Playfair Display",serif;font-weight:700;font-size:clamp(30px,4.6vw,54px);line-height:1.05;margin:0}
+  .subhead{font-family:"Playfair Display",serif;font-size:clamp(20px,3.5vw,28px);text-align:center;color:var(--gold);margin-top:8px}
+  .subtitle{opacity:.95;margin-top:10px;font-size:clamp(15px,1.5vw,18px)}
+  .banner{border:1px dashed rgba(255,255,255,.18);border-radius:14px;padding:14px 16px;background:rgba(255,255,255,.04)}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+  .col-12{grid-column:span 12}.col-6{grid-column:span 6}.col-4{grid-column:span 4}
+  @media (max-width:920px){.col-6,.col-4{grid-column:span 12}}
+
+  /* Guide page styling */
+  .guide{max-width:980px;margin-inline:auto;padding:14px}
+  .guide h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3vw,34px);margin:22px 0 8px}
+  .guide h3{font-size:clamp(18px,2.2vw,22px);margin:18px 0 8px}
+  .lead{font-size:18px;opacity:.95}
+  .split{display:grid;grid-template-columns:1fr;gap:18px}
+
+  /* Blocks */
+  .block{background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px 18px;margin:14px 0;position:relative}
+  .block .tag{font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);margin-right:8px}
+  .block.practice{border-color:rgba(124,226,204,.4)}
+  .block.tool{border-color:rgba(166,178,255,.35)}
+  .block.checkin{border-color:rgba(255,255,255,.18)}
+  .block.science{border-color:rgba(243,208,139,.45)}
+  .block.protip{border-color:rgba(247,177,195,.45)}
+  .quote{border-left:3px solid var(--accent);padding-left:12px;color:#dfe7ff;opacity:.96}
+
+  /* Meaningful fonts */
+  .lens-3d{font-family:Oswald, system-ui; letter-spacing:.03em; text-transform:uppercase}
+  .lens-4d{font-family:"Space Mono", monospace}
+  .lens-5d{font-family:Kalam, cursive; font-weight:700}
+
+  /* Lesson chips */
+  .chips{display:flex;gap:10px;overflow:auto;padding:10px 6px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+  .chip{scroll-snap-align:start;border:1px solid rgba(255,255,255,.15);padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.03);white-space:nowrap}
+  .chip button{background:transparent;border:none;color:var(--text);font-weight:600;cursor:pointer}
+
+  /* Story readability – Dropcap fixed to stay on first line */
+  .story{font-size:17px;line-height:1.85;text-align:left}
+  .story.dropcap{overflow:hidden}
+  .story.dropcap::first-letter{
+    float:left;display:block;font-size:3.2em;line-height:.9;
+    padding:4px 10px 0 0;font-family:"Playfair Display", serif;color:var(--gold);shape-outside:margin-box;
+  }
+
+  /* Section separation */
+  .section-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);margin:28px 0}
+  [id]{scroll-margin-top:86px}
+
+  /* Bookmarking */
+  .save{position:absolute;top:10px;right:10px;border:none;background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer}
+  .save[data-saved="true"]{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#0b0f14}
+
+  /* Footer */
+  .site-footer{border-top:1px solid rgba(255,255,255,.08);padding:32px 0 64px;background:rgba(255,255,255,.03)}
+  .footer-inner{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Open directory">☰</button>
+        <a class="brand" href="#/">
+          <div class="logo">IV</div>
+          <span class="brand-text">InnerVerse</span>
+        </a>
+      </div>
+      <nav style="display:flex;align-items:center;gap:10px">
+        <a href="#/" class="btn subtle">Home</a>
+        <button class="btn subtle" id="loginBtn"><span class="dot" id="memberDot"></span><span id="accountLabel">Sign in</span></button>
+        <a class="btn" id="subscribeHeaderBtn">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-title">Directory</div>
+      <nav class="dir" id="dirNav"></nav>
+      <div class="side-foot">To browse modules on mobile, tap ☰.</div>
+    </aside>
+
+    <main><div id="app"></div></main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logo" style="width:28px;height:28px;font-size:12px">IV</div>
+        <div>
+          <div class="brand-text">InnerVerse</div>
+          <small class="muted">A growing garden of self-knowledge.</small>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#/about">About</a>
+        <a href="#/pricing">Pricing</a>
+        <a href="#/faq">FAQ</a>
+        <a href="#/privacy">Privacy</a>
+        <a href="#/terms">Terms</a>
+      </div>
+      <small class="muted">© <span id="year"></span> InnerVerse. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- Account Modal -->
+  <div class="site-header" id="hiddenHeader" style="display:none"></div>
+  <div class="modal" id="accountModal" aria-hidden="true" style="position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.46);z-index:50;padding:18px">
+    <div class="modal-sheet" style="position:relative;width:min(520px,92%);border-radius:20px;padding:22px 20px;background:linear-gradient(180deg, rgba(21,26,35,.96), rgba(12,15,20,.96));border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow)">
+      <button class="icon-btn" data-close-modal style="position:absolute;top:18px;right:18px" aria-label="Close">×</button>
+      <h3>Your Account</h3>
+      <p class="muted" id="accountStatus">You’re exploring as a guest.</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <button class="btn" id="subscribeBtn">Subscribe — $5/month</button>
+        <button class="btn outline" id="redeemBtn">Redeem Access Code</button>
+        <button class="btn subtle" id="signOutBtn" hidden>Sign out</button>
+      </div>
+      <p class="tiny muted">Tip: use code <strong>INNERVERSE</strong> to unlock locally.</p>
+    </div>
+  </div>
+  <!-- Redeem Modal -->
+  <div class="modal" id="redeemModal" aria-hidden="true" style="position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.46);z-index:50;padding:18px">
+    <div class="modal-sheet" style="position:relative;width:min(520px,92%);border-radius:20px;padding:22px 20px;background:linear-gradient(180deg, rgba(21,26,35,.96), rgba(12,15,20,.96));border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow)">
+      <button class="icon-btn" data-close-modal style="position:absolute;top:18px;right:18px" aria-label="Close">×</button>
+      <h3>Redeem Access</h3>
+      <p class="muted">Enter your code to unlock member content.</p>
+      <form id="redeemForm" style="display:flex;flex-direction:column;gap:12px">
+        <input type="text" class="input" placeholder="Enter access code" id="accessCode" required style="width:100%;padding:12px 14px;border-radius:12px;background:#0f131a;border:1px solid rgba(255,255,255,.12);color:var(--text)"/>
+        <button class="btn" type="submit">Unlock</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+/*************** SIMPLE PAYWALL ***************/
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_XXXXXXXXXXXXXXXX"; // replace with your Stripe link
+const Paywall = (() => {
+  const KEY = "iv_subscribed";
+  const subscribed = () => localStorage.getItem(KEY) === "true";
+  const setSubscribed = v => { localStorage.setItem(KEY, v ? "true" : "false"); updateUI(); protect(); };
+  const memberDot = () => document.getElementById("memberDot");
+  const accountLabel = () => document.getElementById("accountLabel");
+  const statusEl = () => document.getElementById("accountStatus");
+  function updateUI(){
+    accountLabel().textContent = subscribed() ? "Member" : "Sign in";
+    memberDot().classList.toggle("on", subscribed());
+    const so = document.getElementById("signOutBtn");
+    if (so) so.hidden = !subscribed();
+  }
+  function protect(){
+    document.querySelectorAll("[data-requires-subscription]").forEach(n=>{
+      const locked = !subscribed();
+      n.style.filter = locked ? "blur(2px)" : "none";
+      n.style.pointerEvents = locked ? "none" : "auto";
+      n.style.userSelect = locked ? "none" : "auto";
+      n.setAttribute("aria-disabled", locked ? "true" : "false");
+    });
+  }
+  function openAccount(){
+    document.getElementById("accountModal").style.display="grid";
+    statusEl().textContent = subscribed() ? "Thanks for being a member." : "You’re exploring as a guest. Become a member to unlock lessons.";
+  }
+  function init(){
+    document.getElementById("loginBtn").addEventListener("click", openAccount);
+    document.getElementById("subscribeHeaderBtn").addEventListener("click", ()=>window.location.href=STRIPE_PAYMENT_LINK);
+    document.getElementById("subscribeBtn").addEventListener("click", ()=>window.location.href=STRIPE_PAYMENT_LINK);
+    document.querySelectorAll("[data-close-modal]").forEach(b=>b.addEventListener("click", e=>e.target.closest(".modal").style.display="none"));
+    document.getElementById("signOutBtn").addEventListener("click", ()=>{ setSubscribed(false); alert("Signed out."); document.getElementById("accountModal").style.display="none"; });
+    document.getElementById("redeemBtn").addEventListener("click", ()=>{ document.getElementById("redeemModal").style.display="grid"; });
+    document.getElementById("redeemForm").addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const code = (document.getElementById("accessCode").value||"").trim().toUpperCase();
+      if (["FOUNDERS-PASS","DEV-UNLOCK","INNERVERSE"].includes(code)) {
+        setSubscribed(true);
+        alert("Welcome! Member access unlocked.");
+        document.getElementById("redeemModal").style.display="none";
+        document.getElementById("accountModal").style.display="none";
+      } else { alert("Invalid code."); }
+    });
+    updateUI(); protect();
+  }
+  return { init, protect, subscribed, setSubscribed };
+})();
+
+/*************** DATA ***************/
+const DATA = {
+  modules: [
+    { slug:"self-discovery", title:"Self-Discovery", status:"available" },
+    { slug:"emotional-mastery", title:"Emotional Mastery", status:"soon" },
+    { slug:"inner-power-purpose", title:"Inner Power & Purpose", status:"soon" },
+    { slug:"relationships-connection", title:"Relationships & Connection", status:"soon" },
+    { slug:"abundance-flow", title:"Abundance & Flow", status:"soon" },
+    { slug:"healing-integration", title:"Healing & Integration", status:"soon" }
+  ]
+};
+
+/*************** UTILITIES ***************/
+const $ = (s, r=document)=>r.querySelector(s);
+const app = ()=>document.getElementById("app");
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function layout(inner){ return `<div class="content">${inner}</div>`; }
+function setActiveDir(slug){
+  document.querySelectorAll("#dirNav a").forEach(a=>a.dataset.active = (a.dataset.slug===slug) ? "true":"false");
+}
+function buildDirectory(){
+  const nav = document.getElementById("dirNav");
+  nav.innerHTML = DATA.modules.map(m=>{
+    const pill = m.status==="available" ? `<span class="pill ok">Available</span>` : `<span class="pill soon">Coming soon</span>`;
+    return `<a href="#/modules/${m.slug}" data-slug="${m.slug}"><span style="width:8px;height:8px;border-radius:50%;background:${m.status==="available"?"#7df0c7":"#9099b2"};display:inline-block"></span> <span style="flex:1">${m.title}</span>${pill}</a>`;
+  }).join("");
+}
+
+/*************** PAGES ***************/
+function HomePage(){
+  const welcome = `
+    <section class="hero">
+      <div class="container">
+        <h1 class="title">Welcome to InnerVerse 🌿</h1>
+        <p class="subtitle">Welcome. Thank you for giving your attention to your own growth — it’s the most loving and powerful use of it. This is an easy-going, empowering space to learn practical ways to feel steady, think clearly, and live from what matters.</p>
+        <div class="banner" style="margin-top:14px">
+          <strong>How it works:</strong> explore modules in the directory (left). Start with <em>Self-Discovery</em>. Try practices. Bookmark your favorites. Come back whenever life gets loud.
+        </div>
+      </div>
+    </section>
+    <section class="container" style="padding:18px 0 48px">
+      <div class="grid">
+        <div class="col-6">
+          <div class="card"><div class="body">
+            <h3>Handcrafted for calm</h3>
+            <p class="muted">Quiet typography, cozy spacing, and soothing gradients. Luxury self-care vibes without fluff.</p>
+          </div></div>
+        </div>
+        <div class="col-6">
+          <div class="card"><div class="body">
+            <h3>Practical first</h3>
+            <p class="muted">Every concept pairs with 🌱 practices, 🔧 tools, and 🧭 check-ins so insight turns into action.</p>
+          </div></div>
+        </div>
+      </div>
+    </section>`;
+  app().innerHTML = layout(welcome);
+  setActiveDir("");
+}
+
+function ComingSoonPage(mod){
+  const inner = `
+    <section class="hero">
+      <div class="container">
+        <h1 class="title">${mod.title}</h1>
+        <p class="subtitle">This module is growing in the garden. We’re tending roots and shaping lessons. <strong>Coming soon.</strong></p>
+        <div class="banner" style="margin-top:10px">Members will see early previews here as seeds sprout 🌱</div>
+      </div>
+    </section>`;
+  app().innerHTML = layout(inner);
+  setActiveDir(mod.slug);
+}
+
+/* ---------- SELF-DISCOVERY FULL GUIDE PAGE ---------- */
+function SelfDiscoveryPage(){
+  const header = `
+    <section class="hero">
+      <div class="container">
+        <h1 class="title" style="text-align:center">The Journey of Self-Discovery</h1>
+        <div class="subhead">The Missing Manual</div>
+        <p class="subtitle" style="text-align:center;max-width:820px;margin:10px auto 0">A caring mentor in your pocket: simple language, zero fluff, and tools you can actually use. Read at your pace. Bookmark practices. Come back whenever life gets loud.</p>
+      </div>
+    </section>`;
+
+  const tips = `
+    <section class="guide container">
+      <div class="split">
+        <div>
+          <h2 id="how">How to Use This Guide</h2>
+          <p class="lead">Read → Try → Reflect → Repeat. Insight comes from action.</p>
+          <div class="block"><span class="tag">🌱 Practices</span> Mini-quests you can finish in minutes.</div>
+          <div class="block"><span class="tag">🔧 Tools</span> Step-by-step support when you want structure.</div>
+          <div class="block"><span class="tag">🧭 Check-ins</span> Quick questions to track progress.</div>
+          <p class="muted tiny">Skip around—start where you need help most.</p>
+        </div>
+        <div class="block protip">
+          <span class="tag">✨ Pro Tips</span>
+          <ul style="margin:6px 0 0 18px">
+            <li>Skim headings first, then dive where it matters today.</li>
+            <li>Read in <strong>short chunks</strong>. After each block, <em>do</em> the practice.</li>
+            <li><strong>Bookmark</strong> blocks you love (tap the heart). Revisit during tough weeks.</li>
+            <li>Let fonts cue meaning: <span class="lens-3d">3D = SURVIVAL</span>, <span class="lens-4d">4D = Mind/Ego</span>, <span class="lens-5d">5D = Unity/Heart</span>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section-divider"></div>
+      <h3>Choose your starting point</h3>
+      <div class="chips" id="lessonChips" aria-label="Lesson navigation chips"></div>
+    </section>`;
+
+  function block(html, classes="", id=""){
+    const bid = id || ("b-"+Math.random().toString(36).slice(2,8));
+    return `
+      <div class="block ${classes}" data-bid="${bid}">
+        <button class="save" aria-label="Save block" data-save="${bid}">❤</button>
+        ${html}
+      </div>`;
+  }
+
+  /* SECTION 1 (with updated 3D/4D/5D description) */
+  const foundations = `
+    <section class="guide container" id="foundations">
+      <div id="lesson-more-than-see"></div>
+      <h2>1) Foundations of Self-Discovery</h2>
+
+      <div class="block" style="background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))">
+        <h3>1.1 The Nature of Consciousness <span class="muted">(The “You” Behind Everything)</span></h3>
+
+        <div class="story dropcap">
+          When you stand before a mirror, you may be convinced that the frame is the whole picture. You see a face, a mood, an outfit, a role for the day. But notice what’s quietly present <em>behind</em> all of that: the one who’s noticing. That steady awareness is like your phone’s screen—apps open and close, notifications flash and fade, but the screen remains. In life, the apps are thoughts, sensations, and stories; the screen is <strong>you as awareness</strong>.
+        </div>
+
+        <div class="block" id="lens-explainer" style="margin-top:10px">
+          <span class="tag">🎮 Lenses</span>
+          <p class="story" style="margin-top:10px">
+            Alright, let’s imagine 3D, 4D, and 5D not as actual places you go to, but as lenses or filters on reality. Like when you put on colored glasses, the world doesn’t change itself — but how you see and interpret it does.
+          </p>
+
+          <h4 class="lens-3d" style="margin:14px 0 6px">🌍 3D: The Physical &amp; Survival Lens</h4>
+          <p><strong>Focus:</strong> Physical reality, matter, and separation.</p>
+          <p><strong>How it feels:</strong> Life is about cause and effect, rules, and material things. Success is measured by what you own, your status, or how well you fit into society’s structures.</p>
+          <p><strong>Mindset:</strong> “I need to survive, compete, and protect what’s mine. There's not enough for everyone.”</p>
+          <p><strong>Emotions:</strong> Fear, comparison, greed, or jealousy often dominate because the world feels limited — if someone wins, someone else loses.</p>
+          <p><strong>Example:</strong> If someone insults you, in 3D you might think: “That person is against me. I need to defend myself.”</p>
+          <p class="muted">Think of 3D like playing a video game where you’re only focused on health points, coins, and enemies. You see the surface, but not the deeper meaning.</p>
+
+          <div class="section-divider" style="margin:18px 0"></div>
+
+          <h4 class="lens-4d" style="margin:6px 0">⏳ 4D: The Mind &amp; Transition Lens</h4>
+          <p><strong>Focus:</strong> Thoughts, beliefs, time, and self-awareness.</p>
+          <p><strong>How it feels:</strong> You start questioning things. You realize your thoughts shape your reality. Life isn’t just about stuff — it’s about meaning and perspective.</p>
+          <p><strong>Mindset:</strong> “What I believe and think actually changes what I experience.”</p>
+          <p><strong>Emotions:</strong> Curiosity, hope, but also confusion. It’s a middle ground — you see patterns, synchronicities, and wonder if there’s more beyond the physical.</p>
+          <p><strong>Example:</strong> If someone insults you, in 4D you might think: “What belief in me is being triggered? Why do I care what they think?”</p>
+          <p class="muted">Think of 4D like discovering cheat codes in the video game — you realize the system is more flexible than you thought, and your choices influence the outcome.</p>
+
+          <div class="section-divider" style="margin:18px 0"></div>
+
+          <h4 class="lens-5d" style="margin:6px 0">✨ 5D: The Unity &amp; Love Lens</h4>
+          <p><strong>Focus:</strong> Oneness, compassion, unconditional love, higher perspective.</p>
+          <p><strong>How it feels:</strong> You see everything as connected. Instead of competition, you see cooperation. Instead of fear, you feel trust and flow. Life is less about control, more about aligning with truth and love.</p>
+          <p><strong>Mindset:</strong> “We are all connected. What I do to you, I do to myself.”</p>
+          <p><strong>Emotions:</strong> Gratitude, joy, compassion, creativity, peace.</p>
+          <p><strong>Example:</strong> If someone insults you, in 5D you might think: “That person is hurting. Their words reflect their pain, not my worth. I can choose to send love instead of reacting.”</p>
+          <p class="muted">Think of 5D like realizing the video game is a team adventure — you’re all in it together, exploring, growing, and creating worlds rather than just surviving them.</p>
+
+          <div class="section-divider" style="margin:18px 0"></div>
+
+          <div class="banner" style="margin-top:4px">
+            <strong>🎮 Putting It Together</strong><br/>
+            3D = survival mode, physical and external focus. <br/>
+            4D = questioning, mind power, shifting beliefs. <br/>
+            5D = heart-centered, unity, and love-based awareness. <br/>
+            <em>None of these are wrong. They’re just different filters. You can move between them depending on your mood, awareness, or growth.</em>
+          </div>
+        </div>
+
+        <div class="story" style="margin-top:14px">
+          Think of an <strong>iceberg</strong>: the visible tip is your appearance and public roles; beneath the waterline lives your inner world—feelings, creativity, memory, dreams. Deeper still is the <strong>observer</strong> who notices even those inner waves. In yoga this is the Atman, in psychology the "Observing Ego". Call it what you like—it’s the constant that lets you say “I am,” even as everything else changes.
+        </div>
+
+        ${block(`
+          <span class="tag">🌱 Practice</span> <strong>Lens Switch (45 seconds)</strong>
+          <ol>
+            <li>Catch yourself in a stressful moment.</li>
+            <li>Ask: “Am I in <span class='lens-3d'>Survival</span>, <span class='lens-4d'>Ego</span>, or <span class='lens-5d'>Unity</span>?”</li>
+            <li>Hand on heart. 5 slow breaths.</li>
+            <li>Whisper: “Shift to Unity: What would love choose?”</li>
+          </ol>
+        `,"practice","p-lens")}
+        ${block(`<span class="tag">🧠 Science Snapshot</span>
+          Slow breathing nudges the vagus nerve to signal that you're safe. Your brain downshifts from fight or flight to clarity and your cortisol levels lower.`, "science")}
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-self-love"></div>
+      <h3 id="perfect">1.2 Perfect Imperfection <span class="muted">(Everything Belongs)</span></h3>
+      <div class="story dropcap">
+        The bowl slipped from your hands and cracked along the kitchen tile. For a second you froze, waiting for the invisible judge to slam the gavel. But no one came. You swept the pieces into a small pile and noticed how the shards gleamed. The old you would have called it proof you were careless. A kinder voice wondered: could a break reveal where the light gets in? Growth doesn’t erase the fracture—it makes a place for gold to run.
+      </div>
+      ${block(`
+        <span class="tag">🌱 Practice</span> <strong>The Golden Repair</strong>
+        <p><em>Why it works:</em> Reframing mistakes into information calms shame and unlocks learning. This practice turns a misstep into a map.</p>
+        <ol>
+          <li><strong>Choose a crack.</strong> Recall a recent mistake or cringe moment. Write 5 factual lines about what happened—no adjectives yet.</li>
+          <li><strong>Name the pain.</strong> Circle the toughest moment. Under it, write: “Ouch, this hurts because I value ___.” Identifying the value reveals your gold.</li>
+          <li><strong>Extract the lesson.</strong> List 2 skills this event is asking you to grow. Examples: clearer requests, realistic pacing, asking for help, recovery rituals.</li>
+          <li><strong>Kintsugi line.</strong> Write a single sentence that honors the crack and the lesson. Example: “I missed the deadline, and it taught me to set honest capacity.”</li>
+          <li><strong>Seal with action.</strong> Choose one tiny behavior that embodies the lesson this week—mark it in your calendar. Example: 10-minute Sunday planning to check capacity.</li>
+        </ol>
+        <p class="muted">If shame spikes, place a hand on your heart and repeat: “Mistakes are data; I am learning.”</p>
+      `,"practice")}
+      ${block(`
+        <span class="tag">🔧 Tool</span> <strong>3-Step Self-Compassion (Expanded)</strong>
+        <ol>
+          <li><strong>Mindfulness:</strong> One sentence of clean description. “My chest is tight; I missed a promise.”</li>
+          <li><strong>Common Humanity:</strong> Two reminders. “Everyone drops balls. This is a human moment.”</li>
+          <li><strong>Kind Action:</strong> Pick one: repair (apology or renegotiate), replenish (water, walk), or resource (ask support). Schedule it inside 24 hours.</li>
+        </ol>
+        <p class="muted">Tip: Write your future self a two-sentence note: “If this happens again, do X first.”</p>
+      `,"tool")}
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-reframing-identity"></div>
+      <h3 id="self-vs-story">1.3 The Self vs. The Story</h3>
+      <div class="story dropcap">
+        You walk on stage wearing a costume you forgot was a costume. The crowd cheers when you perform your old lines: the responsible one, the funny one, the fixer, the mom, the friend, the coworker. Backstage, a mirror waits with quieter lighting. You take off the hat and recognize your own eyes again. The role isn’t the enemy—it’s just not the whole you. When you remember you are the actor, you can rewrite the script and choose the scene.
+      </div>
+      ${block(`
+        <span class="tag">🌱 Practice</span> <strong>The Sky & Weather (Deepened)</strong>
+        <ol>
+          <li><strong>Set the stage.</strong> Sit for 2 minutes. Imagine awareness as a wide sky behind you and through you.</li>
+          <li><strong>Name the weather.</strong> Without fixing anything, label what passes: “thinking,” “tightness,” “sadness,” “planning.” One word, gentle voice.</li>
+          <li><strong>Locate the actor.</strong> Ask: “Who notices this?” Sense the quiet watcher. Place one hand on your chest to mark that seat.</li>
+          <li><strong>Optional re-entry.</strong> Choose one role you wear too tightly. Whisper: “I can play this role without becoming it.” Walk through one small scene today from the actor seat.</li>
+        </ol>
+        <p class="muted">Circling on a sticky thought? Add “right now” at the end. “I am overwhelmed, right now.” It keeps the sky open.</p>
+      `,"practice")}
+      ${block(`
+        <span class="tag">🧭 Check-In</span>
+        <p><strong>Question:</strong> “Am I acting from who I am at my core or from a story I've absorbed from my environment?”</p>
+        <p><strong>Shift:</strong> Loosen one label today. Replace “I’m always the fixer” with “Sometimes I help; sometimes I rest.”</p>`,"checkin")}
+    </section>`;
+
+  /* SECTION 2 */
+  const human = `
+    <section class="guide container" id="human">
+      <h2>2) The Human Experience</h2>
+
+      <h3>2.1 Understanding the Mind <span class="muted">(Meet Your Inner Cast)</span></h3>
+      <div class="story dropcap">
+        Imagine a late-night theater. The Ego is the stage manager, flipping switches, making sure the show looks acceptable. The Inner Critic sits in the balcony with a megaphone, convinced that scolding equals safety. Old Programs shuffle lines from scripts you didn’t write. Then there’s you—the Director—arriving with warm tea and a kind clipboard. When the Director speaks with clarity, the cast relaxes and the play improves.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Thought Spotting (Director’s Cut)</strong>
+        <p><em>Purpose:</em> Separate thoughts from facts so they lose their grip.</p>
+        <ol>
+          <li><strong>Set a timer for 3 minutes.</strong> Write every thought as it appears, one per line, no editing.</li>
+          <li><strong>Mark voices.</strong> Label each line as Critic, Protector, Child, or Sage. If unsure, guess.</li>
+          <li><strong>Underline facts.</strong> Facts pass the courtroom test—independent observers would agree. Everything else is story.</li>
+          <li><strong>Give roles.</strong> Tell the Critic its job is to warn, not wound. Thank the Protector for trying. Ask the Sage: “What’s a kinder true sentence?”</li>
+          <li><strong>Choose one behavior.</strong> Small move within 24 hours that aligns with the Sage’s line.</li>
+        </ol>
+        <p class="muted">If your Critic gets loud, write its worst line in quotes, then respond as a friend would.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Thought Upgrade (CBT-lite, Expanded)</strong>
+        <ol>
+          <li><strong>Situation:</strong> Brief facts only.</li>
+          <li><strong>Automatic Thought:</strong> The first harsh sentence that pops up.</li>
+          <li><strong>Feeling:</strong> Name it + intensity 0–10.</li>
+          <li><strong>Evidence:</strong> 3 for, 3 against the thought.</li>
+          <li><strong>Balanced Thought:</strong> One sentence that is kind and accurate.</li>
+          <li><strong>Action:</strong> One next step that matches the balanced thought.</li>
+          <li><strong>Re-rate Feeling:</strong> Check the intensity again.</li>
+        </ol>
+        <p class="muted">Keep a running list of favorite balanced thoughts. Reuse them when the same pattern returns.</p>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>2.2 The Body as a Messenger <span class="muted">(Your Built-In Inbox)</span></h3>
+      <div class="story dropcap">
+        The email never stops, but your body sends the messages that matter most. A knot in the stomach, a tight jaw, a warm chest—headlines that arrive before words. When you stop fighting the inbox and start reading it, you find that most messages are simple: slow down, speak up, drink water, tell the truth.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>3-Minute Body Scan (Guided)</strong>
+        <ol>
+          <li><strong>Minute 1:</strong> Breathe slow. Scan head to jaw to shoulders. Where is effort hiding? Soften by 5 percent.</li>
+          <li><strong>Minute 2:</strong> Scan chest to belly to hips. Name sensations aloud: “warm,” “tight,” “hollow,” “fluttery.” Naming reduces alarm.</li>
+          <li><strong>Minute 3:</strong> Ask one tense spot: “What do you need?” Options: movement, boundary, words, water, food, rest. Choose one tiny response now.</li>
+        </ol>
+        <p class="muted">Can’t feel much? Place a cool object on your forearm, splash water, or squeeze an ice cube; sensation wakes awareness.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>S.O.M.A. Reset (2–4 min)</strong>
+        <ol>
+          <li><strong>S – Soften:</strong> Unclench jaw, drop shoulders, relax belly.</li>
+          <li><strong>O – Open:</strong> Lift sternum slightly; broaden collarbones.</li>
+          <li><strong>M – Move:</strong> Shake limbs 10 seconds or do 10 slow neck circles.</li>
+          <li><strong>A – Air:</strong> 4 rounds of a 4-second inhale, 6-second exhale.</li>
+        </ol>
+        <p class="muted">Use before hard conversations. It changes the tone of your words without trying.</p>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-befriending-emotions"></div>
+      <h3 id="emotions">2.3 The Emotional Compass <span class="muted">(Feelings = Data)</span></h3>
+      <div class="story dropcap">
+        Emotions are messengers standing at your door with weather reports. Fear warns of slippery roads. Anger points at a boundary without a sign. Sadness asks for rain and rest. Joy throws the windows open. When you greet each one by name, they usually deliver the message and move on.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Name It to Tame It (Upgraded)</strong>
+        <ol>
+          <li><strong>Locate.</strong> Point to where the feeling lives in the body. This anchors attention.</li>
+          <li><strong>Name.</strong> Use simple labels: “I feel anger and have a tight chest.”</li>
+          <li><strong>Decode.</strong> Ask: “If this emotion had a need, what would it be?” Use the translator below.</li>
+          <li><strong>Micro-step.</strong> Choose a 2-minute action that honors the need.</li>
+        </ol>
+        <p><strong>Translator:</strong> Fear → safety/clarity. Anger → respect/space. Sadness → comfort/release. Shame → compassion/truth. Guilt → repair. Joy → savor/share.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Emotion to Need Map (Worksheet)</strong>
+        <ol>
+          <li>Trigger → Emotion → Body Sensation → Need → Tiny Behavior.</li>
+          <li>Example: Criticized in meeting → Anger → hot face → need for respect → say “I’ll circle back when I’ve processed; let’s set a time.”</li>
+        </ol>
+        <p class="muted">Practice in low-stakes moments first so it’s available when stakes rise.</p>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>2.4 Archetypes & Inner Parts <span class="muted">(Your Inner Team)</span></h3>
+      <div class="story dropcap">
+        Inside you live a wise Sage, a tender Child, a vigilant Protector, a playful Creator, and a fierce Rebel. When life gets loud, the Protector can steal the mic with perfectionism or shutdown. When you feel injustice, the Rebel can get loud, and excited about fighting back. When your basic needs aren't being met, the Inner Child can throw fits and feel overwhelmed. When you find ways to contribute to the collective, the Creator shines. The Sage doesn’t shout; it invites. When the Sage hosts the meeting, everyone gets what they need.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Two-Chair Dialogue (Guided)</strong>
+        <ol>
+          <li><strong>Set two chairs.</strong> Chair A is your Inner Child, Chair B is you-now.</li>
+          <li><strong>Sit in A.</strong> Speak for 90 seconds without editing: fears, wants, memories. Keep it simple.</li>
+          <li><strong>Switch to B.</strong> Place a hand on heart. Say: “I hear you. I’ve got you. I will handle X today by Y.” Name one concrete step.</li>
+          <li><strong>Invite the Protector.</strong> Ask: “What are you trying to protect?” Offer a healthier strategy together.</li>
+        </ol>
+        <p class="muted">If you feel silly, you’re doing it right—playfulness opens doors logic can’t.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Parts Agreement</strong>
+        <ol>
+          <li>Write a one-paragraph pledge from your Sage to your Child and Protector.</li>
+          <li>Include three promises: daily check-in, no self-name-calling, and one safe adult to call if overwhelmed.</li>
+          <li>Sign it. Re-read weekly.</li>
+        </ol>`,"tool")}
+    </section>`;
+
+  /* SECTION 3 */
+  const skills = `
+    <section class="guide container" id="skills">
+      <h2>3) Skills for Everyday Life</h2>
+
+      <div id="lesson-thoughts-come-go"></div>
+      <h3 id="mindfulness">3.1 Mindfulness & Presence <span class="muted">(Come Back to Now)</span></h3>
+      <div class="story dropcap">
+        Your mind loves time travel. It rewinds to yesterday’s awkward moment and fast-forwards to tomorrow’s what-ifs. Presence isn’t erasing thought; it’s learning to return gently, like setting a snow globe down and watching the flakes settle. The more often you return, the shorter the storms.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>5 Senses Reset (Deep)</strong>
+        <ol>
+          <li><strong>See 5.</strong> Name five things you can see. Say them quietly.</li>
+          <li><strong>Feel 4.</strong> Texture, temperature, pressure, posture.</li>
+          <li><strong>Hear 3.</strong> Farthest, middle, closest sound.</li>
+          <li><strong>Smell 2.</strong> If none, imagine a favorite scent to prime the sense.</li>
+          <li><strong>Taste 1.</strong> Even neutral taste counts.</li>
+          <li><strong>Anchor phrase.</strong> Whisper: “Only this moment is asking for me. This perfect moment is the meaning of life.”</li>
+        </ol>
+        <p class="muted">Repeat 2–3 times a day until it becomes a reflex.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Micro-Pauses Protocol</strong>
+        <ol>
+          <li>Pick two doors you open daily (home, email). Each time, pause for one breath and ask: “What matters right now?”</li>
+          <li>Optional: add a tiny physical cue (touch doorframe) to make the habit sticky.</li>
+        </ol>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-create-inner-world"></div>
+      <h3 id="reframe">3.2 Cognitive Reframing <span class="muted">(Change the Angle, Change the Outcome)</span></h3>
+      <div class="story dropcap">
+        Imagine a camera set up on a stormy sky. If you shift it just a few feet to the side, the same sky suddenly shows a patch of sunlight. Nothing about the day has changed—only the angle. That’s what reframing is: not denying the problem, but adjusting your perspective so you can see more of the full picture.
+      </div>
+      ${block(`<span class="tag">🔧 Tool</span> <strong>A.B.C.D.E. Reframe (Guided)</strong>
+        <ol>
+          <li><strong>A – Adversity:</strong> Write two lines stating facts about a recent event.</li>
+          <li><strong>B – Belief:</strong> Now write the first sentence your mind jumped to.</li>
+          <li><strong>C – Consequences:</strong> Identify the feeling and behavior that followed.</li>
+          <li><strong>D – Dispute:</strong> Ask three questions—What else could be true? What would I tell a friend in this situation? What’s the cost of believing my first thought?</li>
+          <li><strong>E – Energize:</strong> Write the balanced belief and one energizing action you can do in 5 minutes. (ie: I am working on myself and sometimes I still struggle)</li>
+        </ol>
+        <p class="muted">Save your top three balanced beliefs as phone notes for reuse.</p>`,"tool")}
+      ${block(`<span class="tag">🌱 Practice</span> <strong>3 Questions</strong>
+        <ol>
+          <li>What else could be true here?</li>
+          <li>What would the kindest accurate sentence be?</li>
+          <li>What is the tiniest next step that proves that sentence?</li>
+        </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3 id="regulation">3.3 Self-Regulation <span class="muted">(Steady Your Nervous System)</span></h3>
+      <div class="story dropcap">
+        A shaken soda can doesn’t open well. Your body is the can; breath is the tab. When you vent slowly, fizz becomes drinkable energy again. Regulation is not suppression—it is giving the storm a safe path out.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Heart Hold (Protocol)</strong>
+        <ol>
+          <li>Place one hand on heart, one on belly. Inhale through the nose 4, exhale through the mouth 6.</li>
+          <li>Say your name gently and add, “I’m with you.”</li>
+          <li>After 6 breaths, ask: “What is one non-urgent next step?” Do only that.</li>
+        </ol>
+        <p class="muted">If anxiety is high, hum on the exhale; vibration calms the vagus nerve.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Menu of Resets</strong>
+        <ul>
+          <li><strong>Breath:</strong> Box 4-4-4-4 ×4 rounds • 4-7-8 ×4 rounds.</li>
+          <li><strong>Ground:</strong> Barefoot on floor, wall push, squeeze ice cubes for 20s.</li>
+          <li><strong>Tap:</strong> Lightly tap collarbone with the sentence: “Even though I feel X, I am safe and learning.”</li>
+        </ul>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>3.4 Boundaries & Autonomy</h3>
+      <div class="story dropcap">
+        A boundary is a welcome mat with writing on it. Without words, people track mud by accident. With words, the home stays warm for both of you. Boundaries are not punishments; they are instructions for love to stay possible.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Sandwich Script (Coached)</strong>
+        <ol>
+          <li><strong>Top slice (care):</strong> “I care about our relationship.”</li>
+          <li><strong>Filling (clear limit):</strong> “I won’t be able to take last-minute calls after 8pm.”</li>
+          <li><strong>Bottom slice (care again):</strong> “I still want to help—let’s schedule earlier.”</li>
+        </ol>
+        <p class="muted">Practice out loud once before you send or say it.</p>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Boundary Check</strong>
+        <ol>
+          <li>Do I have the energy for this?</li>
+          <li>Does this align with my values?</li>
+          <li>Will I resent this later?</li>
+        </ol>
+        <p class="muted">If any answer is no, adjust the ask or the timeline.</p>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-embracing-uniqueness"></div>
+      <h3 id="creative">3.5 Creative Expression</h3>
+      <div class="story dropcap">
+        Creativity is not a performance; it is plumbing. When the inside is allowed to flow out—color, rhythm, movement, words—the pipes stop clanking. You don’t create to impress; you create to unclog.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>15-Minute Free Create (Structured)</strong>
+        <ol>
+          <li><strong>Pick a lane:</strong> words, doodle, melody, movement.</li>
+          <li><strong>Set a timer for 15.</strong> Zero editing. If stuck, write or draw the sentence “I notice…” until momentum returns.</li>
+          <li><strong>Closure:</strong> Circle or underline one line or shape you like. Whisper “Thank you” to the part that made it.</li>
+        </ol>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Emotion Playlists</strong>
+        <p>Create three 6-song playlists: Calm, Courage, Grief. When an emotion spikes, press play and move, draw, or write for one song.</p>`,"tool")}
+    </section>`;
+
+  /* SECTION 4 */
+  const energy = `
+    <section class="guide container" id="energy">
+      <h2>4) Beyond the Third Dimension</h2>
+
+      <div id="lesson-trusting-intuition"></div>
+      <h3 id="energy-body">4.1 The Energy Body <span class="muted">(A Simple Map)</span></h3>
+      <div class="story dropcap">
+        Imagine seven soft lamps along your spine. They don’t demand belief; they offer questions. Each lamp asks something simple: Am I safe enough to try? Am I allowed to feel? Do I get to want? Can I love and be loved? Can I speak truth? What do I see beneath the surface? Where do I belong beyond myself?
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Light Elevator (Guided)</strong>
+        <ol>
+          <li><strong>Base:</strong> Breathe into the pelvis. Affirm: “I am here; the ground holds me.”</li>
+          <li><strong>Lower belly:</strong> “My feelings are welcome.” Name one present feeling.</li>
+          <li><strong>Solar plexus:</strong> “My choices matter.” Name one choice you own today.</li>
+          <li><strong>Heart:</strong> “I give and receive with balance.” Hand on heart; feel warmth.</li>
+          <li><strong>Throat:</strong> “I speak simply.” Draft one honest sentence you’ll say today.</li>
+          <li><strong>Forehead:</strong> “I see clearly.” Picture the kind action that would help.</li>
+          <li><strong>Crown:</strong> “I belong to something larger.” Whisper thanks to life in any words.</li>
+        </ol>
+        <p class="muted">Treat this as poetry, not dogma. If one floor feels dim, linger there kindly.</p>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>4.2 Synchronicity & Flow</h3>
+      <div class="story dropcap">
+        You think of a friend and they text. A book falls open to the sentence you needed. You receive an unexpected deposit for the exact amount you needed. Whether you call it coincidence, synchronisity or choreography, attention seems to invite more of it. Flow is focus plus a challenge that fits your current strength.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Signal Log (14 Days)</strong>
+        <ol>
+          <li>Each evening, jot 3 lines: meaningful moments, what you were focused on, and one small action they suggest.</li>
+          <li>At day 7 and 14, scan for themes. Choose one experiment the pattern is inviting.</li>
+        </ol>`,"practice")}
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Flow Formula</strong>
+        <ol>
+          <li><strong>Clear goal:</strong> exactly what success looks like for the next 30 minutes.</li>
+          <li><strong>Just-hard-enough challenge:</strong> 5–10 percent outside your comfort zone.</li>
+          <li><strong>Focus:</strong> silence notifications, single-task.</li>
+          <li><strong>Immediate feedback:</strong> visible progress bar or checklist.</li>
+        </ol>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>4.3 Transcending Duality</h3>
+      <div class="story dropcap">
+        'Either or' makes us small. Brave people still feel scared. Grief and gratitude often hold hands. When you look for the higher third option that honors both needs, conflict softens and wiser paths appear.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Higher Third</strong>
+        <ol>
+          <li>Define A and B clearly. What need does each protect?</li>
+          <li>Brainstorm five options that honor both needs. No judging yet.</li>
+          <li>Pick the smallest viable option C and test it for one week.</li>
+        </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-connection-source"></div>
+      <h3>4.4 The Nature of Reality</h3>
+      <div class="story dropcap">
+        On your best days, life feels threaded—chance meetings, kind words, quiet courage. Acting as if we belong to one fabric tends to make the fabric stronger. You don’t have to understand the loom to weave kindness into it.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Micro-Acts of Unity</strong>
+        <ol>
+          <li>Pick one daily act: a door held, a kind text, a piece of trash picked up, a sincere thank-you.</li>
+          <li>Notice the after-feeling. Track mood shifts for one week.</li>
+        </ol>`,"practice")}
+    </section>`;
+
+  /* SECTION 5 */
+  const frameworks = `
+    <section class="guide container" id="frameworks">
+      <h2>5) Practical Frameworks</h2>
+
+      <h3>5.1 Daily Practices</h3>
+      <div class="story dropcap">
+        Dramatic overhauls fade; small rituals stick. Mornings and evenings are bookends—keep them sturdy and your pages read easier. Build routines that are too small to fail and too kind to dread. It may be easier to pair a new habit with an existing habit. Like taking your vitamins after brushing your teeth, keeping your Vitamins beside your toothbrush can help remind you to incorporate this new part of your morning routine into your day without an alarm or checklist which can feel heavy.
+      </div>
+      <div class="grid">
+        <div class="col-6">
+          ${block(`<strong>Morning (3–6 min)</strong>
+          <ol>
+            <li>3 breaths + hand on heart.</li>
+            <li>Sentence: “Today I will show up as ___ by doing ___.”</li>
+            <li>Top tiny task: one 5-minute action that would make the day feel honest.</li>
+          </ol>`)}
+        </div>
+        <div class="col-6">
+          ${block(`<strong>Evening (3–6 min)</strong>
+          <ol>
+            <li>What went well? List 3 specifics.</li>
+            <li>What did I learn? One sentence.</li>
+            <li>Release ritual: write one thing to set down before sleep and exhale as you tear the note.</li>
+          </ol>`)}
+        </div>
+      </div>
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Weekly Reset (15–20 min)</strong>
+      <ol>
+        <li><strong>Review:</strong> wins, lessons, drains.</li>
+        <li><strong>Choose:</strong> 1 boundary to set, 1 joy to plan, 1 growth step.</li>
+        <li><strong>Schedule:</strong> put all 3 on the calendar before leaving the session.</li>
+      </ol>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>5.2 Self-Inquiry</h3>
+      <div class="story dropcap">
+        Good questions are keys. They don’t force doors—they turn quietly until rooms open. Ask slowly and listen with your body as much as your mind.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>4 Corners of Truth (Journal)</strong>
+      <ol>
+        <li><strong>Facts:</strong> two lines a judge would accept.</li>
+        <li><strong>Feelings:</strong> name two and where they live in the body.</li>
+        <li><strong>Fears:</strong> list the top two.</li>
+        <li><strong>Forward:</strong> the smallest next step that serves your values.</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>5.3 The Ladder of Consciousness</h3>
+      <div class="story dropcap">
+        You don’t jump from the basement to the roof. You take stairs: Fear, Anger, Courage, Neutral, Willing, Acceptance, Love, Peace. Progress is one rung, not the skyline.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>One-Rung Plan</strong>
+      <ol>
+        <li>Circle your current rung.</li>
+        <li>Ask: “What micro-action would move me up one?” Fear to Anger → stomp feet and name a boundary. Anger to Courage → make one honest request. Courage to Neutral → take a break and breathe.</li>
+        <li>Do the action in 5 minutes or less.</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>5.4 Integration & Embodiment</h3>
+      <div class="story dropcap">
+        Insight is a spark; embodiment is wiring your house so the lights stay on. Your calendar is the truest map of what you value. Start small and make it visible.
+      </div>
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Value-Action Link</strong>
+      <ul>
+        <li>Health → 10 pushups + 1 fruit after lunch.</li>
+        <li>Kindness → 1 thank-you text before 5pm.</li>
+        <li>Growth → 20 minutes of practice, timer on.</li>
+      </ul>`,"tool")}
+      ${block(`<span class="tag">🧭 Check-In</span>
+      Each Sunday: Where did I live my values? Where did I drift? What one adjustment will I test this week?`,"checkin")}
+    </section>`;
+
+  /* SECTION 6 */
+  const empower = `
+    <section class="guide container" id="empower">
+      <h2>6) Empowerment & Autonomy</h2>
+
+      <h3>6.1 Becoming Your Own Teacher</h3>
+      <div class="story dropcap">
+        Advice is like clothing: some fits, some pinches, some looks great in theory but rips when you move. The more you listen inward, the better your tailoring gets. Soon you’ll ask others less, not from stubbornness, but from trust.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Yes/No Body Test (Refined)</strong>
+      <ol>
+        <li>Recall a clear Yes memory. Notice 3 body cues (warmth, breath, spine).</li>
+        <li>Recall a clear No memory. Notice 3 cues (tightness, shallow breath, jaw).</li>
+        <li>Hold today’s decision in mind and watch which pattern appears. Act on the smallest Yes-aligned step.</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>6.2 Redefining Success</h3>
+      <div class="story dropcap">
+        The old scoreboard counts trophies and clout. The new one asks better questions: Did I live my values? Did I grow a little? Did I help someone real? Ironically, the old wins often become side effects of living by the new score.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Success Statement</strong>
+      <p>Fill the blanks and post it where you see it daily.</p>
+      <p>“Success for me this season is living <em>[3 values]</em>, building <em>[2 skills]</em>, and serving by <em>[1 offering]</em>.”</p>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>6.3 Service & Purpose</h3>
+      <div class="story dropcap">
+        Purpose rarely arrives as a billboard. It starts as one honest offering to one real person with one real need. Service should energize, not empty you. Aim for overflow, not overgiving.
+      </div>
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Purpose Triangle</strong>
+      <ol>
+        <li><strong>Good at:</strong> list 5 natural strengths others mention.</li>
+        <li><strong>Care about:</strong> list 5 issues that move you.</li>
+        <li><strong>Needed:</strong> talk to 3 people and ask what would help this week.</li>
+        <li>Find the overlap and design a 30-day micro-offering.</li>
+      </ol>`,"tool")}
+      ${block(`<span class="tag">🌱 Practice</span> <strong>One-Person Impact</strong>
+      Help one person in a concrete way within 48 hours. Debrief for 5 minutes afterward—what energized you, what drained you? Adjust the next offer accordingly.`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>6.4 Liberation Through Responsibility</h3>
+      <div class="story dropcap">
+        You don’t control every event, but you always have a response available. That tiny space is where your freedom lives. Growth is learning to enter that space sooner.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>The Power Pause</strong>
+      <ol>
+        <li>Event → inhale 4, exhale 6.</li>
+        <li>Choose one: align with values, ask for help, set a boundary, or learn and iterate.</li>
+        <li>Write the choice in a sentence and act within 10 minutes.</li>
+      </ol>`,"practice")}
+    </section>`;
+
+  /* SECTION 7 */
+  const spiritual = `
+    <section class="guide container" id="spiritual">
+      <h2>7) The Spiritual Lens</h2>
+
+      <h3>7.1 Perfect Imperfection <span class="muted">(Remembering, Not Fixing)</span></h3>
+      <div class="story dropcap">
+        Imagine polishing a lantern that has always been lit. You’re not making the flame; you’re removing what dims it. When you remember that your worth isn’t up for negotiation, courage becomes cheaper and kindness easier.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Mirror Moment (Deepened)</strong>
+      <ol>
+        <li>Look at your eyes in the mirror for 30 seconds. Breathe.</li>
+        <li>Say your name and add: “I am on your side.” Repeat 3 times, slower each time.</li>
+        <li>Place a supportive note on the mirror you’ll see tomorrow.</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>7.2 Cycles of Growth</h3>
+      <div class="story dropcap">
+        Life moves in seasons, not straight lines. You’ll see the same lesson again, but with more tools in your pocket. That isn’t failure; it’s spiral learning.
+      </div>
+      ${block(`<span class="tag">🔧 Tool</span> <strong>Season Map</strong>
+      <ol>
+        <li>Spring: start. What seed will you plant in the next 2 weeks?</li>
+        <li>Summer: build. What routine will protect the seed?</li>
+        <li>Autumn: harvest. What will you gather and share?</li>
+        <li>Winter: rest. How will you replenish?</li>
+      </ol>`,"tool")}
+
+      <div class="section-divider"></div>
+
+      <h3>7.3 Death & Rebirth</h3>
+      <div class="story dropcap">
+        Every ending makes room. A dream molts; a friendship changes shape; a belief loosens. Letting go hurts and heals. On the other side, space waits for what’s next.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Release Ritual</strong>
+      <ol>
+        <li>Write what you’re releasing in one sentence.</li>
+        <li>Read it aloud, then tear the paper slowly while exhaling.</li>
+        <li>Whisper: “Thank you for what you gave me. I am ready for what is next.”</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>7.4 Unconditional Love</h3>
+      <div class="story dropcap">
+        Love isn’t earned by performance; it’s the ground we stand on. When you treat love as the starting place, not the prize, you stop bargaining with your worth.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Loving-Kindness (2–4 min)</strong>
+      <ol>
+        <li>For yourself: “May I be safe. May I feel loved. May I be at ease.”</li>
+        <li>For a friend: repeat the same words with their name.</li>
+        <li>For a difficult person: if it’s too hard, offer: “May we both learn what we need to be at ease.”</li>
+      </ol>`,"practice")}
+    </section>`;
+
+  /* SECTION 8 */
+  const resources = `
+    <section class="guide container" id="resources">
+      <h2>8) Resources for Lifelong Growth</h2>
+
+      <h3>8.1 Practice Menu</h3>
+      <div class="story dropcap">
+        Keep this like a travel kit. When the road gets bumpy, you won’t wonder what to do—you’ll pick a simple thing and start. Consistency beats intensity.
+      </div>
+      <p>Breathwork: box, 4-7-8 • Movement: walk, stretch, dance • Mindfulness: 5 senses, micro-pauses • Journaling: Morning intention; Evening learnings; 4 Corners • Support: therapy, mentors, peers • Energy: body scan, S.O.M.A., light elevator</p>
+
+      <div class="section-divider"></div>
+
+      <h3>8.2 Community & Connection</h3>
+      <div class="story dropcap">
+        Healing accelerates in company. Build a Support Circle—two peers, one mentor, one professional—and make simple agreements: confidentiality, kindness, no fixing unless asked, honest feedback.
+      </div>
+      ${block(`<span class="tag">🌱 Practice</span> <strong>Circle Setup</strong>
+      <ol>
+        <li>Invite 3 people and share the agreements in writing.</li>
+        <li>Meet for 45 minutes monthly. Each person gets 10 minutes, no advice unless requested.</li>
+        <li>End with one action each will take before the next meet.</li>
+      </ol>`,"practice")}
+
+      <div class="section-divider"></div>
+
+      <h3>8.3 Suggested Readings & Tools</h3>
+      <div class="story">
+        Start where your heart sparks. Friendly doors: Singer’s Untethered Soul (clear awareness), Tolle’s New Earth (ego to presence), Hawkins’ Power vs. Force (levels of consciousness), Brené Brown’s Gifts of Imperfection (shame resilience), Frankl’s Man’s Search for Meaning (purpose in hardship). Apps: Insight Timer, Finch, Day One or Notion.
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h3>8.4 Personal Roadmap Template</h3>
+      ${block(`<p><strong>Vision (3–5 lines):</strong><br>I long to…<br>The kind of person I’m becoming is…</p>
+               <p><strong>Values (circle all that apply to you, then double circle your top 3):</strong> kindness • integrity • curiosity • courage • creativity • health • service • mastery • freedom • gratitude • safety • justice • honesty • family • growth </p>
+               <p><strong>Practices (daily/weekly):</strong><br>Daily (3–10 min): ____<br>Weekly reset (15 min): ____</p>
+               <p><strong>Support:</strong><br>People who have my back: ____<br>Places that refill me: ____</p>
+               <p><strong>Integration:</strong><br>This week I will live my values by…<br>If I drift, my gentle reset will be…</p>`,"checkin")}
+
+      <div class="section-divider"></div>
+
+      <h3>Quick Troubleshooting</h3>
+      <div class="story">
+        Overthinking? → notice something with each of your 5 Senses + 2-min brain dump → one tiny action. Numb? → hold ice cubes + brisk walk + one song of movement. People-pleasing? → Sandwich Script; one small no. Big feelings? → Name It to Tame It; Heart Hold; talk to a safe adult. No purpose? → Purpose Triangle; help one person this week.
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div id="lesson-already-within"></div>
+      <h3>12-Week Gentle Plan (Optional)</h3>
+      <div class="story">
+        Weeks 1–2: Breath + Body Scan + Morning intention • 3–4: Thought Upgrade + Emotion→Need • 5–6: Boundaries + Sandwich • 7–8: Creativity + Flow • 9–10: Ladder + Weekly Reset • 11–12: Service + Success Statement. Repeat slowly; depth beats speed.
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h3>Closing Blessing</h3>
+      <p class="quote">You are not behind. You are right on time. Your imperfections are part of your perfect design. May you meet yourself with courage, tell the truth kindly, choose the next loving step, and remember: you are the sky, not the storm.</p>
+    </section>`;
+
+  const page = header + tips + foundations + human + skills + energy + frameworks + empower + spiritual + resources;
+  app().innerHTML = layout(page);
+
+  /* Build lesson chips and smooth scroll wiring */
+  const lessons = [
+    {label:"I Am More Than What I See", target:"lesson-more-than-see"},
+    {label:"I Create My Inner World", target:"lesson-create-inner-world"},
+    {label:"Befriending Emotions", target:"lesson-befriending-emotions"},
+    {label:"Thoughts Come & Go", target:"lesson-thoughts-come-go"},
+    {label:"Trusting Intuition", target:"lesson-trusting-intuition"},
+    {label:"Embracing Uniqueness", target:"lesson-embracing-uniqueness"},
+    {label:"Practicing Self-Love", target:"lesson-self-love"},
+    {label:"Connection to Source", target:"lesson-connection-source"},
+    {label:"Reframing Identity", target:"lesson-reframing-identity"},
+    {label:"Already Within", target:"lesson-already-within"},
+  ];
+  const chips = document.getElementById("lessonChips");
+  chips.innerHTML = lessons.map(l=>`<span class="chip"><button type="button" data-target="${l.target}">${l.label}</button></span>`).join("");
+  chips.addEventListener("click", e=>{
+    const btn = e.target.closest("button[data-target]");
+    if(!btn) return;
+    const id = btn.getAttribute("data-target");
+    const el = document.getElementById(id);
+    if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
+  });
+
+  /* bookmarks */
+  const KEY="iv_bookmarks";
+  const saved = JSON.parse(localStorage.getItem(KEY)||"[]");
+  document.querySelectorAll("[data-bid]").forEach(b=>{
+    const id=b.dataset.bid; const btn=b.querySelector("[data-save]");
+    const s = saved.includes(id); btn.setAttribute("data-saved", s ? "true":"false");
+    btn.addEventListener("click", ()=>{
+      const now = new Set(JSON.parse(localStorage.getItem(KEY)||"[]"));
+      if(now.has(id)){ now.delete(id); btn.setAttribute("data-saved","false"); }
+      else { now.add(id); btn.setAttribute("data-saved","true"); }
+      localStorage.setItem(KEY, JSON.stringify([...now]));
+    });
+  });
+
+  setActiveDir("self-discovery");
+}
+
+function ModulePage(slug){
+  if(slug==="self-discovery") return SelfDiscoveryPage();
+  const mod = DATA.modules.find(m=>m.slug===slug);
+  if(!mod) return NotFound();
+  return ComingSoonPage(mod);
+}
+
+function PricingPage(){
+  app().innerHTML = layout(`
+    <section class="hero"><div class="container">
+      <h1 class="title">Pricing</h1>
+      <p class="subtitle">Become a member for $5/month — unlock the full garden as it grows.</p>
+    </div></section>
+    <section class="container" style="padding:10px 0 48px">
+      <div class="grid">
+        <div class="col-6"><div class="card"><div class="body">
+          <h3>Member — $5/month</h3>
+          <ul>
+            <li>All modules as they unlock</li>
+            <li>Full practices/tools archive</li>
+            <li>Private prompts & updates</li>
+          </ul>
+          <a class="btn" href="javascript:void(0)" onclick="window.location.href='${STRIPE_PAYMENT_LINK}'">Subscribe</a>
+        </div></div></div>
+        <div class="col-6"><div class="card"><div class="body">
+          <h3>Free</h3>
+          <ul>
+            <li>Home + previews</li>
+            <li>Selected sections</li>
+          </ul>
+          <p class="muted">Upgrade anytime. Secure billing by Stripe.</p>
+        </div></div></div>
+      </div>
+    </section>`);
+  setActiveDir("");
+}
+const AboutPage = ()=>{ app().innerHTML = layout(`<section class="hero"><div class="container"><h1 class="title">About</h1><p class="subtitle">InnerVerse is an evolving garden of learning: practical, compassionate guidance for modern life.</p></div></section>`); setActiveDir(""); };
+const FAQPage   = ()=>{ app().innerHTML = layout(`<section class="hero"><div class="container"><h1 class="title">FAQ</h1><p class="subtitle">New lessons release in seasons. Cancel anytime via Stripe.</p></div></section>`); setActiveDir(""); };
+const PrivacyPage=()=>{ app().innerHTML = layout(`<section class="hero"><div class="container"><h1 class="title">Privacy</h1><p class="subtitle">No ads. Minimal data. We respect your space.</p></div></section>`); setActiveDir(""); };
+const TermsPage = ()=>{ app().innerHTML = layout(`<section class="hero"><div class="container"><h1 class="title">Terms</h1><p class="subtitle">All content © InnerVerse. Not medical or legal advice.</p></div></section>`); setActiveDir(""); };
+const NotFound  = ()=>{ app().innerHTML = layout(`<section class="hero"><div class="container"><h1 class="title">Not found</h1><p class="subtitle">That path doesn’t exist yet.</p></div></section>`); setActiveDir(""); };
+
+/*************** ROUTER ***************/
+const routes = [
+  { pattern:/^#\/?$/, action:()=>HomePage() },
+  { pattern:/^#\/modules\/([\w-]+)$/, action:(s)=>ModulePage(s) },
+  { pattern:/^#\/pricing$/, action:()=>PricingPage() },
+  { pattern:/^#\/about$/, action:()=>AboutPage() },
+  { pattern:/^#\/faq$/, action:()=>FAQPage() },
+  { pattern:/^#\/privacy$/, action:()=>PrivacyPage() },
+  { pattern:/^#\/terms$/, action:()=>TermsPage() },
+];
+function router(){
+  const h = window.location.hash || "#/";
+  for(const r of routes){ const m = h.match(r.pattern); if(m){ return r.action(...m.slice(1)); } }
+  NotFound();
+}
+
+/*************** INIT ***************/
+function initUI(){
+  buildDirectory();
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.getElementById("menuBtn");
+  if(menuBtn){ menuBtn.addEventListener("click", ()=>sidebar.classList.toggle("open")); }
+  sidebar.addEventListener("click", e=>{
+    const link = e.target.closest("a");
+    if(link) sidebar.classList.remove("open");
+  });
+  Paywall.init();
+}
+
+window.addEventListener("hashchange", router);
+window.addEventListener("DOMContentLoaded", ()=>{ initUI(); router(); });
+</script>
+</body>
+</html>
