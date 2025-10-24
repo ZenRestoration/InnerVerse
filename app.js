@@ -1,14 +1,19 @@
-// mark active nav
 (function(){
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('nav a').forEach(a=>{
-    const href = a.getAttribute('href');
-    if((path === '' && href === 'index.html') || href === path){ a.classList.add('active'); }
-  });
-})();
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// current year
-(function(){
-  const y = document.getElementById('year');
-  if(y) y.textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menuBtn');
+  const mnav = document.getElementById('mnav');
+  if (menuBtn && mnav) {
+    menuBtn.addEventListener('click', () => {
+      const open = mnav.hasAttribute('hidden') ? false : true;
+      if (open) {
+        mnav.setAttribute('hidden','');
+        menuBtn.setAttribute('aria-expanded','false');
+      } else {
+        mnav.removeAttribute('hidden');
+        menuBtn.setAttribute('aria-expanded','true');
+      }
+    });
+  }
 })();

@@ -1,69 +1,116 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Mynd — Greenhouse</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="data:,">
 </head>
 <body>
-<header class="header">
-  <div class="container header-inner">
-    <a class="brand" href="index.html"><div class="logo">My</div><strong>Mynd</strong></a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a href="vision.html">Vision</a>
-      <a href="about.html">About</a>
+<a class="skip" href="#content">Skip to content</a>
+<header class="hdr">
+  <div class="wrap hdr__inner">
+    <a class="brand" href="/"><span class="leaf">⌘</span> <span class="brand__text">Mynd</span></a>
+    <nav class="nav">
+      <a href="/garden.html">Garden</a>
+      <a href="/tree.html">Tree</a>
+      <a class="active" href="/greenhouse.html">Greenhouse</a>
+      <a href="/vision.html">Vision</a>
+      <a href="/about.html">About</a>
     </nav>
-    <a class="cta" href="vision.html">Support the Vision</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="mnav" id="mnav" hidden>
+    <a href="/garden.html">Garden</a>
+    <a href="/tree.html">Tree</a>
+    <a class="active" href="/greenhouse.html">Greenhouse</a>
+    <a href="/vision.html">Vision</a>
+    <a href="/about.html">About</a>
+  </nav>
 </header>
 
-<section class="hero">
-  <div class="container">
-    <h1 class="title">The Greenhouse</h1>
-    <p class="subtitle">Where wisdom is cultivated. Below are free previews—unlock deeper frameworks soon.</p>
-  </div>
-</section>
+<main id="content">
+  <section class="wrap hero hero--sm">
+    <h1 class="display">The Greenhouse</h1>
+    <p class="lead">Where wisdom is cultivated — structure, warmth, and light.</p>
+  </section>
 
-<section class="container grid" style="padding:28px 0 56px">
-  <article class="col-4 card">
-    <h3>[Preview Lesson #1]</h3>
-    <p class="muted">[Short excerpt…]</p>
-    <a class="cta" href="#">Read Preview</a>
-  </article>
-  <article class="col-4 card">
-    <h3>[Preview Lesson #2]</h3>
-    <p class="muted">[Short excerpt…]</p>
-    <a class="cta" href="#">Read Preview</a>
-  </article>
-  <article class="col-4 card">
-    <h3>[Preview Lesson #3]</h3>
-    <p class="muted">[Short excerpt…]</p>
-    <a class="cta" href="#">Read Preview</a>
-  </article>
-
-  <div class="col-12 section" style="margin-top:10px">
-    <h3>Member Sections (Locked)</h3>
-    <p class="muted">Roots • Trunk • Branches • Fruit • Seasons • Storms</p>
-    <p><a class="cta" href="#">Join the Greenhouse</a></p>
-    <p class="tiny">TODO: link this to your payment or email capture.</p>
-  </div>
-</section>
-
-<footer>
-  <div class="container footer-inner">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="logo" style="width:30px;height:30px">My</div>
-      <div><strong>Mynd</strong><div class="tiny">The Garden is the Mind.</div></div>
+  <section class="wrap section">
+    <div class="cards">
+      <a class="card" href="#preview-1">
+        <div class="card__icon">📘</div>
+        <h3>Preview Lesson 1</h3>
+        <p>Short excerpt of an advanced teaching. Add your content here.</p>
+      </a>
+      <a class="card" href="#preview-2">
+        <div class="card__icon">📗</div>
+        <h3>Preview Lesson 2</h3>
+        <p>Another sample. Add your content here.</p>
+      </a>
+      <a class="card" href="#preview-3">
+        <div class="card__icon">📙</div>
+        <h3>Preview Lesson 3</h3>
+        <p>One more taste. Add your content here.</p>
+      </a>
     </div>
-    <div class="tiny">© <span id="year"></span> Mynd.</div>
+  </section>
+
+  <section class="wrap section">
+    <div class="locked-grid">
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Roots</h4>
+        <p>Foundations, frames, and maps.</p>
+      </div>
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Trunk</h4>
+        <p>Stability, strength, and strategy.</p>
+      </div>
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Branches</h4>
+        <p>Skill growth and expression.</p>
+      </div>
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Fruit</h4>
+        <p>Output, generosity, service.</p>
+      </div>
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Seasons</h4>
+        <p>Cycles, pace, and renewal.</p>
+      </div>
+      <div class="locked">
+        <div class="locked__icon">🔒</div>
+        <h4>Storms</h4>
+        <p>Resilience under pressure.</p>
+      </div>
+    </div>
+    <div class="cta-row center">
+      <a class="btn btn--prime" href="https://your-payment-link.example" target="_blank" rel="noopener">Join the Greenhouse</a>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__inner">
+    <div class="ftr__brand"><span class="leaf">⌘</span> Mynd</div>
+    <nav class="ftr__links">
+      <a href="/garden.html">Garden</a>
+      <a href="/tree.html">Tree</a>
+      <a class="active" href="/greenhouse.html">Greenhouse</a>
+      <a href="/vision.html">Vision</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="tiny">© <span id="year"></span> Mynd.</p>
   </div>
 </footer>
-<script src="assets/app.js"></script>
+
+<script src="/assets/app.js"></script>
 </body>
 </html>

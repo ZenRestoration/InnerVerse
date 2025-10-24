@@ -1,59 +1,77 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Mynd — About</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="data:,">
 </head>
 <body>
-<header class="header">
-  <div class="container header-inner">
-    <a class="brand" href="index.html"><div class="logo">My</div><strong>Mynd</strong></a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a href="vision.html">Vision</a>
-      <a href="about.html">About</a>
+<a class="skip" href="#content">Skip to content</a>
+<header class="hdr">
+  <div class="wrap hdr__inner">
+    <a class="brand" href="/"><span class="leaf">⌘</span> <span class="brand__text">Mynd</span></a>
+    <nav class="nav">
+      <a href="/garden.html">Garden</a>
+      <a href="/tree.html">Tree</a>
+      <a href="/greenhouse.html">Greenhouse</a>
+      <a href="/vision.html">Vision</a>
+      <a class="active" href="/about.html">About</a>
     </nav>
-    <a class="cta" href="vision.html">Support</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="mnav" id="mnav" hidden>
+    <a href="/garden.html">Garden</a>
+    <a href="/tree.html">Tree</a>
+    <a href="/greenhouse.html">Greenhouse</a>
+    <a href="/vision.html">Vision</a>
+    <a class="active" href="/about.html">About</a>
+  </nav>
 </header>
 
-<section class="hero">
-  <div class="container">
-    <h1 class="title">About Mynd</h1>
-    <p class="subtitle">A calm, minimal space to grow from the inside out.</p>
-  </div>
-</section>
+<main id="content">
+  <section class="wrap hero hero--sm">
+    <h1 class="display">About Mynd</h1>
+    <p class="lead">A calm, minimal garden for inner growth. Built with care.</p>
+  </section>
 
-<section class="container grid" style="padding:28px 0 56px">
-  <div class="col-6 section">
-    <h3>Founder Story</h3>
-    <p class="muted">[Tell the origin story here.]</p>
-  </div>
-  <div class="col-6 section">
-    <h3>Mission & Values</h3>
-    <ul class="muted"><li>Clarity over complexity</li><li>Compassion over judgment</li><li>Evidence + wisdom</li></ul>
-  </div>
-  <div class="col-12 section">
-    <h3>Contact</h3>
-    <p class="muted">Email: <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
-  </div>
-</section>
-
-<footer>
-  <div class="container footer-inner">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="logo" style="width:30px;height:30px">My</div>
-      <div><strong>Mynd</strong><div class="tiny">The Garden is the Mind.</div></div>
+  <section class="wrap section">
+    <div class="panel">
+      <h3>Story</h3>
+      <p>Share your founder story here. Why the Garden? Why a Tree? Keep it human and warm.</p>
     </div>
-    <div class="tiny">© <span id="year"></span> Mynd.</div>
+    <div class="panel">
+      <h3>Mission & Values</h3>
+      <ul class="list">
+        <li>Kindness, clarity, and craft.</li>
+        <li>Science + spirit, without dogma.</li>
+        <li>Privacy, dignity, user ownership.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Contact</h3>
+      <p>Say hello: <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__inner">
+    <div class="ftr__brand"><span class="leaf">⌘</span> Mynd</div>
+    <nav class="ftr__links">
+      <a href="/garden.html">Garden</a>
+      <a href="/tree.html">Tree</a>
+      <a href="/greenhouse.html">Greenhouse</a>
+      <a href="/vision.html">Vision</a>
+      <a class="active" href="/about.html">About</a>
+    </nav>
+    <p class="tiny">© <span id="year"></span> Mynd.</p>
   </div>
 </footer>
-<script src="assets/app.js"></script>
+
+<script src="/assets/app.js"></script>
 </body>
 </html>
