@@ -1,78 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Mynd — About</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--earth:#F4F1EA;--ink:#1E1E1E;--moss:#6E8F6B;--pine:#2E5E4E;--max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12)}
+  *{box-sizing:border-box} body{margin:0;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%)}
+  .container{width:min(var(--max),92%);margin-inline:auto}
+  header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(244,241,234,.7);border-bottom:1px solid rgba(0,0,0,.06)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;font-weight:800;font-family:"Playfair Display",serif}
+  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9} nav a:not(:last-child){margin-right:18px}
+  .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);margin:24px 0 6px}
+  .card{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+</style>
 </head>
 <body>
-<a class="skip" href="#content">Skip to content</a>
-<header class="hdr">
-  <div class="wrap hdr__inner">
-    <a class="brand" href="/"><span class="leaf">⌘</span> <span class="brand__text">Mynd</span></a>
-    <nav class="nav">
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a href="vision.html">Vision</a>
-      <a class="active" href="about.html">About</a>
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><div class="logo">My</div><strong>Mynd</strong></a>
+    <nav>
+      <a href="garden.html">Garden</a><a href="tree.html">Tree</a><a href="greenhouse.html">Greenhouse</a><a href="vision.html">Vision</a><a href="about.html">About</a>
     </nav>
-    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="menuBtn">
-      <span></span><span></span><span></span>
-    </button>
   </div>
-  <nav class="mnav" id="mnav" hidden>
-    <a href="garden.html">Garden</a>
-    <a href="tree.html">Tree</a>
-    <a href="greenhouse.html">Greenhouse</a>
-    <a href="vision.html">Vision</a>
-    <a class="active" href="about.html">About</a>
-  </nav>
 </header>
 
-<main id="content">
-  <section class="wrap hero hero--sm">
-    <h1 class="display">About Mynd</h1>
-    <p class="lead">A calm, minimal garden for inner growth. Built with care.</p>
-  </section>
-
-  <section class="wrap section">
-    <div class="panel">
-      <h3>Story</h3>
-      <p>Share your founder story here. Why the Garden? Why a Tree? Keep it human and warm.</p>
-    </div>
-    <div class="panel">
-      <h3>Mission & Values</h3>
-      <ul class="list">
-        <li>Kindness, clarity, and craft.</li>
-        <li>Science + spirit, without dogma.</li>
-        <li>Privacy, dignity, user ownership.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Contact</h3>
-      <p>Say hello: <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
-    </div>
+<main class="container">
+  <h1 class="title">About Mynd</h1>
+  <section class="card">
+    <h3>Mission</h3>
+    <p>To offer a calm, beautiful space for self-understanding — practical, compassionate, and genuinely useful.</p>
+    <h3>Values</h3>
+    <ul>
+      <li>Kindness over hype</li>
+      <li>Privacy and user ownership</li>
+      <li>Practical tools, zero fluff</li>
+    </ul>
+    <h3>Contact</h3>
+    <p><a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
   </section>
 </main>
 
-<footer class="ftr">
-  <div class="wrap ftr__inner">
-    <div class="ftr__brand"><span class="leaf">⌘</span> Mynd</div>
-    <nav class="ftr__links">
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a href="vision.html">Vision</a>
-      <a class="active" href="about.html">About</a>
-    </nav>
-    <p class="tiny">© <span id="year"></span> Mynd.</p>
+<footer style="padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px"><div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div><div><strong>Mynd</strong></div></div>
+    <div style="font-size:12px;opacity:.7">© <span id="year"></span> Mynd.</div>
   </div>
 </footer>
-
-<script src="assets/app.js"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
-
