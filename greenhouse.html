@@ -6,20 +6,76 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--earth:#F4F1EA;--ink:#1E1E1E;--moss:#6E8F6B;--pine:#2E5E4E;--max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12)}
-  *{box-sizing:border-box} body{margin:0;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%)}
+  :root{
+    --earth:#F4F1EA;--ink:#1E1E1E;--moss:#6E8F6B;--pine:#2E5E4E;--sky:#BFD6F2;--stone:#96A1AD;
+    --max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12);--shadow-soft:0 10px 28px rgba(0,0,0,.08);
+
+    /* Category color system (matches Garden) */
+    --cat-lesson-bg:#ffffff;        --cat-lesson-h:#2b3a33;
+    --cat-practice-bg:#e9f5ee;      --cat-practice-h:#275a46;
+    --cat-reflect-bg:#edf3fb;       --cat-reflect-h:#1f4f86;
+    --cat-mantra-bg:#fff7e6;        --cat-mantra-h:#8a5a00;
+    --cat-science-bg:#f3ecff;       --cat-science-h:#5d3aa1;
+    --cat-story-bg:#fff0f4;         --cat-story-h:#a33359;
+    --cat-note-bg:#f4f4f4;          --cat-note-h:#3a3a3a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;color:var(--ink);
+    font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 580px at 70% -8%, rgba(191,214,242,.18), transparent 60%),
+      radial-gradient(960px 520px at 0% 0%, rgba(174,199,182,.18), transparent 55%),
+      linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%);
+  }
   .container{width:min(var(--max),92%);margin-inline:auto}
   header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(244,241,234,.7);border-bottom:1px solid rgba(0,0,0,.06)}
   .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
   .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;font-weight:800;font-family:"Playfair Display",serif}
-  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9} nav a:not(:last-child){margin-right:18px}
-  .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);margin:24px 0 6px}
+  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9}
+  nav a:not(:last-child){margin-right:18px}
+
+  .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);margin:24px 0 6px;line-height:1.06;color:#21322a}
   .lead{max-width:760px;opacity:.9}
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)} .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-12{grid-column:span 12} @media (max-width:980px){.col-4,.col-6{grid-column:span 12}}
+
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+  .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-12{grid-column:span 12}
+  @media (max-width:980px){.col-4,.col-6{grid-column:span 12}}
+
   .card{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
   .lock{font-size:12px;opacity:.7}
   .cta{display:inline-block;background:linear-gradient(180deg,#7FB68B,#5B8E6B);color:#fff;text-decoration:none;padding:10px 16px;border-radius:999px;font-weight:800;letter-spacing:.2px}
+
+  /* Extended Learning preview styling (matches Garden lesson look) */
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);margin:26px 0}
+  .lesson{display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:start}
+  @media (max-width:1000px){.lesson{grid-template-columns:1fr}}
+  .panel{background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+  .panel h2{margin:6px 0 8px}
+  .kicker{font-weight:800;letter-spacing:.18px;font-size:12px;text-transform:uppercase;opacity:.6}
+  .quote{border-left:3px solid var(--pine); padding-left:10px; opacity:.95}
+  .muted{opacity:.85}
+
+  .block{border-radius:18px;padding:16px 16px 14px;border:1px solid rgba(0,0,0,.06);margin:14px 0}
+  .block h4{margin:0 0 6px}
+  .lesson-block{background:var(--cat-lesson-bg)} .lesson-block h4{color:var(--cat-lesson-h)}
+  .practice-block{background:var(--cat-practice-bg)} .practice-block h4{color:var(--cat-practice-h)}
+  .reflect-block{background:var(--cat-reflect-bg)} .reflect-block h4{color:var(--cat-reflect-h)}
+  .story-block{background:var(--cat-story-bg)} .story-block h4{color:var(--cat-story-h)}
+  .note-block{background:var(--cat-note-bg)} .note-block h4{color:var(--cat-note-h)}
+
+  .panel table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px}
+  .panel thead th{background:#f6f6f6; font-weight:800; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid rgba(0,0,0,.06)}
+  .panel tbody td{padding:10px 12px; border-bottom:1px solid rgba(0,0,0,.05); vertical-align:top}
+  .panel tbody tr:last-child td{border-bottom:none}
+
+  .sidebar{position:sticky;top:86px}
+  .tip{background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow-soft)}
+  .tip .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2px;padding:3px 8px;border-radius:999px;background:#eef6f0;color:#2e5e4e;margin-bottom:6px}
+  .chip{display:inline-block;padding:8px 10px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid rgba(0,0,0,.08);background:#fff;color:#2b2b2b}
+  .chip:hover{transform:translateY(-1px)}
+  [id]{scroll-margin-top:90px}
 </style>
 </head>
 <body>
@@ -36,18 +92,151 @@
   <h1 class="title">The Greenhouse</h1>
   <p class="lead">Where wisdom is cultivated. Explore a few free lessons below; the rest unlocks when membership launches.</p>
 
-  <section class="grid">
+  <!-- Preview cards -->
+  <section class="grid" aria-label="Greenhouse previews">
     <article class="col-4 card"><h3>Preview: Rooting into Values</h3><p>Clarify 3 core values and translate each into one daily action.</p></article>
     <article class="col-4 card"><h3>Preview: Nervous System Basics</h3><p>Simple regulation tools mapped to common stress patterns.</p></article>
     <article class="col-4 card"><h3>Preview: Cognitive Garden</h3><p>Identify unhelpful thoughts and replant with kinder truths.</p></article>
+  </section>
 
-    <div class="col-12 card"><h3>Members Library</h3><p class="lock">Roots · Trunk · Branches · Fruit · Seasons · Storms — <em>locked</em> (coming soon).</p><a class="cta" href="https://your-payment-link.example" target="_blank" rel="noopener">Join the Greenhouse</a></div>
+  <div class="divider"></div>
+
+  <!-- EXTENDED LEARNING — PATH OF GROWTH (Preview Content) -->
+  <section id="path-of-growth" class="lesson" aria-labelledby="pog-title">
+    <article class="panel">
+      <div class="kicker">Extended Learning • Greenhouse Preview</div>
+      <h2 id="pog-title">THE PATH OF GROWTH — Evolution Through the Garden</h2>
+
+      <div class="block story-block">
+        <h4>🪞 1. Core Teaching</h4>
+        <p><strong>Growth is not a ladder. It is a spiral.</strong> You do not move from darkness to light once and for all — you move in circles, each time with greater awareness.</p>
+        <p>The Path of Growth shows that awakening isn’t about perfection, but participation — meeting life as the teacher, again and again, through attention, emotion, awareness, and surrender.</p>
+        <p>You’ll revisit every phase — the gardener, the soil, the seed, the water, the sun, the tree, the seasons, and the storms — many times. Each time, you’ll recognize more of your own wisdom within them.</p>
+        <p class="quote"><em>“The Garden doesn’t demand that you rise above it — only that you root deeper each time you fall.”</em></p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌱 2. The Spiral Model of Transformation</h4>
+        <ul>
+          <li><strong>Awakening:</strong> Realizing you are the gardener.</li>
+          <li><strong>Tending:</strong> Cultivating beliefs, thoughts, and emotions with awareness.</li>
+          <li><strong>Expansion:</strong> Expressing the Self in the world through authentic action.</li>
+          <li><strong>Cycle:</strong> Embracing seasons and storms as natural phases.</li>
+          <li><strong>Integration:</strong> Returning to stillness, now wiser and more rooted.</li>
+        </ul>
+        <p class="muted">Each turn through the spiral feels familiar — the same soil, same sky — but your perception has evolved.</p>
+      </div>
+
+      <div class="block story-block">
+        <h4>🌳 3. Analogy: The Growing Rings of the Tree</h4>
+        <p>If you were to cut a tree’s trunk, you’d see rings marking every year of its life — droughts, floods, abundance, recovery. Your growth is marked the same way.</p>
+        <p>Every heartbreak, breakthrough, and rest period adds another ring to your soul’s strength. You don’t start over — you expand from within.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌞 4. The Function of Evolution</h4>
+        <p>Evolution is not about eliminating flaws; it’s about widening your capacity to include more life.</p>
+        <ul>
+          <li>The first time you meet pain, you resist it.</li>
+          <li>The second time, you breathe through it.</li>
+          <li>The third time, you recognize it as a messenger.</li>
+          <li>The fourth time, you thank it.</li>
+        </ul>
+        <p class="quote"><em>“Mastery is not never falling — it’s remembering faster.”</em></p>
+      </div>
+
+      <div class="block note-block">
+        <h4>🌸 5. The 5 Stages of Conscious Growth</h4>
+        <table role="table" aria-label="Stages of conscious growth">
+          <thead>
+            <tr><th>Stage</th><th>Description</th><th>Experience</th><th>Guidance</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1. Awakening</td><td>Awareness dawns — realizing you are not your thoughts or emotions.</td><td>Insight, curiosity, instability.</td><td>Breathe, observe, journal.</td></tr>
+            <tr><td>2. Tending</td><td>You begin practicing attention, belief-shifting, and emotional regulation.</td><td>Effort, resistance, hope.</td><td>Consistency — progress hides in repetition.</td></tr>
+            <tr><td>3. Expansion</td><td>Creativity and clarity increase; alignment appears.</td><td>Flow, synchronicity, vitality.</td><td>Share growth — teach by example.</td></tr>
+            <tr><td>4. Challenge</td><td>Storms test your roots and identity.</td><td>Fear, contraction, doubt.</td><td>Remember: storms refine, not punish.</td></tr>
+            <tr><td>5. Integration</td><td>Peace and awareness embodied; lessons merge into presence.</td><td>Simplicity, wholeness, humility.</td><td>Rest. The cycle renews.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="block story-block">
+        <h4>🌀 6. Everyday Examples</h4>
+        <p><strong>The Returning Pattern:</strong> Self-doubt reappears in a new context. Old you says, “I’m backsliding.” Awakened you says, “A deeper layer — tend it differently.”</p>
+        <p><strong>The Plateau:</strong> After rapid growth you feel flat. That’s integration — rooting, not failure.</p>
+        <p><strong>The Quantum Leap:</strong> A single moment of clarity collapses months of confusion. Awareness density accelerates growth.</p>
+      </div>
+
+      <div class="block practice-block">
+        <h4>🌿 7. Practices & Exercises</h4>
+        <p><strong>Practice 1 — The Spiral Journal</strong></p>
+        <ol>
+          <li>“What old lesson am I revisiting?”</li>
+          <li>“How am I meeting it differently this time?”</li>
+          <li>“What strength have I gained?”</li>
+        </ol>
+        <p><strong>Practice 2 — Growth Rings Visualization</strong></p>
+        <ol>
+          <li>Visualize tree rings for each life phase.</li>
+          <li>Thank the ring formed during pain, the ring formed during joy, and the ring forming now.</li>
+          <li>Affirm: <em>“Nothing I’ve lived was wasted.”</em></li>
+        </ol>
+        <p><strong>Practice 3 — Cycle Review</strong></p>
+        <ol>
+          <li>What season am I in? What storm did I face?</li>
+          <li>What did it strengthen in me?</li>
+          <li>What am I planting next?</li>
+        </ol>
+      </div>
+
+      <div class="block reflect-block">
+        <h4>🌈 8. Principles of Spiral Growth</h4>
+        <ul>
+          <li><strong>Repetition is revelation.</strong> Each loop reveals deeper truth.</li>
+          <li><strong>Expansion & contraction are one movement.</strong> The inhale and exhale of consciousness.</li>
+          <li><strong>The spiral never ends.</strong> Awakening is infinite — you’re both student and teacher.</li>
+          <li><strong>Nothing is wasted.</strong> Every phase composts into wisdom.</li>
+          <li><strong>Walk consciously.</strong> There’s no “later” arrival — only now, deepening.</li>
+        </ul>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌞 9. Integration Reflection</h4>
+        <p class="quote"><em>“You’ve never left the Garden — you’ve only changed the way you see it.”</em></p>
+        <p>Every challenge, insight, and breath reveals who you’ve always been: a conscious expression of life itself. You don’t grow toward enlightenment — you uncover it, ring by ring.</p>
+        <p><strong>In the full Greenhouse course:</strong> this spiral becomes a living curriculum — guided protocols, deep dives, and reflective tools to track rings, seasons, and storms over time.</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Path</div><p>Spiral ≠ backslide — it’s deeper integration.</p></div>
+      <div class="tip"><div class="tag">Jump</div><div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="chip" href="garden.html#gardener">Gardener</a>
+        <a class="chip" href="garden.html#seasons">Seasons</a>
+        <a class="chip" href="#library">Library</a>
+      </div></div>
+    </aside>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Members Library CTA -->
+  <section id="library" class="grid" aria-label="Members Library">
+    <div class="col-12 card">
+      <h3>Members Library</h3>
+      <p class="lock">Roots · Trunk · Branches · Fruit · Seasons · Storms — <em>locked</em> (coming soon).</p>
+      <a class="cta" href="https://your-payment-link.example" target="_blank" rel="noopener">Join the Greenhouse</a>
+    </div>
   </section>
 </main>
 
 <footer style="padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)">
   <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:10px"><div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div><div><strong>Mynd</strong></div></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div>
+      <div><strong>Mynd</strong></div>
+    </div>
     <div style="font-size:12px;opacity:.7">© <span id="year"></span> Mynd.</div>
   </div>
 </footer>
