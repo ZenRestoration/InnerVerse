@@ -109,6 +109,13 @@
   .callout{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.85);border:1px dashed rgba(0,0,0,.12);border-radius:14px;padding:10px 12px;margin:10px 0}
   .callout strong{font-weight:800}
 
+  /* Simple data table for patterns (used in Gardener) */
+  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:14px;border:1px solid rgba(0,0,0,.08);background:#fff}
+  .table th,.table td{padding:12px 14px;text-align:left;vertical-align:top}
+  .table thead th{background:#f6f7f8;font-weight:800;font-size:14px}
+  .table tbody tr+tr td{border-top:1px solid rgba(0,0,0,.06)}
+  .table .muted{opacity:.85}
+
   /* Sticky sidebar */
   .sidebar{position:sticky;top:86px}
   .tip{background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow-soft)}
@@ -172,64 +179,110 @@
 
   <!-- ============ LESSON TEMPLATE BLOCKS (copy structure for each section) ============ -->
 
-  <!-- 1) GARDENER -->
+  <!-- 1) GARDENER — EXACT CONTENT -->
   <section id="gardener" class="lesson" aria-labelledby="gardener-title">
     <article class="panel">
       <div class="kicker">Section • Gardener — Attention</div>
       <h2 id="gardener-title">Your Attention is the Gardener</h2>
 
-      <div class="block story-block">
-        <h4>Story</h4>
-        <p>Write a short, inviting story that illustrates attention shaping experience. (Example: noticing one kind thing changes the tone of a morning.)</p>
-      </div>
-
+      <!-- Core Teaching -->
       <div class="block lesson-block">
-        <h4>Teaching</h4>
-        <ul>
-          <li><strong>Attention selects reality.</strong> What we notice repeats.</li>
-          <li><strong>Gentle focus</strong> beats force; curiosity sustains effort.</li>
-          <li><strong>Rituals</strong> help you point attention on purpose.</li>
-        </ul>
+        <h4>1. Core Teaching</h4>
+        <p><strong>Attention is the gardener of the mind.</strong><br/>Wherever your awareness goes, energy flows — and what you repeatedly attend to becomes your lived reality.</p>
+        <p>Attention is not just focus; it’s a creative force. It is the invisible act of choosing — choosing what matters, what’s fed, and what’s allowed to grow.</p>
+        <p>If belief is the soil and thought is the seed, attention is the hand that waters, weeds, and directs light.</p>
+        <p>Every moment, you are gardening — often unconsciously. The weeds of worry, resentment, and fear grow only because they receive attention. Likewise, the flowers of gratitude, curiosity, and purpose flourish when you tend to them.</p>
+        <p><strong>Attention is your first act of sovereignty.<br/>It is the currency of consciousness.</strong></p>
       </div>
 
-      <div class="block practice-block">
-        <h4>Practice — “One Field, One Minute”</h4>
-        <ol>
-          <li>Pick one small field (breath, sounds, hands on chest).</li>
-          <li>Set a 60s timer. Stay with the field; gently return when mind wanders.</li>
-          <li>Note one feeling word afterward. Repeat daily.</li>
-        </ol>
-        <div class="callout"><strong>Tip:</strong> Anchor this to a daily moment (making tea, opening a door).</div>
-      </div>
-
-      <div class="block reflect-block">
-        <h4>Reflection</h4>
-        <ul>
-          <li>Where does my attention go when I’m stressed?</li>
-          <li>What improves when I give something 60 seconds of care?</li>
-        </ul>
-      </div>
-
-      <div class="block mantra-block">
-        <h4>Mantra</h4>
-        <p><em>“Where I look, I grow.”</em></p>
-      </div>
-
+      <!-- Science -->
       <div class="block science-block">
-        <h4>Science Note</h4>
-        <p>Briefly describe the attentional spotlight and why micro-pauses reduce sympathetic arousal. (Add citations later.)</p>
+        <h4>🌱 2. The Science of Attention (Simplified)</h4>
+        <p>Attention determines neural wiring — “what fires together, wires together.”<br/>When you focus on something, your brain strengthens those neural pathways.<br/>Repeated attention creates habit; habit becomes personality; personality becomes destiny.</p>
+        <p>It’s why people often live on autopilot — not because they lack potential, but because their attention has been hijacked by distraction, survival stress, or inherited beliefs.</p>
+        <p><strong>Analogy:</strong></p>
+        <p>Imagine walking a path in the forest.<br/>The more you walk it, the clearer and easier it becomes.<br/>Neglect another path long enough, and it disappears undergrowth.<br/><em>Your attention is the trail-maker.</em></p>
       </div>
 
+      <!-- Energetics -->
+      <div class="block lesson-block">
+        <h4>🧘‍♀️ 3. The Energetics of Attention</h4>
+        <p>In energetic terms, attention is a beam of light.<br/>It feeds life wherever it lands.</p>
+        <p>When you focus on fear, you amplify the vibration of fear.</p>
+        <p>When you rest attention in gratitude, your field harmonizes.</p>
+        <p>When you divide your attention, you dilute your power.</p>
+        <p>Attention is also love in motion — to truly see something is to bless it with existence.<br/>This is why children blossom under genuine attention and wilt under neglect; adults are no different.</p>
+      </div>
+
+      <!-- Patterns -->
       <div class="block note-block">
-        <h4>Further Notes</h4>
-        <p>Links, sources, or prompts you want to add later.</p>
+        <h4>🔍 4. Common Patterns (and Their Shadows)</h4>
+        <table class="table" role="table" aria-label="Attention patterns">
+          <thead><tr><th>Pattern</th><th>Description</th><th>Consequence</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Scattered Attention</strong></td><td class="muted">Constant multitasking, phone notifications, unfinished thoughts.</td><td>Mental exhaustion, shallow satisfaction, anxiety.</td></tr>
+            <tr><td><strong>Obsessive Attention</strong></td><td class="muted">Fixating on problems or control.</td><td>Emotional burnout, rigidity, tunnel vision.</td></tr>
+            <tr><td><strong>Avoidant Attention</strong></td><td class="muted">Refusing to look at what hurts or scares.</td><td>Repression, projection, cycles repeating.</td></tr>
+            <tr><td><strong>Conscious Attention</strong></td><td class="muted">Presence, gentle observation, non-reactivity.</td><td>Clarity, peace, creativity.</td></tr>
+          </tbody>
+        </table>
+        <p class="muted" style="margin-top:8px"><strong>Reflection:</strong> Which of these patterns do you often embody — and when?</p>
+      </div>
+
+      <!-- Everyday Examples -->
+      <div class="block story-block">
+        <h4>🌾 5. Everyday Examples</h4>
+        <p><strong>Example 1: The Relationship Garden</strong></p>
+        <p>You text your friend, but they seem distant.<br/>If your attention fixates on rejection, you water insecurity.<br/>If you redirect it toward curiosity (“maybe they’re just overwhelmed”), you water empathy.<br/><em>Same situation — different garden.</em></p>
+
+        <p><strong>Example 2: The Morning Scroll</strong></p>
+        <p>You open your phone and start scrolling.<br/>Each video or post steals a sliver of your attention.<br/>By the end, your mind feels scattered — not because the world is chaotic, but because your gardener handed out water everywhere.</p>
+
+        <p><strong>Example 3: The Creative Project</strong></p>
+        <p>You have an idea but keep doubting it.<br/>If you focus on your doubts, they root deeper.<br/>If you focus on one small action — writing one sentence, sketching one shape — you water growth.</p>
+      </div>
+
+      <!-- Principles -->
+      <div class="block lesson-block">
+        <h4>🌳 6. Principles of the Gardener</h4>
+        <p><strong>🌤️ 1. Attention is a Choice, Not a Reflex.</strong><br/>You can’t always choose what appears in your mind — but you can choose what you linger on.</p>
+        <p><strong>🪴 2. What You Resist, You Water.</strong><br/>Trying not to think of something still feeds it attention. The antidote is redirection, not repression.</p>
+        <p><strong>🔆 3. Quality Over Quantity.</strong><br/>A few minutes of conscious, loving attention can transform more than hours of distracted activity.</p>
+        <p><strong>🧘 4. Presence Is Power.</strong><br/>The most potent gardener is the one who simply sees clearly without judgment.<br/>Awareness itself begins the healing.</p>
+      </div>
+
+      <!-- Practices -->
+      <div class="block practice-block">
+        <h4>🌼 7. Practices & Exercises</h4>
+
+        <p><strong>🌤️ Practice 1: The 3-Minute Beam</strong></p>
+        <p>Take three minutes to sit quietly.<br/>Pick one object or sound and place all your attention there — without labeling or judging.<br/>Notice how your awareness feels like light focusing through a lens.<br/>That’s your power.</p>
+
+        <p><strong>🪴 Practice 2: Attention Audit</strong></p>
+        <p>At the end of your day, journal these:</p>
+        <p>What took most of my attention today?</p>
+        <p>Did it feed or drain me?</p>
+        <p>What deserves more of my attention tomorrow?</p>
+        <p>This helps reveal unconscious “watering patterns.”</p>
+
+        <p><strong>🌻 Practice 3: The Attention Anchor</strong></p>
+        <p>Choose one sensory cue (like touching your heart or taking one deep breath).<br/>Use it throughout the day to return the gardener home.</p>
+        <p>Each time you feel overwhelmed or distracted, breathe and think:</p>
+        <p><em>“Where is my attention now, and what am I growing?”</em></p>
+      </div>
+
+      <!-- Integration Thought -->
+      <div class="block note-block">
+        <h4>🌙 8. Integration Thought</h4>
+        <p><em>“Attention is the bridge between the unseen and the seen.”</em></p>
+        <p>Every moment is a choice point.<br/>You can feed distraction, fear, and repetition — or direct your light toward truth, beauty, and possibility.<br/>As you tend your attention, life begins to respond in kind — not magically, but organically, like sunlight calling sprouts to rise.</p>
       </div>
     </article>
 
     <aside class="sidebar">
       <div class="tip">
         <div class="tag">Quick tip</div>
-        <p>Put your phone down in another room for the 60s practice.</p>
+        <p>Put your phone in another room during the 3-minute beam. Short intensity, big clarity.</p>
       </div>
       <div class="tip">
         <div class="tag">Mini TOC</div>
