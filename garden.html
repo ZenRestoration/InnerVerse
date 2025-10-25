@@ -8,9 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* Core palette */
     --earth:#F4F1EA; --veil:#FBFAF7; --ink:#1E1E1E;
     --moss:#6E8F6B; --pine:#2E5E4E; --sky:#BFD6F2; --stone:#96A1AD;
 
+    /* Tile gradients */
     --c-gardener1:#bff3dd; --c-gardener2:#a8e6cf;
     --c-soil1:#f0d7b9; --c-soil2:#e9c8a2;
     --c-seed1:#faedc6; --c-seed2:#f7e3b4;
@@ -20,7 +22,18 @@
     --c-seasons1:#eee6ff; --c-seasons2:#e6d9ff;
     --c-storms1:#ffe1ea; --c-storms2:#ffd6e0;
 
-    --shadow:0 14px 40px rgba(0,0,0,.12); --shadow-soft:0 10px 28px rgba(0,0,0,.08);
+    /* Category color system (soft backgrounds + headers) */
+    --cat-lesson-bg:#ffffff;        --cat-lesson-h:#2b3a33;
+    --cat-practice-bg:#e9f5ee;      --cat-practice-h:#275a46;
+    --cat-reflect-bg:#edf3fb;       --cat-reflect-h:#1f4f86;
+    --cat-mantra-bg:#fff7e6;        --cat-mantra-h:#8a5a00;
+    --cat-science-bg:#f3ecff;       --cat-science-h:#5d3aa1;
+    --cat-story-bg:#fff0f4;         --cat-story-h:#a33359;
+    --cat-note-bg:#f4f4f4;          --cat-note-h:#3a3a3a;
+
+    --shadow:0 14px 40px rgba(0,0,0,.12);
+    --shadow-soft:0 10px 28px rgba(0,0,0,.08);
+    --radius:22px; --radius-lg:26px;
     --max:1160px;
   }
   *{box-sizing:border-box} html,body{height:100%}
@@ -31,6 +44,8 @@
       radial-gradient(960px 520px at 0% 0%, rgba(174,199,182,.22), transparent 55%),
       linear-gradient(180deg, #F7F5EF 0%, var(--earth) 60%, #EFECE4 100%);
   }
+
+  /* Header */
   .container{width:min(var(--max),92%);margin-inline:auto}
   header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(244,241,234,.7);border-bottom:1px solid rgba(0,0,0,.06)}
   .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
@@ -39,6 +54,8 @@
   nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9}
   nav a:not(:last-child){margin-right:18px}
   .cta{background:linear-gradient(180deg,#7FB68B,#5B8E6B);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:var(--shadow-soft)}
+
+  /* Hero + tiles */
   .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);line-height:1.05;margin:22px 0 6px;color:#21322a}
   .lead{max-width:760px;font-size:clamp(16px,2.1vw,20px);opacity:.9;margin:0 0 14px}
   .grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)} .col-12{grid-column:span 12} .col-6{grid-column:span 6} .col-4{grid-column:span 4}
@@ -48,9 +65,8 @@
   .tile:hover{transform:translateY(-3px);box-shadow:0 16px 52px rgba(0,0,0,.16)}
   .badge{width:56px;height:56px;border-radius:999px;display:grid;place-items:center;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.15);margin-bottom:12px}
   .tile svg{width:26px;height:26px}
-  .label{font-weight:900;letter-spacing:.2px;font-size:19px}
+  .label{font-weight:900;letter-spacing:.2px;font-size:19px;line-height:1.1}
   .sub{font-size:14px;opacity:.8;margin-top:4px;font-weight:700}
-
   .gardener{background:linear-gradient(180deg,var(--c-gardener1),var(--c-gardener2))}
   .soil{background:linear-gradient(180deg,var(--c-soil1),var(--c-soil2))}
   .seed{background:linear-gradient(180deg,var(--c-seed1),var(--c-seed2))}
@@ -59,13 +75,58 @@
   .tree{background:linear-gradient(180deg,var(--c-tree1),var(--c-tree2))}
   .seasons{background:linear-gradient(180deg,var(--c-seasons1),var(--c-seasons2))}
   .storms{background:linear-gradient(180deg,var(--c-storms1),var(--c-storms2))}
-
-  .panel{background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
-  .panel h3{margin:6px 0 8px}
   .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);margin:26px 0}
+
+  /* Lesson layout */
+  .lesson{display:grid;grid-template-columns: 1fr 320px; gap:22px; align-items:start}
+  @media (max-width:1000px){.lesson{grid-template-columns:1fr}}
+  .panel{background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+  .panel h2,.panel h3{margin:6px 0 8px}
+  .kicker{font-weight:800;letter-spacing:.18px;font-size:12px;text-transform:uppercase;opacity:.6}
+
+  /* Category blocks */
+  .block{border-radius:18px;padding:16px 16px 14px;border:1px solid rgba(0,0,0,.06);margin:14px 0}
+  .block h4{margin:0 0 6px}
+  .block p{margin:0 0 8px}
+  .block ul{margin:6px 0 0 18px}
+  .block ol{margin:6px 0 0 18px}
+
+  .lesson-block{background:var(--cat-lesson-bg)}
+  .lesson-block h4{color:var(--cat-lesson-h)}
+  .practice-block{background:var(--cat-practice-bg)}
+  .practice-block h4{color:var(--cat-practice-h)}
+  .reflect-block{background:var(--cat-reflect-bg)}
+  .reflect-block h4{color:var(--cat-reflect-h)}
+  .mantra-block{background:var(--cat-mantra-bg)}
+  .mantra-block h4{color:var(--cat-mantra-h)}
+  .science-block{background:var(--cat-science-bg)}
+  .science-block h4{color:var(--cat-science-h)}
+  .story-block{background:var(--cat-story-bg)}
+  .story-block h4{color:var(--cat-story-h)}
+  .note-block{background:var(--cat-note-bg)}
+  .note-block h4{color:var(--cat-note-h)}
+
+  .callout{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.85);border:1px dashed rgba(0,0,0,.12);border-radius:14px;padding:10px 12px;margin:10px 0}
+  .callout strong{font-weight:800}
+
+  /* Sticky sidebar */
+  .sidebar{position:sticky;top:86px}
+  .tip{background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow-soft)}
+  .tip .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2px;padding:3px 8px;border-radius:999px;background:#eef6f0;color:#2e5e4e;margin-bottom:6px}
+  .tip p{margin:0;opacity:.9}
+  .minitoc{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{display:inline-block;padding:8px 10px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid rgba(0,0,0,.08);background:#fff;color:#2b2b2b}
+  .chip:hover{transform:translateY(-1px)}
+  .badge-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:12px}
+  .legend-dot{width:12px;height:12px;border-radius:50%}
+  .dot-lesson{background:#e9ecef}.dot-practice{background:#d7f0e2}.dot-reflect{background:#dfeaf9}
+  .dot-mantra{background:#ffefcf}.dot-science{background:#eae2ff}.dot-story{background:#ffe3ee}.dot-note{background:#ededed}
+
   footer{padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)}
   .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
   .tiny{font-size:12px;opacity:.7}
+  [id]{scroll-margin-top:90px}
 </style>
 </head>
 <body>
@@ -84,13 +145,20 @@
 </header>
 
 <main class="container">
-  <h1 class="title">Enter the Garden</h1>
-  <p class="lead">Eight simple doorways into the “Living Tree of Consciousness.” Click a tile to jump to its teaching section.</p>
+  <h1 class="title">The Garden of Mynd</h1>
+  <p class="lead">Where consciousness becomes creation — every thought, a seed; every choice, a bloom.</p>
 
-  <!-- Tiles -->
-  <section class="tiles grid">
-    <!-- same tiles as home but link to sections below -->
-    <a class="col-4 tile gardener" href="#gardener"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#2E5E4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c0 4-2 7-4 9 3 0 6-2 8-4 2-2 4-5 4-8-3 0-6 2-8 4Z"/><path d="M2 22c3-1 6-3 8-6"/></svg></span><span class="label">Gardener</span><span class="sub">Attention</span></a>
+  <!-- Tiles (jump links) -->
+  <section class="tiles grid" aria-label="Garden navigation">
+    <a class="col-4 tile gardener" href="#gardener">
+      <span class="badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2E5E4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 11c0 4-2 7-4 9 3 0 6-2 8-4 2-2 4-5 4-8-3 0-6 2-8 4Z"/>
+          <path d="M2 22c3-1 6-3 8-6"/>
+        </svg>
+      </span>
+      <span class="label">Gardener</span><span class="sub">Attention</span>
+    </a>
     <a class="col-4 tile soil" href="#soil"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3e2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18"/><path d="M5 12h14"/><path d="M7 9h10"/></svg></span><span class="label">Soil</span><span class="sub">Belief</span></a>
     <a class="col-4 tile seed" href="#seed"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#7A5A2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c4-4 4-10 0-14-4 4-4 10 0 14Z"/><path d="M12 6c1.5-2 3-3 5-3"/></svg></span><span class="label">Seed</span><span class="sub">Thought</span></a>
     <a class="col-4 tile water" href="#water"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#1F6AA1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6 6 10a6 6 0 1 1-12 0c0-4 6-10 6-10Z"/></svg></span><span class="label">Water</span><span class="sub">Emotion</span></a>
@@ -102,56 +170,304 @@
 
   <div class="divider"></div>
 
-  <!-- Teaching Panels (edit freely) -->
-  <section id="gardener" class="panel">
-    <h3>Gardener — Attention</h3>
-    <p>Where awareness rests, life responds. Try choosing one small area of your day to notice with more kindness and curiosity.</p>
+  <!-- ============ LESSON TEMPLATE BLOCKS (copy structure for each section) ============ -->
+
+  <!-- 1) GARDENER -->
+  <section id="gardener" class="lesson" aria-labelledby="gardener-title">
+    <article class="panel">
+      <div class="kicker">Section • Gardener — Attention</div>
+      <h2 id="gardener-title">Your Attention is the Gardener</h2>
+
+      <div class="block story-block">
+        <h4>Story</h4>
+        <p>Write a short, inviting story that illustrates attention shaping experience. (Example: noticing one kind thing changes the tone of a morning.)</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>Teaching</h4>
+        <ul>
+          <li><strong>Attention selects reality.</strong> What we notice repeats.</li>
+          <li><strong>Gentle focus</strong> beats force; curiosity sustains effort.</li>
+          <li><strong>Rituals</strong> help you point attention on purpose.</li>
+        </ul>
+      </div>
+
+      <div class="block practice-block">
+        <h4>Practice — “One Field, One Minute”</h4>
+        <ol>
+          <li>Pick one small field (breath, sounds, hands on chest).</li>
+          <li>Set a 60s timer. Stay with the field; gently return when mind wanders.</li>
+          <li>Note one feeling word afterward. Repeat daily.</li>
+        </ol>
+        <div class="callout"><strong>Tip:</strong> Anchor this to a daily moment (making tea, opening a door).</div>
+      </div>
+
+      <div class="block reflect-block">
+        <h4>Reflection</h4>
+        <ul>
+          <li>Where does my attention go when I’m stressed?</li>
+          <li>What improves when I give something 60 seconds of care?</li>
+        </ul>
+      </div>
+
+      <div class="block mantra-block">
+        <h4>Mantra</h4>
+        <p><em>“Where I look, I grow.”</em></p>
+      </div>
+
+      <div class="block science-block">
+        <h4>Science Note</h4>
+        <p>Briefly describe the attentional spotlight and why micro-pauses reduce sympathetic arousal. (Add citations later.)</p>
+      </div>
+
+      <div class="block note-block">
+        <h4>Further Notes</h4>
+        <p>Links, sources, or prompts you want to add later.</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip">
+        <div class="tag">Quick tip</div>
+        <p>Put your phone down in another room for the 60s practice.</p>
+      </div>
+      <div class="tip">
+        <div class="tag">Mini TOC</div>
+        <div class="minitoc">
+          <a class="chip" href="#gardener">Top</a>
+          <a class="chip" href="#soil">Next: Soil</a>
+        </div>
+      </div>
+      <div class="tip">
+        <div class="tag">Legend</div>
+        <div class="badge-legend">
+          <div class="legend-item"><span class="legend-dot dot-lesson"></span>Lesson</div>
+          <div class="legend-item"><span class="legend-dot dot-practice"></span>Practice</div>
+          <div class="legend-item"><span class="legend-dot dot-reflect"></span>Reflection</div>
+          <div class="legend-item"><span class="legend-dot dot-mantra"></span>Mantra</div>
+          <div class="legend-item"><span class="legend-dot dot-science"></span>Science</div>
+          <div class="legend-item"><span class="legend-dot dot-story"></span>Story</div>
+        </div>
+      </div>
+    </aside>
   </section>
 
-  <section id="soil" class="panel">
-    <h3>Soil — Belief</h3>
-    <p>Belief is ground. Ask: which beliefs feel fertile, and which feel compacted? Loosen the hard places with better questions.</p>
+  <div class="divider"></div>
+
+  <!-- 2) SOIL -->
+  <section id="soil" class="lesson" aria-labelledby="soil-title">
+    <article class="panel">
+      <div class="kicker">Section • Soil — Belief</div>
+      <h2 id="soil-title">Belief is the Soil</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Short story where a kinder belief allowed growth.</p></div>
+
+      <div class="block lesson-block">
+        <h4>Teaching</h4>
+        <ul><li>Beliefs are assumptions your nervous system predicts with.</li><li>Fertile soil = beliefs that are flexible and testable.</li></ul>
+      </div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Soil Test”</h4>
+        <ol><li>Write a stubborn thought.</li><li>Ask: 100% true? helpful? kind?</li><li>Replace with a testable belief.</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>Which belief feels compacted?</li><li>What experiment could loosen it?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“I can learn new soil.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Brief on prediction error & cognitive reappraisal.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Add sources or examples here.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Term</div><p><strong>Belief</strong> = practiced interpretation.</p></div>
+      <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#seed">Seed</a><a class="chip" href="#water">Water</a></div></div>
+    </aside>
   </section>
 
-  <section id="seed" class="panel">
-    <h3>Seed — Thought</h3>
-    <p>Each thought holds a tree within it. Plant deliberately; water with attention; prune with kindness.</p>
+  <div class="divider"></div>
+
+  <!-- 3) SEED -->
+  <section id="seed" class="lesson" aria-labelledby="seed-title">
+    <article class="panel">
+      <div class="kicker">Section • Seed — Thought</div>
+      <h2 id="seed-title">Thoughts as Seeds</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Story: a repeated thought becomes a habit and result.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Repeated thoughts wire attention.</li><li>Environment filters (mute/curate) protect the garden.</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Seed Tray”</h4>
+        <ol><li>List 3 thoughts to plant.</li><li>Write a daily cue for each.</li><li>Review at night; water what you planted.</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>Which thought sprouts fastest?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“I plant on purpose.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Neuroplasticity basics; Hebbian learning.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Optional links.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Tip</div><p>Pair the “seed” with an existing habit (stacking).</p></div>
+    </aside>
   </section>
 
-  <section id="water" class="panel">
-    <h3>Water — Emotion</h3>
-    <p>Emotion nourishes or drowns. Name it, breathe with it, and let it flow rather than flood.</p>
+  <div class="divider"></div>
+
+  <!-- 4) WATER -->
+  <section id="water" class="lesson" aria-labelledby="water-title">
+    <article class="panel">
+      <div class="kicker">Section • Water — Emotion</div>
+      <h2 id="water-title">Emotions as Water</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Rain vs. flood metaphor; naming regulates intensity.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Emotions carry needs.</li><li>Naming feelings reduces load (“name it to tame it”).</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Two-Minute Flow”</h4>
+        <ol><li>Set 2 minutes; slow breath.</li><li>Name: “I feel ___ about ___ because ___.”</li><li>Ask: “What do I need?”</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>Which emotions water you? Which flood?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“Let it flow, not drown.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Affect labeling; vagal tone via slow exhale.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Resources you’ll add.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Micro</div><p>Exhale longer than inhale to settle.</p></div>
+    </aside>
   </section>
 
-  <section id="sun" class="panel">
-    <h3>Sun — Awareness</h3>
-    <p>Light reveals what needs tending. One minute of soft attention often changes the tone of an entire hour.</p>
+  <div class="divider"></div>
+
+  <!-- 5) SUN -->
+  <section id="sun" class="lesson" aria-labelledby="sun-title">
+    <article class="panel">
+      <div class="kicker">Section • Sun — Awareness</div>
+      <h2 id="sun-title">Awareness as Sunlight</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Light reveals what needs tending.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Noticing without judgment promotes change.</li><li>Gentle attention ≠ passivity; it’s precision.</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Three Rays”</h4>
+        <ol><li>Ray 1: Body (1 min scan).</li><li>Ray 2: Mind (3 thoughts on paper).</li><li>Ray 3: Values (1 choice aligned).</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>What appears under light today?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“Light, then choose.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Meta-awareness and cognitive defusion.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Placeholders.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Try</div><p>Look for one “bright spot” each evening.</p></div>
+    </aside>
   </section>
 
-  <section id="tree" class="panel">
-    <h3>Tree — Self</h3>
-    <p>Roots, trunk, branches, fruit — becoming made visible. The Self grows by steady practice and honest reflection.</p>
+  <div class="divider"></div>
+
+  <!-- 6) TREE -->
+  <section id="tree" class="lesson" aria-labelledby="tree-title">
+    <article class="panel">
+      <div class="kicker">Section • Tree — Self</div>
+      <h2 id="tree-title">The Self as a Tree</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Roots, trunk, branches, fruit — becoming visible.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Roots = values; trunk = habits; branches = skills; fruit = outcomes.</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “One Root, One Habit”</h4>
+        <ol><li>Choose one value.</li><li>Pick a tiny habit that honors it.</li><li>Do it daily for a week.</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>What fruit appeared (even small)?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“Grow by one ring.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Habit loops; dopamine & identity-based habits.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Insert examples later.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Beta</div><p>Tree dashboard coming soon in the main “Tree” page.</p></div>
+    </aside>
   </section>
 
-  <section id="seasons" class="panel">
-    <h3>Seasons — Cycles</h3>
-    <p>Growth, harvest, decay, rest — all holy. Ask which season you are in, then match your pace to it.</p>
+  <div class="divider"></div>
+
+  <!-- 7) SEASONS -->
+  <section id="seasons" class="lesson" aria-labelledby="seasons-title">
+    <article class="panel">
+      <div class="kicker">Section • Seasons — Cycles</div>
+      <h2 id="seasons-title">Seasons of Growth</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>Short vignette showing rest enabling next growth.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Spring (start), Summer (build), Autumn (harvest), Winter (rest).</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Match the Season”</h4>
+        <ol><li>Name your season honestly.</li><li>Choose matching actions (start/build/harvest/rest).</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>What season do I resist?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“Every season is holy.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Ultradian rhythms; recovery & performance.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Room for references.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Note</div><p>Winter is not failure; it’s strategy.</p></div>
+    </aside>
   </section>
 
-  <section id="storms" class="panel">
-    <h3>Storms — Challenges</h3>
-    <p>Wind strengthens what is meant to stand. Use difficulty to clarify values and deepen roots.</p>
+  <div class="divider"></div>
+
+  <!-- 8) STORMS -->
+  <section id="storms" class="lesson" aria-labelledby="storms-title">
+    <article class="panel">
+      <div class="kicker">Section • Storms — Challenges</div>
+      <h2 id="storms-title">Storms as Teachers</h2>
+
+      <div class="block story-block"><h4>Story</h4><p>A challenge that strengthened a boundary or value.</p></div>
+
+      <div class="block lesson-block"><h4>Teaching</h4><ul><li>Adversity clarifies what matters.</li><li>Prepare protocols for common storms.</li></ul></div>
+
+      <div class="block practice-block">
+        <h4>Practice — “Storm Card”</h4>
+        <ol><li>Name a storm (conflict, overwhelm).</li><li>Write a 3-step protocol (breathe, boundary, ask).</li><li>Keep it in your notes.</li></ol>
+      </div>
+
+      <div class="block reflect-block"><h4>Reflection</h4><ul><li>What did this storm teach me?</li></ul></div>
+      <div class="block mantra-block"><h4>Mantra</h4><p><em>“Wind strengthens what stands.”</em></p></div>
+      <div class="block science-block"><h4>Science Note</h4><p>Stress inoculation; cognitive reappraisal.</p></div>
+      <div class="block note-block"><h4>Further Notes</h4><p>Place citations here.</p></div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="tip"><div class="tag">Ground</div><p>Exhale 6s, feet on floor, name 3 objects you see.</p></div>
+      <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Soil</a></div></div>
+    </aside>
   </section>
+
 </main>
 
 <div class="divider container"></div>
 
 <footer>
   <div class="container footer-inner">
-    <div style="display:flex;align-items:center;gap:10px"><div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div><div><strong>Mynd</strong><div class="tiny">The Garden is the Mind.</div></div></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div>
+      <div><strong>Mynd</strong><div class="tiny">The Garden is the Mind.</div></div>
+    </div>
     <div class="tiny">© <span id="year"></span> Mynd. All rights reserved.</div>
   </div>
 </footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script>
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
