@@ -1,99 +1,78 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Mynd — Vision</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--earth:#F4F1EA;--ink:#1E1E1E;--moss:#6E8F6B;--pine:#2E5E4E;--max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12)}
+  *{box-sizing:border-box} body{margin:0;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%)}
+  .container{width:min(var(--max),92%);margin-inline:auto}
+  header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(244,241,234,.7);border-bottom:1px solid rgba(0,0,0,.06)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;font-weight:800;font-family:"Playfair Display",serif}
+  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9} nav a:not(:last-child){margin-right:18px}
+  .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);margin:24px 0 6px}
+  .lead{max-width:760px;opacity:.9}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)} .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-12{grid-column:span 12} @media (max-width:980px){.col-4,.col-6{grid-column:span 12}}
+  .card{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+  .cta{display:inline-block;background:linear-gradient(180deg,#7FB68B,#5B8E6B);color:#fff;text-decoration:none;padding:10px 16px;border-radius:999px;font-weight:800;letter-spacing:.2px}
+</style>
 </head>
 <body>
-<a class="skip" href="#content">Skip to content</a>
-<header class="hdr">
-  <div class="wrap hdr__inner">
-    <a class="brand" href="/"><span class="leaf">⌘</span> <span class="brand__text">Mynd</span></a>
-    <nav class="nav">
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a class="active" href="vision.html">Vision</a>
-      <a href="about.html">About</a>
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><div class="logo">My</div><strong>Mynd</strong></a>
+    <nav>
+      <a href="garden.html">Garden</a><a href="tree.html">Tree</a><a href="greenhouse.html">Greenhouse</a><a href="vision.html">Vision</a><a href="about.html">About</a>
     </nav>
-    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="menuBtn">
-      <span></span><span></span><span></span>
-    </button>
   </div>
-  <nav class="mnav" id="mnav" hidden>
-    <a href="garden.html">Garden</a>
-    <a href="tree.html">Tree</a>
-    <a href="greenhouse.html">Greenhouse</a>
-    <a class="active" href="vision.html">Vision</a>
-    <a href="about.html">About</a>
-  </nav>
 </header>
 
-<main id="content">
-  <section class="wrap hero hero--sm">
-    <h1 class="display">Grow the Tree of Mynd</h1>
-    <p class="lead">Soon, reflections will generate personalized guidance and an evolution curve — fully user-owned, research-ethical.</p>
-  </section>
+<main class="container">
+  <h1 class="title">Grow the Tree of Mynd</h1>
+  <p class="lead">A calm, ethical future: AI reflections that generate guidance and an evolution curve — fully user-owned.</p>
 
-  <section class="wrap section">
-    <div class="panel">
-      <h3>Roadmap</h3>
-      <ol class="timeline">
-        <li><span>Now</span> Publish Garden, collect feedback, refine design system.</li>
-        <li><span>+3 mo</span> Greenhouse preview lessons; early Tree journaling mockup.</li>
-        <li><span>+6 mo</span> Beta “evolution curve”; bookmarks; weekly summaries.</li>
-        <li><span>+12 mo</span> Research program (opt-in), ethics board, public report.</li>
-      </ol>
-    </div>
-    <div class="panel">
-      <h3>Crowdfunding Tiers</h3>
-      <div class="cards">
-        <a class="card" href="https://your-crowdfund.example" target="_blank" rel="noopener">
-          <div class="card__icon">🌱</div>
-          <h3>Seed</h3>
-          <p>Early supporter • name in credits</p>
-        </a>
-        <a class="card" href="https://your-crowdfund.example" target="_blank" rel="noopener">
-          <div class="card__icon">🌿</div>
-          <h3>Sapling</h3>
-          <p>Everything in Seed + early beta access</p>
-        </a>
-        <a class="card" href="https://your-crowdfund.example" target="_blank" rel="noopener">
-          <div class="card__icon">🌳</div>
-          <h3>Canopy</h3>
-          <p>Everything in Sapling + founder Q&A</p>
-        </a>
-      </div>
-    </div>
-    <div class="panel">
-      <h3>Ethics & Research Values</h3>
-      <ul class="list">
-        <li>User data is portable, user-owned, and deletable.</li>
-        <li>Plain-language consent; independent oversight.</li>
-        <li>Open methods; publish aggregate insights only.</li>
+  <section class="grid" style="margin-top:10px">
+    <article class="col-6 card">
+      <h3>The Story</h3>
+      <p>Mynd is a living garden of teachings that becomes a personal growth tool. Journals map to roots, trunk, and branches; insights surface as gentle prompts.</p>
+    </article>
+    <article class="col-6 card">
+      <h3>Research Values</h3>
+      <ul>
+        <li>User-owned data</li>
+        <li>Informed consent & clear opt-outs</li>
+        <li>No ad tracking, ever</li>
       </ul>
-    </div>
+    </article>
+
+    <article class="col-12 card">
+      <h3>Roadmap</h3>
+      <ol>
+        <li><strong>Now:</strong> Garden MVP + Vision</li>
+        <li><strong>3 months:</strong> Greenhouse launch</li>
+        <li><strong>6 months:</strong> Tree beta (journaling & evolution curve)</li>
+        <li><strong>12 months:</strong> Research partnerships & expanded library</li>
+      </ol>
+    </article>
+
+    <article class="col-12 card">
+      <h3>Crowdfunding Tiers</h3>
+      <p>Support the vision and help the garden grow.</p>
+      <p><a class="cta" href="https://your-crowdfund.example" target="_blank" rel="noopener">Support the Vision</a></p>
+    </article>
   </section>
 </main>
 
-<footer class="ftr">
-  <div class="wrap ftr__inner">
-    <div class="ftr__brand"><span class="leaf">⌘</span> Mynd</div>
-    <nav class="ftr__links">
-      <a href="garden.html">Garden</a>
-      <a href="tree.html">Tree</a>
-      <a href="greenhouse.html">Greenhouse</a>
-      <a class="active" href="vision.html">Vision</a>
-      <a href="about.html">About</a>
-    </nav>
-    <p class="tiny">© <span id="year"></span> Mynd.</p>
+<footer style="padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px"><div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div><div><strong>Mynd</strong></div></div>
+    <div style="font-size:12px;opacity:.7">© <span id="year"></span> Mynd.</div>
   </div>
 </footer>
-
-<script src="assets/app.js"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
-
