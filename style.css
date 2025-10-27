@@ -1,3 +1,4 @@
+<style>
 /* ============ Design Tokens ============ */
 :root{
   /* Nature-inspired palette */
@@ -59,6 +60,8 @@ body::before{
 
 /* Wrappers */
 .wrap{width:var(--wrap); margin-inline:auto}
+/* Alias to keep existing markup working */
+.container{width:var(--wrap); margin-inline:auto}
 
 /* Skip link */
 .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -92,7 +95,15 @@ body::before{
 .hero__grid{display:grid;grid-template-columns: 1.1fr .9fr; gap:24px; align-items:center}
 @media (max-width:960px){ .hero__grid{grid-template-columns:1fr} }
 .display{font:600 clamp(28px,4vw,48px)/1.15 ui-serif, Georgia, 'Times New Roman', serif; margin:0}
-.lead{font-size:18px;opacity:.9;margin:14px 0 0}
+.lead{
+  font-size:18px;
+  opacity:.9;
+  margin:14px 0 0;
+  text-wrap: balance;       /* nicer line breaks */
+}
+.no-break{white-space:nowrap}
+@media (max-width:520px){ .no-break{white-space:normal} }
+
 .cta-row{display:flex;gap:12px;margin-top:16px}
 .cta-row.center{justify-content:center}
 
@@ -187,3 +198,4 @@ body::before{
 .ftr__links a:hover,.ftr__links a.active{opacity:1}
 .ftr__brand{display:flex;align-items:center;gap:8px}
 .tiny{font-size:12px;color:var(--muted)}
+</style>
