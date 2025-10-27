@@ -6,16 +6,65 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--earth:#F4F1EA;--ink:#1E1E1E;--moss:#6E8F6B;--pine:#2E5E4E;--max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12)}
-  *{box-sizing:border-box} body{margin:0;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%)}
+  :root{
+    --earth:#F4F1EA;--veil:#FBFAF7;--ink:#1E1E1E;
+    --moss:#6E8F6B;--pine:#2E5E4E;--sky:#BFD6F2;--stone:#96A1AD;
+    --max:1160px;--shadow:0 14px 40px rgba(0,0,0,.12);--shadow-soft:0 10px 28px rgba(0,0,0,.08);
+    /* Content blocks (match Garden/Greenhouse) */
+    --cat-lesson-bg:#ffffff; --cat-lesson-h:#2b3a33;
+    --cat-story-bg:#fff0f4;  --cat-story-h:#a33359;
+    --cat-note-bg:#f4f4f4;   --cat-note-h:#3a3a3a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;color:var(--ink);
+    font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 580px at 70% -8%, rgba(191,214,242,.18), transparent 60%),
+      radial-gradient(960px 520px at 0% 0%, rgba(174,199,182,.18), transparent 55%),
+      linear-gradient(180deg,#F7F5EF 0%, var(--earth) 60%, #EFECE4 100%);
+  }
   .container{width:min(var(--max),92%);margin-inline:auto}
+
+  /* Header */
   header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(244,241,234,.7);border-bottom:1px solid rgba(0,0,0,.06)}
   .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
   .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;font-weight:800;font-family:"Playfair Display",serif}
-  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9} nav a:not(:last-child){margin-right:18px}
-  .title{font-family:"Playfair Display",serif;font-size:clamp(30px,4.6vw,54px);margin:24px 0 6px}
-  .card{background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+  nav a{color:#2c2c2c;text-decoration:none;font-weight:700;opacity:.9}
+  nav a:not(:last-child){margin-right:18px}
+  @media (max-width:860px){
+    nav{display:none}
+  }
+
+  /* Hero */
+  .hero{padding:72px 0 8px}
+  .title{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,60px);line-height:1.05;margin:0;color:#21322a}
+  .kicker{margin-top:8px;font-weight:800;letter-spacing:.2px;opacity:.65;text-transform:uppercase;font-size:12px}
+  .lead{max-width:820px;font-size:clamp(16px,2.1vw,20px);opacity:.9;margin:10px 0 0}
+
+  /* Content layout */
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent);margin:26px 0}
+  .grid{display:grid;gap:22px;grid-template-columns:1fr 320px}
+  @media (max-width:1000px){.grid{grid-template-columns:1fr}}
+  .panel{background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.06);border-radius:22px;box-shadow:var(--shadow);padding:18px}
+  .panel h2,.panel h3{margin:6px 0 10px}
+  .quote{border-left:3px solid var(--pine); padding-left:12px; margin:8px 0 0}
+
+  .block{border-radius:18px;padding:16px 16px 14px;border:1px solid rgba(0,0,0,.06);margin:14px 0}
+  .story-block{background:var(--cat-story-bg)} .story-block h4{color:var(--cat-story-h)}
+  .lesson-block{background:var(--cat-lesson-bg)} .lesson-block h4{color:var(--cat-lesson-h)}
+  .note-block{background:var(--cat-note-bg)} .note-block h4{color:var(--cat-note-h)}
+  .block h4{margin:0 0 8px}
+
+  .sidebar{position:sticky;top:86px}
+  .tip{background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow-soft)}
+  .tip .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2px;padding:3px 8px;border-radius:999px;background:#eef6f0;color:#2e5e4e;margin-bottom:6px}
+
+  /* Footer */
+  footer{padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)}
+  .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .tiny{font-size:12px;opacity:.7}
 </style>
 </head>
 <body>
@@ -23,31 +72,135 @@
   <div class="container header-inner">
     <a class="brand" href="index.html"><div class="logo">My</div><strong>Mynd</strong></a>
     <nav>
-      <a href="garden.html">Garden</a><a href="tree.html">Tree</a><a href="greenhouse.html">Greenhouse</a><a href="vision.html">Vision</a><a href="about.html">About</a>
+      <a href="garden.html">Garden</a>
+      <a href="tree.html">Tree</a>
+      <a href="greenhouse.html">Greenhouse</a>
+      <a href="vision.html">Vision</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
 
 <main class="container">
-  <h1 class="title">About Mynd</h1>
-  <section class="card">
-    <h3>Mission</h3>
-    <p>To offer a calm, beautiful space for self-understanding — practical, compassionate, and genuinely useful.</p>
-    <h3>Values</h3>
-    <ul>
-      <li>Kindness over hype</li>
-      <li>Privacy and user ownership</li>
-      <li>Practical tools, zero fluff</li>
-    </ul>
-    <h3>Contact</h3>
-    <p><a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="kicker">🌿 About Mynd</div>
+    <h1 class="title">From surviving to self-sovereignty.</h1>
+    <p class="lead">This is the story behind Mynd — how pain became purpose, and how awareness became the path.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT -->
+  <section class="grid" aria-label="About content">
+    <article class="panel">
+      <!-- Origin Story -->
+      <div class="block story-block">
+        <h4>Early Patterns</h4>
+        <p>I grew up in a house that had everything — stability, comfort, hard-working parents — and yet, I was deeply sad. From the outside, I had no reason to feel empty. But inside, I carried a silent ache I couldn’t name. I smiled when I was supposed to, played the role of the “good kid,” and learned early that being quiet kept the peace. I became skilled at reading the emotional weather of a room and adjusting myself to match it.</p>
+        <p>At fifteen, that invisible weight became unbearable. I didn’t want to die — I just wanted the pain to stop. I swallowed half a bottle of pills, left a note, and drifted into what I thought would be peace. Hours later, I woke up, vomited, and flushed the note down the toilet. I went to school the next morning as if nothing happened. I wouldn’t tell a soul for thirteen years.</p>
+        <p>That was the first time I realized how good I’d become at pretending.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>Survival Mode</h4>
+        <p>As I grew older, I carried that same pattern — taking responsibility for everyone’s emotions except my own. My nervous system was on permanent alert. I learned to survive on tension, to measure my worth by how calm I could keep others. Inside, I was imploding: anxious, sick, and disconnected from myself. By nineteen, I’d experienced a heart attack, multiple infections, and cycles of burnout that no doctor could explain. The year I finally left home, the illnesses stopped. My body had been telling the story I wasn’t allowed to speak.</p>
+      </div>
+
+      <div class="block story-block">
+        <h4>The Shadow of a Label</h4>
+        <p>In my twenties, a psychiatrist told my parents I might have Borderline Personality Disorder. That label followed me like a shadow. I shaped my identity around it, joined support groups, studied it obsessively, and tried to fix myself through its framework. It gave me something to aim at — a name for my chaos.</p>
+        <p>Therapy began to open the silence. I started seeing my childhood through a new lens — not of blame, but of understanding. My parents were self-made, hard-working, and determined to give me a good life. They built stability from scratch, but like so many of their generation, they weren’t taught how to balance the outer world of achievement with the inner world of emotion. They did the best they could with the tools they had and the hands they were dealt.</p>
+        <p>Years later, I returned to the same psychiatrist I had once visited with my mum — and learned the truth:</p>
+        <p class="quote"><em>I was never diagnosed with BPD.</em></p>
+        <p>It had been a misunderstanding — or perhaps a reflection of what my family simply didn’t yet have the language for. It was easier to frame my emotional intensity as illness than to see it as sensitivity — the very gift that would later define my purpose. That realization softened everything. It dissolved the illusion of separation between us. We were all just doing our best to make sense of our pain.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>Integrating Two Worlds</h4>
+        <p>I now see that our family’s lesson — maybe even our soul contract — was to integrate those two worlds: the material and the emotional, the seen and the unseen. To learn how love can flow freely between realities.</p>
+        <p>I see my parents now for who they are — fellow travelers in our family’s evolution. Their choices shaped my lessons. My healing became our healing. And I’ll always love them, no matter what they do.</p>
+        <p class="quote"><em>For years I chased understanding, thinking it would heal me. But understanding didn’t heal me. Love did.</em></p>
+      </div>
+
+      <div class="block story-block">
+        <h4>Threads of Light</h4>
+        <p>Then came the moment that gave words to what I had always felt.</p>
+        <p>In 2022, the Nobel Prize in Physics was awarded to Alain Aspect, John F. Clauser, and Anton Zeilinger for experiments with entangled photons — proving that two particles can remain connected across infinite distance, influencing one another instantly.</p>
+        <p>Reading that, I cried. Because I knew. I had felt that truth my entire life — the invisible threads connecting everything to everything.</p>
+        <p>I began to see patterns everywhere: our nervous system branching like the roots of a tree, neurons mirroring the cosmic web of galaxies, rivers flowing like veins beneath Earth’s skin, lungs shaped like leaves, and blood made from the same elements as the stars.</p>
+        <p>It was all one great organism — a single field of consciousness expressing itself through infinite forms. Earth, I realized, is not just a home — it’s a school for the soul.</p>
+        <p>A dense classroom of matter and emotion, where infinite realities overlap, and each of us learns to tune our frequency — to move from fear toward love, from unconscious survival to conscious creation. And the skill of tuning — of awakening to higher awareness — is something you often must develop alone.</p>
+        <p>That realization became the foundation of Mynd.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>Why Mynd</h4>
+        <p>I began to see that everything — every experience, every emotion, every belief — begins and ends in the mind.</p>
+        <p>We, as humans, are the greatest storytellers. We build worlds out of words. We tell ourselves stories to survive, to justify, to belong, to make sense of things we don’t yet understand. We create identities, fears, dreams, and realities — all through the quiet narratives that run behind our eyes.</p>
+        <p>For most of our lives, those stories tell us who we are. But once we become aware of the storyteller within — once we realize that we can rewrite the script — our entire world opens up.</p>
+        <p>This is what Mynd stands for — the moment you remember that you are not the story you were told… you are the author.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>What Mynd Is</h4>
+        <p>Mynd is built to help you see yourself clearly — to notice your patterns, emotions, and beliefs not as flaws, but as fertile soil for transformation. It’s an invitation to tend the garden of your inner world with compassion and curiosity — to become aware of the stories you’ve been living, and to consciously grow new ones.</p>
+        <p class="quote"><em>Because when you change your mind, you change your world.</em></p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌱 The Name</h4>
+        <p><strong>Mynd</strong> comes from <em>My Mind</em>. Because everything begins and ends there.</p>
+        <p>Your mind is the lens through which you experience the world — the soil where your beliefs take root, the garden where your emotions grow, and the sky where awareness expands.</p>
+        <p>No one else’s perception can determine your peace. No one else’s beliefs can limit your becoming. You hold the power to change everything — with just your mind.</p>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌸 What Mynd Stands For</h4>
+        <ul>
+          <li><strong>Self-awareness as freedom.</strong> You can’t choose what you’re not conscious of.</li>
+          <li><strong>Accountability as empowerment.</strong> You are not your past, but you are the author of what comes next.</li>
+          <li><strong>Love as intelligence.</strong> True growth doesn’t come from judgment; it comes from gentleness.</li>
+        </ul>
+      </div>
+
+      <div class="block lesson-block">
+        <h4>🌺 The Invitation</h4>
+        <p>Mynd invites you to explore the garden of your inner world — one conscious thought, one feeling, one moment at a time. It’s where awareness meets design, where journaling meets neuroscience, and where you remember that your life is not something happening to you — it’s something unfolding through you.</p>
+        <p>Today, I no longer chase peace. I cultivate it. And Mynd is my way of helping you do the same.</p>
+        <p class="quote"><em>You are not too much. You are the beginning of your own becoming.</em></p>
+      </div>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="tip">
+        <div class="tag">Mission</div>
+        <p>To offer a calm, beautiful space for self-understanding — practical, compassionate, and genuinely useful.</p>
+      </div>
+      <div class="tip">
+        <div class="tag">Values</div>
+        <ul style="margin:0 0 0 18px">
+          <li>Kindness over hype</li>
+          <li>Privacy & user ownership</li>
+          <li>Practical tools, zero fluff</li>
+        </ul>
+      </div>
+      <div class="tip">
+        <div class="tag">Contact</div>
+        <p><a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></p>
+      </div>
+    </aside>
   </section>
 </main>
 
-<footer style="padding:36px 0 72px;border-top:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.6)">
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:10px"><div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div><div><strong>Mynd</strong></div></div>
-    <div style="font-size:12px;opacity:.7">© <span id="year"></span> Mynd.</div>
+<footer>
+  <div class="container footer-inner">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo" style="width:30px;height:30px;background:linear-gradient(160deg,var(--moss),var(--pine));color:#fff;border-radius:10px;display:grid;place-items:center;font-family:'Playfair Display',serif">My</div>
+      <div><strong>Mynd</strong></div>
+    </div>
+    <div class="tiny">© <span id="year"></span> Mynd.</div>
   </div>
 </footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
