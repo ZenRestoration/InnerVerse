@@ -6,7 +6,262 @@
   <title>About • Mynd</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <!-- include your main CSS file here -->
+  <style>
+    /* ============ Design Tokens ============ */
+    :root{
+      --earth: #eeebe4;
+      --veil:  #f7f5f0;
+      --ink:   #1f2933;
+      --muted: #6b7280;
+
+      --moss:  #6a8f6b;
+      --clay:  #b77e66;
+      --sky:   #bbd7f5;
+      --pine:  #355a3c;
+
+      --radius-card: 22px;
+      --shadow-soft: 0 12px 36px rgba(0,0,0,.08);
+      --shadow-hover: 0 16px 48px rgba(0,0,0,.12);
+      --wrap: min(1160px, 92vw);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      font: 400 16px/1.6 "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 10% -20%, rgba(187,215,245,.55), transparent 58%),
+        radial-gradient(900px 420px at 90% -10%, rgba(106,143,107,.35), transparent 60%),
+        linear-gradient(180deg, #f8f6f1 0%, var(--earth) 38%, #ebe7de 100%);
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .02 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity:.25;pointer-events:none;z-index:-1;
+    }
+
+    /* wrappers */
+    .container,
+    .wrap{
+      width:var(--wrap);
+      margin-inline:auto;
+    }
+
+    /* ============ Header ============ */
+    .hdr{
+      position:sticky;
+      top:0;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:rgba(248,246,241,.6);
+      border-bottom:1px solid rgba(0,0,0,.06);
+      z-index:50;
+    }
+    .hdr__inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .leaf{
+      display:inline-grid;
+      place-items:center;
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      background:linear-gradient(180deg, var(--sky), var(--moss));
+      color:#0d1b10;
+      font-weight:800;
+      font-family:"Playfair Display",serif;
+      box-shadow:0 10px 24px rgba(0,0,0,.15);
+    }
+    .brand__text{font-weight:700;letter-spacing:.22px}
+
+    .nav{display:flex;gap:16px}
+    .nav a{
+      color:inherit;
+      opacity:.85;
+      text-decoration:none;
+      padding:8px 11px;
+      border-radius:12px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .nav a:hover,
+    .nav a.active{background:rgba(0,0,0,.06);opacity:1}
+
+    .hamburger{
+      display:none;
+      background:none;
+      border:none;
+      cursor:pointer;
+    }
+    .hamburger span{
+      display:block;
+      width:24px;
+      height:2px;
+      background:#333;
+      margin:5px 0;
+      border-radius:2px;
+    }
+
+    /* mobile nav panel */
+    .mnav{
+      display:none;
+      flex-direction:column;
+      gap:10px;
+      padding:10px 16px 12px;
+      background:rgba(247,245,240,.98);
+      border-bottom:1px solid rgba(0,0,0,.04);
+      backdrop-filter:blur(10px);
+    }
+    .mnav a{
+      background:rgba(0,0,0,.035);
+      border-radius:12px;
+      padding:11px 12px;
+      text-decoration:none;
+      color:inherit;
+      font-weight:600;
+    }
+    .mnav a.active{background:rgba(0,0,0,.08)}
+
+    /* ============ Hero ============ */
+    .hero{
+      padding:70px 0 16px;
+    }
+    .display{
+      font-family:"Playfair Display",serif;
+      font-weight:700;
+      font-size:clamp(30px, 5.2vw, 48px);
+      line-height:1.08;
+      margin:0 0 8px;
+      color:#1e2d24;
+    }
+    .lead{
+      font-size:17px;
+      max-width:640px;
+      opacity:.9;
+      margin:0;
+    }
+
+    /* ============ Page body ============ */
+    .about-shell{
+      padding:0 0 62px;
+    }
+    .panel{
+      background:rgba(247,245,240,.9);
+      border:1px solid rgba(0,0,0,.04);
+      border-radius:22px;
+      padding:20px 20px 26px;
+      box-shadow:var(--shadow-soft);
+    }
+    .detail{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.035);
+      border-radius:18px;
+      padding:16px 16px 14px;
+      margin:14px 0;
+    }
+    .detail h2{
+      font-size:18px;
+      margin:0 0 6px;
+      font-weight:700;
+    }
+    .detail p{margin:0 0 10px}
+    .list{padding-left:20px;margin:6px 0 0}
+    .list li{margin-bottom:6px}
+
+    /* ============ Buttons ============ */
+    .cta-row{
+      display:flex;
+      gap:12px;
+      margin-top:16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      padding:11px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition:transform .08s ease, box-shadow .12s ease;
+      white-space:nowrap;
+    }
+    .btn--prime{
+      background:linear-gradient(180deg, var(--sky), var(--moss));
+      color:#0f2015;
+      box-shadow:var(--shadow-soft);
+    }
+    .btn--prime:hover{transform:translateY(-1px);box-shadow:var(--shadow-hover)}
+    .btn--ghost{
+      background:rgba(0,0,0,.035);
+      color:var(--ink);
+    }
+    .btn--ghost:hover{background:rgba(0,0,0,.08)}
+
+    /* ============ Footer ============ */
+    .ftr{
+      padding:30px 0 72px;
+      border-top:1px solid rgba(0,0,0,.04);
+      background:rgba(255,255,255,.6);
+      backdrop-filter:blur(6px);
+    }
+    .ftr__inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .ftr__brand{display:flex;align-items:center;gap:8px}
+    .tiny{font-size:12px;color:var(--muted)}
+
+    /* ============ Mobile adjustments ============ */
+    @media (max-width:920px){
+      .nav{display:none}
+      .hamburger{display:block}
+      /* containers go full width on mobile */
+      .container,
+      .wrap{
+        width:100%;
+        max-width:100%;
+        padding-inline:clamp(14px, 4vw, 22px);
+      }
+      .hero{padding-top:62px}
+    }
+
+    @media (max-width:680px){
+      .cta-row{
+        flex-direction:column;
+      }
+      .btn{
+        width:100%;
+        justify-content:center;
+      }
+      .panel{padding:16px 14px 22px}
+      .detail{padding:14px 12px 12px}
+    }
+
+    @media (max-width:460px){
+      .display{font-size:34px}
+      .hero{padding-top:58px}
+    }
+  </style>
 </head>
 <body>
 <header class="hdr">
@@ -35,80 +290,87 @@
   </div>
 </header>
 
-<main class="container hero hero--sm" style="padding-bottom:28px">
-  <h1 class="display" style="margin-bottom:10px">🌿 About Mynd</h1>
-  <p class="lead" style="max-width:720px">
-    From surviving to self-sovereignty.
-  </p>
-</main>
+<main>
+  <section class="container hero" aria-labelledby="about-title">
+    <h1 id="about-title" class="display">🌿 About Mynd</h1>
+    <p class="lead">From surviving to self-sovereignty.</p>
+  </section>
 
-<main class="container" style="padding-bottom:56px">
-  <article class="panel" aria-label="About Mynd">
-    <section class="detail">
-      <p>There comes a point in every life where survival stops being enough.</p>
-      <p>Where keeping the peace costs too much.</p>
-      <p>Where you realize you’ve been living on autopilot — carrying emotions that aren’t yours, repeating stories that no longer serve you.</p>
-      <p>For a long time, I thought healing meant <em>understanding.</em> I read every book, studied every theory, analyzed every feeling — thinking that if I could just name my pain, I could control it.</p>
-      <p><strong>But what I eventually learned is that understanding doesn’t heal you. Love does.</strong></p>
-      <p>The kind of love that is patient enough to see the patterns, gentle enough to forgive the past, and brave enough to rewrite the story.</p>
-    </section>
+  <section class="container about-shell">
+    <article class="panel">
 
-    <section class="detail">
-      <p>Through years of inner work, reflection, and awakening, I began to see how our inner world mirrors the outer one.</p>
-      <p>Our nervous system branches like the roots of a tree.<br>
-      Neurons resemble the cosmic web of galaxies.<br>
-      Rivers flow like veins through Earth’s skin.<br>
-      Lungs breathe like leaves in the wind.<br>
-      And our blood carries the same elements as the stars.</p>
-      <p><strong>Everything is connected. Everything is alive. Everything is conscious.</strong></p>
-      <p>Earth, I realized, is not just a home — it’s a school for the soul. A place where we each learn to move from fear toward love, from reaction to creation, from unconscious patterns to conscious choice.</p>
-      <p><strong>That realization became the seed of Mynd.</strong></p>
-      <p>I began to see that every experience, every belief, every emotion — begins and ends in the mind.</p>
-      <p>We, as humans, are the greatest storytellers. We build worlds out of words. We tell ourselves stories to survive, to belong, to make sense of what we can’t yet understand.</p>
-      <p>For most of our lives, those stories tell us who we are. But once we realize that we are the storytellers — not the story — our entire reality opens up.</p>
-      <p>That’s when life transforms from reaction to creation. From unconscious repetition to conscious authorship. From being shaped by the mind to shaping it.</p>
-      <p><strong>This is what Mynd stands for — the moment you remember that you are not the narrative you inherited… you are the author of what comes next.</strong></p>
-    </section>
+      <!-- 1 -->
+      <section class="detail">
+        <p>There comes a point in every life where survival stops being enough.</p>
+        <p>Where keeping the peace costs too much.</p>
+        <p>Where you realize you’ve been living on autopilot — carrying emotions that aren’t yours, repeating stories that no longer serve you.</p>
+        <p>For a long time, I thought healing meant <em>understanding.</em> I read every book, studied every theory, analyzed every feeling — thinking that if I could just name my pain, I could control it.</p>
+        <p><strong>But what I eventually learned is that understanding doesn’t heal you. Love does.</strong></p>
+        <p>The kind of love that is patient enough to see the patterns, gentle enough to forgive the past, and brave enough to rewrite the story.</p>
+      </section>
 
-    <section class="detail">
-      <h2 style="margin-top:0">🌱 Why “Mynd”</h2>
-      <p>The name <strong>Mynd</strong> comes from <em>My Mind.</em></p>
-      <p>Because everything begins and ends there.</p>
-      <p>Your mind is the lens through which you experience the world — <strong>the soil where your beliefs take root, the garden where your emotions grow, and the sky where awareness expands.</strong></p>
-      <p>No one else’s perception can determine your peace. No one else’s beliefs can limit your becoming.</p>
-      <p><strong>You hold the power to change everything — with just your mind.</strong></p>
-    </section>
+      <!-- 2 -->
+      <section class="detail">
+        <p>Through years of inner work, reflection, and awakening, I began to see how our inner world mirrors the outer one.</p>
+        <p>Our nervous system branches like the roots of a tree.<br>
+        Neurons resemble the cosmic web of galaxies.<br>
+        Rivers flow like veins through Earth’s skin.<br>
+        Lungs breathe like leaves in the wind.<br>
+        And our blood carries the same elements as the stars.</p>
+        <p><strong>Everything is connected. Everything is alive. Everything is conscious.</strong></p>
+        <p>Earth, I realized, is not just a home — it’s a school for the soul. A place where we each learn to move from fear toward love, from reaction to creation, from unconscious patterns to conscious choice.</p>
+        <p><strong>That realization became the seed of Mynd.</strong></p>
+        <p>I began to see that every experience, every belief, every emotion — begins and ends in the mind.</p>
+        <p>We, as humans, are the greatest storytellers. We build worlds out of words. We tell ourselves stories to survive, to belong, to make sense of what we can’t yet understand.</p>
+        <p>For most of our lives, those stories tell us who we are. But once we realize that we are the storytellers — not the story — our entire reality opens up.</p>
+        <p>That’s when life transforms from reaction to creation. From unconscious repetition to conscious authorship. From being shaped by the mind to shaping it.</p>
+        <p><strong>This is what Mynd stands for — the moment you remember that you are not the narrative you inherited… you are the author of what comes next.</strong></p>
+      </section>
 
-    <section class="detail">
-      <h2 style="margin-top:0">🌾 What Mynd Is</h2>
-      <p><strong>Mynd was born from the space between therapy and transcendence — the bridge between psychology and soul.</strong></p>
-      <p>It’s built for the ones who grew up feeling “too much,” the ones who carry invisible stories, the ones who sense there’s more to this life than survival.</p>
-      <p>It’s not just an app; it’s a mirror — a tool to reconnect you to your own inner intelligence.</p>
-    </section>
+      <!-- 3 -->
+      <section class="detail">
+        <h2>🌱 Why “Mynd”</h2>
+        <p>The name <strong>Mynd</strong> comes from <em>My Mind.</em> Because everything begins and ends there.</p>
+        <p>Your mind is the lens through which you experience the world — <strong>the soil where your beliefs take root, the garden where your emotions grow, and the sky where awareness expands.</strong></p>
+        <p>No one else’s perception can determine your peace. No one else’s beliefs can limit your becoming.</p>
+        <p><strong>You hold the power to change everything — with just your mind.</strong></p>
+      </section>
 
-    <section class="detail">
-      <h2 style="margin-top:0">🌸 What Mynd Stands For</h2>
-      <ul class="list">
-        <li><strong>Self-awareness as freedom.</strong> You can’t choose what you’re not conscious of.</li>
-        <li><strong>Accountability as empowerment.</strong> You are not your past, but you are the author of what comes next.</li>
-        <li><strong>Love as intelligence.</strong> True growth doesn’t come from judgment; it comes from gentleness.</li>
-      </ul>
-    </section>
+      <!-- 4 -->
+      <section class="detail">
+        <h2>🌾 What Mynd Is</h2>
+        <p><strong>Mynd was born from the space between therapy and transcendence — the bridge between psychology and soul.</strong></p>
+        <p>It’s built for the ones who grew up feeling “too much,” the ones who carry invisible stories, the ones who sense there’s more to this life than survival.</p>
+        <p>It’s not just an app; it’s a mirror — a tool to reconnect you to your own inner intelligence.</p>
+      </section>
 
-    <section class="detail">
-      <h2 style="margin-top:0">🌺 The Invitation</h2>
-      <p>Mynd invites you to explore the garden of your inner world — one conscious thought, one feeling, one moment at a time.</p>
-      <p>It’s where awareness meets design, where journaling meets neuroscience, and where you remember that your life is not something happening to you — it’s something <em>unfolding through</em> you.</p>
-      <p>Today, I no longer chase peace. <strong>I cultivate it.</strong></p>
-      <p>And Mynd is my way of helping you do the same.</p>
-      <p><strong>You are not too much. You are the beginning of your own becoming.</strong></p>
-    </section>
+      <!-- 5 -->
+      <section class="detail">
+        <h2>🌸 What Mynd Stands For</h2>
+        <ul class="list">
+          <li><strong>Self-awareness as freedom.</strong> You can’t choose what you’re not conscious of.</li>
+          <li><strong>Accountability as empowerment.</strong> You are not your past, but you are the author of what comes next.</li>
+          <li><strong>Love as intelligence.</strong> True growth doesn’t come from judgment; it comes from gentleness.</li>
+        </ul>
+      </section>
 
-    <div class="cta-row" style="margin-top:20px">
-      <a class="btn btn--prime" href="vision.html">Explore the Vision</a>
-      <a class="btn btn--ghost" href="garden.html">Enter the Garden</a>
-    </div>
-  </article>
+      <!-- 6 -->
+      <section class="detail">
+        <h2>🌺 The Invitation</h2>
+        <p>Mynd invites you to explore the garden of your inner world — one conscious thought, one feeling, one moment at a time.</p>
+        <p>It’s where awareness meets design, where journaling meets neuroscience, and where you remember that your life is not something happening to you — it’s something <em>unfolding through</em> you.</p>
+        <p>Today, I no longer chase peace. <strong>I cultivate it.</strong></p>
+        <p>And Mynd is my way of helping you do the same.</p>
+        <p><strong>You are not too much. You are the beginning of your own becoming.</strong></p>
+      </section>
+
+      <div class="cta-row">
+        <a class="btn btn--prime" href="vision.html">Explore the Vision</a>
+        <a class="btn btn--ghost" href="garden.html">Enter the Garden</a>
+      </div>
+
+    </article>
+  </section>
 </main>
 
 <footer class="ftr">
@@ -125,15 +387,14 @@
 </footer>
 
 <script>
-  // year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // mobile nav
   const openMenu = document.getElementById('openMenu');
   const mobileNav = document.getElementById('mobileNav');
-  openMenu.addEventListener('click', ()=> {
-    const hidden = mobileNav.hasAttribute('hidden');
-    if (hidden) {
+
+  openMenu.addEventListener('click', () => {
+    const isHidden = mobileNav.hasAttribute('hidden');
+    if (isHidden) {
       mobileNav.removeAttribute('hidden');
     } else {
       mobileNav.setAttribute('hidden', '');
