@@ -3,42 +3,45 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Mynd — Core Teachings</title>
+<title>Mynd — Everyday Emotional Clarity</title>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===================== TOKENS ===================== */
+/* ===================== THEME TOKENS (lighter, calmer) ===================== */
 :root{
-  /* Palette */
-  --bg:#0B1213;              /* deep forest night */
-  --bg-2:#0F1A1C;            /* teal-black cards */
-  --ink:#E6F5F4;             /* titles / hard text */
-  --soft:#B8D4D1;            /* soft text */
-  --muted:#8BA5A4;           /* muted text */
-  --aqua:#19A19C;            /* brand accent */
-  --aqua-mist:#5ABBB4;       /* glow/hint */
-  --success:#73FFE9;         /* rare pop */
-  --shadow-red:#642E33;      /* shadow archetype */
+  /* Core palette (brighter surfaces while honoring your brand colors) */
+  --bg:#0E1516;              /* deep forest, slightly brighter */
+  --bg-veil:#112022;         /* lifted background for contrast */
+  --panel:#142628;           /* soft card base */
+  --panel-2:rgba(255,255,255,.04); /* transparent wash for paper look */
 
-  /* Surfaces */
-  --panel: rgba(15,26,28,.82);
-  --panel-solid:#0F1A1C;
-  --keyline: rgba(186,228,223,.10);
-  --keyline-strong: rgba(186,228,223,.18);
+  --ink:#EAF8F7;             /* titles / hard text */
+  --soft:#C9E2DF;            /* soft text */
+  --muted:#9FB8B6;           /* muted text */
 
-  /* Type & layout */
+  --aqua:#19A19C;            /* signature accent */
+  --aqua-mist:#5ABBB4;       /* glow */
+  --pop:#73FFE9;             /* breakthrough spark (use rarely) */
+  --shadow-red:#642E33;      /* shadow tint */
+
+  --keyline: rgba(186,228,223,.12);
+  --keyline-strong: rgba(186,228,223,.2);
+
   --radius:20px;
   --radius-lg:24px;
-  --shadow: 0 22px 60px rgba(0,0,0,.45);
-  --shadow-soft: 0 14px 40px rgba(0,0,0,.28);
+  --shadow: 0 28px 80px rgba(0,0,0,.45);
+  --shadow-soft: 0 16px 40px rgba(0,0,0,.28);
   --max: 1120px;
 
-  /* Motion */
   --easing: cubic-bezier(.2,.7,.2,1);
   --dur: 260ms;
+
+  --title-font: "SF Pro Display", Inter, ui-sans-serif;
+  --text-font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  --soul-font: "Cormorant Garamond", serif;
 }
 
 /* ===================== BASE ===================== */
@@ -49,26 +52,36 @@ body{
   margin:0;
   color:var(--soft);
   background:
-    radial-gradient(1200px 520px at 50% -10%, rgba(26,64,66,.45), transparent 60%),
-    linear-gradient(180deg, #0B1213 0%, #0B1213 28%, #0F1A1C 100%);
-  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  line-height:1.65;
+    radial-gradient(1200px 520px at 50% -10%, rgba(32,86,88,.35), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-veil) 36%, #122023 100%);
+  font-family:var(--text-font);
+  line-height:1.7;
   letter-spacing:.2px;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
 
+/* A gentle “paper” veil to lighten the whole site */
+.page-veil{
+  position:fixed; inset:0; pointer-events:none;
+  background:
+    radial-gradient(1400px 900px at 50% -20%, rgba(90,187,180,.10), transparent 60%),
+    radial-gradient(1200px 700px at -10% 10%, rgba(255,255,255,.05), transparent 50%),
+    radial-gradient(1200px 700px at 110% 10%, rgba(255,255,255,.05), transparent 50%);
+  z-index:0;
+}
+
 /* Selection */
-::selection{background:rgba(25,161,156,.28); color:var(--ink)}
+::selection{background:rgba(25,161,156,.26); color:var(--ink)}
 
 /* Containers */
-.container{width:min(var(--max),92vw);margin-inline:auto}
+.container{width:min(var(--max),92vw);margin-inline:auto;position:relative;z-index:1}
 
 /* ===================== HEADER ===================== */
 header{
   position:sticky; top:0; z-index:60;
-  backdrop-filter:saturate(120%) blur(14px);
-  background:linear-gradient(180deg, rgba(11,18,19,.82), rgba(11,18,19,.62));
+  backdrop-filter:saturate(120%) blur(12px);
+  background:linear-gradient(180deg, rgba(14,21,22,.88), rgba(14,21,22,.60));
   border-bottom:1px solid var(--keyline);
 }
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
@@ -76,8 +89,8 @@ header{
 .logo{
   width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
   background:radial-gradient(80% 80% at 30% 20%, var(--aqua) 0%, #0f3a37 60%, #0b1415 100%);
-  color:#001e1c;font-weight:700;font-family:"Cormorant Garamond", serif;letter-spacing:.3px;
-  box-shadow:0 10px 30px rgba(25,161,156,.25), inset 0 0 0 1px rgba(255,255,255,.06);
+  color:#001e1c;font-weight:700;font-family:var(--soul-font);letter-spacing:.3px;
+  box-shadow:0 10px 26px rgba(25,161,156,.22), inset 0 0 0 1px rgba(255,255,255,.06);
 }
 .brand span{font-weight:600;letter-spacing:.3px}
 
@@ -86,8 +99,8 @@ header{
   text-decoration:none;color:var(--soft);font-weight:600;
   padding:8px 12px;border-radius:999px;border:1px solid transparent;
 }
-.nav a:hover{border-color:var(--keyline);background:rgba(186,228,223,.04)}
-.nav a.active{color:var(--ink);border-color:var(--keyline-strong);background:rgba(186,228,223,.06)}
+.nav a:hover{border-color:var(--keyline);background:rgba(186,228,223,.06)}
+.nav a.active{color:var(--ink);border-color:var(--keyline-strong);background:rgba(186,228,223,.10)}
 
 .menu{display:none;appearance:none;border:0;background:transparent;padding:6px;margin-left:8px}
 .menu svg{width:26px;height:26px;stroke:var(--soft)}
@@ -96,177 +109,184 @@ header{
 .cta{
   display:inline-flex;align-items:center;gap:8px;
   padding:10px 14px;border-radius:999px;border:1px solid var(--keyline-strong);
-  background:linear-gradient(180deg, rgba(25,161,156,.24), rgba(25,161,156,.10));
+  background:linear-gradient(180deg, rgba(25,161,156,.22), rgba(25,161,156,.08));
   color:var(--ink);font-weight:700;text-decoration:none;
-  box-shadow:0 10px 28px rgba(25,161,156,.15);
+  box-shadow:0 10px 28px rgba(25,161,156,.14);
 }
 
 /* Mobile sheet */
 .sheet{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:70}
 .sheet__panel{
   position:absolute;right:0;top:0;height:100%;width:min(82vw,360px);
-  background:var(--panel-solid);border-left:1px solid var(--keyline);box-shadow:var(--shadow);
+  background:rgba(17,33,36,.98);border-left:1px solid var(--keyline);box-shadow:var(--shadow);
   padding:18px 16px;display:flex;flex-direction:column;gap:10px
 }
 .sheet__panel a{padding:12px;border-radius:12px;text-decoration:none;color:var(--ink);border:1px solid var(--keyline)}
-.sheet__panel a:hover{background:rgba(186,228,223,.04)}
+.sheet__panel a:hover{background:rgba(186,228,223,.06)}
 .sheet__close{align-self:flex-end;border:1px solid var(--keyline);background:transparent;border-radius:10px;padding:8px;color:var(--soft)}
 
-/* ===================== FOREST MIST HERO ===================== */
+/* ===================== HERO (lighter, warmer) ===================== */
 .hero{
-  position:relative; padding:84px 0 22px;
+  position:relative; padding:92px 0 28px;
   background:
-    radial-gradient(1200px 500px at 50% -40%, rgba(25,161,156,.08), transparent 60%),
-    radial-gradient(900px 420px at 10% -20%, rgba(22,44,47,.6), transparent 60%),
-    radial-gradient(900px 420px at 90% -20%, rgba(22,44,47,.6), transparent 60%);
+    radial-gradient(1200px 500px at 50% -40%, rgba(25,161,156,.12), transparent 65%),
+    radial-gradient(900px 420px at 15% -10%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(900px 420px at 85% -10%, rgba(255,255,255,.05), transparent 60%);
 }
 .kicker{
   display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
-  background:rgba(186,228,223,.06);border:1px solid var(--keyline);
+  background:rgba(186,228,223,.10);border:1px solid var(--keyline);
   color:var(--soft);font-weight:700;letter-spacing:.3px
 }
 .kicker .dot{width:8px;height:8px;border-radius:999px;background:var(--aqua);box-shadow:0 0 0 3px rgba(25,161,156,.12)}
 
 .h1{
-  margin:14px 0 8px;
-  font:600 clamp(28px,5.2vw,56px)/1.05 "SF Pro Display", Inter, ui-sans-serif;
+  margin:16px 0 10px;
+  font:600 clamp(30px,5.2vw,60px)/1.06 var(--title-font);
   color:var(--ink); letter-spacing:.2px
 }
+.glowline{
+  height:2px; width:230px; margin:18px 0 12px;
+  background:linear-gradient(90deg, var(--aqua), transparent);
+  filter:drop-shadow(0 0 6px rgba(25,161,156,.38));
+}
 .sub{
-  max-width:780px;margin:0;color:var(--soft);font-size:clamp(15px,2.3vw,19px)
+  max-width:820px;margin:0;color:var(--soft);font-size:clamp(16px,2.2vw,20px)
 }
 
-/* underline glow */
-.glowline{
-  height:2px; width:190px; margin:18px 0 4px;
-  background:linear-gradient(90deg, var(--aqua), transparent);
-  filter:drop-shadow(0 0 6px rgba(25,161,156,.45));
+/* ===================== INTRO PANEL ===================== */
+.intro{
+  margin-top:24px;
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border:1px solid var(--keyline);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-soft);
+  padding:18px;
 }
+.intro p{margin:0 0 10px}
+.intro strong{color:var(--ink);}
 
 /* ===================== TILES ===================== */
-.tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:24px 0 6px}
+.tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:20px 0 8px}
 @media (max-width:1000px){.tiles{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:560px){.tiles{grid-template-columns:repeat(2,1fr)}}
 .tile{
-  min-height:88px;border-radius:16px;padding:12px;
-  border:1px solid var(--keyline); background:linear-gradient(180deg, rgba(186,228,223,.03), rgba(186,228,223,.01));
-  text-decoration:none;color:var(--ink); display:flex;flex-direction:column;justify-content:center;gap:4px;
-  box-shadow:0 8px 28px rgba(0,0,0,.25);
+  min-height:92px;border-radius:18px;padding:12px;
+  border:1px solid var(--keyline); background:linear-gradient(180deg, rgba(186,228,223,.08), rgba(186,228,223,.02));
+  text-decoration:none;color:var(--ink); display:flex;flex-direction:column;justify-content:center;gap:6px;
+  box-shadow:0 10px 28px rgba(0,0,0,.25);
   transition:transform var(--dur) var(--easing), box-shadow var(--dur) var(--easing), border-color var(--dur) var(--easing);
 }
 .tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:var(--keyline-strong)}
 .tile .tname{font-weight:700}
 .tile .tsub{font-size:12px;color:var(--muted)}
 
-/* tint per section (subtle) */
-.tile[data-k="gardener"]{box-shadow:inset 0 0 0 1px rgba(25,161,156,.10), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="soil"]{box-shadow:inset 0 0 0 1px rgba(150,190,187,.10), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="seed"]{box-shadow:inset 0 0 0 1px rgba(90,187,180,.10), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="water"]{box-shadow:inset 0 0 0 1px rgba(90,187,180,.16), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="sun"]{box-shadow:inset 0 0 0 1px rgba(115,255,233,.12), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="tree"]{box-shadow:inset 0 0 0 1px rgba(60,160,150,.10), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="seasons"]{box-shadow:inset 0 0 0 1px rgba(120,200,195,.10), 0 8px 28px rgba(0,0,0,.25)}
-.tile[data-k="storms"]{box-shadow:inset 0 0 0 1px rgba(100,46,51,.20), 0 8px 28px rgba(0,0,0,.25)}
+/* subtle tints */
+.tile[data-k="storms"]{box-shadow:inset 0 0 0 1px rgba(100,46,51,.18), 0 10px 28px rgba(0,0,0,.25)}
 
 /* ===================== TOC CHIPS ===================== */
 .toc-wrap{position:sticky; top:66px; z-index:50; margin:14px 0}
 .toc{
-  display:flex; gap:10px; overflow:auto; padding:10px;border-radius:14px;
-  background:rgba(186,228,223,.05); border:1px solid var(--keyline);
+  display:flex; gap:10px; overflow:auto; padding:10px;border-radius:16px;
+  background:rgba(186,228,223,.10); border:1px solid var(--keyline);
 }
 .tchip{
-  flex:0 0 auto; padding:8px 12px; border-radius:999px;
+  flex:0 0 auto; padding:9px 13px; border-radius:999px;
   border:1px solid var(--keyline); color:var(--soft); font-weight:700; text-decoration:none;
-  background:rgba(11,18,19,.6); transition:background var(--dur) var(--easing), color var(--dur) var(--easing), border-color var(--dur) var(--easing)
+  background:rgba(17,33,36,.65); transition:background var(--dur) var(--easing), color var(--dur) var(--easing), border-color var(--dur) var(--easing)
 }
-.tchip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.08)}
-.tchip.active{color:var(--ink); background:linear-gradient(180deg, rgba(25,161,156,.20), rgba(25,161,156,.08)); border-color:var(--keyline-strong)}
+.tchip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.14)}
+.tchip.active{color:var(--ink); background:linear-gradient(180deg, rgba(25,161,156,.22), rgba(25,161,156,.08)); border-color:var(--keyline-strong)}
 
 /* ===================== BANDS / PANELS ===================== */
-.band{position:relative;padding:34px 0 30px}
+.band{position:relative;padding:36px 0 30px}
 .band + .band{border-top:1px solid var(--keyline)}
 .band__head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .tag{
   display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
-  border:1px solid var(--keyline-strong); color:var(--soft); background:rgba(186,228,223,.06); font-weight:700
+  border:1px solid var(--keyline-strong); color:var(--soft); background:rgba(186,228,223,.12); font-weight:700
 }
 .tag .dot{width:8px;height:8px;border-radius:999px;background:var(--aqua)}
 .h2{
-  margin:8px 0 12px; color:var(--ink); font:600 clamp(20px,3.6vw,32px)/1.12 "SF Pro Display", Inter, ui-sans-serif
+  margin:10px 0 12px; color:var(--ink); font:600 clamp(22px,3.6vw,34px)/1.14 var(--title-font)
 }
 .grid{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:20px}
 @media (max-width:1000px){.grid{grid-template-columns:1fr}}
 
 .panel{
-  background:var(--panel); border:1px solid var(--keyline);
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid var(--keyline);
   border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:18px;
   animation:fadeIn var(--dur) var(--easing) both;
 }
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none}}
 
 .block{
-  background:rgba(186,228,223,.03);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
   border:1px solid var(--keyline);
   border-radius:16px; padding:14px; margin:12px 0
 }
-.block h4{margin:0 0 6px; color:var(--ink); font:600 15px/1.2 Inter}
-.block p{margin:0 0 10px}
+.block h4{margin:0 0 8px; color:var(--ink); font:600 15px/1.2 Inter}
+.block p{margin:0 0 12px}
 .block ul{margin:8px 0 0 18px}
 .block ol{margin:8px 0 0 18px}
 
+/* subtle category hues */
+.story{background:linear-gradient(180deg, rgba(186,228,223,.12), rgba(186,228,223,.03))}
+.lesson{background:linear-gradient(180deg, rgba(25,161,156,.15), rgba(25,161,156,.04))}
+.practice{background:linear-gradient(180deg, rgba(90,187,180,.14), rgba(90,187,180,.03))}
+.reflect{background:linear-gradient(180deg, rgba(115,255,233,.12), rgba(115,255,233,.02))}
+.science{background:linear-gradient(180deg, rgba(150,200,198,.12), rgba(150,200,198,.03))}
+.note{background:linear-gradient(180deg, rgba(100,46,51,.14), rgba(100,46,51,.03))}
+
+/* Tables */
 table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--keyline)}
-thead th{background:rgba(186,228,223,.06); color:var(--ink); font-weight:700; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid var(--keyline)}
+thead th{background:rgba(186,228,223,.12); color:var(--ink); font-weight:700; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid var(--keyline)}
 tbody td{padding:10px 12px; border-bottom:1px solid var(--keyline); vertical-align:top}
 tbody tr:last-child td{border-bottom:none}
-
-/* subtle category hues */
-.lesson{background:linear-gradient(180deg, rgba(25,161,156,.06), transparent)}
-.practice{background:linear-gradient(180deg, rgba(90,187,180,.06), transparent)}
-.reflect{background:linear-gradient(180deg, rgba(115,255,233,.06), transparent)}
-.science{background:linear-gradient(180deg, rgba(150,200,198,.06), transparent)}
-.story{background:linear-gradient(180deg, rgba(186,228,223,.05), transparent)}
-.note{background:linear-gradient(180deg, rgba(100,46,51,.08), transparent)}
 
 /* Sidebar */
 .sidebar{position:sticky; top:98px; display:flex; flex-direction:column; gap:12px}
 .tip{
-  background:var(--panel);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   border:1px solid var(--keyline);
   border-radius:16px; padding:12px; box-shadow:var(--shadow-soft)
 }
 .tip .label{
   display:inline-block; font-size:11px; font-weight:700; letter-spacing:.3px; margin-bottom:6px;
-  color:var(--soft); border:1px solid var(--keyline); padding:4px 8px; border-radius:999px; background:rgba(186,228,223,.05)
+  color:var(--soft); border:1px solid var(--keyline); padding:4px 8px; border-radius:999px; background:rgba(186,228,223,.10)
 }
 .minitoc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .chip{
   display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;font-weight:700;
-  border:1px solid var(--keyline); background:rgba(11,18,19,.6); color:var(--soft); text-decoration:none
+  border:1px solid var(--keyline); background:rgba(17,33,36,.65); color:var(--soft); text-decoration:none
 }
-.chip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.08)}
+.chip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.14)}
 
 /* Back to top */
 .backtop{
   position:fixed; right:16px; bottom:18px; z-index:55; border:1px solid var(--keyline-strong);
-  border-radius:999px; padding:10px 12px; background:rgba(186,228,223,.06); color:var(--ink);
+  border-radius:999px; padding:10px 12px; background:rgba(186,228,223,.12); color:var(--ink);
   font-weight:700; box-shadow:var(--shadow-soft); display:none
 }
 .backtop.show{display:inline-flex; align-items:center; gap:8px}
 
 /* Footer */
-footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
-  background:linear-gradient(180deg, rgba(11,18,19,.4), rgba(11,18,19,.7))}
+footer{margin-top:34px;padding:40px 0 80px;border-top:1px solid var(--keyline);
+  background:linear-gradient(180deg, rgba(14,21,22,.5), rgba(14,21,22,.8))}
 .ftr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .tiny{font-size:12px;color:var(--muted)}
 </style>
 </head>
 
 <body>
+<div class="page-veil" aria-hidden="true"></div>
+
 <header>
   <div class="container hdr">
     <a class="brand" href="#"><div class="logo">My</div><span>Mynd</span></a>
     <nav class="nav" aria-label="Primary">
-      <a href="#" class="active">Teachings</a>
+      <a href="#" class="active">Home</a>
       <a href="#gardener">Attention</a>
       <a href="#soil">Belief</a>
       <a href="#seed">Thought</a>
@@ -277,7 +297,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
       <a href="#storms">Storms</a>
     </nav>
     <button class="menu" aria-label="Open menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 6h18M3 12h18M3 18h18" />
       </svg>
     </button>
@@ -287,10 +307,8 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
   <!-- Mobile Sheet -->
   <div class="sheet" id="sheet" aria-hidden="true">
     <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Navigation">
-      <button class="sheet__close" id="closeSheet" aria-label="Close menu">
-        ✕
-      </button>
-      <a href="#" class="active">Teachings</a>
+      <button class="sheet__close" id="closeSheet" aria-label="Close menu">✕</button>
+      <a href="#" class="active">Home</a>
       <a href="#gardener">Attention</a>
       <a href="#soil">Belief</a>
       <a href="#seed">Thought</a>
@@ -307,18 +325,25 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <span class="kicker"><span class="dot"></span> Core Teachings</span>
-    <h1 class="h1">A sanctuary for clear minds</h1>
+    <span class="kicker"><span class="dot"></span> Welcome</span>
+    <h1 class="h1">Gentle tools for feeling better and seeing clearly</h1>
     <div class="glowline" aria-hidden="true"></div>
     <p class="sub">
-      Practical emotional mastery, written in a calm, compassionate voice. Clear explanations, small practices, and
-      stories that help the nervous system soften and the mind see.
+      This is a calm place to understand yourself. We move slowly. We speak plainly.
+      We work with how the mind, body, and heart actually behave—so you can find steadiness,
+      make kinder choices, and grow the life that fits.
     </p>
+
+    <div class="intro">
+      <p><strong>How to use this page:</strong> each section gives you a short story (to feel), a clear teaching (to understand),
+      and a few tiny practices (to try today). You do not have to fix everything—just bring
+      a little more light to the part of you that’s ready.</p>
+    </div>
 
     <!-- Section Tiles -->
     <div class="tiles" aria-label="Map">
       <a class="tile" data-k="gardener" href="#gardener"><span class="tname">Attention</span><span class="tsub">Where your light lands</span></a>
-      <a class="tile" data-k="soil" href="#soil"><span class="tname">Belief</span><span class="tsub">Rules you live by</span></a>
+      <a class="tile" data-k="soil" href="#soil"><span class="tname">Belief</span><span class="tsub">The rules you live by</span></a>
       <a class="tile" data-k="seed" href="#seed"><span class="tname">Thought</span><span class="tsub">Choosing your scripts</span></a>
       <a class="tile" data-k="water" href="#water"><span class="tname">Emotion</span><span class="tsub">Energy that wants to move</span></a>
       <a class="tile" data-k="sun" href="#sun"><span class="tname">Awareness</span><span class="tsub">Light that organizes</span></a>
@@ -354,41 +379,48 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>You put the kettle on and glance at one message. Ten minutes later the tea is cold and your chest is tight. You didn’t choose chaos—your attention was borrowed. Hand to heart, one slow breath. The room changes temperature. When you choose where to look, the moment changes tone.</p>
+          <p>The kettle sings. You open one message and—somehow—ten more. Your tea goes cold and your chest tightens. You didn’t choose chaos; your attention was borrowed. Hand to heart, one slow breath. You choose a single thing to care for now. The room changes temperature. So do you.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>Attention isn’t just focus; it’s creative power. What you look at with feeling becomes easier to see tomorrow. Your mind learns from repetition and tone: the things you linger on grow roots.</p>
+          <h4>Teaching (clear & simple)</h4>
+          <p>Attention isn’t just focus—it’s creative power. Whatever you give warm, repeated attention becomes easier to see and easier to choose tomorrow. That’s how habits, moods, and identities grow: attention → repetition → wiring.</p>
+          <ul>
+            <li><strong>Quality over quantity:</strong> ten kind seconds on what matters can outgrow an hour of scattered clicking.</li>
+            <li><strong>Redirect beats resist:</strong> “Not this right now—this instead.”</li>
+            <li><strong>Presence changes tone:</strong> when you really look, your nervous system listens.</li>
+          </ul>
         </div>
 
         <div class="block science">
-          <h4>How it works</h4>
+          <h4>Why your brain agrees</h4>
           <ul>
-            <li>Neurons keep what we repeat; attention + emotion = fast learning.</li>
-            <li>Quality beats quantity: ten kind seconds on what matters can outgrow an hour of scattered clicking.</li>
-            <li>Redirecting is stronger than resisting. “Not this right now” is a skill.</li>
+            <li>Emotion + attention tells the brain “store this.”</li>
+            <li>Repeated attention thickens pathways (what fires together wires together).</li>
+            <li>Gentle noticing calms the threat system; frantic scanning feeds it.</li>
           </ul>
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
-          <p><strong>60-second beam:</strong> choose one sound in the room and rest there for a minute. Notice who you are after.</p>
-          <p><strong>End-of-day check:</strong> “Where did my light land? What will I water tomorrow?”</p>
-          <p><strong>Anchor:</strong> when overwhelmed, ask “Where is my attention, and what is it growing?”</p>
+          <h4>Practices (tiny, doable)</h4>
+          <p><strong>60-second beam:</strong> pick one sound in the room; rest there for a minute. Notice who you are after.</p>
+          <p><strong>Evening audit:</strong> “Where did my light land today? What deserves it tomorrow?”</p>
+          <p><strong>In-moment anchor:</strong> “Where is my attention, and what is it growing?”</p>
         </div>
 
         <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>You don’t have an attention problem—you have a care problem. Aim your care.</p>
+          <h4>Gentle reframe</h4>
+          <p>You don’t have an attention problem. You have a care problem. Aim your care.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Quick tip</div><p>Leave your phone in another room for the 60-second beam.</p></div>
-        <div class="tip"><div class="label">Mini TOC</div><div class="minitoc"><a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Next: Belief</a></div></div>
+        <div class="tip"><div class="label">Quick tip</div><p>Put your phone in another room for the 60-second beam. Your mind will thank you.</p></div>
+        <div class="tip"><div class="label">Next</div><div class="minitoc"><a class="chip" href="#soil">Belief</a></div></div>
       </aside>
     </div>
   </section>
@@ -402,29 +434,34 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>A friend doesn’t reply. Two paths appear: “I did something wrong” or “They’re probably busy.” Same silence, opposite nervous systems. The belief you wear decides which world you stand in.</p>
+          <p>A friend goes quiet. One inner rule says, “I must have done something wrong.” Another says, “People get busy.” Same silence, opposite nervous systems. Your rulebook decides which world you stand in.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>Beliefs are practiced interpretations. They aren’t facts; they’re lenses. Many were chosen by earlier versions of you—family, culture, and old emotions set them in place. You are allowed to update them.</p>
+          <h4>Teaching</h4>
+          <p>Beliefs are practiced interpretations, not facts. Many were chosen by earlier versions of you—family, culture, old emotions set them in place. They kept you safe then. You get to update them now.</p>
+          <ul>
+            <li><strong>Fertile beliefs</strong> feel spacious and curious; life feels more possible.</li>
+            <li><strong>Depleted beliefs</strong> feel tight and absolute; life keeps repeating.</li>
+          </ul>
         </div>
 
         <div class="block science">
-          <h4>Signals</h4>
+          <h4>Spot the signal</h4>
           <table role="table" aria-label="Belief signals">
             <thead><tr><th>Belief quality</th><th>Inner feel</th><th>Outcomes</th></tr></thead>
             <tbody>
-              <tr><td>Fertile</td><td>Chest space, curiosity, steadiness</td><td>Flow, creative options, ease</td></tr>
-              <tr><td>Depleted</td><td>Tight, absolute, all-or-nothing</td><td>Repeating loops, burnout, isolation</td></tr>
+              <tr><td>Fertile</td><td>Breath in the chest, a little hope</td><td>Options appear, energy returns</td></tr>
+              <tr><td>Depleted</td><td>All-or-nothing, shame spiral</td><td>Same loops, isolation, stuckness</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="block note">
-          <h4>Common upgrades</h4>
+          <h4>Gentle upgrades</h4>
           <ul>
             <li>“I’m behind.” → “I’m on time for my season.”</li>
             <li>“It’s selfish to want more.” → “When I expand, I can give cleanly.”</li>
@@ -433,21 +470,22 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
-          <p><strong>Root question:</strong> “What must I believe for this to keep happening?” Answer without editing.</p>
+          <h4>Practices</h4>
+          <p><strong>Root question:</strong> “What must I believe for this to keep happening?” Answer fast.</p>
           <p><strong>Compost:</strong> thank the old belief for protecting you; keep the wisdom; retire the weapon.</p>
-          <p><strong>Seven receipts:</strong> pick one new belief and gather seven tiny proofs this week.</p>
+          <p><strong>Seven receipts:</strong> pick one new belief and collect seven tiny proofs this week.</p>
         </div>
 
         <div class="block reflect">
           <h4>Reframe</h4>
           <p>Your beliefs were survival tech. You’ve outgrown some gear.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
         <div class="tip"><div class="label">Term</div><p><strong>Belief</strong> = a practiced interpretation you can update.</p></div>
-        <div class="tip"><div class="label">Jump</div><div class="minitoc"><a class="chip" href="#seed">Thought</a><a class="chip" href="#water">Emotion</a></div></div>
+        <div class="tip"><div class="label">Next</div><div class="minitoc"><a class="chip" href="#seed">Thought</a></div></div>
       </aside>
     </div>
   </section>
@@ -461,14 +499,15 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>Morning mirror. Old script: “I look exhausted → today will be hard.” Pause. “I’m in repair; my body is wise.” Same face, different future. Choosing a kinder line edits the day ahead.</p>
+          <p>Morning mirror. Old script: “I look exhausted—today will be hard.” Pause. “I’m in repair; my body is wise.” Same face, different future. Choosing a kinder line edits the day ahead.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>Thoughts appear automatically. You’re not responsible for the first one—only for the second look. Repetition and emotion give thoughts roots; curiosity loosens them.</p>
+          <h4>Teaching</h4>
+          <p>Thoughts appear automatically. You’re not responsible for the first one—only for the second look. Repetition + emotion give thoughts roots; curiosity loosens them.</p>
         </div>
 
         <div class="block science">
@@ -476,7 +515,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <table role="table" aria-label="Layers of thought">
             <thead><tr><th>Layer</th><th>What it is</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td>Surface chatter</td><td>Passing logistics</td><td>“I need coffee.”</td></tr>
+              <tr><td>Surface chatter</td><td>Passing logistics</td><td>“Need coffee.”</td></tr>
               <tr><td>Conditioned lines</td><td>Family/culture rules</td><td>“People like me don’t succeed.”</td></tr>
               <tr><td>Core statements</td><td>Identity assumptions</td><td>“I’m safe/unsafe.”</td></tr>
               <tr><td>Chosen thinking</td><td>Intentional edits</td><td>“I can learn this with patience.”</td></tr>
@@ -494,9 +533,9 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
+          <h4>Practices</h4>
           <p><strong>Thought harvest:</strong> when your body tenses, write the sentence you were believing.</p>
-          <p><strong>Three truer lines:</strong> for any sticky thought, write three alternatives that are equally true and kinder—pick one to practice for a week.</p>
+          <p><strong>Three truer lines:</strong> for a sticky thought, write three alternatives that are equally true and kinder—practice one for a week.</p>
           <p><strong>Morning planting:</strong> name three thoughts you want to experience today before touching your phone.</p>
         </div>
 
@@ -504,10 +543,11 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>Your mind is a storyteller. Give it better scripts.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Tip</div><p>Pair a new thought with an existing habit (stack it on your morning tea).</p></div>
+        <div class="tip"><div class="label">Tip</div><p>Stack a new thought onto your tea ritual to make it stick.</p></div>
       </aside>
     </div>
   </section>
@@ -521,13 +561,14 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>A hard talk is coming. Past you armored up. Present you places a palm on the belly, exhales longer than the inhale, and names it: “This is fear. I care.” The wave moves. Honesty lets it flow.</p>
+          <p>A hard talk is coming. Old you armors up. Present you places a palm on the belly, exhales longer than the inhale, and names it: “This is fear. I care.” The wave moves. Honesty lets it flow.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
+          <h4>Teaching</h4>
           <p>Emotions are messages, not verdicts. Suppressed, they turn to pressure. Indulged without awareness, they flood. Felt and named, they become fuel.</p>
         </div>
 
@@ -546,7 +587,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
+          <h4>Practices</h4>
           <p><strong>Weather report:</strong> “I feel __, intensity __/10, it’s asking for __.”</p>
           <p><strong>90-second flow:</strong> move the body the way the feeling would move (shake, sway), then stillness.</p>
           <p><strong>Repair line:</strong> “When X happened, I felt Y because Z matters to me. I need __.”</p>
@@ -556,10 +597,11 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>You’re not “too much.” You’re alive. Make room for your aliveness.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Micro</div><p>Exhale longer than you inhale. It signals safety.</p></div>
+        <div class="tip"><div class="label">Micro</div><p>Exhale longer than inhale. It signals safety to your body.</p></div>
       </aside>
     </div>
   </section>
@@ -573,18 +615,19 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>Mid-spiral, you hear the line: “I always mess this up.” Something kind steps in: “I’m noticing a pattern.” The moment you notice, you have a choice. Noticing loosens the knot.</p>
+          <p>Mid-spiral, you hear the line: “I always mess this up.” Something kinder steps in: “I’m noticing a pattern.” The moment you notice, you have a choice. Noticing loosens the knot.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>Awareness is non-judgmental seeing. It doesn’t fight; it reveals—and revelation softens the pattern.</p>
+          <h4>Teaching</h4>
+          <p>Awareness is non-judgmental seeing. It doesn’t fight; it reveals—and revelation softens the pattern. Awareness integrates attention, belief, thought, and emotion so they stop running on autopilot.</p>
         </div>
 
         <div class="block science">
-          <h4>Levels (simple)</h4>
+          <h4>Levels</h4>
           <table role="table" aria-label="Awareness levels">
             <thead><tr><th>Level</th><th>Description</th><th>Experience</th></tr></thead>
             <tbody>
@@ -597,7 +640,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
+          <h4>Practices</h4>
           <p><strong>Labeling:</strong> “Thinking… Feeling… Sensing…” then return to the one who notices.</p>
           <p><strong>Three-breath reset:</strong> in through nose, out longer; find the softest sensation in your body; rest there.</p>
           <p><strong>Sun on shadows:</strong> “If this part could talk, what would it ask for?”</p>
@@ -607,10 +650,11 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>Awareness is not detachment; it’s intimacy without panic.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Try</div><p>Find one “bright spot” each evening and name why it mattered.</p></div>
+        <div class="tip"><div class="label">Try</div><p>Name one “bright spot” each evening and why it mattered.</p></div>
       </aside>
     </div>
   </section>
@@ -624,14 +668,15 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
           <p>You notice you’ve been performing a version of you that kept the peace. You prune—gently—so the living parts can grow. Sturdier now, you still sway with wind. Oaks bend and remain oak.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>You’re an ecosystem, not a brand. Healthy selves have deep roots (history/values), a strong trunk (identity/boundaries), flexible branches (choices), and seasonal fruit (results).</p>
+          <h4>Teaching</h4>
+          <p>You’re an ecosystem, not a brand. Healthy selves have deep roots (history/values), a strong trunk (identity/boundaries), flexible branches (choices), and seasonal fruit (results). When any part is neglected, the whole system tilts.</p>
         </div>
 
         <div class="block science">
@@ -648,7 +693,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
+          <h4>Practices</h4>
           <p><strong>Map your tree:</strong> one page, four quadrants—write three bullets in each.</p>
           <p><strong>Boundary as bark:</strong> draft one sentence you’ll use next time your line is crossed.</p>
           <p><strong>Prune with love:</strong> release one role you’ve outgrown.</p>
@@ -658,10 +703,11 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>You’re allowed to be sturdy and soft.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Coming</div><p>Interactive “Tree” dashboard is on the roadmap.</p></div>
+        <div class="tip"><div class="label">Soon</div><p>Interactive “Tree” view is on the roadmap.</p></div>
       </aside>
     </div>
   </section>
@@ -675,14 +721,15 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
-          <p>You planned to launch, but your body is in winter—quiet, inward, slow. Forcing summer makes brittle fruit. You pick restoration. The result: stronger spring.</p>
+          <p>You planned to launch, but your body is in winter—quiet, inward, slow. Forcing summer makes brittle fruit. You pick restoration. The result: a stronger spring.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
-          <p>Life breathes in seasons: spring (begin), summer (build), autumn (harvest), winter (restore). Suffering spikes when we demand the wrong season.</p>
+          <h4>Teaching</h4>
+          <p>Life breathes in seasons: spring (begin), summer (build), autumn (harvest), winter (restore). Suffering spikes when we demand the wrong season. Freedom grows when we match moves to timing.</p>
         </div>
 
         <div class="block science">
@@ -699,8 +746,8 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
-          <p><strong>Season map:</strong> label your work, relationships, health—each may be in a different season.</p>
+          <h4>Practices</h4>
+          <p><strong>Season map:</strong> label work, relationships, health—each may be in a different season.</p>
           <p><strong>Sacred pause:</strong> one winter hour weekly, regardless of season.</p>
           <p><strong>Harvest log:</strong> write wins and lessons; gratitude closes loops.</p>
         </div>
@@ -709,6 +756,7 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>Rest isn’t the opposite of productivity. It keeps life’s promise.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
@@ -726,13 +774,14 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
 
     <div class="grid">
       <article class="panel">
+
         <div class="block story">
           <h4>Story</h4>
           <p>A conversation turns sharp. Old you over-explains or vanishes. Current you grounds first: feet on floor, long exhale, name the storm, one clear sentence. The weather passes; the root strengthens.</p>
         </div>
 
         <div class="block lesson">
-          <h4>Plain truth</h4>
+          <h4>Teaching</h4>
           <p>Storms aren’t punishments; they’re strength training for the parts of you meant to last. Collapse and over-control are fear strategies; steadiness is learned.</p>
         </div>
 
@@ -742,14 +791,14 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
             <li><strong>Breathe</strong> — exhale longer (6–8s).</li>
             <li><strong>Name it</strong> — boundary storm / identity gale / overwhelm squall.</li>
             <li><strong>One ask</strong> — “What I need right now is __.”</li>
-            <li><strong>One step</strong> — the simplest kind action that restores integrity.</li>
+            <li><strong>One step</strong> — the smallest kind action that restores integrity.</li>
           </ol>
         </div>
 
         <div class="block practice">
-          <h4>Try this</h4>
-          <p><strong>Aftercare plan:</strong> warm drink, short walk, or a two-line journal you’ll use after hard moments.</p>
-          <p><strong>Repair line (if needed):</strong> “I regret how I said that. Here’s what I meant, and here’s my boundary.”</p>
+          <h4>Practices</h4>
+          <p><strong>Aftercare plan:</strong> warm drink, short walk, two-line journal you’ll use after hard moments.</p>
+          <p><strong>Repair line:</strong> “I regret how I said that. Here’s what I meant, and here’s my boundary.”</p>
           <p><strong>Alchemize:</strong> “What skill did this storm just give me?”</p>
         </div>
 
@@ -757,10 +806,11 @@ footer{margin-top:30px;padding:34px 0 70px;border-top:1px solid var(--keyline);
           <h4>Reframe</h4>
           <p>Every storm leaves a gift at your feet. Pick it up when you’re ready.</p>
         </div>
+
       </article>
 
       <aside class="sidebar">
-        <div class="tip"><div class="label">Ground</div><p>Feet on floor, look around and name three objects you see.</p></div>
+        <div class="tip"><div class="label">Ground</div><p>Feet on floor, look around, name three objects you see.</p></div>
         <div class="tip"><div class="label">Jump</div><div class="minitoc"><a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Belief</a></div></div>
       </aside>
     </div>
