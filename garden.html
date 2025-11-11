@@ -3,201 +3,291 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Mynd • Lens 1: The Garden</title>
+<title>Mynd • Core Teachings</title>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ========= Design Tokens ========= */
+/* ===================== TOKENS (Forest • Water • Minimal Futurism) ===================== */
 :root{
-  /* Brand neutrals */
-  --bg: #fafaf8;           /* canvas */
-  --panel: #ffffff;        /* surfaces */
-  --ink: #141515;          /* primary text (near-black) */
-  --muted: #606468;        /* secondary text */
-  --keyline: #1b1d1f14;    /* subtle outlines */
-  --keyline-strong:#1b1d1f2b;
+  /* Palette */
+  --bg:#0B1213;              /* deep forest night */
+  --bg-2:#0F1A1C;            /* teal-black cards */
+  --aqua:#19A19C;            /* brand signature */
+  --aqua-soft:#5ABBB4;       /* mist glow */
+  --txt:#E6F5F4;             /* hard titles */
+  --soft:#B8D4D1;            /* soft text */
+  --muted:#8BA5A4;           /* muted text */
+  --shadow:#00000075;        /* deep shadow for floating cards */
+  --ring:#19A19C33;          /* subtle focus ring */
+  --line:#1C2A2C;            /* keyline */
+  --line-soft:#152021;       /* softer keyline */
+  --danger:#642E33;          /* shadow energy */
+  --success:#73FFE9;         /* visionary pop (rare) */
 
-  /* High-scale shadow + radii */
-  --shadow: 0 12px 30px rgba(0,0,0,.06);
-  --shadow-soft: 0 8px 20px rgba(0,0,0,.04);
-  --radius: 18px;
-  --radius-lg: 22px;
-  --maxw: 1120px;
+  /* Radii & Depth */
+  --r-sm:14px;
+  --r-md:18px;
+  --r-lg:20px;
+  --blur:4px;
 
-  /* Four-lens palette (muted, cohesive) */
-  --garden-50:#f0f3ef; --garden-100:#e6ece4; --garden-200:#d1dbcf;
-  --garden-300:#b9c6b6; --garden-400:#9eb19a; --garden-500:#7e9a7d;
-  --garden-600:#648266; --garden-700:#506954; --garden-800:#34483a;
+  /* Layout */
+  --max:1160px;
+  --g:22px;
 
-  --city-600:#5c646b;      /* slate-gray (for future lens) */
-  --forge-600:#6a4b3f;     /* muted ember brown (for future lens) */
-  --system-600:#415a66;    /* muted teal-gray (for future lens) */
-
-  /* Category accents (used to differentiate blocks inside a lesson) */
-  --lesson-bg:#fff;        --lesson-h:#1e2822;
-  --practice-bg:#f3f7f4;   --practice-h:#1e3a29;
-  --reflect-bg:#eef4fb;    --reflect-h:#1d3654;
-  --science-bg:#f2eefb;    --science-h:#3f2e79;
-  --story-bg:#fdf2f6;      --story-h:#6b2740;
-  --note-bg:#f3f3f3;       --note-h:#2d2f31;
-
-  /* Chip + focus */
-  --chip:#ffffff;
-  --focus:#1b1d1f33;
+  /* Category tints (3–6% overlays) */
+  --t-lesson: linear-gradient(180deg, #122022 0%, #101A1C 100%);
+  --t-science: linear-gradient(180deg, rgba(90,187,180,.06), rgba(25,161,156,.04));
+  --t-practice: linear-gradient(180deg, rgba(25,161,156,.06), rgba(0,0,0,0));
+  --t-reflect: linear-gradient(180deg, rgba(184,212,209,.08), rgba(0,0,0,0));
+  --t-story: linear-gradient(180deg, rgba(100,120,140,.08), rgba(0,0,0,0));
+  --t-note: linear-gradient(180deg, rgba(139,165,164,.08), rgba(0,0,0,0));
 }
 
-/* ========= Base ========= */
+/* ===================== BASE ===================== */
 *{box-sizing:border-box}
 html,body{height:100%}
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  color:var(--ink);
-  font: 400 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color:var(--soft);
   background:
-    radial-gradient(700px 360px at 20% -10%, rgba(126,154,125,.08), transparent 60%),
-    radial-gradient(700px 360px at 90% -20%, rgba(92,100,107,.06), transparent 60%),
-    linear-gradient(180deg, #fcfcfb 0%, var(--bg) 36%, #f4f5f2 100%);
-  -webkit-text-size-adjust:100%;
-  text-size-adjust:100%;
+    radial-gradient(900px 420px at 12% -10%, rgba(25,161,156,.08), transparent 60%),
+    radial-gradient(1200px 600px at 88% -16%, rgba(90,187,180,.06), transparent 62%),
+    linear-gradient(180deg, #0B1213 0%, #0B1213 60%, #0A1011 100%);
+  font:400 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
+.container{width:min(var(--max),92vw);margin-inline:auto}
 
-/* ========= Layout ========= */
-.container{width:min(var(--maxw),92vw);margin-inline:auto}
-header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(130%) blur(8px);
-  background:rgba(250,250,248,.78); border-bottom:1px solid var(--keyline); }
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
-.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
-  background:linear-gradient(160deg,var(--garden-400),var(--garden-700)); color:#fff; font-weight:800;
-  font-family:"Playfair Display",serif; box-shadow:var(--shadow-soft)}
-.brand span{font-weight:800;letter-spacing:.2px}
-
-.nav{display:flex;align-items:center;gap:14px}
-.nav a{padding:8px 10px;border-radius:10px;text-decoration:none;color:#202223;font-weight:700;opacity:.9}
-.nav a:hover,.nav a.active{background:var(--keyline);opacity:1}
+/* ===================== HEADER ===================== */
+header{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter:blur(10px) saturate(120%);
+  background:
+    radial-gradient(60% 140% at 50% -60%, rgba(25,161,156,.08), transparent 60%),
+    linear-gradient(180deg, rgba(11,18,19,.86), rgba(11,18,19,.70));
+  border-bottom:1px solid var(--line);
+}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--txt)}
+.logo{
+  width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+  color:#0C1415;font-weight:800;
+  background: radial-gradient(48% 48% at 50% 30%, #73FFE9 0%, #19A19C 36%, #115A57 100%);
+  box-shadow:0 10px 24px rgba(25,161,156,.25), inset 0 0 1px #fff2;
+  font-family:"Cormorant Garamond", serif;
+}
+.brand span{font-weight:700;letter-spacing:.3px}
+.nav{display:flex;align-items:center;gap:12px}
+.nav a{
+  color:var(--soft); text-decoration:none; font-weight:700; opacity:.9;
+  padding:8px 12px; border-radius:999px; border:1px solid transparent;
+}
+.nav a:hover,.nav a.active{border-color:#1b2a2c; background:#0D1516}
 .menu{display:none;appearance:none;border:0;background:transparent;padding:6px;margin-left:8px}
-.menu svg{width:26px;height:26px}
-
-.cta{background:linear-gradient(180deg,var(--garden-500),var(--garden-700));color:#fff;
-  border:none;border-radius:999px;padding:10px 14px;font-weight:800;letter-spacing:.2px;box-shadow:var(--shadow-soft)}
-
+.menu svg{width:26px;height:26px;stroke:var(--soft)}
+.cta{
+  background:linear-gradient(180deg,#2BAEA8,#15807B);
+  color:#031011;border:none;border-radius:999px;padding:10px 14px;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 10px 24px rgba(25,161,156,.25)
+}
 @media (max-width:860px){ .nav,.cta{display:none} .menu{display:block} }
 
 /* Mobile sheet */
-.sheet{display:none;position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:60}
-.sheet__panel{position:absolute;right:0;top:0;height:100%;width:78%;max-width:360px;background:#fff;
-  border-left:1px solid var(--keyline);box-shadow:var(--shadow);padding:18px 16px;display:flex;flex-direction:column;gap:8px}
-.sheet__panel a{padding:10px 12px;border-radius:12px;background:#f6f7f5;text-decoration:none;color:#222;font-weight:800}
-.sheet__close{align-self:flex-end;border:0;background:#eef0ec;border-radius:10px;padding:8px}
+.sheet{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:70}
+.sheet__panel{
+  position:absolute;right:0;top:0;height:100%;width:78%;max-width:360px;
+  background:#0D1516;border-left:1px solid var(--line);box-shadow:0 24px 60px #000a;
+  padding:18px 16px;display:flex;flex-direction:column;gap:10px
+}
+.sheet__panel a{padding:12px;border-radius:12px;background:#0F191A;text-decoration:none;color:var(--txt);font-weight:800;border:1px solid var(--line)}
+.sheet__close{align-self:flex-end;border:1px solid var(--line);background:#0F1819;border-radius:10px;padding:8px;color:var(--soft)}
 
-/* ========= Hero ========= */
-.kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
-  background:#fff;border:1px solid var(--keyline); box-shadow:var(--shadow-soft); font-weight:800}
-.kicker .dot{width:9px;height:9px;border-radius:50%;background:var(--garden-600);outline:1px solid #00000012}
-.title{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,56px);line-height:1.05;margin:14px 0 4px;color:#1c261f}
-.lead{max-width:760px;font-size:clamp(15px,2.3vw,20px);opacity:.92;margin:0 0 10px}
-.pillbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 22px}
-.pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:var(--chip);
-  border:1px solid var(--keyline); font-weight:700; color:#2a2d2f}
-.pill .s{opacity:.7;font-weight:600}
+/* ===================== HERO ===================== */
+.hero{
+  padding:90px 0 26px; position:relative;
+  background:
+    radial-gradient(40% 60% at 50% -20%, rgba(25,161,156,.10), transparent 70%),
+    linear-gradient(180deg, rgba(15,26,28,.92), rgba(15,26,28,.00));
+}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+  background:linear-gradient(180deg,#0E1718,#0C1415);
+  color:var(--soft); font-weight:800; letter-spacing:.2px
+}
+.kicker .dot{width:9px;height:9px;border-radius:50%;background:var(--aqua);box-shadow:0 0 10px var(--aqua-soft)}
+.title{
+  margin:14px 0 6px;
+  color:var(--txt); letter-spacing:.2px;
+  font:700 clamp(28px,4.4vw,56px)/1.06 Inter, system-ui;
+}
+.title-underline{
+  height:2px; width:160px; margin:8px 0 2px;
+  background:linear-gradient(90deg,var(--aqua),transparent);
+  border-radius:2px; box-shadow:0 0 16px rgba(25,161,156,.35);
+}
+.lead{max-width:820px;font-size:clamp(15px,2.2vw,19px);color:var(--soft);opacity:.9;margin:8px 0 0}
 
-/* ========= Section Nav Chips ========= */
-.toc-wrap{position:sticky;top:66px;z-index:45;margin:12px 0}
-.toc{display:flex;gap:10px;overflow:auto;padding:10px;border-radius:14px;background:#fff;border:1px solid var(--keyline);box-shadow:var(--shadow-soft)}
-.tchip{flex:0 0 auto;padding:8px 12px;border-radius:999px;border:1px solid var(--keyline);
-  font-weight:800;text-decoration:none;color:#2a2d2f;background:#fff;opacity:.94}
-.tchip:hover{transform:translateY(-1px)}
-.tchip.active{background:linear-gradient(180deg,var(--garden-500),var(--garden-700));color:#fff;border-color:transparent}
+/* ===================== SECTION NAV / CHIPS ===================== */
+.tocbar-wrap{position:sticky;top:70px;z-index:55;margin:14px 0 18px}
+.tocbar{
+  display:flex;gap:10px;overflow:auto;padding:10px 12px;border-radius:16px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#0F1A1C,#0D1617);
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
+}
+.tchip{
+  flex:0 0 auto;padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+  color:var(--soft); background:#0E1819; text-decoration:none; font-weight:800;
+  transition:transform .12s ease, background .2s ease, border-color .2s ease;
+}
+.tchip:hover{transform:translateY(-1px); border-color:#223234}
+.tchip.active{background:linear-gradient(180deg,#1FAAA5,#15807B); color:#031011; border-color:transparent}
 
-/* ========= Lesson Bands ========= */
-.band{position:relative;padding:28px 0 24px}
-.band + .band{border-top:1px solid var(--keyline)}
-.band__head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-.band__tag{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;
-  border:1px solid var(--keyline-strong); background:var(--garden-50); color:#2a352d; font-weight:800}
-.band__tag .dot{width:8px;height:8px;border-radius:50%;background:var(--garden-600)}
-.band__title{margin:8px 0 0;font:700 clamp(20px,3.4vw,30px)/1.15 Inter,ui-sans-serif}
-.band__grid{display:grid;grid-template-columns: minmax(0,1fr) 320px; gap:20px}
+/* ===================== LAYOUT: BANDS + GRID ===================== */
+.band{padding:28px 0 24px}
+.band + .band{border-top:1px solid var(--line-soft)}
+.band__title{margin:6px 0 0;color:var(--txt);font:700 clamp(20px,3.2vw,30px)/1.16 Inter}
+.band__tag{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid var(--line);background:#0E1718;color:var(--soft);font-weight:800
+}
+.band__tag .dot{width:8px;height:8px;border-radius:50%;background:var(--aqua)}
+.band__grid{display:grid;grid-template-columns:minmax(0,1fr) 320px; gap:var(--g)}
 @media (max-width:1000px){ .band__grid{grid-template-columns:1fr} }
 
-/* Panels + content blocks */
-.panel{background:var(--panel); border:1px solid var(--keyline); border-radius:var(--radius-lg);
-  box-shadow:var(--shadow); padding:18px}
-.block{border:1px solid var(--keyline); border-radius:14px; padding:14px; margin:12px 0; background:#fff}
-.block h4{margin:0 0 6px; font-size:15px; letter-spacing:.2px}
+/* ===================== PANELS / BLOCKS ===================== */
+.panel{
+  background:
+    radial-gradient(100% 140% at 80% 0%, rgba(25,161,156,.08), transparent 60%),
+    linear-gradient(180deg,#0F1A1C,#0E1718);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  box-shadow:0 18px 48px var(--shadow);
+  padding:18px;
+}
+.block{
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  padding:14px;
+  margin:12px 0;
+  background:linear-gradient(180deg,#0F1A1C,#0D1819);
+}
+.block h4{margin:0 0 6px; font-size:15px; letter-spacing:.25px; color:var(--txt)}
 .block p{margin:0 0 8px}
 .block ul{margin:6px 0 0 18px}
 .block ol{margin:6px 0 0 18px}
-table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:10px; border:1px solid var(--keyline)}
-thead th{background:#f6f7f5; font-weight:800; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid var(--keyline)}
-tbody td{padding:10px 12px; border-bottom:1px solid var(--keyline); vertical-align:top}
+
+.lesson-block{background:var(--t-lesson)}
+.practice-block{background:var(--t-practice)}
+.reflect-block{background:var(--t-reflect)}
+.science-block{background:var(--t-science)}
+.story-block{background:var(--t-story)}
+.note-block{background:var(--t-note)}
+
+table{
+  width:100%; border-collapse:separate; border-spacing:0; overflow:hidden;
+  border-radius:12px; border:1px solid var(--line)
+}
+thead th{
+  background:#0E1819; color:var(--txt);
+  font-weight:800; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid var(--line)
+}
+tbody td{padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
 tbody tr:last-child td{border-bottom:none}
 
-/* Category tints (subtle, premium) */
-.lesson-block{background:var(--lesson-bg)} .lesson-block h4{color:var(--lesson-h)}
-.practice-block{background:var(--practice-bg)} .practice-block h4{color:var(--practice-h)}
-.reflect-block{background:var(--reflect-bg)} .reflect-block h4{color:var(--reflect-h)}
-.mantra-block{background:var(--note-bg)} .mantra-block h4{color:var(--note-h)}
-.science-block{background:var(--science-bg)} .science-block h4{color:var(--science-h)}
-.story-block{background:var(--story-bg)} .story-block h4{color:var(--story-h)}
-.note-block{background:var(--note-bg)} .note-block h4{color:var(--note-h)}
-
-/* Sidebar tips */
-.sidebar{position:sticky; top:100px; display:flex; flex-direction:column; gap:12px}
-.tip{border:1px solid var(--keyline); border-radius:14px; background:#fff; padding:12px; box-shadow:var(--shadow-soft)}
-.tip .tag{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.2px; padding:4px 8px;
-  border:1px solid var(--keyline); border-radius:999px; background:#f6f7f5; color:#2d2f2e; margin-bottom:6px}
+/* ===================== SIDEBAR TIPS ===================== */
+.sidebar{position:sticky; top:104px; display:flex; flex-direction:column; gap:12px}
+.tip{
+  border:1px solid var(--line); border-radius:var(--r-md);
+  background:linear-gradient(180deg,#0F191A,#0E1718); padding:12px;
+  box-shadow:0 10px 28px rgba(0,0,0,.25)
+}
+.tip .tag{
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:.2px; padding:4px 8px;
+  border:1px solid var(--line); border-radius:999px; background:#0D1617; color:var(--soft); margin-bottom:6px
+}
 .minitoc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chip{display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;font-weight:700;
-  border:1px solid var(--keyline); background:#fff; color:#2b2d2f}
-.chip:hover{transform:translateY(-1px)}
+.chip{
+  display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;font-weight:700;
+  border:1px solid var(--line); background:#0E1819; color:var(--soft); text-decoration:none
+}
+.chip:hover{border-color:#223234}
 
-/* Jump tiles (cleaner, minimal) */
+/* ===================== TILES (Jump Map) ===================== */
 .tiles{display:grid; grid-template-columns:repeat(8,1fr); gap:10px; margin:10px 0 8px}
 @media (max-width:1000px){ .tiles{grid-template-columns:repeat(4,1fr)} }
 @media (max-width:560px){ .tiles{grid-template-columns:repeat(2,1fr)} }
-.tile{display:flex;flex-direction:column;gap:4px;align-items:flex-start;justify-content:center;min-height:86px;
-  border-radius:14px; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--keyline); padding:12px}
-.tile:hover{box-shadow:var(--shadow-soft); transform:translateY(-1px)}
-.tile .tname{font-weight:800}
-.tile .tsub{font-size:12px; color:var(--muted)}
-/* Garden accent bands behind tiles (very subtle) */
-.tile[data-k="gardener"]{background:linear-gradient(180deg,#fff, var(--garden-50))}
-.tile[data-k="soil"]{background:linear-gradient(180deg,#fff, #f2efe9)}
-.tile[data-k="seed"]{background:linear-gradient(180deg,#fff, #f6f3e9)}
-.tile[data-k="water"]{background:linear-gradient(180deg,#fff, #eef5fb)}
-.tile[data-k="sun"]{background:linear-gradient(180deg,#fff, #f6f3e9)}
-.tile[data-k="tree"]{background:linear-gradient(180deg,#fff, #eef7f0)}
-.tile[data-k="seasons"]{background:linear-gradient(180deg,#fff, #f3f2f7)}
-.tile[data-k="storms"]{background:linear-gradient(180deg,#fff, #f9f0f3)}
+.tile{
+  display:flex;flex-direction:column;gap:4px;align-items:flex-start;justify-content:center;min-height:92px;
+  border-radius:var(--r-sm); text-decoration:none; color:var(--soft);
+  background:linear-gradient(180deg,#0F1A1C,#0E1718);
+  border:1px solid var(--line);
+  padding:12px;
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.tile:hover{transform:translateY(-1px); box-shadow:0 16px 40px rgba(0,0,0,.4); border-color:#213032}
+.tname{font-weight:800;color:var(--txt)}
+.tsub{font-size:12px; color:var(--muted)}
+.tile[data-k="gardener"]{background:linear-gradient(180deg,#102021,#0E1718)}
+.tile[data-k="soil"]{background:linear-gradient(180deg,#111D1E,#0E1718)}
+.tile[data-k="seed"]{background:linear-gradient(180deg,#101E1F,#0E1718)}
+.tile[data-k="water"]{background:linear-gradient(180deg,#0F1E20,#0E1718)}
+.tile[data-k="sun"]{background:linear-gradient(180deg,#122122,#0E1718)}
+.tile[data-k="tree"]{background:linear-gradient(180deg,#112021,#0E1718)}
+.tile[data-k="seasons"]{background:linear-gradient(180deg,#101F20,#0E1718)}
+.tile[data-k="storms"]{background:linear-gradient(180deg,#15161A,#0E1718)}
 
-/* Back to top */
-.backtop{position:fixed; right:16px; bottom:18px; z-index:55; border:1px solid var(--keyline-strong);
-  border-radius:999px; padding:10px 12px; background:#fff; color:#1d1f20; font-weight:800; box-shadow:var(--shadow-soft); display:none}
+/* ===================== BACK TO TOP ===================== */
+.backtop{
+  position:fixed; right:16px; bottom:18px; z-index:65;
+  border:1px solid var(--line);
+  border-radius:999px; padding:10px 12px;
+  background:linear-gradient(180deg,#1FAAA5,#15807B); color:#031011; font-weight:800;
+  box-shadow:0 12px 28px rgba(25,161,156,.35); display:none
+}
 .backtop.show{display:inline-flex; align-items:center; gap:8px}
 
-/* Footer */
-footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline); background:rgba(255,255,255,.7); backdrop-filter: blur(6px)}
+/* ===================== FOOTER ===================== */
+footer{
+  margin-top:28px; padding:28px 0 64px;
+  border-top:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(15,26,28,.65), rgba(15,26,28,.35));
+  backdrop-filter:blur(4px)
+}
 .ftr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .tiny{font-size:12px;color:var(--muted)}
+.f-logo{
+  width:28px;height:28px;border-radius:9px;display:grid;place-items:center;color:#031011;font-weight:800;
+  background: radial-gradient(48% 48% at 50% 30%, #73FFE9 0%, #19A19C 36%, #115A57 100%);
+}
+
+/* ===================== ANIMATION ===================== */
+@keyframes fadeIn{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+.panel,.tile,.tip,.tchip{animation:fadeIn .25s ease both}
 </style>
 </head>
 
 <body>
 <header>
   <div class="container hdr">
-    <a class="brand" href="index.html"><div class="logo">My</div><span>Mynd</span></a>
+    <a class="brand" href="index.html" aria-label="Mynd home"><div class="logo">My</div><span>Mynd</span></a>
     <nav class="nav" aria-label="Primary">
-      <a href="garden.html" class="active">Garden</a>
+      <a href="garden.html" class="active">Learn</a>
       <a href="tree.html">Tree</a>
       <a href="greenhouse.html">Greenhouse</a>
       <a href="vision.html">Vision</a>
       <a href="about.html">About</a>
     </nav>
     <button class="menu" aria-label="Open menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
     </button>
     <a class="cta" href="vision.html">Support</a>
   </div>
@@ -206,9 +296,9 @@ footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline)
   <div class="sheet" id="sheet" aria-hidden="true">
     <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Navigation">
       <button class="sheet__close" id="closeSheet" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2b2d2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        ✕
       </button>
-      <a href="garden.html" class="active">Garden</a>
+      <a href="garden.html" class="active">Learn</a>
       <a href="tree.html">Tree</a>
       <a href="greenhouse.html">Greenhouse</a>
       <a href="vision.html">Vision</a>
@@ -218,697 +308,486 @@ footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline)
   </div>
 </header>
 
-<main class="container">
-  <!-- Lens / Hero -->
-  <div class="kicker"><span class="dot"></span> Lens 1 • The Garden</div>
-  <h1 class="title">A Calm Garden for Clear Minds</h1>
-  <p class="lead">Emotional, organic, and intuitive learning — where every thought is a seed and every choice is a bloom.</p>
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="kicker"><span class="dot"></span> Core Teachings</div>
+      <h1 class="title">Calm clarity for everyday life</h1>
+      <div class="title-underline" aria-hidden="true"></div>
+      <p class="lead">Simple, compassionate principles you can apply in minutes. The metaphors here are optional helpers — the message stays the same.</p>
 
-  <!-- Simple “lesson tiles” -->
-  <section class="tiles" aria-label="Garden map">
-    <a class="tile" data-k="gardener" href="#gardener"><span class="tname">Gardener</span><span class="tsub">Attention</span></a>
-    <a class="tile" data-k="soil" href="#soil"><span class="tname">Soil</span><span class="tsub">Belief</span></a>
-    <a class="tile" data-k="seed" href="#seed"><span class="tname">Seed</span><span class="tsub">Thought</span></a>
-    <a class="tile" data-k="water" href="#water"><span class="tname">Water</span><span class="tsub">Emotion</span></a>
-    <a class="tile" data-k="sun" href="#sun"><span class="tname">Sun</span><span class="tsub">Awareness</span></a>
-    <a class="tile" data-k="tree" href="#tree"><span class="tname">Tree</span><span class="tsub">Self</span></a>
-    <a class="tile" data-k="seasons" href="#seasons"><span class="tname">Seasons</span><span class="tsub">Cycles</span></a>
-    <a class="tile" data-k="storms" href="#storms"><span class="tname">Storms</span><span class="tsub">Challenges</span></a>
+      <!-- Jump tiles -->
+      <div class="tiles" aria-label="Map">
+        <a class="tile" data-k="gardener" href="#attention"><span class="tname">Attention</span><span class="tsub">What you feed grows</span></a>
+        <a class="tile" data-k="soil" href="#belief"><span class="tname">Belief</span><span class="tsub">The frame of reality</span></a>
+        <a class="tile" data-k="seed" href="#thought"><span class="tname">Thought</span><span class="tsub">Seeds of choice</span></a>
+        <a class="tile" data-k="water" href="#emotion"><span class="tname">Emotion</span><span class="tsub">Energy in motion</span></a>
+        <a class="tile" data-k="sun" href="#awareness"><span class="tname">Awareness</span><span class="tsub">Light that integrates</span></a>
+        <a class="tile" data-k="tree" href="#self"><span class="tname">Self</span><span class="tsub">Roots to fruit</span></a>
+        <a class="tile" data-k="seasons" href="#cycles"><span class="tname">Cycles</span><span class="tsub">Right timing</span></a>
+        <a class="tile" data-k="storms" href="#storms"><span class="tname">Storms</span><span class="tsub">Challenge as teacher</span></a>
+      </div>
+    </div>
   </section>
 
-  <!-- Sticky Section Chips -->
-  <div class="toc-wrap">
-    <nav class="toc" aria-label="Sections">
-      <a class="tchip" href="#gardener" data-section="gardener">Gardener</a>
-      <a class="tchip" href="#soil" data-section="soil">Soil</a>
-      <a class="tchip" href="#seed" data-section="seed">Seed</a>
-      <a class="tchip" href="#water" data-section="water">Water</a>
-      <a class="tchip" href="#sun" data-section="sun">Sun</a>
-      <a class="tchip" href="#tree" data-section="tree">Tree</a>
-      <a class="tchip" href="#seasons" data-section="seasons">Seasons</a>
-      <a class="tchip" href="#storms" data-section="storms">Storms</a>
-    </nav>
+  <!-- Sticky chips -->
+  <div class="tocbar-wrap">
+    <div class="container">
+      <nav class="tocbar" aria-label="Sections">
+        <a class="tchip" href="#attention" data-section="attention">Attention</a>
+        <a class="tchip" href="#belief" data-section="belief">Belief</a>
+        <a class="tchip" href="#thought" data-section="thought">Thought</a>
+        <a class="tchip" href="#emotion" data-section="emotion">Emotion</a>
+        <a class="tchip" href="#awareness" data-section="awareness">Awareness</a>
+        <a class="tchip" href="#self" data-section="self">Self</a>
+        <a class="tchip" href="#cycles" data-section="cycles">Cycles</a>
+        <a class="tchip" href="#storms" data-section="storms">Storms</a>
+      </nav>
+    </div>
   </div>
 
-  <!-- ====================== LESSON BANDS ====================== -->
-
-  <!-- Gardener -->
-  <section id="gardener" class="band" aria-labelledby="gardener-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Gardener — Attention</span>
-    </div>
-    <h2 id="gardener-title" class="band__title">Your Attention is the Gardener</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Attention is the gardener of the mind.</strong> Wherever your awareness goes, energy flows — and what you repeatedly attend to becomes your lived reality.</p>
-          <p>Attention is not just focus; it’s a creative force — the invisible act of choosing what matters, what’s fed, and what’s allowed to grow.</p>
-          <p>If belief is the soil and thought is the seed, attention is the hand that waters, weeds, and directs light. Every moment, you are gardening — often unconsciously. Weeds like worry or resentment grow because they receive attention; flowers like gratitude and purpose flourish when you tend to them.</p>
-          <p><strong>Attention is your first act of sovereignty. It is the currency of consciousness.</strong></p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🌱 2. The Science of Attention (Simplified)</h4>
-          <ul>
-            <li><strong>“What fires together, wires together.”</strong> Focus strengthens neural pathways.</li>
-            <li>Repeated attention → habit → personality → destiny.</li>
-            <li>Autopilot isn’t lack of potential; it’s attention hijacked by distraction or stress.</li>
-          </ul>
-          <p><em>Analogy:</em> The more you walk a forest path, the clearer it becomes. Neglect another and it’s reclaimed by undergrowth. <strong>Your attention is the trail-maker.</strong></p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🧘‍♀️ 3. The Energetics of Attention</h4>
-          <p>Attention is a beam of light that feeds life wherever it lands. Focus on fear and you amplify fear; rest in gratitude and your field harmonizes. Divided attention dilutes power. To truly see something is to bless it with existence — children blossom under genuine attention; adults are no different.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🔍 4. Common Patterns (and Shadows)</h4>
-          <table role="table" aria-label="Attention patterns">
-            <thead><tr><th>Pattern</th><th>Description</th><th>Consequence</th></tr></thead>
-            <tbody>
-              <tr><td>Scattered Attention</td><td>Multitasking, notifications, unfinished thoughts.</td><td>Exhaustion, shallow satisfaction, anxiety.</td></tr>
-              <tr><td>Obsessive Attention</td><td>Fixating on problems/control.</td><td>Burnout, rigidity, tunnel vision.</td></tr>
-              <tr><td>Avoidant Attention</td><td>Refusing to look at what hurts.</td><td>Repression, projection, cycles repeating.</td></tr>
-              <tr><td>Conscious Attention</td><td>Presence, gentle observation.</td><td>Clarity, peace, creativity.</td></tr>
-            </tbody>
-          </table>
-          <p><strong>Reflection:</strong> Which pattern shows up most for you — and when?</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌾 5. Everyday Examples</h4>
-          <p><strong>Relationship Garden:</strong> A distant text — fixate on rejection and you water insecurity; choose curiosity and you water empathy.</p>
-          <p><strong>Morning Scroll:</strong> A hundred micro-drips of attention leave the mind scattered — not because the world is chaotic, but because the gardener watered everywhere.</p>
-          <p><strong>Creative Project:</strong> Doubt deepens when watered. One small action waters growth.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌳 6. Principles of the Gardener</h4>
-          <ul>
-            <li><strong>Attention is a choice, not a reflex.</strong> You can choose what you linger on.</li>
-            <li><strong>What you resist, you water.</strong> Redirection beats repression.</li>
-            <li><strong>Quality over quantity.</strong> Loving attention transforms more than hours of busyness.</li>
-            <li><strong>Presence is power.</strong> Clear seeing begins healing.</li>
-          </ul>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌼 7. Practices & Exercises</h4>
-          <p><strong>Practice 1 — The 3-Minute Beam:</strong> Sit quietly; choose one object/sound; rest attention there for 3 minutes. Notice the lens of awareness focusing.</p>
-          <p><strong>Practice 2 — Attention Audit:</strong> At day’s end, journal: What took most of my attention? Did it feed or drain me? What deserves more tomorrow?</p>
-          <p><strong>Practice 3 — Attention Anchor:</strong> Pick a cue (hand on heart, one deep breath). When overwhelmed, ask: <em>“Where is my attention now, and what am I growing?”</em></p>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌙 8. Integration Thought</h4>
-          <p><em>“Attention is the bridge between the unseen and the seen.”</em></p>
-          <p>Every moment is a choice point. Feed distraction and fear, or direct your light toward truth and possibility. Tend attention and life responds — organically, like sunlight calling sprouts to rise.</p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Quick tip</div><p>Leave your phone in another room for the 3-minute practice.</p></div>
-        <div class="tip"><div class="tag">Mini TOC</div><div class="minitoc">
-          <a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Next: Soil</a></div></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Soil -->
-  <section id="soil" class="band" aria-labelledby="soil-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Soil — Belief</span>
-    </div>
-    <h2 id="soil-title" class="band__title">Belief is the Soil</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Your beliefs are the invisible architecture of your reality.</strong> They set what’s possible and what life will even bother growing for you. Beliefs are energetic permissions: allow, resist, ignore.</p>
-          <p>Healthy soil is open and nutrient-rich; compacted soil is rigid and depleted. Flexible belief allows growth; rigid belief chokes possibility. You don’t see beliefs — you see <em>through</em> them.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌾 2. The Function of Belief</h4>
-          <p>Belief is pattern recognition stabilized — declaring, “This is how the world works,” then filtering perception to confirm it.</p>
-          <p><strong>Example:</strong> “People can’t be trusted” → attention finds betrayal. “Life supports my growth” → notice synchronicities and allies.</p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🧬 3. The Psychology of Belief</h4>
-          <p>Beliefs form early, often pre-language, from family, culture, and repeated emotion — each was once a survival adaptation. <strong>Every belief once served a purpose — not every belief still serves your becoming.</strong></p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌎 4. Analogy: The Garden Bed</h4>
-          <p>Two gardens: one rich, aerated soil; the other hardened clay. Seeds fall daily, but only soil determines sprouting. Loosening belief isn’t “manifesting” — it’s making space for what was already trying to grow.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌿 5. Common Limiting Beliefs</h4>
-          <table role="table" aria-label="Limiting beliefs">
-            <thead><tr><th>Category</th><th>Limiting Belief</th><th>Upgraded Belief</th></tr></thead>
-            <tbody>
-              <tr><td>Self-Worth</td><td>“I’m not enough.”</td><td>“I am inherently valuable — my worth isn’t earned.”</td></tr>
-              <tr><td>Abundance</td><td>“There’s never enough.”</td><td>“Life is generous and cyclical.”</td></tr>
-              <tr><td>Love</td><td>“People always leave.”</td><td>“Connections evolve — I can remain open.”</td></tr>
-              <tr><td>Purpose</td><td>“I don’t know my path.”</td><td>“Meaning unfolds as I live curiously.”</td></tr>
-              <tr><td>Power</td><td>“It’s selfish to want more.”</td><td>“My expansion serves the whole.”</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block note-block">
-          <h4>🧘 6. Signs of Fertile vs. Depleted Soil</h4>
-          <table role="table" aria-label="Soil signs">
-            <thead><tr><th>Type</th><th>Inner Experience</th><th>Outer Expression</th></tr></thead>
-            <tbody>
-              <tr><td>Fertile Beliefs</td><td>Openness, trust, grounded curiosity.</td><td>Flow, synchronicity, creativity, ease.</td></tr>
-              <tr><td>Depleted Beliefs</td><td>Cynicism, rigidity, shame, fear.</td><td>Repetition, burnout, isolation.</td></tr>
-            </tbody>
-          </table>
-          <p>Your external harvest reveals your internal soil quality.</p>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🪴 7. Practices for Healing & Reconditioning</h4>
-          <p><strong>Root Excavation:</strong> Where are you stuck? Ask: “What must I believe to keep this pattern?” When did I learn that? Is it true now?</p>
-          <p><strong>Compost Method:</strong> “I’m not ready.” → find its protective wisdom → thank it → reframe: “I’m becoming ready through experience.”</p>
-          <p><strong>Belief Rewriting Loop:</strong> Old belief → opposite → give daily proof for 7 days.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌳 8. Real Life Examples</h4>
-          <p><strong>Money:</strong> “Scarce” → undercharge → upgrade to stewardship of aligned abundance.</p>
-          <p><strong>Relationships:</strong> “Unavailable attracts” → tolerating distance → upgrade to mutual availability.</p>
-          <p><strong>Creativity:</strong> “Not talented” → no start → upgrade to practice → flow.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌼 9. Principles of Fertile Belief</h4>
-          <ul><li>Curiosity aerates soil.</li><li>Diversity strengthens ecosystems.</li><li>Embodiment changes belief.</li><li>Nothing grows in shame.</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌙 10. Integration Reflection</h4>
-          <p><em>“You don’t attract what you want — you grow what you believe you can hold.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Term</div><p><strong>Belief</strong> = practiced interpretation.</p></div>
-        <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#seed">Seed</a><a class="chip" href="#water">Water</a></div></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Seed -->
-  <section id="seed" class="band" aria-labelledby="seed-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Seed — Thought</span>
-    </div>
-    <h2 id="seed-title" class="band__title">Thoughts as Seeds</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Thoughts are the seeds of your reality.</strong> Each can grow into emotion, habit, behavior, or destiny — depending on how often it’s planted and watered. Most daily thoughts are recycled; repeated ones become programs, observed ones become choices.</p>
-          <p>Thoughts alone don’t create reality — <strong>believed, emotionalized thoughts</strong> do. Thought + belief (soil) + emotion (water) = germination.</p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🌿 2. The Nature of Thought</h4>
-          <p>A thought is an electrical impulse carrying a message. You can’t stop thoughts from arising; you can choose which to nurture. Suppression is disguised attention; cultivation is the key. Thoughts are visitors — attention decides who stays.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌎 3. Analogy: The Seed Bank</h4>
-          <p>Your mind holds every seed: fear, curiosity, joy, resentment, love. Life brings new seeds daily. You can’t stop them blowing in, but you choose which to plant. Plant worry each morning, harvest anxiety by night; plant gratitude, harvest clarity.</p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🧠 4. The Science of Thought Formation</h4>
-          <p>Thoughts release neurotransmitters that shift mood and physiology. Repetition with emotion strengthens neural pathways — your brain becomes a biological echo of your frequent thoughts. <strong>Repetition gives roots; emotion gives water; belief gives light.</strong></p>
-        </div>
-
-        <div class="block note-block">
-          <h4>💭 5. The Layers of Thought</h4>
-          <table role="table" aria-label="Layers of thought">
-            <thead><tr><th>Layer</th><th>Description</th><th>Example</th></tr></thead>
-            <tbody>
-              <tr><td>Surface Thoughts</td><td>Passing chatter.</td><td>“I need coffee.”</td></tr>
-              <tr><td>Conditioned Thoughts</td><td>Adopted narratives.</td><td>“People like me don’t succeed.”</td></tr>
-              <tr><td>Core Thoughts</td><td>Identity-level patterns.</td><td>“I’m safe/unsafe.”</td></tr>
-              <tr><td>Conscious Thoughts</td><td>Chosen, intentional.</td><td>“I can learn this with patience.”</td></tr>
-            </tbody>
-          </table>
-          <p>Growth begins when you move from reactive to creative thinking.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌳 6. Common Thought Patterns</h4>
-          <table role="table" aria-label="Thought patterns">
-            <thead><tr><th>Type</th><th>Description</th><th>Example</th><th>Transformation</th></tr></thead>
-            <tbody>
-              <tr><td>Catastrophic</td><td>Worst-case leaps.</td><td>“If I fail, everything falls apart.”</td><td>“One outcome doesn’t define me.”</td></tr>
-              <tr><td>Comparative</td><td>Worth via others.</td><td>“They’re ahead of me.”</td><td>“Their path shows possibility.”</td></tr>
-              <tr><td>Self-Defeating</td><td>Dismiss inner guidance.</td><td>“I’ll never be consistent.”</td><td>“I can build consistency gently.”</td></tr>
-              <tr><td>Expansive</td><td>Curiosity & faith.</td><td>“What else might be true?”</td><td>New options open.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌤️ 7. Everyday Examples</h4>
-          <p><strong>The Mirror Moment:</strong> “I look exhausted” seeds a low-energy day. Replace with “I’m restoring — my body’s healing.”</p>
-          <p><strong>The Work Spiral:</strong> “I’m terrible at this” hardens belief. Replace with “I’m learning faster than before.”</p>
-          <p><strong>The Late Text:</strong> “They’re ignoring me” spikes cortisol. “They’re busy” relaxes the system.</p>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌺 8. Practices & Exercises</h4>
-          <p><strong>Thought Harvest:</strong> Track thoughts preceding tension. Review to find “dominant seeds.”</p>
-          <p><strong>Seed Substitution:</strong> Write a recurring thought; list 3 equally true, more empowering alternatives. Choose one to repeat for a week.</p>
-          <p><strong>Morning Planting Ritual:</strong> Before your phone, plant 3 conscious thoughts for the day.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🪴 9. Principles of Thought Cultivation</h4>
-          <ul><li>Observe before you weed.</li><li>Compost unhelpful thoughts.</li><li>Visualize to nourish imagination.</li><li>Use rhythm/ritual to stabilize.</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌙 10. Integration Reflection</h4>
-          <p><em>“Thoughts are the seeds — but belief is the soil, and emotion is the rain.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Tip</div><p>Pair a new “seed” with an existing habit (stack it).</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Water -->
-  <section id="water" class="band" aria-labelledby="water-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Water — Emotion</span>
-    </div>
-    <h2 id="water-title" class="band__title">Emotions as Water</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Emotion is energy in motion</strong> — the water of your inner ecosystem. It nourishes when it flows and drowns when it stagnates. Emotions are messengers saying, “Something here wants your awareness.”</p>
-          <p>Repressed emotion = drought. Overindulged = flood. In flow, it becomes nourishment.</p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🌊 2. The Nature of Emotion</h4>
-          <p>Emotion is the body’s language, bridging mind and matter. Emotions shift hormones and perception. Unfelt emotions store as tension or attract mirrors until acknowledged. Don’t control; understand and move.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌧️ 3. Analogy: The River and the Dam</h4>
-          <p>Flow nourishes; dams create pressure and flooding. Healthy = circulation. Suppressed = stagnation. Over-identified = drowning. Aim for clear, moving water.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌱 4. The Function of Emotion</h4>
-          <ul><li><strong>Thought</strong> creates form.</li><li><strong>Emotion</strong> energizes it.</li><li><strong>Belief</strong> sustains it.</li></ul>
-        </div>
-
-        <div class="block note-block">
-          <h4>💓 5. Emotional Alchemy 101</h4>
-          <table role="table" aria-label="Emotional alchemy">
-            <thead><tr><th>State</th><th>Description</th><th>Transformation</th></tr></thead>
-            <tbody>
-              <tr><td>Suppression</td><td>Avoid/numb feelings.</td><td>Acknowledge → Name → Breathe.</td></tr>
-              <tr><td>Flooding</td><td>Overwhelm/reactivity.</td><td>Ground → Slow exhale → Observe.</td></tr>
-              <tr><td>Judgment</td><td>Labeling “bad.”</td><td>Accept: “It’s information.”</td></tr>
-              <tr><td>Expression</td><td>Voice/movement/art.</td><td>Integration, clarity.</td></tr>
-              <tr><td>Transmutation</td><td>Creative channel.</td><td>Ask: “What is this becoming?”</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block note-block">
-          <h4>🔥 6. Emotional Archetypes</h4>
-          <table role="table" aria-label="Emotional archetypes">
-            <thead><tr><th>Archetype</th><th>Root Belief</th><th>Pattern</th><th>Balanced State</th></tr></thead>
-            <tbody>
-              <tr><td>The Numb One</td><td>“Feeling is dangerous.”</td><td>Flatness, intellectualization.</td><td>Reconnection with body/breath.</td></tr>
-              <tr><td>The Reactor</td><td>“Feeling equals truth.”</td><td>Volatility, impulsivity.</td><td>Awareness without identification.</td></tr>
-              <tr><td>The Caretaker</td><td>“Others’ feelings are my job.”</td><td>Codependency, exhaustion.</td><td>Boundaried empathy.</td></tr>
-              <tr><td>The Suppressor</td><td>“I must stay strong.”</td><td>Tension, burnout.</td><td>Vulnerable release, compassion.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌤️ 7. Everyday Examples</h4>
-          <p><strong>Inbox Flood:</strong> Pause, breathe, feel wave, then one priority.</p>
-          <p><strong>Argument:</strong> “I feel frustrated because I care.” Energy becomes connection.</p>
-          <p><strong>The Cry:</strong> Tears = rain; let them fall — growth follows.</p>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌿 8. Practices & Exercises</h4>
-          <p><strong>Weather Report:</strong> “I feel ___. Intensity ___/10. Resisting/Accepting.”</p>
-          <p><strong>Feel, Don’t Fix:</strong> Drop story, locate sensation, breathe 60s, imagine downstream flow.</p>
-          <p><strong>Transmutation Journal:</strong> Trigger → root belief → need → action that restores flow.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌈 9. Principles of Emotional Flow</h4>
-          <ul><li>Emotion = Energy + Permission.</li><li>Movement is medicine.</li><li>Feeling ≠ identity.</li><li>All emotions teach.</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌙 10. Integration Reflection</h4>
-          <p><em>“Emotion is truth in motion.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Micro</div><p>Exhale longer than inhale to settle.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Sun -->
-  <section id="sun" class="band" aria-labelledby="sun-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Sun — Awareness</span>
-    </div>
-    <h2 id="sun-title" class="band__title">Awareness as Sunlight</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Awareness is the light of consciousness</strong> — seeing without judgment. It turns reaction into reflection and suffering into understanding. Awareness doesn’t fix or fight; it illuminates.</p>
-          <p><em>“The act of seeing clearly is itself transformation.”</em></p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🌞 2. The Nature of Awareness</h4>
-          <p>Still background of experience — the one who notices. Spiritually: consciousness knowing itself. Psychologically: meta-cognition. Practically: the pause before reaction.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌤️ 3. Analogy: Sun & Shadows</h4>
-          <p>Shadows aren’t substance; they’re absence of light. Curiosity dissolves their power.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌻 4. The Function of Awareness</h4>
-          <p>Awareness integrates attention, belief, thought, and emotion. Without it: fixation, unexamined belief, autopilot thought, looping emotion. With it: noticing, questioning, directing, and feeling as energy — not identity.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌞 5. Everyday Examples</h4>
-          <p><strong>Trigger:</strong> Notice tightening and story → choice returns.</p>
-          <p><strong>Spiral:</strong> “I’m avoiding rest.” Phone down.</p>
-          <p><strong>Creative Block:</strong> “Fear of being seen.” Knot loosens.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌿 6. Spectrum of Awareness</h4>
-          <table role="table" aria-label="Spectrum of awareness">
-            <thead><tr><th>Level</th><th>Description</th><th>Experience</th></tr></thead>
-            <tbody>
-              <tr><td>Unconscious</td><td>Automatic patterns.</td><td>“Why do I do this?”</td></tr>
-              <tr><td>Self-Aware</td><td>Notice thoughts/emotions.</td><td>“I see my pattern.”</td></tr>
-              <tr><td>Meta-Aware</td><td>Observing the observer.</td><td>“I’m aware that I’m aware.”</td></tr>
-              <tr><td>Transcendent</td><td>Identification dissolves.</td><td>Stillness, spaciousness.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌞 7. Principles of Awareness</h4>
-          <ul><li>Seeing, not fixing, transforms.</li><li>You can’t heal what you won’t see.</li><li>Judgment clouds awareness.</li><li>Awareness restores choice.</li><li>Quiet reveals insight.</li></ul>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌻 8. Practices & Exercises</h4>
-          <p><strong>Observer Meditation:</strong> Label “Thinking/Feeling/Sensing.” Return to the one who notices.</p>
-          <p><strong>Light on Shadows:</strong> Pause, breathe ×3, ask beliefs/emotions present, imagine sunlight on the tender part.</p>
-          <p><strong>Awareness Checkpoints:</strong> 3 reminders: “☀️ Breathe and See.”</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌞 9. Common Misunderstandings</h4>
-          <table role="table" aria-label="Awareness myths">
-            <thead><tr><th>Myth</th><th>Truth</th></tr></thead>
-            <tbody>
-              <tr><td>Awareness = detachment</td><td>It embraces everything without losing center.</td></tr>
-              <tr><td>Awareness is passive</td><td>It organizes reality.</td></tr>
-              <tr><td>Awareness = no pain</td><td>Pain becomes presence without resistance.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌤️ 10. Integration Reflection</h4>
-          <p><em>“Awareness reveals true nature — and that revelation is the change.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Try</div><p>Look for one “bright spot” each evening.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Tree -->
-  <section id="tree" class="band" aria-labelledby="tree-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Tree — Self</span>
-    </div>
-    <h2 id="tree-title" class="band__title">The Self as a Tree</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>The Tree symbolizes the embodied Self</strong> — roots (past/unconscious), trunk (identity), branches (choices/creations), leaves/fruit (visible results). You’re a living ecosystem.</p>
-          <p><em>“Your life is the tree your consciousness has grown.”</em></p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌿 2. Anatomy of the Self</h4>
-          <table role="table" aria-label="Anatomy of the self">
-            <thead><tr><th>Part</th><th>Inner Meaning</th><th>Outer Expression</th></tr></thead>
-            <tbody>
-              <tr><td>Roots</td><td>Past, ancestry, belief.</td><td>Instincts, stability, patterns.</td></tr>
-              <tr><td>Trunk</td><td>Identity, values.</td><td>Boundaries, consistency.</td></tr>
-              <tr><td>Branches</td><td>Desires, actions.</td><td>Career, relationships, projects.</td></tr>
-              <tr><td>Leaves</td><td>Daily expressions, moods.</td><td>Habits, decisions.</td></tr>
-              <tr><td>Fruit</td><td>Outcomes, realizations.</td><td>Legacy, service, wisdom.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌳 3. Analogy: Mirror Tree</h4>
-          <p>Tree mirrors inner landscape: grounded → steady trunk; scattered → trembling branches. Nurture soil, attention, and water to thrive.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌞 4. Function of the Tree</h4>
-          <ul><li>Roots: unseen</li><li>Trunk: “I am”</li><li>Branches: “I create”</li><li>Fruit: “I give”</li></ul>
-        </div>
-
-        <div class="block science-block">
-          <h4>🍃 5. Psychology of the Self</h4>
-          <p>Narrative identity + observer consciousness. Healthy identity is a vessel: strong roots + flexible branches.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>🪴 6. Everyday Examples</h4>
-          <p>Boundaries as bark; pruning old roles; fruit emerging from conditions, not force.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌳 7. Distortions & Restorations</h4>
-          <table role="table" aria-label="Distortions of the self">
-            <thead><tr><th>Imbalance</th><th>Description</th><th>Restoration</th></tr></thead>
-            <tbody>
-              <tr><td>Overgrown Identity</td><td>Titles/roles fixation.</td><td>Reconnect to roots beyond labels.</td></tr>
-              <tr><td>Shallow Roots</td><td>Cut from history/emotion.</td><td>Explore ancestry, body, feeling.</td></tr>
-              <tr><td>Weak Trunk</td><td>Low self-trust/boundaries.</td><td>Clarify values and commitments.</td></tr>
-              <tr><td>Withered Branches</td><td>Abandoned dreams.</td><td>Reignite curiosity and play.</td></tr>
-              <tr><td>Rotten Fruit</td><td>Negative repeats.</td><td>Trace back to soil & gardener.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌤️ 8. Practices & Exercises</h4>
-          <p><strong>Map Your Tree, Root Grounding, Trunk Alignment, Pruning Ritual, Fruit of Gratitude.</strong></p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌿 9. Principles</h4>
-          <ul><li>Roots before fruit.</li><li>Pruning grows life.</li><li>Storms strengthen.</li><li>Fruit feeds the forest.</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌳 10. Integration Reflection</h4>
-          <p><em>“You are the meeting point of heaven and earth.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Beta</div><p>Tree dashboard is coming soon on the “Tree” page.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Seasons -->
-  <section id="seasons" class="band" aria-labelledby="seasons-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Seasons — Cycles</span>
-    </div>
-    <h2 id="seasons-title" class="band__title">Seasons of Growth</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Seasons are the rhythm of transformation</strong> — governing nature, psyche, emotion, creativity, and growth. Resist a season and you suffer; honor it and you evolve.</p>
-          <p><em>“The wise gardener doesn’t demand summer in winter.”</em></p>
-        </div>
-
-        <div class="block science-block">
-          <h4>🌾 2. The Nature of Cycles</h4>
-          <table role="table" aria-label="Seasons">
-            <thead><tr><th>Season</th><th>Lesson</th><th>Inner Expression</th><th>Outer Expression</th></tr></thead>
-            <tbody>
-              <tr><td>🌱 Spring</td><td>Planting</td><td>Inspiration, hope</td><td>Starting, learning</td></tr>
-              <tr><td>☀️ Summer</td><td>Growth</td><td>Energy, action</td><td>Building, visibility</td></tr>
-              <tr><td>🍁 Autumn</td><td>Harvest</td><td>Integration, gratitude</td><td>Completion, letting go</td></tr>
-              <tr><td>❄️ Winter</td><td>Rest</td><td>Stillness, renewal</td><td>Recovery, incubation</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌿 3. Analogy: The Year Within</h4>
-          <p>You can’t harvest in January or bloom in December. Each inner season has beauty and necessity.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌎 4. The Function of Seasons</h4>
-          <ul><li>Decay → new growth</li><li>Rest → clarity</li><li>Harvest → gratitude</li><li>Timing over force</li></ul>
-        </div>
-
-        <div class="block story-block">
-          <h4>🌼 5. Everyday Examples</h4>
-          <p>Creativity winter; heartbreak autumn/winter; business cycles (ideate/build/launch/rest).</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🍁 6. Inner Seasons</h4>
-          <table role="table" aria-label="Inner seasons">
-            <thead><tr><th>Inner Season</th><th>Signal</th><th>Practice</th><th>Affirmation</th></tr></thead>
-            <tbody>
-              <tr><td>Spring</td><td>Fresh ideas</td><td>Brainstorm/plan</td><td>“I welcome beginnings.”</td></tr>
-              <tr><td>Summer</td><td>High energy</td><td>Commit/share</td><td>“My effort bears fruit.”</td></tr>
-              <tr><td>Autumn</td><td>Completion</td><td>Reflect/celebrate</td><td>“I honor my harvest.”</td></tr>
-              <tr><td>Winter</td><td>Stillness</td><td>Restore/retreat</td><td>“I rest to renew.”</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌙 7. Cycle of Transformation</h4>
-          <p>Inspiration → Action → Integration → Surrender — a spiral, not a line. Each pass deepens.</p>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌺 8. Practices & Exercises</h4>
-          <p>Seasonal Mapping, Ritual of Renewal, Sacred Pause day weekly.</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌾 9. Principles of Cyclical Living</h4>
-          <ul><li>Rest is productive</li><li>Let endings complete</li><li>No skipping seasons</li><li>Honor your rhythm</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌅 10. Integration Reflection</h4>
-          <p><em>“Life doesn’t move in straight lines — it breathes in circles.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Note</div><p>Winter isn’t failure — it’s strategy.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Storms -->
-  <section id="storms" class="band" aria-labelledby="storms-title">
-    <div class="band__head">
-      <span class="band__tag"><span class="dot"></span> Section • Storms — Challenges</span>
-    </div>
-    <h2 id="storms-title" class="band__title">Storms as Teachers</h2>
-
-    <div class="band__grid">
-      <article class="panel">
-        <div class="block lesson-block">
-          <h4>1. Core Teaching</h4>
-          <p><strong>Storms refine what’s meant to stand.</strong> Challenges clarify values, strengthen roots, and prune what no longer serves.</p>
-        </div>
-
-        <div class="block story-block">
-          <h4>Examples</h4>
-          <p>Boundary Storm → set a compassionate border. Overwhelm Squall → prune/ground. Identity Gale → return to roots, re-form trunk.</p>
-        </div>
-
-        <div class="block note-block">
-          <h4>🌳 7. Distortions & Restorations</h4>
-          <table role="table" aria-label="Storm patterns">
-            <thead><tr><th>Imbalance</th><th>Pattern</th><th>Restoration</th></tr></thead>
-            <tbody>
-              <tr><td>Collapse</td><td>Freeze/withdraw</td><td>Small action + support.</td></tr>
-              <tr><td>Overcontrol</td><td>Micromanage/react</td><td>Pause, widen choices.</td></tr>
-              <tr><td>Story-Spinning</td><td>Catastrophize</td><td>Return to body/breath.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice-block">
-          <h4>🌤️ 8. Practices & Exercises</h4>
-          <p><strong>Storm Card:</strong> Name storm → 3-step protocol: Breathe (exhale 6s) • Boundary (one clear ask) • Ask (support/resource).</p>
-        </div>
-
-        <div class="block lesson-block">
-          <h4>🌾 9. Principles</h4>
-          <ul><li>Preparation is compassion for future you.</li><li>Ground first, act second.</li><li>Every storm carries a seed of skill.</li></ul>
-        </div>
-
-        <div class="block reflect-block">
-          <h4>🌙 10. Integration Reflection</h4>
-          <p><em>“Wind strengthens what is meant to stand.”</em></p>
-        </div>
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="tag">Ground</div><p>Feet on floor, exhale 6s, name 3 objects you see.</p></div>
-        <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Soil</a></div></div>
-      </aside>
-    </div>
-  </section>
+  <div class="container">
+
+    <!-- ====================== ATTENTION ====================== -->
+    <section id="attention" class="band" aria-labelledby="attn-title">
+      <span class="band__tag"><span class="dot"></span> Section • Attention</span>
+      <h2 id="attn-title" class="band__title">Your attention shapes your reality</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Attention is a creative act.</strong> Where it goes, energy flows — and repeated attention becomes your lived experience.</p>
+            <p>It isn’t just focus; it is the daily decision of what matters. In practice, this means redirecting gently, not repressing, and choosing what to feed with presence.</p>
+            <p><em>Side analogy:</em> If belief is soil and thought is seed, attention is the hand that waters, weeds, and positions the light.</p>
+          </div>
+
+          <div class="block science-block">
+            <h4>2. What the brain does</h4>
+            <ul>
+              <li>Neurons that fire together wire together — repetition stabilizes pathways.</li>
+              <li>Autopilot often reflects stress and distraction, not capability.</li>
+              <li>Quality of attention beats quantity of hours.</li>
+            </ul>
+            <p><em>Trail image:</em> the path you walk becomes clear; the unused one grows over.</p>
+          </div>
+
+          <div class="block story-block">
+            <h4>3. Energetics</h4>
+            <p>Attention is a beam. Feed fear and fear amplifies; rest in gratitude and coherence returns. To truly see is to nourish.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>4. Patterns to notice</h4>
+            <table role="table" aria-label="Attention patterns">
+              <thead><tr><th>Pattern</th><th>Description</th><th>Result</th></tr></thead>
+              <tbody>
+                <tr><td>Scattered</td><td>Notifications, tabs, half-finished thoughts.</td><td>Anxiety, shallow satisfaction.</td></tr>
+                <tr><td>Obsessive</td><td>Fixation on control/problems.</td><td>Burnout, tunnel vision.</td></tr>
+                <tr><td>Avoidant</td><td>Won’t look where it hurts.</td><td>Repetition, projection.</td></tr>
+                <tr><td>Conscious</td><td>Present, gentle observation.</td><td>Clarity, creativity.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>5. Practices</h4>
+            <p><strong>Three-minute beam:</strong> Rest attention on one sound or object for 3 minutes.</p>
+            <p><strong>Daily audit:</strong> “What took my attention today? Did it feed or drain me?”</p>
+            <p><strong>Anchor:</strong> Hand on heart + one slow breath, ask: “What am I growing right now?”</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>6. Integration</h4>
+            <p><em>“Attention bridges the unseen and the seen.”</em> Each moment is a chance to re-aim the beam.</p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip">
+            <div class="tag">Quick tip</div>
+            <p>Leave your phone in another room for the 3-minute practice.</p>
+          </div>
+          <div class="tip">
+            <div class="tag">Next</div>
+            <div class="minitoc">
+              <a class="chip" href="#belief">Belief</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== BELIEF ====================== -->
+    <section id="belief" class="band" aria-labelledby="belief-title">
+      <span class="band__tag"><span class="dot"></span> Section • Belief</span>
+      <h2 id="belief-title" class="band__title">Beliefs set the bounds of possibility</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Beliefs are practiced interpretations.</strong> They filter perception and decide what you will even notice.</p>
+            <p><em>Side analogy:</em> Flexible soil allows growth; compacted soil resists it. You don’t see beliefs — you see through them.</p>
+          </div>
+
+          <div class="block story-block">
+            <h4>2. Function</h4>
+            <p>Belief stabilizes patterns by declaring “this is how it works,” then collecting confirming evidence.</p>
+            <p><strong>Example:</strong> “People can’t be trusted” finds betrayals. “Life supports my growth” finds allies.</p>
+          </div>
+
+          <div class="block science-block">
+            <h4>3. Psychology</h4>
+            <p>Beliefs often form pre-language from family, culture, and repeated emotion. Every belief once protected you — not every belief still serves you.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>4. Common upgrades</h4>
+            <table role="table" aria-label="Limiting beliefs">
+              <thead><tr><th>Theme</th><th>Old</th><th>New</th></tr></thead>
+              <tbody>
+                <tr><td>Worth</td><td>“I’m not enough.”</td><td>“Worth is inherent.”</td></tr>
+                <tr><td>Abundance</td><td>“There’s never enough.”</td><td>“Life is generous and cyclical.”</td></tr>
+                <tr><td>Love</td><td>“People always leave.”</td><td>“Connections evolve — I can remain open.”</td></tr>
+                <tr><td>Purpose</td><td>“I don’t know my path.”</td><td>“Meaning unfolds as I live curiously.”</td></tr>
+                <tr><td>Power</td><td>“Wanting more is selfish.”</td><td>“My expansion serves the whole.”</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>5. Practices</h4>
+            <p><strong>Root excavation:</strong> “What must I believe to keep this pattern?” When did I learn it? Is it true now?</p>
+            <p><strong>Compost:</strong> Thank the protective belief; evolve it: “I’m becoming ready through practice.”</p>
+            <p><strong>7-day proof:</strong> Choose an upgraded belief and gather daily evidence.</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>6. Integration</h4>
+            <p><em>“You don’t attract what you want — you grow what you believe you can hold.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Term</div><p><strong>Belief</strong> = practiced interpretation.</p></div>
+          <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#thought">Thought</a></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== THOUGHT ====================== -->
+    <section id="thought" class="band" aria-labelledby="thought-title">
+      <span class="band__tag"><span class="dot"></span> Section • Thought</span>
+      <h2 id="thought-title" class="band__title">Thoughts are options — not orders</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Thoughts arise; you choose which to cultivate.</strong> Believed and emotionalized thoughts take root.</p>
+            <p><em>Side analogy:</em> Thoughts are seeds; belief and emotion germinate them.</p>
+          </div>
+
+          <div class="block science-block">
+            <h4>2. The brain’s patterning</h4>
+            <p>Repetition + emotion strengthens pathways. Your biology echoes your most frequent thoughts.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>3. Layers</h4>
+            <table role="table" aria-label="Layers of thought">
+              <thead><tr><th>Layer</th><th>Description</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>Surface</td><td>Passing chatter</td><td>“I need coffee.”</td></tr>
+                <tr><td>Conditioned</td><td>Adopted narratives</td><td>“People like me don’t succeed.”</td></tr>
+                <tr><td>Core</td><td>Identity-level</td><td>“I’m safe/unsafe.”</td></tr>
+                <tr><td>Conscious</td><td>Chosen</td><td>“I can learn this.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block note-block">
+            <h4>4. Common patterns</h4>
+            <table role="table" aria-label="Thought patterns">
+              <thead><tr><th>Type</th><th>Description</th><th>Shift</th></tr></thead>
+              <tbody>
+                <tr><td>Catastrophic</td><td>Leaps to worst-case</td><td>“One outcome doesn’t define me.”</td></tr>
+                <tr><td>Comparative</td><td>Worth via others</td><td>“Their path shows possibility.”</td></tr>
+                <tr><td>Self-defeating</td><td>Dismiss inner guidance</td><td>“I can build consistency gently.”</td></tr>
+                <tr><td>Expansive</td><td>Curious & open</td><td>“What else might be true?”</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>5. Practices</h4>
+            <p><strong>Thought harvest:</strong> Jot thoughts that precede tension; find the dominant “seeds.”</p>
+            <p><strong>Substitute:</strong> Write a recurring thought; list 3 equally true alternatives. Practice one for a week.</p>
+            <p><strong>Morning planting:</strong> Before your phone, set 3 conscious thoughts for the day.</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>6. Integration</h4>
+            <p><em>“Thoughts are seeds; belief is soil; emotion is rain.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Tip</div><p>Pair a new thought with an existing habit.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== EMOTION ====================== -->
+    <section id="emotion" class="band" aria-labelledby="emotion-title">
+      <span class="band__tag"><span class="dot"></span> Section • Emotion</span>
+      <h2 id="emotion-title" class="band__title">Emotion moves when it’s welcomed</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Emotion is energy in motion.</strong> It nourishes when it flows and floods when it’s trapped.</p>
+            <p><em>Side analogy:</em> Rivers circulate; dams create pressure. Healthy = movement.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>2. Alchemy 101</h4>
+            <table role="table" aria-label="Emotional alchemy">
+              <thead><tr><th>State</th><th>Pattern</th><th>Shift</th></tr></thead>
+              <tbody>
+                <tr><td>Suppression</td><td>Numbing/avoidance</td><td>Name → breathe → allow</td></tr>
+                <tr><td>Flooding</td><td>Overwhelm/reactivity</td><td>Ground → slow exhale → observe</td></tr>
+                <tr><td>Judgment</td><td>“Bad” labels</td><td>Reframe as information</td></tr>
+                <tr><td>Expression</td><td>Voice/move/art</td><td>Integration</td></tr>
+                <tr><td>Transmutation</td><td>Channel to creation</td><td>“What is this becoming?”</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block note-block">
+            <h4>3. Archetypes</h4>
+            <table role="table" aria-label="Emotional archetypes">
+              <thead><tr><th>Type</th><th>Root Belief</th><th>Pattern</th><th>Balanced</th></tr></thead>
+              <tbody>
+                <tr><td>Numb One</td><td>“Feeling is dangerous.”</td><td>Flatness</td><td>Body/breath reconnection</td></tr>
+                <tr><td>Reactor</td><td>“Feeling = truth.”</td><td>Volatility</td><td>Awareness without fusion</td></tr>
+                <tr><td>Caretaker</td><td>“It’s my job to fix.”</td><td>Exhaustion</td><td>Boundaried empathy</td></tr>
+                <tr><td>Suppressor</td><td>“I must be strong.”</td><td>Tension</td><td>Vulnerable release</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>4. Practices</h4>
+            <p><strong>Weather report:</strong> “I feel ___. Intensity __/10.”</p>
+            <p><strong>Feel, don’t fix:</strong> Locate sensation; exhale longer than inhale for 60s.</p>
+            <p><strong>Transmutation journal:</strong> Trigger → belief → need → restorative action.</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>5. Integration</h4>
+            <p><em>“Emotion is truth in motion.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Micro</div><p>Exhale longer than inhale to settle.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== AWARENESS ====================== -->
+    <section id="awareness" class="band" aria-labelledby="aware-title">
+      <span class="band__tag"><span class="dot"></span> Section • Awareness</span>
+      <h2 id="aware-title" class="band__title">Awareness is the light that changes what it touches</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Awareness is clear seeing without judgment.</strong> It turns reaction into choice.</p>
+            <p><em>Side analogy:</em> Shadows aren’t things; they’re places the light hasn’t touched yet.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>2. Spectrum</h4>
+            <table role="table" aria-label="Spectrum of awareness">
+              <thead><tr><th>Level</th><th>Description</th><th>Experience</th></tr></thead>
+              <tbody>
+                <tr><td>Unconscious</td><td>Automatic patterns</td><td>“Why do I do this?”</td></tr>
+                <tr><td>Self-aware</td><td>Notice thoughts/emotions</td><td>“I see my pattern.”</td></tr>
+                <tr><td>Meta-aware</td><td>Observe the observer</td><td>“I’m aware that I’m aware.”</td></tr>
+                <tr><td>Transcendent</td><td>Identification softens</td><td>Spacious stillness</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>3. Practices</h4>
+            <p><strong>Observer labelling:</strong> “Thinking/Feeling/Sensing,” return to the one who notices.</p>
+            <p><strong>Light on shadows:</strong> Three breaths; ask which beliefs/emotions are present.</p>
+            <p><strong>Checkpoints:</strong> Set 3 gentle reminders: “Breathe & See.”</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>4. Integration</h4>
+            <p><em>“Awareness reveals true nature — and that revelation is the change.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Try</div><p>Notice one bright spot each evening.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== SELF ====================== -->
+    <section id="self" class="band" aria-labelledby="self-title">
+      <span class="band__tag"><span class="dot"></span> Section • Self</span>
+      <h2 id="self-title" class="band__title">A grounded self can bend without breaking</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>The embodied self is an ecosystem.</strong> Past and roots, identity and trunk, choices and branches, outcomes and fruit.</p>
+            <p><em>Side analogy:</em> Nurture roots and conditions; fruit follows.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>2. Anatomy</h4>
+            <table role="table" aria-label="Anatomy of the self">
+              <thead><tr><th>Part</th><th>Inner meaning</th><th>Outer expression</th></tr></thead>
+              <tbody>
+                <tr><td>Roots</td><td>Past, belief</td><td>Instincts, stability</td></tr>
+                <tr><td>Trunk</td><td>Identity, values</td><td>Boundaries, consistency</td></tr>
+                <tr><td>Branches</td><td>Desire, action</td><td>Projects, relationships</td></tr>
+                <tr><td>Leaves</td><td>Daily mood/expressions</td><td>Habits, decisions</td></tr>
+                <tr><td>Fruit</td><td>Outcomes, wisdom</td><td>Legacy, service</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block note-block">
+            <h4>3. Distortions & restorations</h4>
+            <table role="table" aria-label="Distortions">
+              <thead><tr><th>Imbalance</th><th>Description</th><th>Restoration</th></tr></thead>
+              <tbody>
+                <tr><td>Overgrown identity</td><td>Role fixation</td><td>Reconnect to values beyond labels</td></tr>
+                <tr><td>Shallow roots</td><td>Cut off from history/body</td><td>Explore ancestry, emotion</td></tr>
+                <tr><td>Weak trunk</td><td>Low self-trust</td><td>Clarify values & commitments</td></tr>
+                <tr><td>Withered branches</td><td>Abandoned dreams</td><td>Reignite curiosity and play</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>4. Practices</h4>
+            <p><strong>Map your tree:</strong> Roots (history), trunk (values), branches (goals), fruit (gifts).</p>
+            <p><strong>Pruning ritual:</strong> Release one role that no longer fits.</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>5. Integration</h4>
+            <p><em>“You are the meeting point of ground and sky.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Heads up</div><p>Interactive “Tree” dashboard is in progress.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== CYCLES ====================== -->
+    <section id="cycles" class="band" aria-labelledby="cycles-title">
+      <span class="band__tag"><span class="dot"></span> Section • Cycles</span>
+      <h2 id="cycles-title" class="band__title">Right season, right move</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Life moves in seasons:</strong> planting, growth, harvest, and rest. Suffering spikes when we demand summer in winter.</p>
+          </div>
+
+          <div class="block science-block">
+            <h4>2. The rhythm</h4>
+            <table role="table" aria-label="Seasons">
+              <thead><tr><th>Season</th><th>Lesson</th><th>Inner</th><th>Outer</th></tr></thead>
+              <tbody>
+                <tr><td>Spring</td><td>Begin</td><td>Inspiration</td><td>Start/learn</td></tr>
+                <tr><td>Summer</td><td>Build</td><td>Energy</td><td>Action/visibility</td></tr>
+                <tr><td>Autumn</td><td>Integrate</td><td>Gratitude</td><td>Complete/let go</td></tr>
+                <tr><td>Winter</td><td>Restore</td><td>Stillness</td><td>Recover/incubate</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>3. Practices</h4>
+            <p><strong>Season map:</strong> Identify your current season for work, relationships, and health.</p>
+            <p><strong>Ritual of renewal:</strong> One weekly day of “sacred pause.”</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>4. Integration</h4>
+            <p><em>“Life doesn’t move in straight lines — it breathes in circles.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Note</div><p>Rest isn’t failure — it’s strategy.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================== STORMS ====================== -->
+    <section id="storms" class="band" aria-labelledby="storms-title">
+      <span class="band__tag"><span class="dot"></span> Section • Storms</span>
+      <h2 id="storms-title" class="band__title">Challenges refine what’s meant to stand</h2>
+
+      <div class="band__grid">
+        <article class="panel">
+          <div class="block lesson-block">
+            <h4>1. Core Teaching</h4>
+            <p><strong>Storms clarify values and strengthen roots.</strong> Preparation is compassion for future you.</p>
+          </div>
+
+          <div class="block note-block">
+            <h4>2. Patterns</h4>
+            <table role="table" aria-label="Storm patterns">
+              <thead><tr><th>Imbalance</th><th>Pattern</th><th>Restoration</th></tr></thead>
+              <tbody>
+                <tr><td>Collapse</td><td>Freeze/withdraw</td><td>Small action + support</td></tr>
+                <tr><td>Over-control</td><td>Micromanage/react</td><td>Pause, widen choices</td></tr>
+                <tr><td>Story-spinning</td><td>Catastrophize</td><td>Return to body/breath</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="block practice-block">
+            <h4>3. Practice</h4>
+            <p><strong>Storm card:</strong> Name storm → Breathe (exhale 6s) → Boundary (one clear ask) → Ask (one support).</p>
+          </div>
+
+          <div class="block reflect-block">
+            <h4>4. Integration</h4>
+            <p><em>“Wind strengthens what is meant to stand.”</em></p>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="tip"><div class="tag">Ground</div><p>Feet on floor, exhale 6s, name 3 objects you see.</p></div>
+          <div class="tip"><div class="tag">Jump</div><div class="minitoc"><a class="chip" href="#attention">Top</a><a class="chip" href="#belief">Belief</a></div></div>
+        </aside>
+      </div>
+    </section>
+
+  </div>
 </main>
 
 <button class="backtop" id="backTop" aria-label="Back to top">↑ Top</button>
@@ -916,8 +795,8 @@ footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline)
 <footer>
   <div class="container ftr">
     <div style="display:flex;align-items:center;gap:10px">
-      <div class="logo" style="width:28px;height:28px;background:linear-gradient(160deg,var(--garden-400),var(--garden-700));">My</div>
-      <div><strong>Mynd</strong><div class="tiny">One truth — four worlds.</div></div>
+      <div class="f-logo">My</div>
+      <div><strong style="color:var(--txt)">Mynd</strong><div class="tiny">Calm, clear, consistent.</div></div>
     </div>
     <div class="tiny">© <span id="year"></span> Mynd. All rights reserved.</div>
   </div>
@@ -931,8 +810,8 @@ footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline)
   const sheet = document.getElementById('sheet');
   const openBtn = document.querySelector('.menu');
   const closeBtn = document.getElementById('closeSheet');
-  const openSheet = () => { sheet.style.display='block'; sheet.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-  const closeSheetFn = () => { sheet.style.display='none'; sheet.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  const openSheet = () => { sheet.style.display='block'; sheet.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+  const closeSheetFn = () => { sheet.style.display='none'; sheet.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
   if(openBtn) openBtn.addEventListener('click', openSheet);
   if(closeBtn) closeBtn.addEventListener('click', closeSheetFn);
   if(sheet) sheet.addEventListener('click', (e)=>{ if(e.target===sheet) closeSheetFn(); });
@@ -943,10 +822,13 @@ footer{margin-top:28px; padding:28px 0 60px; border-top:1px solid var(--keyline)
   const setActive = (id) => chips.forEach(c => c.classList.toggle('active', c.dataset.section === id));
   const obs = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){ setActive(entry.target.id); history.replaceState(null,'','#'+entry.target.id); }
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+        try{ history.replaceState(null,'','#'+entry.target.id); }catch(e){}
+      }
     });
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-  sections.forEach(sec => obs.observe(sec));
+  sections.forEach(sec => { if(sec) obs.observe(sec); });
 
   // Back to top
   const backTop = document.getElementById('backTop');
