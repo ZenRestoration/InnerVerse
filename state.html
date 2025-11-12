@@ -16,7 +16,7 @@
     <div class="wrap nav">
       <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
       <a href="../index.html">Home</a>
-      <a href="../curriculum.html" class="active">Curriculum</a>
+      <a href="../curriculum/index.html" class="active">Curriculum</a>
       <a href="state.html">State</a>
       <a href="story.html">Story</a>
       <a href="need.html">Need</a>
@@ -29,7 +29,7 @@
       <span class="tagline"><span class="dot"></span> Lesson One</span>
       <h1>The Language of the Body</h1>
       <p class="sub">
-        Before the mind creates a story, the body has already spoken.  
+        Before the mind creates a story, the body has already spoken.
         Awareness begins in sensation — the pulse beneath thought.
       </p>
     </div>
@@ -38,11 +38,11 @@
       <h2>Emotions are the body’s first language</h2>
       <p>
         Think of your body like a compass. Every tightness, ache, flutter, or heat is data — information from your inner world.
-        It’s not random; it’s communication. Your nervous system is saying, *“Something matters.”*
+        It’s not random; it’s communication. Your nervous system is saying, <em>“Something matters.”</em>
       </p>
       <p>
         But most of us learned to silence that language. We push through, intellectualize, or judge how we feel.
-        The first step in awareness is re-learning how to listen — not to analyze the emotion, but to *feel* it without fleeing.
+        The first step in awareness is re-learning how to listen — not to analyze the emotion, but to <em>feel</em> it without fleeing.
       </p>
 
       <div class="hr"></div>
@@ -53,18 +53,15 @@
         <li>Notice one area in your body that feels the loudest — tension, warmth, tightness, ache.</li>
         <li>Say silently: “Body, I hear you.”</li>
       </ul>
-      <p>
-        That’s it. You just spoke your body’s language fluently — awareness.
-      </p>
+      <p>That’s it. You just spoke your body’s language fluently — awareness.</p>
 
       <div class="hr"></div>
       <h3>Analogy: The Weather of the Mind</h3>
       <p>
         Your emotions are like weather. They shift, move, and pass.
-        The problem arises when we identify *with* the storm instead of *observing* it.
+        The problem arises when we identify <em>with</em> the storm instead of <em>observing</em> it.
         You are the sky, not the storm.
       </p>
-
       <p class="muted"><em>When you learn to identify your weather, you stop believing you are the rain.</em></p>
     </section>
 
@@ -73,10 +70,10 @@
     <section class="card reveal center">
       <h2>Practice: Name It to Tame It</h2>
       <p class="sub">Saying what you feel reduces the body’s threat signal by up to 40%. It’s neurobiology — not just poetry.</p>
-      <p>Try saying out loud:  
-      “This feels like <strong>fear</strong>.” or “This feels like <strong>grief</strong>.”  
-      You’re not labeling to judge — you’re labeling to lead.</p>
-
+      <p>Try saying out loud:
+        “This feels like <strong>fear</strong>.” or “This feels like <strong>grief</strong>.”
+        You’re not labeling to judge — you’re labeling to lead.
+      </p>
       <p><a class="chip" href="story.html">Continue to Lesson Two →</a></p>
     </section>
   </main>
@@ -84,5 +81,27 @@
   <footer class="reveal">Mynd · © <span id="yr"></span></footer>
   <button class="to-top" id="toTop">↑</button>
   <script src="../app.js"></script>
+
+  <!-- Progress tracking (runs after DOM is ready) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      // Normalize title to get lesson key (handles different dash characters)
+      const raw = (document.title || '');
+      const split = raw.split('—'); // em dash
+      const key = (split[0] ? split[0] : raw).trim().toLowerCase(); // "State"
+      if (key){
+        const storageKey = 'lesson_' + key;
+        if (localStorage.getItem(storageKey) !== 'done'){
+          localStorage.setItem(storageKey, 'started');
+        }
+      }
+      // Mark done when continuing
+      document.querySelectorAll('a.chip, a[href*="state"], a[href*="story"], a[href*="need"], a[href*="step"]').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          if (key){ localStorage.setItem('lesson_' + key, 'done'); }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
