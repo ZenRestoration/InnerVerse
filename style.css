@@ -36,12 +36,11 @@ body::before{
     radial-gradient(45% 40% at 110% 10%, rgba(124,132,248,.18), transparent 65%),
     radial-gradient(60% 50% at -10% 70%, rgba(24,182,173,.16), transparent 65%),
     linear-gradient(180deg, #F9FCFF 0%, #F6FAFF 60%, #F7FAFF 100%);
-  filter: none;
   transform: translateZ(0);
   will-change: transform;
 }
 
-/* Parallax color orbs (also fixed; subtle) */
+/* Parallax color orbs */
 .orb{
   position:fixed; border-radius:50%;
   filter:blur(40px); pointer-events:none; opacity:.40; mix-blend-mode:multiply; z-index:-1;
@@ -64,7 +63,10 @@ header{
 .nav{display:flex; align-items:center; gap:16px; padding:12px 0}
 .brand{
   font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px; color:#102E31; font-size:20px;
+  display:flex; align-items:center; gap:6px;
 }
+.tag-sub{font-size:0.7em;opacity:0.6;font-weight:500}
+
 .nav a{color:#2C5E63; font-size:14px; padding:6px 8px; border-radius:10px; text-decoration:none}
 .nav a:hover{background:rgba(24,182,173,.10)}
 .nav a.active{background:rgba(124,132,248,.12); color:#273A6A}
