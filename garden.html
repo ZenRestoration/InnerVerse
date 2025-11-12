@@ -1,880 +1,291 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Mynd — Everyday Emotional Clarity</title>
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-/* ===================== THEME TOKENS (lighter, calmer) ===================== */
-:root{
-  /* Core palette (brighter surfaces while honoring your brand colors) */
-  --bg:#0E1516;              /* deep forest, slightly brighter */
-  --bg-veil:#112022;         /* lifted background for contrast */
-  --panel:#142628;           /* soft card base */
-  --panel-2:rgba(255,255,255,.04); /* transparent wash for paper look */
-
-  --ink:#EAF8F7;             /* titles / hard text */
-  --soft:#C9E2DF;            /* soft text */
-  --muted:#9FB8B6;           /* muted text */
-
-  --aqua:#19A19C;            /* signature accent */
-  --aqua-mist:#5ABBB4;       /* glow */
-  --pop:#73FFE9;             /* breakthrough spark (use rarely) */
-  --shadow-red:#642E33;      /* shadow tint */
-
-  --keyline: rgba(186,228,223,.12);
-  --keyline-strong: rgba(186,228,223,.2);
-
-  --radius:20px;
-  --radius-lg:24px;
-  --shadow: 0 28px 80px rgba(0,0,0,.45);
-  --shadow-soft: 0 16px 40px rgba(0,0,0,.28);
-  --max: 1120px;
-
-  --easing: cubic-bezier(.2,.7,.2,1);
-  --dur: 260ms;
-
-  --title-font: "SF Pro Display", Inter, ui-sans-serif;
-  --text-font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  --soul-font: "Cormorant Garamond", serif;
-}
-
-/* ===================== BASE ===================== */
-*{box-sizing:border-box}
-html,body{height:100%}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  color:var(--soft);
-  background:
-    radial-gradient(1200px 520px at 50% -10%, rgba(32,86,88,.35), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-veil) 36%, #122023 100%);
-  font-family:var(--text-font);
-  line-height:1.7;
-  letter-spacing:.2px;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
-/* A gentle “paper” veil to lighten the whole site */
-.page-veil{
-  position:fixed; inset:0; pointer-events:none;
-  background:
-    radial-gradient(1400px 900px at 50% -20%, rgba(90,187,180,.10), transparent 60%),
-    radial-gradient(1200px 700px at -10% 10%, rgba(255,255,255,.05), transparent 50%),
-    radial-gradient(1200px 700px at 110% 10%, rgba(255,255,255,.05), transparent 50%);
-  z-index:0;
-}
-
-/* Selection */
-::selection{background:rgba(25,161,156,.26); color:var(--ink)}
-
-/* Containers */
-.container{width:min(var(--max),92vw);margin-inline:auto;position:relative;z-index:1}
-
-/* ===================== HEADER ===================== */
-header{
-  position:sticky; top:0; z-index:60;
-  backdrop-filter:saturate(120%) blur(12px);
-  background:linear-gradient(180deg, rgba(14,21,22,.88), rgba(14,21,22,.60));
-  border-bottom:1px solid var(--keyline);
-}
-.hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-.logo{
-  width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
-  background:radial-gradient(80% 80% at 30% 20%, var(--aqua) 0%, #0f3a37 60%, #0b1415 100%);
-  color:#001e1c;font-weight:700;font-family:var(--soul-font);letter-spacing:.3px;
-  box-shadow:0 10px 26px rgba(25,161,156,.22), inset 0 0 0 1px rgba(255,255,255,.06);
-}
-.brand span{font-weight:600;letter-spacing:.3px}
-
-.nav{display:flex;align-items:center;gap:8px}
-.nav a{
-  text-decoration:none;color:var(--soft);font-weight:600;
-  padding:8px 12px;border-radius:999px;border:1px solid transparent;
-}
-.nav a:hover{border-color:var(--keyline);background:rgba(186,228,223,.06)}
-.nav a.active{color:var(--ink);border-color:var(--keyline-strong);background:rgba(186,228,223,.10)}
-
-.menu{display:none;appearance:none;border:0;background:transparent;padding:6px;margin-left:8px}
-.menu svg{width:26px;height:26px;stroke:var(--soft)}
-@media (max-width:860px){ .nav{display:none} .menu{display:block} }
-
-.cta{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 14px;border-radius:999px;border:1px solid var(--keyline-strong);
-  background:linear-gradient(180deg, rgba(25,161,156,.22), rgba(25,161,156,.08));
-  color:var(--ink);font-weight:700;text-decoration:none;
-  box-shadow:0 10px 28px rgba(25,161,156,.14);
-}
-
-/* Mobile sheet */
-.sheet{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:70}
-.sheet__panel{
-  position:absolute;right:0;top:0;height:100%;width:min(82vw,360px);
-  background:rgba(17,33,36,.98);border-left:1px solid var(--keyline);box-shadow:var(--shadow);
-  padding:18px 16px;display:flex;flex-direction:column;gap:10px
-}
-.sheet__panel a{padding:12px;border-radius:12px;text-decoration:none;color:var(--ink);border:1px solid var(--keyline)}
-.sheet__panel a:hover{background:rgba(186,228,223,.06)}
-.sheet__close{align-self:flex-end;border:1px solid var(--keyline);background:transparent;border-radius:10px;padding:8px;color:var(--soft)}
-
-/* ===================== HERO (lighter, warmer) ===================== */
-.hero{
-  position:relative; padding:92px 0 28px;
-  background:
-    radial-gradient(1200px 500px at 50% -40%, rgba(25,161,156,.12), transparent 65%),
-    radial-gradient(900px 420px at 15% -10%, rgba(255,255,255,.05), transparent 60%),
-    radial-gradient(900px 420px at 85% -10%, rgba(255,255,255,.05), transparent 60%);
-}
-.kicker{
-  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
-  background:rgba(186,228,223,.10);border:1px solid var(--keyline);
-  color:var(--soft);font-weight:700;letter-spacing:.3px
-}
-.kicker .dot{width:8px;height:8px;border-radius:999px;background:var(--aqua);box-shadow:0 0 0 3px rgba(25,161,156,.12)}
-
-.h1{
-  margin:16px 0 10px;
-  font:600 clamp(30px,5.2vw,60px)/1.06 var(--title-font);
-  color:var(--ink); letter-spacing:.2px
-}
-.glowline{
-  height:2px; width:230px; margin:18px 0 12px;
-  background:linear-gradient(90deg, var(--aqua), transparent);
-  filter:drop-shadow(0 0 6px rgba(25,161,156,.38));
-}
-.sub{
-  max-width:820px;margin:0;color:var(--soft);font-size:clamp(16px,2.2vw,20px)
-}
-
-/* ===================== INTRO PANEL ===================== */
-.intro{
-  margin-top:24px;
-  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border:1px solid var(--keyline);
-  border-radius:var(--radius-lg);
-  box-shadow:var(--shadow-soft);
-  padding:18px;
-}
-.intro p{margin:0 0 10px}
-.intro strong{color:var(--ink);}
-
-/* ===================== TILES ===================== */
-.tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:20px 0 8px}
-@media (max-width:1000px){.tiles{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:560px){.tiles{grid-template-columns:repeat(2,1fr)}}
-.tile{
-  min-height:92px;border-radius:18px;padding:12px;
-  border:1px solid var(--keyline); background:linear-gradient(180deg, rgba(186,228,223,.08), rgba(186,228,223,.02));
-  text-decoration:none;color:var(--ink); display:flex;flex-direction:column;justify-content:center;gap:6px;
-  box-shadow:0 10px 28px rgba(0,0,0,.25);
-  transition:transform var(--dur) var(--easing), box-shadow var(--dur) var(--easing), border-color var(--dur) var(--easing);
-}
-.tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:var(--keyline-strong)}
-.tile .tname{font-weight:700}
-.tile .tsub{font-size:12px;color:var(--muted)}
-
-/* subtle tints */
-.tile[data-k="storms"]{box-shadow:inset 0 0 0 1px rgba(100,46,51,.18), 0 10px 28px rgba(0,0,0,.25)}
-
-/* ===================== TOC CHIPS ===================== */
-.toc-wrap{position:sticky; top:66px; z-index:50; margin:14px 0}
-.toc{
-  display:flex; gap:10px; overflow:auto; padding:10px;border-radius:16px;
-  background:rgba(186,228,223,.10); border:1px solid var(--keyline);
-}
-.tchip{
-  flex:0 0 auto; padding:9px 13px; border-radius:999px;
-  border:1px solid var(--keyline); color:var(--soft); font-weight:700; text-decoration:none;
-  background:rgba(17,33,36,.65); transition:background var(--dur) var(--easing), color var(--dur) var(--easing), border-color var(--dur) var(--easing)
-}
-.tchip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.14)}
-.tchip.active{color:var(--ink); background:linear-gradient(180deg, rgba(25,161,156,.22), rgba(25,161,156,.08)); border-color:var(--keyline-strong)}
-
-/* ===================== BANDS / PANELS ===================== */
-.band{position:relative;padding:36px 0 30px}
-.band + .band{border-top:1px solid var(--keyline)}
-.band__head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-.tag{
-  display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
-  border:1px solid var(--keyline-strong); color:var(--soft); background:rgba(186,228,223,.12); font-weight:700
-}
-.tag .dot{width:8px;height:8px;border-radius:999px;background:var(--aqua)}
-.h2{
-  margin:10px 0 12px; color:var(--ink); font:600 clamp(22px,3.6vw,34px)/1.14 var(--title-font)
-}
-.grid{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:20px}
-@media (max-width:1000px){.grid{grid-template-columns:1fr}}
-
-.panel{
-  background:linear-gradient(180deg, var(--panel), var(--panel-2));
-  border:1px solid var(--keyline);
-  border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:18px;
-  animation:fadeIn var(--dur) var(--easing) both;
-}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none}}
-
-.block{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid var(--keyline);
-  border-radius:16px; padding:14px; margin:12px 0
-}
-.block h4{margin:0 0 8px; color:var(--ink); font:600 15px/1.2 Inter}
-.block p{margin:0 0 12px}
-.block ul{margin:8px 0 0 18px}
-.block ol{margin:8px 0 0 18px}
-
-/* subtle category hues */
-.story{background:linear-gradient(180deg, rgba(186,228,223,.12), rgba(186,228,223,.03))}
-.lesson{background:linear-gradient(180deg, rgba(25,161,156,.15), rgba(25,161,156,.04))}
-.practice{background:linear-gradient(180deg, rgba(90,187,180,.14), rgba(90,187,180,.03))}
-.reflect{background:linear-gradient(180deg, rgba(115,255,233,.12), rgba(115,255,233,.02))}
-.science{background:linear-gradient(180deg, rgba(150,200,198,.12), rgba(150,200,198,.03))}
-.note{background:linear-gradient(180deg, rgba(100,46,51,.14), rgba(100,46,51,.03))}
-
-/* Tables */
-table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--keyline)}
-thead th{background:rgba(186,228,223,.12); color:var(--ink); font-weight:700; text-align:left; padding:10px 12px; font-size:14px; border-bottom:1px solid var(--keyline)}
-tbody td{padding:10px 12px; border-bottom:1px solid var(--keyline); vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-
-/* Sidebar */
-.sidebar{position:sticky; top:98px; display:flex; flex-direction:column; gap:12px}
-.tip{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid var(--keyline);
-  border-radius:16px; padding:12px; box-shadow:var(--shadow-soft)
-}
-.tip .label{
-  display:inline-block; font-size:11px; font-weight:700; letter-spacing:.3px; margin-bottom:6px;
-  color:var(--soft); border:1px solid var(--keyline); padding:4px 8px; border-radius:999px; background:rgba(186,228,223,.10)
-}
-.minitoc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chip{
-  display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;font-weight:700;
-  border:1px solid var(--keyline); background:rgba(17,33,36,.65); color:var(--soft); text-decoration:none
-}
-.chip:hover{border-color:var(--keyline-strong);background:rgba(186,228,223,.14)}
-
-/* Back to top */
-.backtop{
-  position:fixed; right:16px; bottom:18px; z-index:55; border:1px solid var(--keyline-strong);
-  border-radius:999px; padding:10px 12px; background:rgba(186,228,223,.12); color:var(--ink);
-  font-weight:700; box-shadow:var(--shadow-soft); display:none
-}
-.backtop.show{display:inline-flex; align-items:center; gap:8px}
-
-/* Footer */
-footer{margin-top:34px;padding:40px 0 80px;border-top:1px solid var(--keyline);
-  background:linear-gradient(180deg, rgba(14,21,22,.5), rgba(14,21,22,.8))}
-.ftr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.tiny{font-size:12px;color:var(--muted)}
-</style>
+  <meta charset="utf-8" />
+  <title>Mynd — Emotional Clarity Engine™</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0B1213; --card:#0F1A1C; --text:#E6F5F4; --muted:#8BA5A4;
+      --soft:#B8D4D1; --accent:#19A19C; --line:#173033; --ring:#5ABBB4;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:880px;margin:0 auto;padding:32px 20px}
+    .hero{padding:28px 24px;background:linear-gradient(180deg, rgba(25,161,156,0.06), rgba(15,26,28,0.6)), var(--card); border:1px solid #153235; border-radius:20px; box-shadow:0 18px 40px rgba(0,0,0,.35)}
+    h1{margin:0 0 6px;font-weight:700;letter-spacing:.2px}
+    p.sub{color:var(--soft);margin:0 0 16px}
+    textarea{width:100%;min-height:120px;background:#0B1213;border:1px solid #163236;color:var(--text);padding:14px 16px;border-radius:14px;font-size:16px;resize:vertical}
+    button{background:var(--accent);color:#052025;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+    .sp{height:20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#10242a;border:1px solid #264a53;color:#a9dbe0;font-size:12px}
+    .hr{height:1px;background:#183135;margin:16px 0}
+    .label{color:var(--soft);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+    .affirm{font-weight:700}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .muted{color:var(--muted)}
+    .tiny{color:#86a8a6;font-size:12px}
+    .footer{color:#799996;font-size:12px;text-align:center;margin-top:24px}
+    .hidden{display:none}
+  </style>
 </head>
-
 <body>
-<div class="page-veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Mynd</h1>
+      <p class="sub">When you don’t know what’s wrong, I help you understand yourself. Write one or two sentences—I'll reflect with clarity, care, and a next step.</p>
+      <form id="clarity-form">
+        <textarea id="feelings" placeholder="e.g. I’m spiralling about money and can’t think straight..."></textarea>
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <button type="submit">Find Clarity</button>
+          <a class="pill" href="./">Reset</a>
+        </div>
+      </form>
+    </div>
 
-<header>
-  <div class="container hdr">
-    <a class="brand" href="#"><div class="logo">My</div><span>Mynd</span></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#" class="active">Home</a>
-      <a href="#gardener">Attention</a>
-      <a href="#soil">Belief</a>
-      <a href="#seed">Thought</a>
-      <a href="#water">Emotion</a>
-      <a href="#sun">Awareness</a>
-      <a href="#tree">Self</a>
-      <a href="#seasons">Cycles</a>
-      <a href="#storms">Storms</a>
-    </nav>
-    <button class="menu" aria-label="Open menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 6h18M3 12h18M3 18h18" />
-      </svg>
-    </button>
-    <a class="cta" href="#gardener">Begin</a>
+    <div class="sp"></div>
+
+    <div id="result-card" class="card hidden">
+      <div class="pill" id="label-pill">Emotion</div>
+      <h2 style="margin:10px 0 6px">I’m hearing this:</h2>
+      <p class="muted">Also called: <span id="aka"></span></p>
+      <div class="hr"></div>
+
+      <div class="grid">
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">Why this happens</div>
+          <div id="why"></div>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">What your body is doing</div>
+          <div id="nervous"></div>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">What you need</div>
+          <div id="need"></div>
+        </div>
+      </div>
+
+      <div id="full-block" class="hidden">
+        <div class="hr"></div>
+        <h3>Gentle Reframe</h3>
+        <p id="reframe"></p>
+
+        <h3>Regulate (60–120s)</h3>
+        <p id="regulate"></p>
+
+        <h3>One next step</h3>
+        <p id="next_step"></p>
+
+        <h3>Affirmation</h3>
+        <p class="affirm" id="affirmation"></p>
+      </div>
+
+      <div id="upgrade-block" class="">
+        <div class="hr"></div>
+        <p><strong>Want the full reflection?</strong> Get the reframe, 90-second regulation, your next step, and an anchoring affirmation.</p>
+        <p><a class="pill" href="./join.html">Unlock Full Reflection</a></p>
+      </div>
+
+      <div class="hr"></div>
+      <p class="tiny">Mynd · Emotional Clarity Engine™ · Prototype v0.1</p>
+    </div>
+
+    <div class="footer">Built with care. Your feelings are welcome here.</div>
   </div>
 
-  <!-- Mobile Sheet -->
-  <div class="sheet" id="sheet" aria-hidden="true">
-    <div class="sheet__panel" role="dialog" aria-modal="true" aria-label="Navigation">
-      <button class="sheet__close" id="closeSheet" aria-label="Close menu">✕</button>
-      <a href="#" class="active">Home</a>
-      <a href="#gardener">Attention</a>
-      <a href="#soil">Belief</a>
-      <a href="#seed">Thought</a>
-      <a href="#water">Emotion</a>
-      <a href="#sun">Awareness</a>
-      <a href="#tree">Self</a>
-      <a href="#seasons">Cycles</a>
-      <a href="#storms">Storms</a>
-      <a class="cta" href="#gardener" style="text-align:center;margin-top:6px">Start Here</a>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <span class="kicker"><span class="dot"></span> Welcome</span>
-    <h1 class="h1">Gentle tools for feeling better and seeing clearly</h1>
-    <div class="glowline" aria-hidden="true"></div>
-    <p class="sub">
-      This is a calm place to understand yourself. We move slowly. We speak plainly.
-      We work with how the mind, body, and heart actually behave—so you can find steadiness,
-      make kinder choices, and grow the life that fits.
-    </p>
-
-    <div class="intro">
-      <p><strong>How to use this page:</strong> each section gives you a short story (to feel), a clear teaching (to understand),
-      and a few tiny practices (to try today). You do not have to fix everything—just bring
-      a little more light to the part of you that’s ready.</p>
-    </div>
-
-    <!-- Section Tiles -->
-    <div class="tiles" aria-label="Map">
-      <a class="tile" data-k="gardener" href="#gardener"><span class="tname">Attention</span><span class="tsub">Where your light lands</span></a>
-      <a class="tile" data-k="soil" href="#soil"><span class="tname">Belief</span><span class="tsub">The rules you live by</span></a>
-      <a class="tile" data-k="seed" href="#seed"><span class="tname">Thought</span><span class="tsub">Choosing your scripts</span></a>
-      <a class="tile" data-k="water" href="#water"><span class="tname">Emotion</span><span class="tsub">Energy that wants to move</span></a>
-      <a class="tile" data-k="sun" href="#sun"><span class="tname">Awareness</span><span class="tsub">Light that organizes</span></a>
-      <a class="tile" data-k="tree" href="#tree"><span class="tname">Self</span><span class="tsub">Roots, trunk, fruit</span></a>
-      <a class="tile" data-k="seasons" href="#seasons"><span class="tname">Cycles</span><span class="tsub">Right move, right time</span></a>
-      <a class="tile" data-k="storms" href="#storms"><span class="tname">Storms</span><span class="tsub">Wind that refines</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- Sticky section chips -->
-<div class="toc-wrap">
-  <nav class="toc container" aria-label="Sections">
-    <a class="tchip" href="#gardener" data-section="gardener">Attention</a>
-    <a class="tchip" href="#soil" data-section="soil">Belief</a>
-    <a class="tchip" href="#seed" data-section="seed">Thought</a>
-    <a class="tchip" href="#water" data-section="water">Emotion</a>
-    <a class="tchip" href="#sun" data-section="sun">Awareness</a>
-    <a class="tchip" href="#tree" data-section="tree">Self</a>
-    <a class="tchip" href="#seasons" data-section="seasons">Cycles</a>
-    <a class="tchip" href="#storms" data-section="storms">Storms</a>
-  </nav>
-</div>
-
-<main class="container" style="padding-top:6px">
-
-  <!-- =================== ATTENTION =================== -->
-  <section id="gardener" class="band" aria-labelledby="gardener-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Attention</span>
-    </div>
-    <h2 id="gardener-title" class="h2">Where your light lands, life grows</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>The kettle sings. You open one message and—somehow—ten more. Your tea goes cold and your chest tightens. You didn’t choose chaos; your attention was borrowed. Hand to heart, one slow breath. You choose a single thing to care for now. The room changes temperature. So do you.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching (clear & simple)</h4>
-          <p>Attention isn’t just focus—it’s creative power. Whatever you give warm, repeated attention becomes easier to see and easier to choose tomorrow. That’s how habits, moods, and identities grow: attention → repetition → wiring.</p>
-          <ul>
-            <li><strong>Quality over quantity:</strong> ten kind seconds on what matters can outgrow an hour of scattered clicking.</li>
-            <li><strong>Redirect beats resist:</strong> “Not this right now—this instead.”</li>
-            <li><strong>Presence changes tone:</strong> when you really look, your nervous system listens.</li>
-          </ul>
-        </div>
-
-        <div class="block science">
-          <h4>Why your brain agrees</h4>
-          <ul>
-            <li>Emotion + attention tells the brain “store this.”</li>
-            <li>Repeated attention thickens pathways (what fires together wires together).</li>
-            <li>Gentle noticing calms the threat system; frantic scanning feeds it.</li>
-          </ul>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices (tiny, doable)</h4>
-          <p><strong>60-second beam:</strong> pick one sound in the room; rest there for a minute. Notice who you are after.</p>
-          <p><strong>Evening audit:</strong> “Where did my light land today? What deserves it tomorrow?”</p>
-          <p><strong>In-moment anchor:</strong> “Where is my attention, and what is it growing?”</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Gentle reframe</h4>
-          <p>You don’t have an attention problem. You have a care problem. Aim your care.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Quick tip</div><p>Put your phone in another room for the 60-second beam. Your mind will thank you.</p></div>
-        <div class="tip"><div class="label">Next</div><div class="minitoc"><a class="chip" href="#soil">Belief</a></div></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== BELIEF =================== -->
-  <section id="soil" class="band" aria-labelledby="soil-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Belief</span>
-    </div>
-    <h2 id="soil-title" class="h2">The rules you live by (often silently)</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>A friend goes quiet. One inner rule says, “I must have done something wrong.” Another says, “People get busy.” Same silence, opposite nervous systems. Your rulebook decides which world you stand in.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Beliefs are practiced interpretations, not facts. Many were chosen by earlier versions of you—family, culture, old emotions set them in place. They kept you safe then. You get to update them now.</p>
-          <ul>
-            <li><strong>Fertile beliefs</strong> feel spacious and curious; life feels more possible.</li>
-            <li><strong>Depleted beliefs</strong> feel tight and absolute; life keeps repeating.</li>
-          </ul>
-        </div>
-
-        <div class="block science">
-          <h4>Spot the signal</h4>
-          <table role="table" aria-label="Belief signals">
-            <thead><tr><th>Belief quality</th><th>Inner feel</th><th>Outcomes</th></tr></thead>
-            <tbody>
-              <tr><td>Fertile</td><td>Breath in the chest, a little hope</td><td>Options appear, energy returns</td></tr>
-              <tr><td>Depleted</td><td>All-or-nothing, shame spiral</td><td>Same loops, isolation, stuckness</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block note">
-          <h4>Gentle upgrades</h4>
-          <ul>
-            <li>“I’m behind.” → “I’m on time for my season.”</li>
-            <li>“It’s selfish to want more.” → “When I expand, I can give cleanly.”</li>
-            <li>“People always leave.” → “People come and go; I remain open and boundaried.”</li>
-          </ul>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Root question:</strong> “What must I believe for this to keep happening?” Answer fast.</p>
-          <p><strong>Compost:</strong> thank the old belief for protecting you; keep the wisdom; retire the weapon.</p>
-          <p><strong>Seven receipts:</strong> pick one new belief and collect seven tiny proofs this week.</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>Your beliefs were survival tech. You’ve outgrown some gear.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Term</div><p><strong>Belief</strong> = a practiced interpretation you can update.</p></div>
-        <div class="tip"><div class="label">Next</div><div class="minitoc"><a class="chip" href="#seed">Thought</a></div></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== THOUGHT =================== -->
-  <section id="seed" class="band" aria-labelledby="seed-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Thought</span>
-    </div>
-    <h2 id="seed-title" class="h2">Ideas are guests; you decide who stays</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>Morning mirror. Old script: “I look exhausted—today will be hard.” Pause. “I’m in repair; my body is wise.” Same face, different future. Choosing a kinder line edits the day ahead.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Thoughts appear automatically. You’re not responsible for the first one—only for the second look. Repetition + emotion give thoughts roots; curiosity loosens them.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Helpful map</h4>
-          <table role="table" aria-label="Layers of thought">
-            <thead><tr><th>Layer</th><th>What it is</th><th>Example</th></tr></thead>
-            <tbody>
-              <tr><td>Surface chatter</td><td>Passing logistics</td><td>“Need coffee.”</td></tr>
-              <tr><td>Conditioned lines</td><td>Family/culture rules</td><td>“People like me don’t succeed.”</td></tr>
-              <tr><td>Core statements</td><td>Identity assumptions</td><td>“I’m safe/unsafe.”</td></tr>
-              <tr><td>Chosen thinking</td><td>Intentional edits</td><td>“I can learn this with patience.”</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block note">
-          <h4>Traps → quick shifts</h4>
-          <ul>
-            <li>Catastrophe → “One outcome is not my destiny.”</li>
-            <li>Comparison → “Their win is evidence of possibility.”</li>
-            <li>Self-dragging → “Consistency is a skill I’m learning.”</li>
-          </ul>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Thought harvest:</strong> when your body tenses, write the sentence you were believing.</p>
-          <p><strong>Three truer lines:</strong> for a sticky thought, write three alternatives that are equally true and kinder—practice one for a week.</p>
-          <p><strong>Morning planting:</strong> name three thoughts you want to experience today before touching your phone.</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>Your mind is a storyteller. Give it better scripts.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Tip</div><p>Stack a new thought onto your tea ritual to make it stick.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== EMOTION =================== -->
-  <section id="water" class="band" aria-labelledby="water-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Emotion</span>
-    </div>
-    <h2 id="water-title" class="h2">Energy wants to move, not be managed</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>A hard talk is coming. Old you armors up. Present you places a palm on the belly, exhales longer than the inhale, and names it: “This is fear. I care.” The wave moves. Honesty lets it flow.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Emotions are messages, not verdicts. Suppressed, they turn to pressure. Indulged without awareness, they flood. Felt and named, they become fuel.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Quick map</h4>
-          <table role="table" aria-label="Emotional alchemy">
-            <thead><tr><th>State</th><th>What it looks like</th><th>Shift</th></tr></thead>
-            <tbody>
-              <tr><td>Suppression</td><td>Numbing/avoidance</td><td>Acknowledge → Name → Breathe</td></tr>
-              <tr><td>Flooding</td><td>Overwhelm/reactivity</td><td>Ground → Slow exhale → Orient</td></tr>
-              <tr><td>Judgment</td><td>“This feeling is bad”</td><td>Curiosity: “What is this protecting?”</td></tr>
-              <tr><td>Expression</td><td>Voice/movement/page</td><td>Integration, clarity</td></tr>
-              <tr><td>Transmutation</td><td>Channel as action/art</td><td>“What is this becoming?”</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Weather report:</strong> “I feel __, intensity __/10, it’s asking for __.”</p>
-          <p><strong>90-second flow:</strong> move the body the way the feeling would move (shake, sway), then stillness.</p>
-          <p><strong>Repair line:</strong> “When X happened, I felt Y because Z matters to me. I need __.”</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>You’re not “too much.” You’re alive. Make room for your aliveness.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Micro</div><p>Exhale longer than inhale. It signals safety to your body.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== AWARENESS =================== -->
-  <section id="sun" class="band" aria-labelledby="sun-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Awareness</span>
-    </div>
-    <h2 id="sun-title" class="h2">The light that changes what it touches</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>Mid-spiral, you hear the line: “I always mess this up.” Something kinder steps in: “I’m noticing a pattern.” The moment you notice, you have a choice. Noticing loosens the knot.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Awareness is non-judgmental seeing. It doesn’t fight; it reveals—and revelation softens the pattern. Awareness integrates attention, belief, thought, and emotion so they stop running on autopilot.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Levels</h4>
-          <table role="table" aria-label="Awareness levels">
-            <thead><tr><th>Level</th><th>Description</th><th>Experience</th></tr></thead>
-            <tbody>
-              <tr><td>Unaware</td><td>Autopilot</td><td>“Why do I do this?”</td></tr>
-              <tr><td>Self-aware</td><td>See thoughts/feelings</td><td>“I see my pattern.”</td></tr>
-              <tr><td>Meta-aware</td><td>Observe the observer</td><td>“I’m aware I’m aware.”</td></tr>
-              <tr><td>Transcendent</td><td>Identification softens</td><td>Quiet, spaciousness</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Labeling:</strong> “Thinking… Feeling… Sensing…” then return to the one who notices.</p>
-          <p><strong>Three-breath reset:</strong> in through nose, out longer; find the softest sensation in your body; rest there.</p>
-          <p><strong>Sun on shadows:</strong> “If this part could talk, what would it ask for?”</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>Awareness is not detachment; it’s intimacy without panic.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Try</div><p>Name one “bright spot” each evening and why it mattered.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== SELF =================== -->
-  <section id="tree" class="band" aria-labelledby="tree-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Self</span>
-    </div>
-    <h2 id="tree-title" class="h2">Roots, trunk, branches, fruit</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>You notice you’ve been performing a version of you that kept the peace. You prune—gently—so the living parts can grow. Sturdier now, you still sway with wind. Oaks bend and remain oak.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>You’re an ecosystem, not a brand. Healthy selves have deep roots (history/values), a strong trunk (identity/boundaries), flexible branches (choices), and seasonal fruit (results). When any part is neglected, the whole system tilts.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Check your tree</h4>
-          <table role="table" aria-label="Self anatomy">
-            <thead><tr><th>Part</th><th>Inner meaning</th><th>Outer expression</th></tr></thead>
-            <tbody>
-              <tr><td>Roots</td><td>Beliefs, ancestry</td><td>Stability, instincts</td></tr>
-              <tr><td>Trunk</td><td>Identity, values</td><td>Boundaries, consistency</td></tr>
-              <tr><td>Branches</td><td>Desires, reach</td><td>Work, relationships, projects</td></tr>
-              <tr><td>Fruit</td><td>Outcomes, gifts</td><td>Impact, service, wisdom</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Map your tree:</strong> one page, four quadrants—write three bullets in each.</p>
-          <p><strong>Boundary as bark:</strong> draft one sentence you’ll use next time your line is crossed.</p>
-          <p><strong>Prune with love:</strong> release one role you’ve outgrown.</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>You’re allowed to be sturdy and soft.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Soon</div><p>Interactive “Tree” view is on the roadmap.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== CYCLES =================== -->
-  <section id="seasons" class="band" aria-labelledby="seasons-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Cycles</span>
-    </div>
-    <h2 id="seasons-title" class="h2">Right move, right season</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>You planned to launch, but your body is in winter—quiet, inward, slow. Forcing summer makes brittle fruit. You pick restoration. The result: a stronger spring.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Life breathes in seasons: spring (begin), summer (build), autumn (harvest), winter (restore). Suffering spikes when we demand the wrong season. Freedom grows when we match moves to timing.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Spot your season</h4>
-          <table role="table" aria-label="Seasons">
-            <thead><tr><th>Season</th><th>Signals</th><th>Good moves</th></tr></thead>
-            <tbody>
-              <tr><td>🌱 Spring</td><td>Ideas, curiosity</td><td>Prototype, don’t perfect</td></tr>
-              <tr><td>☀️ Summer</td><td>Energy, momentum</td><td>Ship, share, show up</td></tr>
-              <tr><td>🍁 Autumn</td><td>Completions</td><td>Integrate, celebrate, tidy</td></tr>
-              <tr><td>❄️ Winter</td><td>Low tide</td><td>Rest, learn, re-soil</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Season map:</strong> label work, relationships, health—each may be in a different season.</p>
-          <p><strong>Sacred pause:</strong> one winter hour weekly, regardless of season.</p>
-          <p><strong>Harvest log:</strong> write wins and lessons; gratitude closes loops.</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>Rest isn’t the opposite of productivity. It keeps life’s promise.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Note</div><p>Winter isn’t failure—it’s strategy.</p></div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- =================== STORMS =================== -->
-  <section id="storms" class="band" aria-labelledby="storms-title">
-    <div class="band__head">
-      <span class="tag"><span class="dot"></span>Section • Storms</span>
-    </div>
-    <h2 id="storms-title" class="h2">Wind tests what can stand</h2>
-
-    <div class="grid">
-      <article class="panel">
-
-        <div class="block story">
-          <h4>Story</h4>
-          <p>A conversation turns sharp. Old you over-explains or vanishes. Current you grounds first: feet on floor, long exhale, name the storm, one clear sentence. The weather passes; the root strengthens.</p>
-        </div>
-
-        <div class="block lesson">
-          <h4>Teaching</h4>
-          <p>Storms aren’t punishments; they’re strength training for the parts of you meant to last. Collapse and over-control are fear strategies; steadiness is learned.</p>
-        </div>
-
-        <div class="block science">
-          <h4>Simple protocol</h4>
-          <ol>
-            <li><strong>Breathe</strong> — exhale longer (6–8s).</li>
-            <li><strong>Name it</strong> — boundary storm / identity gale / overwhelm squall.</li>
-            <li><strong>One ask</strong> — “What I need right now is __.”</li>
-            <li><strong>One step</strong> — the smallest kind action that restores integrity.</li>
-          </ol>
-        </div>
-
-        <div class="block practice">
-          <h4>Practices</h4>
-          <p><strong>Aftercare plan:</strong> warm drink, short walk, two-line journal you’ll use after hard moments.</p>
-          <p><strong>Repair line:</strong> “I regret how I said that. Here’s what I meant, and here’s my boundary.”</p>
-          <p><strong>Alchemize:</strong> “What skill did this storm just give me?”</p>
-        </div>
-
-        <div class="block reflect">
-          <h4>Reframe</h4>
-          <p>Every storm leaves a gift at your feet. Pick it up when you’re ready.</p>
-        </div>
-
-      </article>
-
-      <aside class="sidebar">
-        <div class="tip"><div class="label">Ground</div><p>Feet on floor, look around, name three objects you see.</p></div>
-        <div class="tip"><div class="label">Jump</div><div class="minitoc"><a class="chip" href="#gardener">Top</a><a class="chip" href="#soil">Belief</a></div></div>
-      </aside>
-    </div>
-  </section>
-</main>
-
-<button class="backtop" id="backTop" aria-label="Back to top">↑ Top</button>
-
-<footer>
-  <div class="container ftr">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="logo" style="width:30px;height:30px">My</div>
-      <div><strong style="color:var(--ink)">Mynd</strong><div class="tiny">“AI meets soul. Technology meets inner world.”</div></div>
-    </div>
-    <div class="tiny">© <span id="year"></span> Mynd. All rights reserved.</div>
-  </div>
-</footer>
-
-<script>
-/* Year */
-(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();
-
-/* Mobile nav */
-(function(){
-  var sheet=document.getElementById('sheet');
-  var openBtn=document.querySelector('.menu');
-  var closeBtn=document.getElementById('closeSheet');
-  function openSheet(){ if(sheet){ sheet.style.display='block'; sheet.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; } }
-  function closeSheetFn(){ if(sheet){ sheet.style.display='none'; sheet.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } }
-  if(openBtn) openBtn.addEventListener('click', openSheet);
-  if(sheet) sheet.addEventListener('click', function(e){ if(e.target===sheet) closeSheetFn(); });
-  if(closeBtn) closeBtn.addEventListener('click', closeSheetFn);
-})();
-
-/* Sticky chip highlighting */
-(function(){
-  var chips=Array.prototype.slice.call(document.querySelectorAll('.tchip'));
-  if(!chips.length) return;
-  var sections=chips.map(function(ch){ return document.getElementById(ch.dataset.section); }).filter(Boolean);
-
-  function setActive(id){
-    chips.forEach(function(c){ c.classList.toggle('active', c.dataset.section===id); });
-  }
-
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        setActive(entry.target.id);
-        try{ history.replaceState(null,'','#'+entry.target.id); }catch(e){}
+  <script>
+    // ---- Data (same content as the Python version) ----
+    const CLARITY = {
+      fear_anxiety: {
+        label: "Fear / Anxiety",
+        aka: ["panic","worry","dread","spiral"],
+        why: "Your brain is predicting a threat and overestimating the danger to keep you safe. The mind is running ‘what-if’ loops because something feels uncertain or out of your control.",
+        nervous_system: "Sympathetic activation (fight/flight): shallow breath, tight chest, scanning, restless energy.",
+        need: "Safety, grounding, proof of support, smaller doable steps.",
+        reframe: "You’re not broken. Your body is trying to protect you without accurate data. When you slow the body, the mind recalibrates.",
+        regulate: "Place one hand on your chest, one on your belly. Inhale 4s, exhale 6s for 6–10 cycles. Name five stable things in your life right now.",
+        next_step: "Break the issue into the smallest next action you can complete in under 5 minutes. Do only that.",
+        affirmation: "I can slow down. I am safe enough in this moment."
+      },
+      sadness_grief: {
+        label: "Sadness / Grief",
+        aka: ["heavy","low","teary"],
+        why: "You are metabolizing loss, unmet expectations, or a part of you that didn’t get what it needed. Grief is love with nowhere to go.",
+        nervous_system: "Parasympathetic dominance / collapse: low energy, withdrawal, heaviness behind the eyes.",
+        need: "Permission to feel, warmth, gentle contact, non-judgment.",
+        reframe: "Nothing is wrong with you for feeling this way. The pain is evidence of your capacity to love.",
+        regulate: "Soften your jaw. Rest a warm hand on your heart. Let 90 seconds of waves move through without fixing.",
+        next_step: "Message someone safe: ‘I don’t need advice—just a little presence. Can you be with me?’",
+        affirmation: "My feelings are allowed. I can let them move."
+      },
+      anger_boundary: {
+        label: "Anger / Boundary Injury",
+        aka: ["irritation","rage","resentment"],
+        why: "Something crossed your values, limits, or dignity. Anger is a guardian asking for repair or distance.",
+        nervous_system: "High sympathetic activation: heat, tension in jaw/shoulders, impulse to act.",
+        need: "Respect, clarity, a boundary or a plan to restore integrity.",
+        reframe: "Anger is not the problem; misdirection is. You can harness it into clean action.",
+        regulate: "Square breath (4-4-4-4) for 8 rounds. Shake arms for 20s. Exhale with a gentle ‘huh’.",
+        next_step: "Write one sentence boundary you can communicate calmly: ‘I won’t discuss X when voices are raised. Let’s pause and revisit tomorrow.’",
+        affirmation: "My energy is sacred. I can protect it without harming myself or others."
+      },
+      shame_guilt: {
+        label: "Shame / Guilt",
+        aka: ["I’m the problem","I failed","I’m not enough"],
+        why: "Your inner protector believes criticism will keep you safe or acceptable. Shame confuses ‘I did something’ with ‘I am something’.",
+        nervous_system: "Collapse/freeze: head down, avoidance, small voice.",
+        need: "Accurate responsibility, compassion, repair where appropriate.",
+        reframe: "You are not your mistake. Responsibility restores dignity; shame only shrinks your life.",
+        regulate: "Sit upright, lengthen spine. Name three times you acted with integrity this week.",
+        next_step: "If repair is needed, send a simple, honest message. If not, practice self-forgiveness: write ‘I release the part that believes I am unworthy.’",
+        affirmation: "I can make amends and still belong."
+      },
+      confusion_overwhelm: {
+        label: "Confusion / Overwhelm",
+        aka: ["stuck","foggy","too much"],
+        why: "Your brain is holding too many open tabs. Competing priorities, perfectionism, or fear of the ‘wrong’ choice stalls action.",
+        nervous_system: "Mixed activation: racing thoughts + low motivation.",
+        need: "Reduce inputs, choose one thing, time-bound focus.",
+        reframe: "You don’t need the whole plan. You need the next honest step.",
+        regulate: "Close your eyes for 30s. Then write the ONE outcome that matters today.",
+        next_step: "Set a 10-minute timer. Do the smallest slice. Stop when the timer ends.",
+        affirmation: "Clarity grows as I move."
+      },
+      lonely_abandoned: {
+        label: "Loneliness / Abandonment",
+        aka: ["unseen","left out","unloved"],
+        why: "An attachment wound is touched: the nervous system expects disconnection. Old memories color the present.",
+        nervous_system: "Heightened sensitivity to cues of distance; ache in chest/throat.",
+        need: "Co-regulation, warmth, cues of belonging.",
+        reframe: "Your longing is sacred—it points to your capacity to bond, not your lack of worth.",
+        regulate: "Havening: gently stroke upper arms 60–90s while breathing slowly; say, ‘I’m here with you.’",
+        next_step: "Ask for contact directly: ‘Can we share 10 minutes on the phone? I’d love connection.’",
+        affirmation: "I am worthy of safe, consistent love."
+      },
+      stress_burnout: {
+        label: "Stress / Burnout",
+        aka: ["fried","over it","no capacity"],
+        why: "Sustained output without replenishment. Your body is signaling a need to downshift and re-resource.",
+        nervous_system: "Chronic sympathetic → fatigue, irritability, poor focus.",
+        need: "Permission to pause, basics (sleep, food, water, sunlight), adjusted expectations.",
+        reframe: "Rest is productive when it protects the engine that builds your life.",
+        regulate: "Two-minute physiological sighs: inhale, short top-up inhale, long slow exhale. Repeat 6–8 times.",
+        next_step: "Cancel one non-essential commitment. Put a 20-minute ‘nothing block’ on your calendar today.",
+        affirmation: "My worth is not measured by output."
+      },
+      heartbreak_loss: {
+        label: "Heartbreak / Loss",
+        aka: ["broken","devastated","bereft"],
+        why: "Attachment has ruptured or a dream dissolved. The nervous system mourns the future that won’t happen.",
+        nervous_system: "Waves of grief, intrusive recall, emptiness.",
+        need: "Ritual, meaning-making, compassionate pacing.",
+        reframe: "This pain is love trying to reorganize itself. It will reshape, not erase, your heart.",
+        regulate: "Hold a keepsake; say what you’re grieving out loud. Let tears be a completion signal, not an enemy.",
+        next_step: "Create a tiny ritual (candle, song, letter) to honor what was real.",
+        affirmation: "I can love what was and still choose what’s next."
+      },
+      jealousy_comparison: {
+        label: "Jealousy / Comparison",
+        aka: ["envy","behind","less than"],
+        why: "Someone else’s life mirrors a disowned desire. The pain points toward what you want to claim.",
+        nervous_system: "Tension + self-criticism loop.",
+        need: "Ownership of desire, self-compassion, a plan that is yours.",
+        reframe: "Envy is a compass. It shows you the shape of your next chapter.",
+        regulate: "Hand on heart: ‘It’s safe to want.’ Breathe 4/6 for ten cycles.",
+        next_step: "Write one sentence: ‘I want ___ because ___.’ Choose the smallest step toward it.",
+        affirmation: "Desire is allowed. My path is mine."
+      },
+      numb_dissociate: {
+        label: "Numb / Dissociated",
+        aka: ["checked out","can’t feel","blank"],
+        why: "Your system hit capacity and protected you by disconnecting. This is adaptive, not a flaw.",
+        nervous_system: "Dorsal vagal: low tone, fog, no impulse.",
+        need: "Gentle activation: light, warmth, movement, sound.",
+        reframe: "Numbness is your body guarding your heart. We’ll come back online slowly.",
+        regulate: "Cold water on wrists, sunlight at a window, sway side-to-side for 60s, hum quietly.",
+        next_step: "Two-minute sensory walk: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste.",
+        affirmation: "I can return to myself at my own pace."
+      },
+      hopeless_despair: {
+        label: "Hopeless / Despair",
+        aka: ["why try","done","nothing works"],
+        why: "The brain has generalized past pain into ‘permanent.’ It cannot imagine novelty from inside exhaustion.",
+        nervous_system: "Collapse, global negative bias.",
+        need: "Tiny proof of agency, co-regulation, future seed.",
+        reframe: "Hopelessness is a state, not a fact. It shifts when your body feels one real win.",
+        regulate: "Sit up, feet on floor. Name one thing you can influence in the next hour.",
+        next_step: "Choose a 2-minute task (drink water, open window, text a friend ‘thinking of you’). Complete it and notice your state.",
+        affirmation: "I only need one step. Life can open again."
+      }
+    };
+
+    const KEYWORDS = {
+      fear_anxiety: [/\banx(iou|iet)y\b/i, /\bpanic\b/i, /\bworry|worried|worrying\b/i, /\bdread\b/i, /\bscared|afraid\b/i, /\bspiral(ing)?\b/i],
+      sadness_grief: [/\bsad(ness)?\b/i, /\bgrief|grieving\b/i, /\blow\b/i, /\bcry|teary\b/i, /\bheavy\b/i],
+      anger_boundary: [/\banger|angry|furious|rage\b/i, /\bresent(ful|ment)\b/i, /\bdisrespect(ed)?\b/i, /\bboundar(y|ies)\b/i, /\bmad\b/i],
+      shame_guilt: [/\bshame(d)?\b/i, /\bguilt(y)?\b/i, /I(’|'|`)m the problem/i, /\bworthless|not enough\b/i, /\bfailed|failure\b/i],
+      confusion_overwhelm: [/\boverwhelm(ed|ing)?\b/i, /\bconfus(ed|ion)\b/i, /\bstuck\b/i, /\bfog(gy)?\b/i, /\btoo much\b/i],
+      lonely_abandoned: [/\blonely\b/i, /\babandon(ed|ment)\b/i, /\bunseen\b/i, /\bleft out\b/i, /\bunloved\b/i],
+      stress_burnout: [/\bstress(ed|ful)?\b/i, /\bburnout|burnt out|burned out\b/i, /\bfried\b/i, /\bexhaust(ed|ion)\b/i],
+      heartbreak_loss: [/\bheartbreak|heartbroken\b/i, /\bloss\b/i, /\bdevastat(ed|ing)\b/i, /\bbereft\b/i],
+      jealousy_comparison: [/\bjealous(y)?\b/i, /\benvy|envious\b/i, /\bcompare|comparison\b/i, /\bbehind\b/i],
+      numb_dissociate: [/\bnumb\b/i, /\bdissociat(e|ed|ing|ion)\b/i, /\bblank\b/i, /can(’|'|`)t feel/i],
+      hopeless_despair: [/\bhopeless\b/i, /\bdespair\b/i, /\bwhy try\b/i, /\bnothing works\b/i, /\bdone\b/i]
+    };
+
+    function detectEmotion(text){
+      const scores = Object.fromEntries(Object.keys(CLARITY).map(k => [k,0]));
+      for (const [key, patterns] of Object.entries(KEYWORDS)) {
+        for (const pat of patterns) if (pat.test(text)) scores[key] += 1;
+      }
+      // fallback to confusion/overwhelm if nothing hits
+      let best = "confusion_overwhelm";
+      let bestScore = -1;
+      const priority = ["hopeless_despair","numb_dissociate","fear_anxiety","sadness_grief","anger_boundary","shame_guilt","lonely_abandoned","stress_burnout","heartbreak_loss","jealousy_comparison","confusion_overwhelm"];
+      for (const [k, v] of Object.entries(scores)) {
+        const tieBreaker = -priority.indexOf(k);
+        const current = (v * 1000) + tieBreaker;
+        if (current > bestScore) { bestScore = current; best = k; }
+      }
+      const sum = Object.values(scores).reduce((a,b)=>a+b,0);
+      return sum === 0 ? "confusion_overwhelm" : best;
+    }
+
+    function qs(name){ return new URLSearchParams(location.search).get(name) }
+
+    document.getElementById('clarity-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const t = document.getElementById('feelings').value.trim();
+      if(!t){ return; }
+      const key = detectEmotion(t.toLowerCase());
+      const d = CLARITY[key];
+
+      // Fill UI
+      document.getElementById('result-card').classList.remove('hidden');
+      document.getElementById('label-pill').textContent = d.label;
+      document.getElementById('aka').textContent = d.aka.join(', ');
+      document.getElementById('why').textContent = d.why;
+      document.getElementById('nervous').textContent = d.nervous_system;
+      document.getElementById('need').textContent = d.need;
+
+      const isFull = qs('full') === '1';
+      const fullBlock = document.getElementById('full-block');
+      const upgradeBlock = document.getElementById('upgrade-block');
+
+      if(isFull){
+        fullBlock.classList.remove('hidden');
+        upgradeBlock.classList.add('hidden');
+        document.getElementById('reframe').textContent = d.reframe;
+        document.getElementById('regulate').textContent = d.regulate;
+        document.getElementById('next_step').textContent = d.next_step;
+        document.getElementById('affirmation').textContent = '“' + d.affirmation + '”';
+      } else {
+        fullBlock.classList.add('hidden');
+        upgradeBlock.classList.remove('hidden');
       }
     });
-  }, {rootMargin:'-45% 0px -50% 0px', threshold:0.01});
-
-  sections.forEach(function(sec){ obs.observe(sec); });
-})();
-
-/* Back to top */
-(function(){
-  var btn=document.getElementById('backTop'); if(!btn) return;
-  function toggle(){ (window.scrollY>500)? btn.classList.add('show'): btn.classList.remove('show'); }
-  window.addEventListener('scroll', toggle, {passive:true});
-  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
-  toggle();
-})();
-</script>
+  </script>
 </body>
 </html>
