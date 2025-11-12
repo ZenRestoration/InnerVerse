@@ -14,9 +14,9 @@
 
   <header>
     <div class="wrap nav">
-      <div class="brand">Mynd</div>
+      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
       <a href="../index.html">Home</a>
-      <a href="../curriculum.html" class="active">Curriculum</a>
+      <a href="../curriculum/index.html" class="active">Curriculum</a>
       <a href="state.html">State</a>
       <a href="story.html">Story</a>
       <a href="need.html">Need</a>
@@ -36,42 +36,52 @@
     <section class="card reveal">
       <h2>Needs are sacred, not shameful</h2>
       <p>
-        We often treat our needs like inconveniences.  
-        “I shouldn’t need rest.” “I shouldn’t need reassurance.” “I should be fine.”  
-        But ignoring needs doesn’t make them disappear — it just makes the system louder.
-      </p>
-
-      <h3>Analogy: The Dashboard Light</h3>
-      <p>
-        When your car flashes a light, you don’t yell at the dashboard.  
-        You check the engine.  
-        Emotions are the same — signals of what needs attention.
+        We were taught to hide needs to keep belonging. But needs aren’t demands — they’re directions.
+        Safety, connection, dignity, truth, rest, play. When you meet the right need, the nervous system stands down.
       </p>
 
       <div class="hr"></div>
-
-      <h3>Common needs beneath emotion</h3>
-      <ul>
-        <li>Fear → Safety, clarity, preparation</li>
-        <li>Sadness → Comfort, witnessing, rest</li>
-        <li>Anger → Respect, autonomy, fairness</li>
-        <li>Shame → Belonging, forgiveness, authenticity</li>
-        <li>Confusion → Simplicity, guidance, time</li>
-      </ul>
-
-      <p class="muted">
-        The question is never, “Why do I feel this way?”  
-        The question is, “What does this part of me need right now?”
+      <h3>Dashboard light analogy</h3>
+      <p>
+        A warning light means “check engine,” not “you’re a bad driver.” Emotions are lights on the dashboard of your life.
+        You don’t smash the light; you tend the system.
       </p>
+
+      <div class="hr"></div>
+      <h3>Common pairings</h3>
+      <ul>
+        <li>Fear → safety, clarity, preparation</li>
+        <li>Sadness → comfort, witnessing, ritual</li>
+        <li>Anger → respect, autonomy, fairness</li>
+        <li>Shame → belonging, forgiveness, authenticity</li>
+        <li>Confusion → simplicity, guidance, time</li>
+      </ul>
+    </section>
+
+    <div class="sp"></div>
+
+    <section class="card reveal">
+      <h2>Turn toward the body to learn the need</h2>
+      <p>
+        The body will answer if you ask kindly and wait. Place a hand where it hurts and ask,
+        “What do you need from me right now?” Answers arrive as simple words or images.
+      </p>
+
+      <div class="hr"></div>
+      <h3>Mini-practice: Ask & Answer</h3>
+      <ul>
+        <li>Hand on heart; soften jaw.</li>
+        <li>Ask the feeling, “What are you needing?”</li>
+        <li>Wait 10 breaths. Take the simplest action that honors it.</li>
+      </ul>
+      <p class="muted">Your needs are not burdens. They’re the way your wisdom speaks.</p>
     </section>
 
     <div class="sp"></div>
 
     <section class="card reveal center">
-      <h2>Practice: Ask and Answer</h2>
-      <p class="sub">Pause. Place a hand on your heart. Ask: “What are you needing right now?”  
-      Then wait. The body will whisper something simple — safety, truth, rest, space, love.  
-      Give it that, and peace follows.</p>
+      <h2>Practice: One need, one step</h2>
+      <p class="sub">Name the need in one word. Take one 5-minute step that serves it. That’s enough for today.</p>
       <p><a class="chip" href="step.html">Continue to Lesson Four →</a></p>
     </section>
   </main>
@@ -79,5 +89,21 @@
   <footer class="reveal">Mynd · © <span id="yr"></span></footer>
   <button class="to-top" id="toTop">↑</button>
   <script src="../app.js"></script>
+
+  <!-- Progress tracking -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const raw = (document.title || '');
+      const split = raw.split('—');
+      const key = (split[0] ? split[0] : raw).trim().toLowerCase(); // "Need"
+      if (key){
+        const k = 'lesson_' + key;
+        if (localStorage.getItem(k) !== 'done'){ localStorage.setItem(k, 'started'); }
+      }
+      document.querySelectorAll('a.chip, a[href*="state"], a[href*="story"], a[href*="need"], a[href*="step"]').forEach(a=>{
+        a.addEventListener('click', ()=>{ if (key){ localStorage.setItem('lesson_' + key, 'done'); }});
+      });
+    });
+  </script>
 </body>
 </html>
