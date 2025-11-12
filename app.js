@@ -1,8 +1,8 @@
-// Year in footer (if present)
+// Year in footer
 const yr = document.getElementById('yr');
 if (yr) yr.textContent = new Date().getFullYear();
 
-// Progress bar (on long pages)
+// Progress bar
 const progress = document.getElementById('progress');
 function onScroll(){
   if (!progress) return;
@@ -13,7 +13,7 @@ function onScroll(){
 document.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 
-// Parallax orbs (subtle)
+// Parallax orbs
 const orbA = document.getElementById('orbA');
 const orbB = document.getElementById('orbB');
 const orbC = document.getElementById('orbC');
@@ -35,21 +35,6 @@ if (reveals.length){
   reveals.forEach(el=>io.observe(el));
 }
 
-// Scrollspy (only for same-page anchors; on multi-page we highlight via body data-page)
-const links = [...document.querySelectorAll('.nav a[href^="#"]')];
-const sections = [...document.querySelectorAll('section, .hero')].filter(s => s.id);
-if (links.length && sections.length){
-  const spy = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const id = e.target.id;
-        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
-      }
-    });
-  }, {rootMargin:"-50% 0px -45% 0px", threshold:0});
-  sections.forEach(s=> spy.observe(s));
-}
-
 // Back to top arrow
 const toTop = document.getElementById('toTop');
 function toggleTop(){
@@ -60,7 +45,7 @@ document.addEventListener('scroll', toggleTop, {passive:true});
 toggleTop();
 toTop?.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-// Active nav for multi-page
+// Active nav (multi-page)
 (function(){
   const pg = document.body.getAttribute('data-page');
   if (!pg) return;
