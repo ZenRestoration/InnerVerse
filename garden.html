@@ -5,47 +5,110 @@
   <title>Mynd — Emotional Clarity Engine™ (Education)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="A calm, loving guide for self-discovery. Learn how to turn any crisis into clarity with nervous-system-safe tools, reframes, and compassionate structure." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#0B1213; --card:#0F1A1C; --text:#E6F5F4; --muted:#8BA5A4;
-      --soft:#B8D4D1; --accent:#19A19C; --line:#173033; --ring:#5ABBB4;
-      --shadow:0 18px 40px rgba(0,0,0,.35); --radius:18px;
+      /* Light, luminous palette */
+      --bg:#F6F9F7;               /* morning mist */
+      --bg2:#FFFFFF;              /* card base */
+      --ink:#1A1F22;              /* primary text */
+      --muted:#5E7075;            /* secondary text */
+      --line:#E4EFEA;             /* subtle borders */
+      --aqua:#1CAAA3;             /* Aquarian water accent */
+      --aqua-soft:#E8F7F5;        /* very light aqua */
+      --gold:#D8AE53;             /* soft sunlight accent */
+      --sage:#DCEDE7;             /* pale sage wash */
+      --radius:18px;
+      --shadow:0 10px 30px rgba(16, 67, 60, .10);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
-    a{color:#9fe7e0;text-decoration:none}
+    body{
+      margin:0; color:var(--ink); background:
+        radial-gradient(1200px 400px at 50% -120px, #FFF7E6 0%, transparent 60%),
+        linear-gradient(180deg, #F8FCFB 0%, #F6F9F7 60%);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.6;
+    }
+    a{color:var(--aqua); text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 20px}
-    header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg, rgba(11,18,19,.9), rgba(11,18,19,.65) 60%, rgba(11,18,19,0));backdrop-filter:blur(8px);border-bottom:1px solid #0e1b1d}
-    .nav{display:flex;align-items:center;gap:18px;padding:12px 0}
-    .nav .brand{font-weight:800;letter-spacing:.2px}
-    .nav a{color:var(--soft);font-size:14px}
-    .nav a.chip{display:inline-block;border:1px solid #264a53;background:#10242a;color:#a9dbe0;border-radius:999px;padding:6px 10px}
-    .hero{margin-top:14px;padding:28px 24px;background:
-      radial-gradient(1200px 360px at 50% -40%, rgba(25,161,156,0.08), transparent),
-      linear-gradient(180deg, rgba(25,161,156,0.06), rgba(15,26,28,0.6)),
-      var(--card);
-      border:1px solid #153235;border-radius:22px;box-shadow:var(--shadow)}
-    h1{margin:4px 0 6px;font-weight:800;letter-spacing:.2px}
-    h2{margin:0 0 10px;font-weight:800}
-    h3{margin:8px 0}
-    p.sub{color:var(--soft);margin:0 0 12px;max-width:72ch}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.25)}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#10242a;border:1px solid #264a53;color:#a9dbe0;font-size:12px}
-    .tiny{color:#86a8a6;font-size:12px}
-    .hr{height:1px;background:#183135;margin:16px 0}
+
+    /* Layout */
+    .wrap{max-width:1100px; margin:0 auto; padding:24px 20px}
+    header{
+      position:sticky; top:0; z-index:20;
+      background:linear-gradient(180deg, rgba(246,249,247,.95), rgba(246,249,247,.65) 70%, rgba(246,249,247,0));
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex; align-items:center; gap:18px; padding:12px 0}
+    .brand{
+      font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px;
+      color:#123C38; font-size:20px;
+    }
+    .nav a{color:#335B56; font-size:14px}
+    .chip{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      background:var(--aqua); color:#ffffff; font-weight:600;
+      box-shadow:0 6px 16px rgba(28,170,163,.25);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:16px; padding:32px 24px; border-radius:22px;
+      background:
+        radial-gradient(900px 260px at 30% -80px, rgba(216,174,83,.18), transparent 70%),
+        linear-gradient(180deg, var(--aqua-soft), #FFFFFF 60%),
+        var(--bg2);
+      border:1px solid var(--line); box-shadow:var(--shadow);
+    }
+    h1{
+      margin:0 0 10px; font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px;
+      line-height:1.2;
+    }
+    h2{margin:0 0 10px; font-family:"Playfair Display", serif; font-weight:700}
+    h3{margin:6px 0 6px; font-weight:700}
+    p.sub{color:#335B56; margin:0 0 12px; max-width:72ch}
+    .tagline{
+      display:inline-block; background:var(--sage); color:#2F5E58; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
+      border:1px solid #CCE6DF;
+    }
+
+    /* Cards & elements */
+    .card{
+      background:var(--bg2); border:1px solid var(--line); border-radius:var(--radius);
+      padding:22px; box-shadow:var(--shadow);
+    }
+    .pill{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      background:#F4FBFA; border:1px solid #D6EEEA; color:#29706A; font-size:12px; font-weight:600;
+    }
+    .tiny{color:var(--muted); font-size:12px}
+    .hr{height:1px; background:var(--line); margin:16px 0}
     .muted{color:var(--muted)}
-    .label{color:var(--soft);font-size:12px;letter-spacing:.4px;text-transform:uppercase}
+    .label{color:#3E6C67; font-size:12px; letter-spacing:.4px; text-transform:uppercase; font-weight:700}
     .sp{height:24px}
-    .grid{display:grid;gap:14px}
+    .grid{display:grid; gap:16px}
     @media(min-width:860px){ .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:repeat(2,1fr)} }
+
     section{scroll-margin-top:80px}
-    details{background:#0b1415;border:1px solid #163236;border-radius:14px;padding:12px 14px}
-    summary{cursor:pointer;color:var(--soft);font-weight:600}
-    .badge{font-size:11px;color:#a9dbe0;border:1px solid #264a53;background:#10242a;border-radius:6px;padding:2px 6px;margin-left:6px}
-    footer{color:#799996;font-size:12px;text-align:center;margin:28px 0 18px}
-    /* gentle fade-in */
+    details{
+      background:#FFFFFF; border:1px solid var(--line); border-radius:14px; padding:12px 14px;
+      box-shadow:0 6px 16px rgba(16, 67, 60, .06);
+    }
+    summary{cursor:pointer; color:#2E5E58; font-weight:700}
+    .badge{
+      font-size:11px; color:#1E837E; border:1px solid #CDEAE6; background:#F2FBFA;
+      border-radius:6px; padding:2px 6px; margin-left:6px;
+    }
+
+    footer{color:#476B66; font-size:12px; text-align:center; margin:28px 0 18px}
+
+    /* subtle animation */
     .fadein{opacity:0; transform:translateY(6px); animation:fade .7s ease .05s forwards}
     @keyframes fade{to{opacity:1; transform:none}}
   </style>
@@ -69,11 +132,16 @@
   </header>
 
   <main class="wrap">
-    <!-- HERO (no inputs, no chat) -->
+    <!-- HERO (bright, hopeful) -->
     <div class="hero fadein">
-      <h1>A calm place to understand yourself.</h1>
-      <p class="sub">When life feels heavy or confusing, Mynd offers clear, loving education to help you turn crisis into clarity. You’ll learn what emotions are trying to protect, how your nervous system speaks, and the exact practices that create safety, perspective, and direction. One breath. One truth. One next step.</p>
-      <div class="tiny">No check-ins. No chat. Just guidance you can trust.</div>
+      <span class="tagline">Morning in the Garden • Calm, Clear, Human</span>
+      <h1>Where tenderness becomes guidance — one breath, one truth, one step.</h1>
+      <p class="sub">
+        When life feels heavy or confusing, Mynd teaches you to understand what you feel,
+        why it’s happening, and how to meet your needs with kindness. This is nervous-system-safe
+        education for real life — simple, loving, and practical.
+      </p>
+      <div class="tiny">No check-ins. No chat. Just clarity you can trust.</div>
     </div>
 
     <div class="sp"></div>
@@ -82,17 +150,17 @@
     <section id="philosophy" class="card fadein">
       <div class="pill">Philosophy</div>
       <h2>Hope is a Skill</h2>
-      <p class="muted">Mynd teaches a simple framework that works across beliefs, cultures, and seasons of life: <em>Name it → Understand it → Meet the need</em>. It’s practical psychology with a soul—gentle enough for tender moments and clear enough to act on.</p>
+      <p class="muted">Mynd uses a universal, gentle framework that works across cultures, beliefs, and seasons of life: <em>Name it → Understand it → Meet the need</em>. It’s practical psychology with a soul—grounded enough to act on, soft enough for tender moments.</p>
       <div class="grid grid-3">
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
           <div class="label">Name It</div>
           <p>Labeling an emotion calms the threat system. Try, “This feels like fear,” or “I’m carrying grief.” Truth lowers the volume.</p>
         </div>
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
           <div class="label">Understand It</div>
           <p>Emotions are messengers. Ask, “What is this protecting? Which meaning or memory is touched?” Now you’re collaborating with your system.</p>
         </div>
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
           <div class="label">Meet the Need</div>
           <p>Every state has a need—safety, warmth, belonging, rest, truth, movement. When the need is honored, the state evolves. That’s emotional alchemy.</p>
         </div>
@@ -105,17 +173,17 @@
     <section id="education" class="card fadein">
       <div class="pill">Education</div>
       <h2>Turn Any Crisis Into Clarity</h2>
-      <p class="muted">A gentle walk-through you can apply to anything: heartbreak, anxiety, conflict, burnout, numbness, shame, confusion, or despair.</p>
+      <p class="muted">A loving walk-through you can apply to anything: heartbreak, anxiety, conflict, burnout, numbness, shame, confusion, or despair.</p>
       <div class="grid grid-3">
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px">
           <div class="label">The Signal</div>
           <p>Your body speaks first. Notice breath, posture, jaw, chest, gut. This is data, not a verdict on who you are.</p>
         </div>
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px">
           <div class="label">The Story</div>
           <p>What meaning did your mind assign? “I’ll fail.” “They’ll leave.” Stories try to prevent pain by predicting it. We’ll update the map.</p>
         </div>
-        <div class="card" style="padding:14px;background:#0b1213">
+        <div class="card" style="padding:16px">
           <div class="label">The Need</div>
           <p>Safety, clarity, repair, contact, rest, ownership of desire—needs aren’t weaknesses. They’re instructions for healing.</p>
         </div>
@@ -134,7 +202,7 @@
     <section id="families" class="card fadein">
       <div class="pill">Emotional Families</div>
       <h2>Recognize Your Patterns</h2>
-      <p class="muted">Learn the language of your inner world. Each family includes a why, a body-state, and a need. Use the Regulation Library to support each one.</p>
+      <p class="muted">Learn the language of your inner world. Each family includes a why, a body-state, and a need. Pair with the Regulation Library below.</p>
       <div class="grid grid-2">
         <details>
           <summary>Fear / Anxiety <span class="badge">panic, worry, dread</span></summary>
@@ -212,12 +280,12 @@
       <div class="pill">Regulation Library</div>
       <h2>90-Second Practices That Actually Help</h2>
       <div class="grid grid-3">
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Physiological Sigh</div><p>Inhale, top-up inhale, long exhale. Repeat 6–8×. Offloads CO₂ and softens sympathetic charge.</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">4/6 Breath</div><p>Inhale 4s, exhale 6s for 1–2 minutes. Longer exhale cues safety and vagal tone.</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Havening Touch</div><p>Gently stroke upper arms while breathing: “I’m here with you.” Beautiful for loneliness and shock.</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Ground Scan</div><p>Feet down. Name 5 see, 4 feel, 3 hear, 2 smell, 1 taste. Return to now.</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Shake + “Huh”</div><p>Shake arms 20s; exhale with a gentle “huh.” Completes stress cycles without aggression.</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Warm Hand</div><p>Hand to heart, soften jaw. Tell your body: “We’re safe enough to slow down.” Let that be true.</p></div>
+        <div class="card" style="padding:16px"><div class="label">Physiological Sigh</div><p>Inhale, top-up inhale, long exhale. Repeat 6–8×. Offloads CO₂ and softens sympathetic charge.</p></div>
+        <div class="card" style="padding:16px"><div class="label">4/6 Breath</div><p>Inhale 4s, exhale 6s for 1–2 minutes. Longer exhale cues safety and vagal tone.</p></div>
+        <div class="card" style="padding:16px"><div class="label">Havening Touch</div><p>Gently stroke upper arms while breathing: “I’m here with you.” Beautiful for loneliness and shock.</p></div>
+        <div class="card" style="padding:16px"><div class="label">Ground Scan</div><p>Feet down. Name 5 see, 4 feel, 3 hear, 2 smell, 1 taste. Return to now.</p></div>
+        <div class="card" style="padding:16px"><div class="label">Shake + “Huh”</div><p>Shake arms 20s; exhale with a gentle “huh.” Completes stress cycles without aggression.</p></div>
+        <div class="card" style="padding:16px"><div class="label">Warm Hand</div><p>Hand to heart, soften jaw. Tell your body: “We’re safe enough to slow down.” Let that be true.</p></div>
       </div>
     </section>
 
@@ -243,18 +311,18 @@
       <div class="pill">Affirmations</div>
       <h2>Short Lines That Land in the Body</h2>
       <div class="grid grid-3">
-        <div class="card" style="padding:14px;background:#0b1213"><p>“I am safe enough in this moment.”</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><p>“Nothing is wrong with me for feeling this.”</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><p>“My energy is sacred. I can protect it with love.”</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><p>“Clarity grows as I move.”</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><p>“Desire is allowed. My path is mine.”</p></div>
-        <div class="card" style="padding:14px;background:#0b1213"><p>“I can return to myself at my own pace.”</p></div>
+        <div class="card" style="padding:16px"><p>“I am safe enough in this moment.”</p></div>
+        <div class="card" style="padding:16px"><p>“Nothing is wrong with me for feeling this.”</p></div>
+        <div class="card" style="padding:16px"><p>“My energy is sacred. I can protect it with love.”</p></div>
+        <div class="card" style="padding:16px"><p>“Clarity grows as I move.”</p></div>
+        <div class="card" style="padding:16px"><p>“Desire is allowed. My path is mine.”</p></div>
+        <div class="card" style="padding:16px"><p>“I can return to myself at my own pace.”</p></div>
       </div>
     </section>
 
     <div class="sp"></div>
 
-    <!-- MEMBERSHIP (education-first framing, no feature promises) -->
+    <!-- MEMBERSHIP -->
     <section id="join" class="card fadein">
       <div class="pill">Membership</div>
       <h2>The Mynd Sanctuary</h2>
@@ -266,7 +334,7 @@
         <li>Gentle Q&A vault over time</li>
       </ul>
       <div class="hr"></div>
-      <p><a class="pill" href="#" onclick="alert('Connect this to your Gumroad/Lemon Squeezy checkout when ready.');return false;">Become a Founding Member</a></p>
+      <p><a class="chip" href="#" onclick="alert('Connect this to your Gumroad/Lemon Squeezy checkout when ready.');return false;">Become a Founding Member</a></p>
     </section>
 
     <div class="sp"></div>
@@ -286,7 +354,7 @@
         </details>
         <details>
           <summary>What makes this different?</summary>
-          <p>It’s psychologically sound and spiritually gentle. We focus on nervous system safety, compassionate language, and action you can actually take.</p>
+          <p>It’s psychologically sound and spiritually gentle. We focus on nervous-system safety, compassionate language, and action you can actually take.</p>
         </details>
         <details>
           <summary>Will this overwhelm me with content?</summary>
@@ -301,7 +369,7 @@
     <section id="about" class="card fadein">
       <div class="pill">About</div>
       <h2>Why I Built This</h2>
-      <p>I’m Brook—Gemini Sun (teacher of truth through language), Capricorn Moon (emotional architect), Libra North Node (restoring harmony through relationship). I’ve known confusion, heartbreak, rebuilding—and the miracle of one honest breath. Mynd is the sanctuary I wished existed: quiet, clear, and kind. A place where a heart can learn to navigate itself.</p>
+      <p>I’m Brook—Gemini Sun (teacher of truth through language), Capricorn Moon (emotional architect), Libra North Node (restoring harmony through relationship). I’ve known confusion, heartbreak, rebuilding—and the miracle of one honest breath. Mynd is the sanctuary I wished existed: bright, clear, and kind. A place where a heart can learn to navigate itself.</p>
       <p class="muted">This is my vow: to translate pain into wisdom, to offer language that brings oxygen, and to give your nervous system simple ways to feel safe again. One crisis at a time—we transmute.</p>
     </section>
 
