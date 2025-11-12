@@ -4,163 +4,208 @@
   <meta charset="utf-8" />
   <title>Mynd — Emotional Clarity Engine™ (Education)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A calm, loving guide for self-discovery. Learn how to turn any crisis into clarity with nervous-system-safe tools, reframes, and compassionate structure." />
-
-  <!-- Fonts -->
+  <meta name="description" content="Clear, human guidance for self-discovery. Learn to turn any crisis into clarity with nervous-system-safe tools, reframes, and compassionate structure." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Light, luminous palette */
-      --bg:#F6F9F7;               /* morning mist */
-      --bg2:#FFFFFF;              /* card base */
-      --ink:#1A1F22;              /* primary text */
-      --muted:#5E7075;            /* secondary text */
-      --line:#E4EFEA;             /* subtle borders */
-      --aqua:#1CAAA3;             /* Aquarian water accent */
-      --aqua-soft:#E8F7F5;        /* very light aqua */
-      --gold:#D8AE53;             /* soft sunlight accent */
-      --sage:#DCEDE7;             /* pale sage wash */
+      /* Luminous palette */
+      --bg: #F7FAFF;           /* airy background */
+      --ink:#142022;           /* primary text */
+      --muted:#556C72;         /* secondary text */
+      --line:#E6EEF6;          /* subtle borders */
+
+      --aqua:#18B6AD;          /* clarity */
+      --lav:#7C84F8;           /* insight */
+      --blush:#FF8BA7;         /* compassion */
+      --sun:#FFC773;           /* optimism */
+      --mint:#C7F1E8;          /* support tint */
+      --iris:#E7E8FF;          /* soft iris tint */
+
+      --card:#FFFFFF;
       --radius:18px;
-      --shadow:0 10px 30px rgba(16, 67, 60, .10);
+      --shadow:0 10px 30px rgba(24, 46, 66, .10);
+      --shadow-lg:0 18px 40px rgba(24, 46, 66, .14);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0; color:var(--ink); background:
-        radial-gradient(1200px 400px at 50% -120px, #FFF7E6 0%, transparent 60%),
-        linear-gradient(180deg, #F8FCFB 0%, #F6F9F7 60%);
+        radial-gradient(1200px 400px at 30% -120px, rgba(255,199,115,.22), transparent 60%),
+        radial-gradient(900px 360px at 90% -60px, rgba(124,132,248,.18), transparent 70%),
+        radial-gradient(800px 320px at -10% 40%, rgba(24,182,173,.12), transparent 70%),
+        var(--bg);
       font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       line-height:1.6;
     }
     a{color:var(--aqua); text-decoration:none}
     a:hover{text-decoration:underline}
 
+    /* Scroll progress bar */
+    .progress{
+      position:fixed; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg, var(--aqua), var(--lav), var(--sun));
+      transform-origin:0 50%; transform:scaleX(0); z-index:1000;
+    }
+
     /* Layout */
-    .wrap{max-width:1100px; margin:0 auto; padding:24px 20px}
+    .wrap{max-width:1120px; margin:0 auto; padding:24px 20px}
     header{
-      position:sticky; top:0; z-index:20;
-      background:linear-gradient(180deg, rgba(246,249,247,.95), rgba(246,249,247,.65) 70%, rgba(246,249,247,0));
+      position:sticky; top:0; z-index:999;
       backdrop-filter:blur(8px);
+      background:linear-gradient(180deg, rgba(247,250,255,.92), rgba(247,250,255,.65) 70%, rgba(247,250,255,0));
       border-bottom:1px solid var(--line);
     }
     .nav{display:flex; align-items:center; gap:18px; padding:12px 0}
     .brand{
-      font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px;
-      color:#123C38; font-size:20px;
+      font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px; color:#102E31; font-size:20px;
     }
-    .nav a{color:#335B56; font-size:14px}
+    .nav a{color:#2C5E63; font-size:14px; position:relative; padding:6px 8px; border-radius:10px}
+    .nav a.active{background:rgba(24,182,173,.12); color:#114B4F}
     .chip{
       display:inline-block; padding:8px 12px; border-radius:999px;
-      background:var(--aqua); color:#ffffff; font-weight:600;
-      box-shadow:0 6px 16px rgba(28,170,163,.25);
+      background:linear-gradient(135deg, var(--aqua), var(--lav));
+      color:#ffffff; font-weight:600; box-shadow:0 6px 16px rgba(28,170,163,.25);
     }
+
+    /* Parallax gradient orbs */
+    .orb{
+      position:fixed; border-radius:50%;
+      filter:blur(40px); pointer-events:none; opacity:.45; mix-blend-mode:multiply; z-index:0;
+      transition:transform .2s ease-out;
+    }
+    .orb.a{width:420px; height:420px; background:radial-gradient(circle at 30% 30%, #EAFBF7, #B7F1E6 60%, transparent 70%); top:10vh; left:-120px}
+    .orb.b{width:520px; height:520px; background:radial-gradient(circle at 30% 30%, #FFF1E1, #FFD9A1 60%, transparent 70%); top:40vh; right:-160px}
+    .orb.c{width:360px; height:360px; background:radial-gradient(circle at 30% 30%, #ECECFF, #C9CBFF 60%, transparent 70%); bottom:10vh; left:10vw}
 
     /* Hero */
     .hero{
-      margin-top:16px; padding:32px 24px; border-radius:22px;
+      position:relative; z-index:1;
+      margin-top:16px; padding:44px 28px; border-radius:24px;
       background:
-        radial-gradient(900px 260px at 30% -80px, rgba(216,174,83,.18), transparent 70%),
-        linear-gradient(180deg, var(--aqua-soft), #FFFFFF 60%),
-        var(--bg2);
-      border:1px solid var(--line); box-shadow:var(--shadow);
+        linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.96)),
+        var(--card);
+      border:1px solid var(--line); box-shadow:var(--shadow-lg);
     }
     h1{
       margin:0 0 10px; font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.2px;
-      line-height:1.2;
+      line-height:1.15;
     }
-    h2{margin:0 0 10px; font-family:"Playfair Display", serif; font-weight:700}
+    h2{margin:0 0 12px; font-family:"Playfair Display", serif; font-weight:700}
     h3{margin:6px 0 6px; font-weight:700}
-    p.sub{color:#335B56; margin:0 0 12px; max-width:72ch}
+    p.sub{color:#2C5E63; margin:0 0 12px; max-width:72ch}
     .tagline{
-      display:inline-block; background:var(--sage); color:#2F5E58; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
-      border:1px solid #CCE6DF;
+      display:inline-flex; gap:8px; align-items:center;
+      background:linear-gradient(135deg, #E7FFF8, #F3F0FF);
+      color:#184D51; padding:8px 12px; border-radius:999px; font-size:12px; font-weight:700; border:1px solid var(--line);
     }
+    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(135deg, var(--aqua), var(--lav))}
 
     /* Cards & elements */
     .card{
-      background:var(--bg2); border:1px solid var(--line); border-radius:var(--radius);
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
       padding:22px; box-shadow:var(--shadow);
     }
     .pill{
       display:inline-block; padding:6px 10px; border-radius:999px;
-      background:#F4FBFA; border:1px solid #D6EEEA; color:#29706A; font-size:12px; font-weight:600;
+      background:linear-gradient(135deg, #F0FFFC, #F6F5FF);
+      border:1px solid #DCE6F3; color:#2A5A64; font-size:12px; font-weight:700;
     }
     .tiny{color:var(--muted); font-size:12px}
     .hr{height:1px; background:var(--line); margin:16px 0}
     .muted{color:var(--muted)}
-    .label{color:#3E6C67; font-size:12px; letter-spacing:.4px; text-transform:uppercase; font-weight:700}
-    .sp{height:24px}
-    .grid{display:grid; gap:16px}
-    @media(min-width:860px){ .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:repeat(2,1fr)} }
+    .label{color:#225C62; font-size:12px; letter-spacing:.4px; text-transform:uppercase; font-weight:800}
+    .sp{height:28px}
+    .grid{display:grid; gap:18px}
+    .lift{transition:transform .2s ease, box-shadow .2s ease}
+    .lift:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(24, 46, 66, .16)}
+    @media(min-width:880px){ .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:repeat(2,1fr)} }
 
-    section{scroll-margin-top:80px}
+    section{scroll-margin-top:90px}
     details{
       background:#FFFFFF; border:1px solid var(--line); border-radius:14px; padding:12px 14px;
-      box-shadow:0 6px 16px rgba(16, 67, 60, .06);
+      box-shadow:0 6px 16px rgba(24, 46, 66, .06);
     }
-    summary{cursor:pointer; color:#2E5E58; font-weight:700}
+    summary{cursor:pointer; color:#214C58; font-weight:800}
     .badge{
-      font-size:11px; color:#1E837E; border:1px solid #CDEAE6; background:#F2FBFA;
+      font-size:11px; color:#1F6C67; border:1px solid #CFEAE5; background:#F2FBFA;
       border-radius:6px; padding:2px 6px; margin-left:6px;
     }
 
-    footer{color:#476B66; font-size:12px; text-align:center; margin:28px 0 18px}
+    footer{color:#466E72; font-size:12px; text-align:center; margin:28px 0 18px}
 
-    /* subtle animation */
-    .fadein{opacity:0; transform:translateY(6px); animation:fade .7s ease .05s forwards}
-    @keyframes fade{to{opacity:1; transform:none}}
+    /* Reveal animation */
+    .reveal{opacity:0; transform:translateY(12px); will-change:transform, opacity}
+    .reveal.show{opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease}
+
+    /* Back to top */
+    .to-top{
+      position:fixed; right:16px; bottom:18px; z-index:998;
+      background:linear-gradient(135deg, var(--aqua), var(--lav));
+      color:#fff; border:none; border-radius:12px; padding:10px 12px; font-weight:700; cursor:pointer;
+      box-shadow:0 10px 20px rgba(124,132,248,.25); opacity:0; pointer-events:none; transform:translateY(8px);
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .to-top.show{opacity:1; pointer-events:auto; transform:none}
   </style>
 </head>
 <body>
+  <!-- Progress bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Parallax color orbs -->
+  <div class="orb a" id="orbA"></div>
+  <div class="orb b" id="orbB"></div>
+  <div class="orb c" id="orbC"></div>
+
   <!-- NAV -->
   <header>
     <div class="wrap nav">
       <div class="brand">Mynd</div>
-      <a href="#philosophy">Philosophy</a>
-      <a href="#education">Education</a>
-      <a href="#families">Emotional Families</a>
-      <a href="#regulation">Regulation</a>
-      <a href="#scripts">Scripts</a>
-      <a href="#affirmations">Affirmations</a>
-      <a href="#faq">FAQ</a>
-      <a href="#about">About</a>
+      <a href="#philosophy" class="navlink">Philosophy</a>
+      <a href="#education" class="navlink">Education</a>
+      <a href="#families" class="navlink">Emotional Families</a>
+      <a href="#regulation" class="navlink">Regulation</a>
+      <a href="#scripts" class="navlink">Scripts</a>
+      <a href="#affirmations" class="navlink">Affirmations</a>
+      <a href="#faq" class="navlink">FAQ</a>
+      <a href="#about" class="navlink">About</a>
       <span style="margin-left:auto"></span>
       <a class="chip" href="#join">Membership</a>
     </div>
   </header>
 
   <main class="wrap">
-    <!-- HERO (bright, hopeful) -->
-    <div class="hero fadein">
-      <span class="tagline">Morning in the Garden • Calm, Clear, Human</span>
-      <h1>Where tenderness becomes guidance — one breath, one truth, one step.</h1>
+    <!-- HERO -->
+    <div class="hero reveal">
+      <span class="tagline"><span class="dot"></span> Clear • Human • Steady</span>
+      <h1>Where tenderness becomes guidance—one breath, one truth, one step.</h1>
       <p class="sub">
         When life feels heavy or confusing, Mynd teaches you to understand what you feel,
-        why it’s happening, and how to meet your needs with kindness. This is nervous-system-safe
-        education for real life — simple, loving, and practical.
+        why it’s happening, and how to meet your needs with kindness. Nervous-system-safe education
+        for real life—simple, loving, and practical.
       </p>
-      <div class="tiny">No check-ins. No chat. Just clarity you can trust.</div>
+      <div class="tiny">No trackers. No chat. Just clarity you can trust.</div>
     </div>
 
     <div class="sp"></div>
 
     <!-- PHILOSOPHY -->
-    <section id="philosophy" class="card fadein">
+    <section id="philosophy" class="card reveal">
       <div class="pill">Philosophy</div>
       <h2>Hope is a Skill</h2>
-      <p class="muted">Mynd uses a universal, gentle framework that works across cultures, beliefs, and seasons of life: <em>Name it → Understand it → Meet the need</em>. It’s practical psychology with a soul—grounded enough to act on, soft enough for tender moments.</p>
+      <p class="muted">The framework that holds in hard moments: <em>Name it → Understand it → Meet the need</em>. Grounded psychology with a soul—clear enough to act on, soft enough for tenderness.</p>
       <div class="grid grid-3">
-        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #F7FDFF 90%)">
           <div class="label">Name It</div>
           <p>Labeling an emotion calms the threat system. Try, “This feels like fear,” or “I’m carrying grief.” Truth lowers the volume.</p>
         </div>
-        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #F8F7FF 90%)">
           <div class="label">Understand It</div>
-          <p>Emotions are messengers. Ask, “What is this protecting? Which meaning or memory is touched?” Now you’re collaborating with your system.</p>
+          <p>Emotions are messengers. Ask, “What’s being protected? Which meaning or memory is touched?” Now you’re collaborating with your system.</p>
         </div>
-        <div class="card" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FDFDFB)">
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF, #FFF7FA 90%)">
           <div class="label">Meet the Need</div>
           <p>Every state has a need—safety, warmth, belonging, rest, truth, movement. When the need is honored, the state evolves. That’s emotional alchemy.</p>
         </div>
@@ -170,22 +215,22 @@
     <div class="sp"></div>
 
     <!-- EDUCATION -->
-    <section id="education" class="card fadein">
+    <section id="education" class="card reveal">
       <div class="pill">Education</div>
       <h2>Turn Any Crisis Into Clarity</h2>
-      <p class="muted">A loving walk-through you can apply to anything: heartbreak, anxiety, conflict, burnout, numbness, shame, confusion, or despair.</p>
+      <p class="muted">A loving walk-through for anything: heartbreak, anxiety, conflict, burnout, numbness, shame, confusion, or despair.</p>
       <div class="grid grid-3">
-        <div class="card" style="padding:16px">
+        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#F6FBFF)">
           <div class="label">The Signal</div>
-          <p>Your body speaks first. Notice breath, posture, jaw, chest, gut. This is data, not a verdict on who you are.</p>
+          <p>Your body speaks first. Notice breath, posture, jaw, chest, gut. Data—not a verdict on who you are.</p>
         </div>
-        <div class="card" style="padding:16px">
+        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#F8F8FF)">
           <div class="label">The Story</div>
-          <p>What meaning did your mind assign? “I’ll fail.” “They’ll leave.” Stories try to prevent pain by predicting it. We’ll update the map.</p>
+          <p>What meaning did your mind assign? “I’ll fail.” “They’ll leave.” Stories try to prevent pain by predicting it. We update the map.</p>
         </div>
-        <div class="card" style="padding:16px">
+        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#FFF7FB)">
           <div class="label">The Need</div>
-          <p>Safety, clarity, repair, contact, rest, ownership of desire—needs aren’t weaknesses. They’re instructions for healing.</p>
+          <p>Safety, clarity, repair, contact, rest, ownership of desire—needs are instructions for healing.</p>
         </div>
       </div>
       <div class="hr"></div>
@@ -199,73 +244,62 @@
     <div class="sp"></div>
 
     <!-- EMOTIONAL FAMILIES -->
-    <section id="families" class="card fadein">
+    <section id="families" class="card reveal">
       <div class="pill">Emotional Families</div>
       <h2>Recognize Your Patterns</h2>
-      <p class="muted">Learn the language of your inner world. Each family includes a why, a body-state, and a need. Pair with the Regulation Library below.</p>
+      <p class="muted">Each family includes a why, a body-state, and a need. Pair with the Regulation Library below.</p>
       <div class="grid grid-2">
-        <details>
-          <summary>Fear / Anxiety <span class="badge">panic, worry, dread</span></summary>
+        <details class="lift"><summary>Fear / Anxiety <span class="badge">panic, worry, dread</span></summary>
           <p><span class="label">Why</span><br>Your brain overestimates danger to keep you safe. What-if loops mean something feels uncertain or out of control.</p>
           <p><span class="label">Body</span><br>Fight/flight: shallow breath, tight chest, scanning.</p>
           <p><span class="label">Need</span><br>Safety cues, grounding, smaller doable steps.</p>
         </details>
-        <details>
-          <summary>Sadness / Grief <span class="badge">heavy, low, teary</span></summary>
+        <details class="lift"><summary>Sadness / Grief <span class="badge">heavy, low, teary</span></summary>
           <p><span class="label">Why</span><br>Metabolizing loss or unmet expectations. Grief is love with nowhere to go.</p>
           <p><span class="label">Body</span><br>Low energy, withdrawal, heaviness behind eyes.</p>
           <p><span class="label">Need</span><br>Permission, warmth, gentle presence.</p>
         </details>
-        <details>
-          <summary>Anger / Boundary Injury <span class="badge">irritation, rage</span></summary>
+        <details class="lift"><summary>Anger / Boundary Injury <span class="badge">irritation, rage</span></summary>
           <p><span class="label">Why</span><br>A value, limit, or dignity was crossed. The guardian wants repair or distance.</p>
           <p><span class="label">Body</span><br>Heat, jaw/shoulder tension, urge to act.</p>
           <p><span class="label">Need</span><br>Respect, clarity, a calm boundary.</p>
         </details>
-        <details>
-          <summary>Shame / Guilt <span class="badge">“I’m the problem”</span></summary>
+        <details class="lift"><summary>Shame / Guilt <span class="badge">“I’m the problem”</span></summary>
           <p><span class="label">Why</span><br>Criticism tries to keep you acceptable. Shame confuses “I did” with “I am”.</p>
           <p><span class="label">Body</span><br>Collapse/freeze, avoidance, small voice.</p>
           <p><span class="label">Need</span><br>Accurate responsibility, compassion, repair if needed.</p>
         </details>
-        <details>
-          <summary>Confusion / Overwhelm <span class="badge">stuck, foggy</span></summary>
+        <details class="lift"><summary>Confusion / Overwhelm <span class="badge">stuck, foggy</span></summary>
           <p><span class="label">Why</span><br>Too many open tabs—competing priorities or fear of the wrong choice.</p>
           <p><span class="label">Body</span><br>Racing thoughts + low motivation.</p>
           <p><span class="label">Need</span><br>Reduce inputs, choose one thing, time-bound focus.</p>
         </details>
-        <details>
-          <summary>Loneliness / Abandonment <span class="badge">unseen, left out</span></summary>
+        <details class="lift"><summary>Loneliness / Abandonment <span class="badge">unseen, left out</span></summary>
           <p><span class="label">Why</span><br>Attachment wound expects disconnection. Old memories color the present.</p>
           <p><span class="label">Body</span><br>Ache in chest/throat, sensitivity to distance.</p>
           <p><span class="label">Need</span><br>Warmth, co-regulation, direct bids for contact.</p>
         </details>
-        <details>
-          <summary>Stress / Burnout <span class="badge">fried, no capacity</span></summary>
+        <details class="lift"><summary>Stress / Burnout <span class="badge">fried, no capacity</span></summary>
           <p><span class="label">Why</span><br>Output without replenishment. The system needs to downshift and re-resource.</p>
           <p><span class="label">Body</span><br>Fatigue, irritability, poor focus.</p>
           <p><span class="label">Need</span><br>Rest, basics (sleep, food, water, light), reset expectations.</p>
         </details>
-        <details>
-          <summary>Heartbreak / Loss <span class="badge">broken, bereft</span></summary>
+        <details class="lift"><summary>Heartbreak / Loss <span class="badge">broken, bereft</span></summary>
           <p><span class="label">Why</span><br>Attachment ruptured or a dream dissolved. You’re mourning a future that won’t happen.</p>
           <p><span class="label">Body</span><br>Waves of grief, intrusive recall.</p>
           <p><span class="label">Need</span><br>Ritual, meaning-making, gentle pacing.</p>
         </details>
-        <details>
-          <summary>Jealousy / Comparison <span class="badge">envy, behind</span></summary>
+        <details class="lift"><summary>Jealousy / Comparison <span class="badge">envy, behind</span></summary>
           <p><span class="label">Why</span><br>Someone mirrors a disowned desire. Pain points toward what you want to claim.</p>
           <p><span class="label">Body</span><br>Tension + self-criticism loop.</p>
           <p><span class="label">Need</span><br>Own desire, self-compassion, your plan.</p>
         </details>
-        <details>
-          <summary>Numb / Dissociated <span class="badge">blank, can’t feel</span></summary>
-          <p><span class="label">Why</span><br>Capacity was exceeded, so the system protected you by disconnecting. Adaptive, not a flaw.</p>
+        <details class="lift"><summary>Numb / Dissociated <span class="badge">blank, can’t feel</span></summary>
+          <p><span class="label">Why</span><br>Capacity was exceeded; the system protected you by disconnecting. Adaptive, not a flaw.</p>
           <p><span class="label">Body</span><br>Low tone, fog, low impulse.</p>
           <p><span class="label">Need</span><br>Gentle activation: light, warmth, movement, sound.</p>
         </details>
-        <details>
-          <summary>Hopeless / Despair <span class="badge">why try, nothing works</span></summary>
+        <details class="lift"><summary>Hopeless / Despair <span class="badge">why try, nothing works</span></summary>
           <p><span class="label">Why</span><br>The brain generalized past pain into “permanent.” Novelty returns after one real win.</p>
           <p><span class="label">Body</span><br>Collapse, global negative bias.</p>
           <p><span class="label">Need</span><br>Tiny proof of agency, co-regulation, future seed.</p>
@@ -276,30 +310,30 @@
     <div class="sp"></div>
 
     <!-- REGULATION -->
-    <section id="regulation" class="card fadein">
+    <section id="regulation" class="card reveal">
       <div class="pill">Regulation Library</div>
       <h2>90-Second Practices That Actually Help</h2>
       <div class="grid grid-3">
-        <div class="card" style="padding:16px"><div class="label">Physiological Sigh</div><p>Inhale, top-up inhale, long exhale. Repeat 6–8×. Offloads CO₂ and softens sympathetic charge.</p></div>
-        <div class="card" style="padding:16px"><div class="label">4/6 Breath</div><p>Inhale 4s, exhale 6s for 1–2 minutes. Longer exhale cues safety and vagal tone.</p></div>
-        <div class="card" style="padding:16px"><div class="label">Havening Touch</div><p>Gently stroke upper arms while breathing: “I’m here with you.” Beautiful for loneliness and shock.</p></div>
-        <div class="card" style="padding:16px"><div class="label">Ground Scan</div><p>Feet down. Name 5 see, 4 feel, 3 hear, 2 smell, 1 taste. Return to now.</p></div>
-        <div class="card" style="padding:16px"><div class="label">Shake + “Huh”</div><p>Shake arms 20s; exhale with a gentle “huh.” Completes stress cycles without aggression.</p></div>
-        <div class="card" style="padding:16px"><div class="label">Warm Hand</div><p>Hand to heart, soften jaw. Tell your body: “We’re safe enough to slow down.” Let that be true.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">Physiological Sigh</div><p>Inhale, top-up inhale, long exhale. Repeat 6–8×. Offloads CO₂ and softens sympathetic charge.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">4/6 Breath</div><p>Inhale 4s, exhale 6s for 1–2 minutes. Longer exhale cues safety and vagal tone.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">Havening Touch</div><p>Gently stroke upper arms while breathing: “I’m here with you.” Beautiful for loneliness and shock.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">Ground Scan</div><p>Feet down. Name 5 see, 4 feel, 3 hear, 2 smell, 1 taste. Return to now.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">Shake + “Huh”</div><p>Shake arms 20s; exhale with a gentle “huh.” Completes stress cycles without aggression.</p></div>
+        <div class="card lift" style="padding:16px"><div class="label">Warm Hand</div><p>Hand to heart, soften jaw. Tell your body: “We’re safe enough to slow down.” Let that be true.</p></div>
       </div>
     </section>
 
     <div class="sp"></div>
 
     <!-- SCRIPTS -->
-    <section id="scripts" class="card fadein">
+    <section id="scripts" class="card reveal">
       <div class="pill">Scripts</div>
       <h2>Words for Tender Moments</h2>
       <div class="grid grid-2">
-        <details><summary>Boundary (calm) <span class="badge">Protector</span></summary><p>“I won’t discuss this while voices are raised. Let’s pause and revisit tomorrow.”</p></details>
-        <details><summary>Ask for Presence <span class="badge">Belonging</span></summary><p>“I don’t need advice—just 10 minutes of presence. Can you be with me?”</p></details>
-        <details><summary>Repair (if needed) <span class="badge">Dignity</span></summary><p>“I see where I hurt you. I won’t justify it. Here’s what I’ll do differently next time.”</p></details>
-        <details><summary>Self-Permission <span class="badge">Rest</span></summary><p>“It’s safe to rest. My worth isn’t measured by output.”</p></details>
+        <details class="lift"><summary>Boundary (calm) <span class="badge">Protector</span></summary><p>“I won’t discuss this while voices are raised. Let’s pause and revisit tomorrow.”</p></details>
+        <details class="lift"><summary>Ask for Presence <span class="badge">Belonging</span></summary><p>“I don’t need advice—just 10 minutes of presence. Can you be with me?”</p></details>
+        <details class="lift"><summary>Repair (if needed) <span class="badge">Dignity</span></summary><p>“I see where I hurt you. I won’t justify it. Here’s what I’ll do differently next time.”</p></details>
+        <details class="lift"><summary>Self-Permission <span class="badge">Rest</span></summary><p>“It’s safe to rest. My worth isn’t measured by output.”</p></details>
       </div>
       <p class="tiny">Deliver with a steady voice and relaxed shoulders. Boundaries land best when your body feels safe.</p>
     </section>
@@ -307,26 +341,26 @@
     <div class="sp"></div>
 
     <!-- AFFIRMATIONS -->
-    <section id="affirmations" class="card fadein">
+    <section id="affirmations" class="card reveal">
       <div class="pill">Affirmations</div>
       <h2>Short Lines That Land in the Body</h2>
       <div class="grid grid-3">
-        <div class="card" style="padding:16px"><p>“I am safe enough in this moment.”</p></div>
-        <div class="card" style="padding:16px"><p>“Nothing is wrong with me for feeling this.”</p></div>
-        <div class="card" style="padding:16px"><p>“My energy is sacred. I can protect it with love.”</p></div>
-        <div class="card" style="padding:16px"><p>“Clarity grows as I move.”</p></div>
-        <div class="card" style="padding:16px"><p>“Desire is allowed. My path is mine.”</p></div>
-        <div class="card" style="padding:16px"><p>“I can return to myself at my own pace.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#F6FBFF)"><p>“I am safe enough in this moment.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#F8F7FF)"><p>“Nothing is wrong with me for feeling this.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#FFF7FA)"><p>“My energy is sacred. I can protect it with love.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#F6FBFF)"><p>“Clarity grows as I move.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#F8F7FF)"><p>“Desire is allowed. My path is mine.”</p></div>
+        <div class="card lift" style="padding:16px; background:linear-gradient(180deg,#FFFFFF,#FFF7FA)"><p>“I can return to myself at my own pace.”</p></div>
       </div>
     </section>
 
     <div class="sp"></div>
 
     <!-- MEMBERSHIP -->
-    <section id="join" class="card fadein">
+    <section id="join" class="card reveal">
       <div class="pill">Membership</div>
       <h2>The Mynd Sanctuary</h2>
-      <p class="muted">For those who want to go deeper, I’m building a members area with gentle micro-lessons, audio practices, and printable tools. It’s education that meets you where you are—calm, practical, soul-aware.</p>
+      <p class="muted">For those who want to go deeper, I’m building a members area with gentle micro-lessons, audio practices, and printable tools. Education that meets you where you are—calm, practical, soul-aware.</p>
       <ul>
         <li>Short, loving lessons for real life</li>
         <li>Audio nervous-system practices</li>
@@ -340,23 +374,23 @@
     <div class="sp"></div>
 
     <!-- FAQ -->
-    <section id="faq" class="card fadein">
+    <section id="faq" class="card reveal">
       <div class="pill">FAQ</div>
       <h2>Answers That Calm</h2>
       <div class="grid grid-2">
-        <details open>
+        <details class="lift" open>
           <summary>Is this therapy?</summary>
           <p>No. Mynd is loving education and practical support. If you’re in crisis or thinking about self-harm, please seek immediate local help.</p>
         </details>
-        <details>
+        <details class="lift">
           <summary>Do I need to use it every day?</summary>
           <p>No. Come when life feels heavy or unclear. Learn a practice, feel your breath come back, and take one kind step.</p>
         </details>
-        <details>
+        <details class="lift">
           <summary>What makes this different?</summary>
           <p>It’s psychologically sound and spiritually gentle. We focus on nervous-system safety, compassionate language, and action you can actually take.</p>
         </details>
-        <details>
+        <details class="lift">
           <summary>Will this overwhelm me with content?</summary>
           <p>No. The design is quiet and minimal. Fewer, better tools—so you can actually use them.</p>
         </details>
@@ -366,16 +400,74 @@
     <div class="sp"></div>
 
     <!-- ABOUT -->
-    <section id="about" class="card fadein">
+    <section id="about" class="card reveal">
       <div class="pill">About</div>
       <h2>Why I Built This</h2>
       <p>I’m Brook—Gemini Sun (teacher of truth through language), Capricorn Moon (emotional architect), Libra North Node (restoring harmony through relationship). I’ve known confusion, heartbreak, rebuilding—and the miracle of one honest breath. Mynd is the sanctuary I wished existed: bright, clear, and kind. A place where a heart can learn to navigate itself.</p>
       <p class="muted">This is my vow: to translate pain into wisdom, to offer language that brings oxygen, and to give your nervous system simple ways to feel safe again. One crisis at a time—we transmute.</p>
     </section>
 
-    <footer>Mynd · Educational Edition · © <span id="yr"></span> · Built with care</footer>
+    <footer class="reveal">Mynd · Educational Edition · © <span id="yr"></span> · Built with care</footer>
   </main>
 
-  <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Back to top">↑ Top</button>
+
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Scroll progress
+    const progress = document.getElementById('progress');
+    function onScroll(){
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      progress.style.transform = `scaleX(${Math.max(0, Math.min(1, scrolled))})`;
+    }
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // Parallax orbs
+    const orbA = document.getElementById('orbA');
+    const orbB = document.getElementById('orbB');
+    const orbC = document.getElementById('orbC');
+    document.addEventListener('scroll', ()=>{
+      const y = window.scrollY || 0;
+      orbA.style.transform = `translateY(${y*0.06}px)`;
+      orbB.style.transform = `translateY(${y*-0.04}px)`;
+      orbC.style.transform = `translateY(${y*0.03}px)`;
+    }, {passive:true});
+
+    // Reveal on view
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+      })
+    }, {threshold:.12});
+    reveals.forEach(el=>io.observe(el));
+
+    // Scrollspy
+    const sections = [...document.querySelectorAll('section, .hero')];
+    const links = [...document.querySelectorAll('.navlink')];
+    const spy = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const id = e.target.id;
+          links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+        }
+      });
+    }, {rootMargin:"-50% 0px -45% 0px", threshold:0});
+    sections.forEach(s=> s.id && spy.observe(s));
+
+    // Back to top
+    const toTop = document.getElementById('toTop');
+    function toggleTop(){
+      if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+    }
+    document.addEventListener('scroll', toggleTop, {passive:true});
+    toggleTop();
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  </script>
 </body>
 </html>
