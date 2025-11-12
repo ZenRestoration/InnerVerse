@@ -14,9 +14,9 @@
 
   <header>
     <div class="wrap nav">
-      <div class="brand">Mynd</div>
+      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
       <a href="../index.html">Home</a>
-      <a href="../curriculum.html" class="active">Curriculum</a>
+      <a href="../curriculum/index.html" class="active">Curriculum</a>
       <a href="state.html">State</a>
       <a href="story.html">Story</a>
       <a href="need.html">Need</a>
@@ -35,40 +35,56 @@
     </div>
 
     <section class="card reveal">
-      <h2>Our thoughts are ancient protectors</h2>
+      <h2>Thoughts as ancient protectors</h2>
       <p>
-        The mind’s first job isn’t to make you happy — it’s to make you *safe*.  
-        Every belief, assumption, and judgment is an attempt to predict pain before it happens.
-      </p>
-      <p>
-        But protection can become imprisonment. Old stories — “I’m too much,” “I’m never chosen,” “I’ll fail again” — 
-        start to steer your perception long after they’ve expired.
-      </p>
-
-      <h3>Think of your stories like wallpaper</h3>
-      <p>
-        You stop noticing it after a while. It becomes “just how life looks.”
-        But awareness lets you step back and realize — *this pattern was chosen by an old version of me.*
-        You can peel it off gently.
+        Your mind’s first job isn’t happiness — it’s survival. It tries to predict pain and prevent it.
+        That’s why old beliefs cling on: they once protected you. Awareness lets you thank them and update them.
       </p>
 
       <div class="hr"></div>
 
-      <h3>Try this reflection</h3>
-      <p><strong>1.</strong> Think of a recent emotional reaction.<br>
-      <strong>2.</strong> Ask: “What was I believing in that moment?”<br>
-      <strong>3.</strong> Ask: “Is this belief still true now?”</p>
-
-      <p class="muted">
-        That’s awareness. You just separated the *observer* from the *narrator* — and that’s how freedom begins.
+      <h3>Wallpaper analogy</h3>
+      <p>
+        Beliefs become background — like wallpaper you stop noticing. Awareness is stepping back and asking,
+        “Did a younger me pick this pattern?” If yes, you can choose a new one without shaming the old you.
       </p>
+
+      <div class="hr"></div>
+      <h3>Micro-practice: Spot the sentence</h3>
+      <ul>
+        <li>Recall a recent reaction.</li>
+        <li>Write the first sentence your mind told you (exact words).</li>
+        <li>Ask, “Is this <em>current</em> or a <em>memory</em>?”</li>
+      </ul>
+      <p class="muted">Separating the observer from the narrator is freedom’s first step.</p>
+    </section>
+
+    <div class="sp"></div>
+
+    <section class="card reveal">
+      <h2>Update the prediction, don’t fight the mind</h2>
+      <p>
+        Arguing with thoughts locks you in. Updating predictions frees you.
+        Offer your mind new data gently: present safety cues, small wins, supportive people, clear plans.
+      </p>
+
+      <div class="hr"></div>
+      <h3>Script examples</h3>
+      <ul>
+        <li><strong>Old:</strong> “If I’m visible, I’ll be attacked.”  
+            <strong>Update:</strong> “Some spaces weren’t safe. This one is chosen and bounded.”</li>
+        <li><strong>Old:</strong> “I’m always too much.”  
+            <strong>Update:</strong> “I’m learning dose and audience. My depth is a gift.”</li>
+        <li><strong>Old:</strong> “I’ll fail again.”  
+            <strong>Update:</strong> “I’ve failed and learned before. I can start small and iterate.”</li>
+      </ul>
     </section>
 
     <div class="sp"></div>
 
     <section class="card reveal center">
-      <h2>Remember:</h2>
-      <p class="sub">You are not your thoughts. You are the consciousness that hears them.</p>
+      <h2>Practice: Gentle cross-examiner</h2>
+      <p class="sub">Ask: “What is this story trying to protect? What else could be true now?”</p>
       <p><a class="chip" href="need.html">Continue to Lesson Three →</a></p>
     </section>
   </main>
@@ -76,5 +92,21 @@
   <footer class="reveal">Mynd · © <span id="yr"></span></footer>
   <button class="to-top" id="toTop">↑</button>
   <script src="../app.js"></script>
+
+  <!-- Progress tracking -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const raw = (document.title || '');
+      const split = raw.split('—');
+      const key = (split[0] ? split[0] : raw).trim().toLowerCase(); // "Story"
+      if (key){
+        const k = 'lesson_' + key;
+        if (localStorage.getItem(k) !== 'done'){ localStorage.setItem(k, 'started'); }
+      }
+      document.querySelectorAll('a.chip, a[href*="state"], a[href*="story"], a[href*="need"], a[href*="step"]').forEach(a=>{
+        a.addEventListener('click', ()=>{ if (key){ localStorage.setItem('lesson_' + key, 'done'); }});
+      });
+    });
+  </script>
 </body>
 </html>
