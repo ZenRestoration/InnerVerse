@@ -4,12 +4,14 @@
   <meta charset="utf-8" />
   <title>Mynd — Emotional Clarity Engine™</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="When you don’t know what’s wrong, Mynd helps you understand yourself—emotion, root cause, 90-second regulation, and one next step." />
   <style>
     :root{
       --bg:#0B1213; --card:#0F1A1C; --text:#E6F5F4; --muted:#8BA5A4;
       --soft:#B8D4D1; --accent:#19A19C; --line:#173033; --ring:#5ABBB4;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     .wrap{max-width:880px;margin:0 auto;padding:32px 20px}
     .hero{padding:28px 24px;background:linear-gradient(180deg, rgba(25,161,156,0.06), rgba(15,26,28,0.6)), var(--card); border:1px solid #153235; border-radius:20px; box-shadow:0 18px 40px rgba(0,0,0,.35)}
@@ -28,24 +30,32 @@
     .tiny{color:#86a8a6;font-size:12px}
     .footer{color:#799996;font-size:12px;text-align:center;margin-top:24px}
     .hidden{display:none}
+    .row{display:flex;gap:12px}
+    .chat-badge{min-width:36px;height:36px;border-radius:10px;background:#173033;display:flex;align-items:center;justify-content:center;font-size:12px;color:#a9dbe0}
+    .chat-badge.ai{background:#10242a}
+    .chip{display:inline-block;border:1px solid #264a53;background:#10242a;color:#a9dbe0;border-radius:999px;padding:6px 10px;font-size:12px}
+    a.btn-link{color:#052025;text-decoration:none}
   </style>
 </head>
 <body>
   <div class="wrap">
+    <!-- HERO -->
     <div class="hero">
       <h1>Mynd</h1>
       <p class="sub">When you don’t know what’s wrong, I help you understand yourself. Write one or two sentences—I'll reflect with clarity, care, and a next step.</p>
       <form id="clarity-form">
         <textarea id="feelings" placeholder="e.g. I’m spiralling about money and can’t think straight..."></textarea>
-        <div style="display:flex;gap:12px;margin-top:12px">
+        <div class="row" style="margin-top:12px">
           <button type="submit">Find Clarity</button>
           <a class="pill" href="./">Reset</a>
+          <span class="tiny" style="align-self:center;margin-left:auto;">Preview mode. Full reflection unlocks reframe, 90-sec regulation, next step & affirmation.</span>
         </div>
       </form>
     </div>
 
     <div class="sp"></div>
 
+    <!-- RESULT -->
     <div id="result-card" class="card hidden">
       <div class="pill" id="label-pill">Emotion</div>
       <h2 style="margin:10px 0 6px">I’m hearing this:</h2>
@@ -67,6 +77,7 @@
         </div>
       </div>
 
+      <!-- FULL CONTENT -->
       <div id="full-block" class="hidden">
         <div class="hr"></div>
         <h3>Gentle Reframe</h3>
@@ -82,21 +93,39 @@
         <p class="affirm" id="affirmation"></p>
       </div>
 
+      <!-- UPGRADE CTA -->
       <div id="upgrade-block" class="">
         <div class="hr"></div>
         <p><strong>Want the full reflection?</strong> Get the reframe, 90-second regulation, your next step, and an anchoring affirmation.</p>
-        <p><a class="pill" href="./join.html">Unlock Full Reflection</a></p>
+        <p><a class="chip btn-link" href="./join.html">Unlock Full Reflection</a></p>
       </div>
 
       <div class="hr"></div>
       <p class="tiny">Mynd · Emotional Clarity Engine™ · Prototype v0.1</p>
     </div>
 
+    <!-- JOURNAL CHAT -->
+    <div id="chat-card" class="card hidden" style="margin-top:20px;">
+      <div class="pill">Journal Chat (beta)</div>
+      <h2 style="margin:10px 0 6px">Write to me like a journal. I’ll respond with care.</h2>
+
+      <div id="chat-log" style="display:flex; flex-direction:column; gap:10px; max-height:360px; overflow:auto; padding:8px; background:#0b1213; border:1px solid #173033; border-radius:12px;">
+        <!-- messages appended here -->
+      </div>
+
+      <form id="chat-form" class="row" style="margin-top:12px;">
+        <input id="chat-input" type="text" placeholder="Type your journal entry..." style="flex:1; background:#0B1213; border:1px solid #163236; color:#E6F5F4; padding:12px 14px; border-radius:12px; font-size:16px;" />
+        <button type="submit">Send</button>
+      </form>
+
+      <p class="tiny" style="margin-top:8px;">This is supportive, not clinical advice. If you’re in crisis or considering self-harm, please seek local emergency support immediately.</p>
+    </div>
+
     <div class="footer">Built with care. Your feelings are welcome here.</div>
   </div>
 
   <script>
-    // ---- Data (same content as the Python version) ----
+    // ------------------ DATA: Emotional Clarity Engine ------------------
     const CLARITY = {
       fear_anxiety: {
         label: "Fear / Anxiety",
@@ -240,7 +269,6 @@
       for (const [key, patterns] of Object.entries(KEYWORDS)) {
         for (const pat of patterns) if (pat.test(text)) scores[key] += 1;
       }
-      // fallback to confusion/overwhelm if nothing hits
       let best = "confusion_overwhelm";
       let bestScore = -1;
       const priority = ["hopeless_despair","numb_dissociate","fear_anxiety","sadness_grief","anger_boundary","shame_guilt","lonely_abandoned","stress_burnout","heartbreak_loss","jealousy_comparison","confusion_overwhelm"];
@@ -252,18 +280,23 @@
       const sum = Object.values(scores).reduce((a,b)=>a+b,0);
       return sum === 0 ? "confusion_overwhelm" : best;
     }
-
     function qs(name){ return new URLSearchParams(location.search).get(name) }
 
-    document.getElementById('clarity-form').addEventListener('submit', (e)=>{
+    // ------------------ CLARITY FORM ------------------
+    const form = document.getElementById('clarity-form');
+    const resultCard = document.getElementById('result-card');
+    const chatCard = document.getElementById('chat-card');
+
+    form.addEventListener('submit', (e)=>{
       e.preventDefault();
       const t = document.getElementById('feelings').value.trim();
-      if(!t){ return; }
-      const key = detectEmotion(t.toLowerCase());
-      const d = CLARITY[key];
+      if(!t) return;
 
-      // Fill UI
-      document.getElementById('result-card').classList.remove('hidden');
+      const key = detectEmotion(t.toLowerCase());
+      window.__lastEmotionKey = key;
+
+      const d = CLARITY[key];
+      resultCard.classList.remove('hidden');
       document.getElementById('label-pill').textContent = d.label;
       document.getElementById('aka').textContent = d.aka.join(', ');
       document.getElementById('why').textContent = d.why;
@@ -284,6 +317,83 @@
       } else {
         fullBlock.classList.add('hidden');
         upgradeBlock.classList.remove('hidden');
+      }
+
+      // Reveal chat
+      chatCard.classList.remove('hidden');
+    });
+
+    // ------------------ JOURNAL CHAT ------------------
+    const CHAT_KEY = 'mynd_chat_history_v1';
+    const chatLogEl = document.getElementById('chat-log');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+
+    function loadChat(){ try{ return JSON.parse(localStorage.getItem(CHAT_KEY)||'[]'); }catch{return []} }
+    function saveChat(h){ localStorage.setItem(CHAT_KEY, JSON.stringify(h)); }
+    function appendMsg(role, text){
+      const row = document.createElement('div'); row.className='row';
+      const badge = document.createElement('div');
+      badge.className = 'chat-badge' + (role==='assistant'?' ai':'');
+      badge.textContent = role==='user' ? 'You' : 'AI';
+      const bubble = document.createElement('div');
+      bubble.style.background = '#0f1a1c';
+      bubble.style.border = '1px solid #173033';
+      bubble.style.padding = '10px 12px';
+      bubble.style.borderRadius = '12px';
+      bubble.style.whiteSpace = 'pre-wrap';
+      bubble.textContent = text;
+      row.appendChild(badge); row.appendChild(bubble);
+      chatLogEl.appendChild(row);
+      chatLogEl.scrollTop = chatLogEl.scrollHeight;
+    }
+
+    const history = loadChat();
+    if (history.length){
+      chatCard.classList.remove('hidden');
+      history.forEach(m => appendMsg(m.role, m.content));
+    }
+
+    chatForm?.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const content = chatInput.value.trim();
+      if(!content) return;
+
+      appendMsg('user', content);
+      history.push({role:'user', content});
+      saveChat(history);
+      chatInput.value = '';
+
+      // ---- EDIT THIS: your Cloudflare Worker endpoint URL
+      const WORKER_URL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev/api/chat';
+
+      // Loading placeholder
+      appendMsg('assistant', '…');
+
+      try {
+        const payload = {
+          messages: history.slice(-10), // last 10 turns
+          context: {
+            emotionKey: window.__lastEmotionKey || null,
+            page: 'index',
+            fullMode: (qs('full') === '1')
+          }
+        };
+        const res = await fetch(WORKER_URL, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        // replace last assistant placeholder with actual text
+        chatLogEl.lastChild.remove();
+        const reply = data.reply || 'I’m here with you. Try sending that again if the connection hiccuped.';
+        appendMsg('assistant', reply);
+        history.push({role:'assistant', content: reply});
+        saveChat(history);
+      } catch (err){
+        chatLogEl.lastChild.remove();
+        appendMsg('assistant', 'I couldn’t reach the chat service. Please try again in a moment.');
       }
     });
   </script>
