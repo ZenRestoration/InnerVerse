@@ -2,400 +2,312 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Mynd — Emotional Clarity Engine™</title>
+  <title>Mynd — Emotional Clarity Engine™ (Education)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="When you don’t know what’s wrong, Mynd helps you understand yourself—emotion, root cause, 90-second regulation, and one next step." />
+  <meta name="description" content="A calm, loving guide for self-discovery. Learn how to turn any crisis into clarity with nervous-system-safe tools, reframes, and compassionate structure." />
   <style>
     :root{
       --bg:#0B1213; --card:#0F1A1C; --text:#E6F5F4; --muted:#8BA5A4;
       --soft:#B8D4D1; --accent:#19A19C; --line:#173033; --ring:#5ABBB4;
+      --shadow:0 18px 40px rgba(0,0,0,.35); --radius:18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    .wrap{max-width:880px;margin:0 auto;padding:32px 20px}
-    .hero{padding:28px 24px;background:linear-gradient(180deg, rgba(25,161,156,0.06), rgba(15,26,28,0.6)), var(--card); border:1px solid #153235; border-radius:20px; box-shadow:0 18px 40px rgba(0,0,0,.35)}
-    h1{margin:0 0 6px;font-weight:700;letter-spacing:.2px}
-    p.sub{color:var(--soft);margin:0 0 16px}
-    textarea{width:100%;min-height:120px;background:#0B1213;border:1px solid #163236;color:var(--text);padding:14px 16px;border-radius:14px;font-size:16px;resize:vertical}
-    button{background:var(--accent);color:#052025;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
-    .sp{height:20px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+    a{color:#9fe7e0;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px 20px}
+    header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg, rgba(11,18,19,.9), rgba(11,18,19,.65) 60%, rgba(11,18,19,0));backdrop-filter:blur(8px);border-bottom:1px solid #0e1b1d}
+    .nav{display:flex;align-items:center;gap:18px;padding:12px 0}
+    .nav .brand{font-weight:800;letter-spacing:.2px}
+    .nav a{color:var(--soft);font-size:14px}
+    .nav a.chip{display:inline-block;border:1px solid #264a53;background:#10242a;color:#a9dbe0;border-radius:999px;padding:6px 10px}
+    .hero{margin-top:14px;padding:28px 24px;background:
+      radial-gradient(1200px 360px at 50% -40%, rgba(25,161,156,0.08), transparent),
+      linear-gradient(180deg, rgba(25,161,156,0.06), rgba(15,26,28,0.6)),
+      var(--card);
+      border:1px solid #153235;border-radius:22px;box-shadow:var(--shadow)}
+    h1{margin:4px 0 6px;font-weight:800;letter-spacing:.2px}
+    h2{margin:0 0 10px;font-weight:800}
+    h3{margin:8px 0}
+    p.sub{color:var(--soft);margin:0 0 12px;max-width:72ch}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.25)}
     .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#10242a;border:1px solid #264a53;color:#a9dbe0;font-size:12px}
-    .hr{height:1px;background:#183135;margin:16px 0}
-    .label{color:var(--soft);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
-    .affirm{font-weight:700}
-    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .muted{color:var(--muted)}
     .tiny{color:#86a8a6;font-size:12px}
-    .footer{color:#799996;font-size:12px;text-align:center;margin-top:24px}
-    .hidden{display:none}
-    .row{display:flex;gap:12px}
-    .chat-badge{min-width:36px;height:36px;border-radius:10px;background:#173033;display:flex;align-items:center;justify-content:center;font-size:12px;color:#a9dbe0}
-    .chat-badge.ai{background:#10242a}
-    .chip{display:inline-block;border:1px solid #264a53;background:#10242a;color:#a9dbe0;border-radius:999px;padding:6px 10px;font-size:12px}
-    a.btn-link{color:#052025;text-decoration:none}
+    .hr{height:1px;background:#183135;margin:16px 0}
+    .muted{color:var(--muted)}
+    .label{color:var(--soft);font-size:12px;letter-spacing:.4px;text-transform:uppercase}
+    .sp{height:24px}
+    .grid{display:grid;gap:14px}
+    @media(min-width:860px){ .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:repeat(2,1fr)} }
+    section{scroll-margin-top:80px}
+    details{background:#0b1415;border:1px solid #163236;border-radius:14px;padding:12px 14px}
+    summary{cursor:pointer;color:var(--soft);font-weight:600}
+    .badge{font-size:11px;color:#a9dbe0;border:1px solid #264a53;background:#10242a;border-radius:6px;padding:2px 6px;margin-left:6px}
+    footer{color:#799996;font-size:12px;text-align:center;margin:28px 0 18px}
+    /* gentle fade-in */
+    .fadein{opacity:0; transform:translateY(6px); animation:fade .7s ease .05s forwards}
+    @keyframes fade{to{opacity:1; transform:none}}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- HERO -->
-    <div class="hero">
-      <h1>Mynd</h1>
-      <p class="sub">When you don’t know what’s wrong, I help you understand yourself. Write one or two sentences—I'll reflect with clarity, care, and a next step.</p>
-      <form id="clarity-form">
-        <textarea id="feelings" placeholder="e.g. I’m spiralling about money and can’t think straight..."></textarea>
-        <div class="row" style="margin-top:12px">
-          <button type="submit">Find Clarity</button>
-          <a class="pill" href="./">Reset</a>
-          <span class="tiny" style="align-self:center;margin-left:auto;">Preview mode. Full reflection unlocks reframe, 90-sec regulation, next step & affirmation.</span>
-        </div>
-      </form>
+  <!-- NAV -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">Mynd</div>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#education">Education</a>
+      <a href="#families">Emotional Families</a>
+      <a href="#regulation">Regulation</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#affirmations">Affirmations</a>
+      <a href="#faq">FAQ</a>
+      <a href="#about">About</a>
+      <span style="margin-left:auto"></span>
+      <a class="chip" href="#join">Membership</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO (no inputs, no chat) -->
+    <div class="hero fadein">
+      <h1>A calm place to understand yourself.</h1>
+      <p class="sub">When life feels heavy or confusing, Mynd offers clear, loving education to help you turn crisis into clarity. You’ll learn what emotions are trying to protect, how your nervous system speaks, and the exact practices that create safety, perspective, and direction. One breath. One truth. One next step.</p>
+      <div class="tiny">No check-ins. No chat. Just guidance you can trust.</div>
     </div>
 
     <div class="sp"></div>
 
-    <!-- RESULT -->
-    <div id="result-card" class="card hidden">
-      <div class="pill" id="label-pill">Emotion</div>
-      <h2 style="margin:10px 0 6px">I’m hearing this:</h2>
-      <p class="muted">Also called: <span id="aka"></span></p>
+    <!-- PHILOSOPHY -->
+    <section id="philosophy" class="card fadein">
+      <div class="pill">Philosophy</div>
+      <h2>Hope is a Skill</h2>
+      <p class="muted">Mynd teaches a simple framework that works across beliefs, cultures, and seasons of life: <em>Name it → Understand it → Meet the need</em>. It’s practical psychology with a soul—gentle enough for tender moments and clear enough to act on.</p>
+      <div class="grid grid-3">
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">Name It</div>
+          <p>Labeling an emotion calms the threat system. Try, “This feels like fear,” or “I’m carrying grief.” Truth lowers the volume.</p>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">Understand It</div>
+          <p>Emotions are messengers. Ask, “What is this protecting? Which meaning or memory is touched?” Now you’re collaborating with your system.</p>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">Meet the Need</div>
+          <p>Every state has a need—safety, warmth, belonging, rest, truth, movement. When the need is honored, the state evolves. That’s emotional alchemy.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="sp"></div>
+
+    <!-- EDUCATION -->
+    <section id="education" class="card fadein">
+      <div class="pill">Education</div>
+      <h2>Turn Any Crisis Into Clarity</h2>
+      <p class="muted">A gentle walk-through you can apply to anything: heartbreak, anxiety, conflict, burnout, numbness, shame, confusion, or despair.</p>
+      <div class="grid grid-3">
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">The Signal</div>
+          <p>Your body speaks first. Notice breath, posture, jaw, chest, gut. This is data, not a verdict on who you are.</p>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">The Story</div>
+          <p>What meaning did your mind assign? “I’ll fail.” “They’ll leave.” Stories try to prevent pain by predicting it. We’ll update the map.</p>
+        </div>
+        <div class="card" style="padding:14px;background:#0b1213">
+          <div class="label">The Need</div>
+          <p>Safety, clarity, repair, contact, rest, ownership of desire—needs aren’t weaknesses. They’re instructions for healing.</p>
+        </div>
+      </div>
       <div class="hr"></div>
+      <h3>Use This Script (anytime)</h3>
+      <p><strong>1)</strong> “Name: this feels like ___.” <br>
+         <strong>2)</strong> “Why: my body is protecting me because ___.” <br>
+         <strong>3)</strong> “Need: right now I need ___.” <br>
+         <strong>4)</strong> “Act: the smallest next step I can take is ___.”</p>
+    </section>
 
-      <div class="grid">
-        <div class="card" style="padding:14px;background:#0b1213">
-          <div class="label">Why this happens</div>
-          <div id="why"></div>
-        </div>
-        <div class="card" style="padding:14px;background:#0b1213">
-          <div class="label">What your body is doing</div>
-          <div id="nervous"></div>
-        </div>
-        <div class="card" style="padding:14px;background:#0b1213">
-          <div class="label">What you need</div>
-          <div id="need"></div>
-        </div>
+    <div class="sp"></div>
+
+    <!-- EMOTIONAL FAMILIES -->
+    <section id="families" class="card fadein">
+      <div class="pill">Emotional Families</div>
+      <h2>Recognize Your Patterns</h2>
+      <p class="muted">Learn the language of your inner world. Each family includes a why, a body-state, and a need. Use the Regulation Library to support each one.</p>
+      <div class="grid grid-2">
+        <details>
+          <summary>Fear / Anxiety <span class="badge">panic, worry, dread</span></summary>
+          <p><span class="label">Why</span><br>Your brain overestimates danger to keep you safe. What-if loops mean something feels uncertain or out of control.</p>
+          <p><span class="label">Body</span><br>Fight/flight: shallow breath, tight chest, scanning.</p>
+          <p><span class="label">Need</span><br>Safety cues, grounding, smaller doable steps.</p>
+        </details>
+        <details>
+          <summary>Sadness / Grief <span class="badge">heavy, low, teary</span></summary>
+          <p><span class="label">Why</span><br>Metabolizing loss or unmet expectations. Grief is love with nowhere to go.</p>
+          <p><span class="label">Body</span><br>Low energy, withdrawal, heaviness behind eyes.</p>
+          <p><span class="label">Need</span><br>Permission, warmth, gentle presence.</p>
+        </details>
+        <details>
+          <summary>Anger / Boundary Injury <span class="badge">irritation, rage</span></summary>
+          <p><span class="label">Why</span><br>A value, limit, or dignity was crossed. The guardian wants repair or distance.</p>
+          <p><span class="label">Body</span><br>Heat, jaw/shoulder tension, urge to act.</p>
+          <p><span class="label">Need</span><br>Respect, clarity, a calm boundary.</p>
+        </details>
+        <details>
+          <summary>Shame / Guilt <span class="badge">“I’m the problem”</span></summary>
+          <p><span class="label">Why</span><br>Criticism tries to keep you acceptable. Shame confuses “I did” with “I am”.</p>
+          <p><span class="label">Body</span><br>Collapse/freeze, avoidance, small voice.</p>
+          <p><span class="label">Need</span><br>Accurate responsibility, compassion, repair if needed.</p>
+        </details>
+        <details>
+          <summary>Confusion / Overwhelm <span class="badge">stuck, foggy</span></summary>
+          <p><span class="label">Why</span><br>Too many open tabs—competing priorities or fear of the wrong choice.</p>
+          <p><span class="label">Body</span><br>Racing thoughts + low motivation.</p>
+          <p><span class="label">Need</span><br>Reduce inputs, choose one thing, time-bound focus.</p>
+        </details>
+        <details>
+          <summary>Loneliness / Abandonment <span class="badge">unseen, left out</span></summary>
+          <p><span class="label">Why</span><br>Attachment wound expects disconnection. Old memories color the present.</p>
+          <p><span class="label">Body</span><br>Ache in chest/throat, sensitivity to distance.</p>
+          <p><span class="label">Need</span><br>Warmth, co-regulation, direct bids for contact.</p>
+        </details>
+        <details>
+          <summary>Stress / Burnout <span class="badge">fried, no capacity</span></summary>
+          <p><span class="label">Why</span><br>Output without replenishment. The system needs to downshift and re-resource.</p>
+          <p><span class="label">Body</span><br>Fatigue, irritability, poor focus.</p>
+          <p><span class="label">Need</span><br>Rest, basics (sleep, food, water, light), reset expectations.</p>
+        </details>
+        <details>
+          <summary>Heartbreak / Loss <span class="badge">broken, bereft</span></summary>
+          <p><span class="label">Why</span><br>Attachment ruptured or a dream dissolved. You’re mourning a future that won’t happen.</p>
+          <p><span class="label">Body</span><br>Waves of grief, intrusive recall.</p>
+          <p><span class="label">Need</span><br>Ritual, meaning-making, gentle pacing.</p>
+        </details>
+        <details>
+          <summary>Jealousy / Comparison <span class="badge">envy, behind</span></summary>
+          <p><span class="label">Why</span><br>Someone mirrors a disowned desire. Pain points toward what you want to claim.</p>
+          <p><span class="label">Body</span><br>Tension + self-criticism loop.</p>
+          <p><span class="label">Need</span><br>Own desire, self-compassion, your plan.</p>
+        </details>
+        <details>
+          <summary>Numb / Dissociated <span class="badge">blank, can’t feel</span></summary>
+          <p><span class="label">Why</span><br>Capacity was exceeded, so the system protected you by disconnecting. Adaptive, not a flaw.</p>
+          <p><span class="label">Body</span><br>Low tone, fog, low impulse.</p>
+          <p><span class="label">Need</span><br>Gentle activation: light, warmth, movement, sound.</p>
+        </details>
+        <details>
+          <summary>Hopeless / Despair <span class="badge">why try, nothing works</span></summary>
+          <p><span class="label">Why</span><br>The brain generalized past pain into “permanent.” Novelty returns after one real win.</p>
+          <p><span class="label">Body</span><br>Collapse, global negative bias.</p>
+          <p><span class="label">Need</span><br>Tiny proof of agency, co-regulation, future seed.</p>
+        </details>
       </div>
+    </section>
 
-      <!-- FULL CONTENT -->
-      <div id="full-block" class="hidden">
-        <div class="hr"></div>
-        <h3>Gentle Reframe</h3>
-        <p id="reframe"></p>
+    <div class="sp"></div>
 
-        <h3>Regulate (60–120s)</h3>
-        <p id="regulate"></p>
-
-        <h3>One next step</h3>
-        <p id="next_step"></p>
-
-        <h3>Affirmation</h3>
-        <p class="affirm" id="affirmation"></p>
+    <!-- REGULATION -->
+    <section id="regulation" class="card fadein">
+      <div class="pill">Regulation Library</div>
+      <h2>90-Second Practices That Actually Help</h2>
+      <div class="grid grid-3">
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Physiological Sigh</div><p>Inhale, top-up inhale, long exhale. Repeat 6–8×. Offloads CO₂ and softens sympathetic charge.</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">4/6 Breath</div><p>Inhale 4s, exhale 6s for 1–2 minutes. Longer exhale cues safety and vagal tone.</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Havening Touch</div><p>Gently stroke upper arms while breathing: “I’m here with you.” Beautiful for loneliness and shock.</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Ground Scan</div><p>Feet down. Name 5 see, 4 feel, 3 hear, 2 smell, 1 taste. Return to now.</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Shake + “Huh”</div><p>Shake arms 20s; exhale with a gentle “huh.” Completes stress cycles without aggression.</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><div class="label">Warm Hand</div><p>Hand to heart, soften jaw. Tell your body: “We’re safe enough to slow down.” Let that be true.</p></div>
       </div>
+    </section>
 
-      <!-- UPGRADE CTA -->
-      <div id="upgrade-block" class="">
-        <div class="hr"></div>
-        <p><strong>Want the full reflection?</strong> Get the reframe, 90-second regulation, your next step, and an anchoring affirmation.</p>
-        <p><a class="chip btn-link" href="./join.html">Unlock Full Reflection</a></p>
+    <div class="sp"></div>
+
+    <!-- SCRIPTS -->
+    <section id="scripts" class="card fadein">
+      <div class="pill">Scripts</div>
+      <h2>Words for Tender Moments</h2>
+      <div class="grid grid-2">
+        <details><summary>Boundary (calm) <span class="badge">Protector</span></summary><p>“I won’t discuss this while voices are raised. Let’s pause and revisit tomorrow.”</p></details>
+        <details><summary>Ask for Presence <span class="badge">Belonging</span></summary><p>“I don’t need advice—just 10 minutes of presence. Can you be with me?”</p></details>
+        <details><summary>Repair (if needed) <span class="badge">Dignity</span></summary><p>“I see where I hurt you. I won’t justify it. Here’s what I’ll do differently next time.”</p></details>
+        <details><summary>Self-Permission <span class="badge">Rest</span></summary><p>“It’s safe to rest. My worth isn’t measured by output.”</p></details>
       </div>
+      <p class="tiny">Deliver with a steady voice and relaxed shoulders. Boundaries land best when your body feels safe.</p>
+    </section>
 
+    <div class="sp"></div>
+
+    <!-- AFFIRMATIONS -->
+    <section id="affirmations" class="card fadein">
+      <div class="pill">Affirmations</div>
+      <h2>Short Lines That Land in the Body</h2>
+      <div class="grid grid-3">
+        <div class="card" style="padding:14px;background:#0b1213"><p>“I am safe enough in this moment.”</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><p>“Nothing is wrong with me for feeling this.”</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><p>“My energy is sacred. I can protect it with love.”</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><p>“Clarity grows as I move.”</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><p>“Desire is allowed. My path is mine.”</p></div>
+        <div class="card" style="padding:14px;background:#0b1213"><p>“I can return to myself at my own pace.”</p></div>
+      </div>
+    </section>
+
+    <div class="sp"></div>
+
+    <!-- MEMBERSHIP (education-first framing, no feature promises) -->
+    <section id="join" class="card fadein">
+      <div class="pill">Membership</div>
+      <h2>The Mynd Sanctuary</h2>
+      <p class="muted">For those who want to go deeper, I’m building a members area with gentle micro-lessons, audio practices, and printable tools. It’s education that meets you where you are—calm, practical, soul-aware.</p>
+      <ul>
+        <li>Short, loving lessons for real life</li>
+        <li>Audio nervous-system practices</li>
+        <li>Printable scripts & ritual templates</li>
+        <li>Gentle Q&A vault over time</li>
+      </ul>
       <div class="hr"></div>
-      <p class="tiny">Mynd · Emotional Clarity Engine™ · Prototype v0.1</p>
-    </div>
+      <p><a class="pill" href="#" onclick="alert('Connect this to your Gumroad/Lemon Squeezy checkout when ready.');return false;">Become a Founding Member</a></p>
+    </section>
 
-    <!-- JOURNAL CHAT -->
-    <div id="chat-card" class="card hidden" style="margin-top:20px;">
-      <div class="pill">Journal Chat (beta)</div>
-      <h2 style="margin:10px 0 6px">Write to me like a journal. I’ll respond with care.</h2>
+    <div class="sp"></div>
 
-      <div id="chat-log" style="display:flex; flex-direction:column; gap:10px; max-height:360px; overflow:auto; padding:8px; background:#0b1213; border:1px solid #173033; border-radius:12px;">
-        <!-- messages appended here -->
+    <!-- FAQ -->
+    <section id="faq" class="card fadein">
+      <div class="pill">FAQ</div>
+      <h2>Answers That Calm</h2>
+      <div class="grid grid-2">
+        <details open>
+          <summary>Is this therapy?</summary>
+          <p>No. Mynd is loving education and practical support. If you’re in crisis or thinking about self-harm, please seek immediate local help.</p>
+        </details>
+        <details>
+          <summary>Do I need to use it every day?</summary>
+          <p>No. Come when life feels heavy or unclear. Learn a practice, feel your breath come back, and take one kind step.</p>
+        </details>
+        <details>
+          <summary>What makes this different?</summary>
+          <p>It’s psychologically sound and spiritually gentle. We focus on nervous system safety, compassionate language, and action you can actually take.</p>
+        </details>
+        <details>
+          <summary>Will this overwhelm me with content?</summary>
+          <p>No. The design is quiet and minimal. Fewer, better tools—so you can actually use them.</p>
+        </details>
       </div>
+    </section>
 
-      <form id="chat-form" class="row" style="margin-top:12px;">
-        <input id="chat-input" type="text" placeholder="Type your journal entry..." style="flex:1; background:#0B1213; border:1px solid #163236; color:#E6F5F4; padding:12px 14px; border-radius:12px; font-size:16px;" />
-        <button type="submit">Send</button>
-      </form>
+    <div class="sp"></div>
 
-      <p class="tiny" style="margin-top:8px;">This is supportive, not clinical advice. If you’re in crisis or considering self-harm, please seek local emergency support immediately.</p>
-    </div>
+    <!-- ABOUT -->
+    <section id="about" class="card fadein">
+      <div class="pill">About</div>
+      <h2>Why I Built This</h2>
+      <p>I’m Brook—Gemini Sun (teacher of truth through language), Capricorn Moon (emotional architect), Libra North Node (restoring harmony through relationship). I’ve known confusion, heartbreak, rebuilding—and the miracle of one honest breath. Mynd is the sanctuary I wished existed: quiet, clear, and kind. A place where a heart can learn to navigate itself.</p>
+      <p class="muted">This is my vow: to translate pain into wisdom, to offer language that brings oxygen, and to give your nervous system simple ways to feel safe again. One crisis at a time—we transmute.</p>
+    </section>
 
-    <div class="footer">Built with care. Your feelings are welcome here.</div>
-  </div>
+    <footer>Mynd · Educational Edition · © <span id="yr"></span> · Built with care</footer>
+  </main>
 
-  <script>
-    // ------------------ DATA: Emotional Clarity Engine ------------------
-    const CLARITY = {
-      fear_anxiety: {
-        label: "Fear / Anxiety",
-        aka: ["panic","worry","dread","spiral"],
-        why: "Your brain is predicting a threat and overestimating the danger to keep you safe. The mind is running ‘what-if’ loops because something feels uncertain or out of your control.",
-        nervous_system: "Sympathetic activation (fight/flight): shallow breath, tight chest, scanning, restless energy.",
-        need: "Safety, grounding, proof of support, smaller doable steps.",
-        reframe: "You’re not broken. Your body is trying to protect you without accurate data. When you slow the body, the mind recalibrates.",
-        regulate: "Place one hand on your chest, one on your belly. Inhale 4s, exhale 6s for 6–10 cycles. Name five stable things in your life right now.",
-        next_step: "Break the issue into the smallest next action you can complete in under 5 minutes. Do only that.",
-        affirmation: "I can slow down. I am safe enough in this moment."
-      },
-      sadness_grief: {
-        label: "Sadness / Grief",
-        aka: ["heavy","low","teary"],
-        why: "You are metabolizing loss, unmet expectations, or a part of you that didn’t get what it needed. Grief is love with nowhere to go.",
-        nervous_system: "Parasympathetic dominance / collapse: low energy, withdrawal, heaviness behind the eyes.",
-        need: "Permission to feel, warmth, gentle contact, non-judgment.",
-        reframe: "Nothing is wrong with you for feeling this way. The pain is evidence of your capacity to love.",
-        regulate: "Soften your jaw. Rest a warm hand on your heart. Let 90 seconds of waves move through without fixing.",
-        next_step: "Message someone safe: ‘I don’t need advice—just a little presence. Can you be with me?’",
-        affirmation: "My feelings are allowed. I can let them move."
-      },
-      anger_boundary: {
-        label: "Anger / Boundary Injury",
-        aka: ["irritation","rage","resentment"],
-        why: "Something crossed your values, limits, or dignity. Anger is a guardian asking for repair or distance.",
-        nervous_system: "High sympathetic activation: heat, tension in jaw/shoulders, impulse to act.",
-        need: "Respect, clarity, a boundary or a plan to restore integrity.",
-        reframe: "Anger is not the problem; misdirection is. You can harness it into clean action.",
-        regulate: "Square breath (4-4-4-4) for 8 rounds. Shake arms for 20s. Exhale with a gentle ‘huh’.",
-        next_step: "Write one sentence boundary you can communicate calmly: ‘I won’t discuss X when voices are raised. Let’s pause and revisit tomorrow.’",
-        affirmation: "My energy is sacred. I can protect it without harming myself or others."
-      },
-      shame_guilt: {
-        label: "Shame / Guilt",
-        aka: ["I’m the problem","I failed","I’m not enough"],
-        why: "Your inner protector believes criticism will keep you safe or acceptable. Shame confuses ‘I did something’ with ‘I am something’.",
-        nervous_system: "Collapse/freeze: head down, avoidance, small voice.",
-        need: "Accurate responsibility, compassion, repair where appropriate.",
-        reframe: "You are not your mistake. Responsibility restores dignity; shame only shrinks your life.",
-        regulate: "Sit upright, lengthen spine. Name three times you acted with integrity this week.",
-        next_step: "If repair is needed, send a simple, honest message. If not, practice self-forgiveness: write ‘I release the part that believes I am unworthy.’",
-        affirmation: "I can make amends and still belong."
-      },
-      confusion_overwhelm: {
-        label: "Confusion / Overwhelm",
-        aka: ["stuck","foggy","too much"],
-        why: "Your brain is holding too many open tabs. Competing priorities, perfectionism, or fear of the ‘wrong’ choice stalls action.",
-        nervous_system: "Mixed activation: racing thoughts + low motivation.",
-        need: "Reduce inputs, choose one thing, time-bound focus.",
-        reframe: "You don’t need the whole plan. You need the next honest step.",
-        regulate: "Close your eyes for 30s. Then write the ONE outcome that matters today.",
-        next_step: "Set a 10-minute timer. Do the smallest slice. Stop when the timer ends.",
-        affirmation: "Clarity grows as I move."
-      },
-      lonely_abandoned: {
-        label: "Loneliness / Abandonment",
-        aka: ["unseen","left out","unloved"],
-        why: "An attachment wound is touched: the nervous system expects disconnection. Old memories color the present.",
-        nervous_system: "Heightened sensitivity to cues of distance; ache in chest/throat.",
-        need: "Co-regulation, warmth, cues of belonging.",
-        reframe: "Your longing is sacred—it points to your capacity to bond, not your lack of worth.",
-        regulate: "Havening: gently stroke upper arms 60–90s while breathing slowly; say, ‘I’m here with you.’",
-        next_step: "Ask for contact directly: ‘Can we share 10 minutes on the phone? I’d love connection.’",
-        affirmation: "I am worthy of safe, consistent love."
-      },
-      stress_burnout: {
-        label: "Stress / Burnout",
-        aka: ["fried","over it","no capacity"],
-        why: "Sustained output without replenishment. Your body is signaling a need to downshift and re-resource.",
-        nervous_system: "Chronic sympathetic → fatigue, irritability, poor focus.",
-        need: "Permission to pause, basics (sleep, food, water, sunlight), adjusted expectations.",
-        reframe: "Rest is productive when it protects the engine that builds your life.",
-        regulate: "Two-minute physiological sighs: inhale, short top-up inhale, long slow exhale. Repeat 6–8 times.",
-        next_step: "Cancel one non-essential commitment. Put a 20-minute ‘nothing block’ on your calendar today.",
-        affirmation: "My worth is not measured by output."
-      },
-      heartbreak_loss: {
-        label: "Heartbreak / Loss",
-        aka: ["broken","devastated","bereft"],
-        why: "Attachment has ruptured or a dream dissolved. The nervous system mourns the future that won’t happen.",
-        nervous_system: "Waves of grief, intrusive recall, emptiness.",
-        need: "Ritual, meaning-making, compassionate pacing.",
-        reframe: "This pain is love trying to reorganize itself. It will reshape, not erase, your heart.",
-        regulate: "Hold a keepsake; say what you’re grieving out loud. Let tears be a completion signal, not an enemy.",
-        next_step: "Create a tiny ritual (candle, song, letter) to honor what was real.",
-        affirmation: "I can love what was and still choose what’s next."
-      },
-      jealousy_comparison: {
-        label: "Jealousy / Comparison",
-        aka: ["envy","behind","less than"],
-        why: "Someone else’s life mirrors a disowned desire. The pain points toward what you want to claim.",
-        nervous_system: "Tension + self-criticism loop.",
-        need: "Ownership of desire, self-compassion, a plan that is yours.",
-        reframe: "Envy is a compass. It shows you the shape of your next chapter.",
-        regulate: "Hand on heart: ‘It’s safe to want.’ Breathe 4/6 for ten cycles.",
-        next_step: "Write one sentence: ‘I want ___ because ___.’ Choose the smallest step toward it.",
-        affirmation: "Desire is allowed. My path is mine."
-      },
-      numb_dissociate: {
-        label: "Numb / Dissociated",
-        aka: ["checked out","can’t feel","blank"],
-        why: "Your system hit capacity and protected you by disconnecting. This is adaptive, not a flaw.",
-        nervous_system: "Dorsal vagal: low tone, fog, no impulse.",
-        need: "Gentle activation: light, warmth, movement, sound.",
-        reframe: "Numbness is your body guarding your heart. We’ll come back online slowly.",
-        regulate: "Cold water on wrists, sunlight at a window, sway side-to-side for 60s, hum quietly.",
-        next_step: "Two-minute sensory walk: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste.",
-        affirmation: "I can return to myself at my own pace."
-      },
-      hopeless_despair: {
-        label: "Hopeless / Despair",
-        aka: ["why try","done","nothing works"],
-        why: "The brain has generalized past pain into ‘permanent.’ It cannot imagine novelty from inside exhaustion.",
-        nervous_system: "Collapse, global negative bias.",
-        need: "Tiny proof of agency, co-regulation, future seed.",
-        reframe: "Hopelessness is a state, not a fact. It shifts when your body feels one real win.",
-        regulate: "Sit up, feet on floor. Name one thing you can influence in the next hour.",
-        next_step: "Choose a 2-minute task (drink water, open window, text a friend ‘thinking of you’). Complete it and notice your state.",
-        affirmation: "I only need one step. Life can open again."
-      }
-    };
-
-    const KEYWORDS = {
-      fear_anxiety: [/\banx(iou|iet)y\b/i, /\bpanic\b/i, /\bworry|worried|worrying\b/i, /\bdread\b/i, /\bscared|afraid\b/i, /\bspiral(ing)?\b/i],
-      sadness_grief: [/\bsad(ness)?\b/i, /\bgrief|grieving\b/i, /\blow\b/i, /\bcry|teary\b/i, /\bheavy\b/i],
-      anger_boundary: [/\banger|angry|furious|rage\b/i, /\bresent(ful|ment)\b/i, /\bdisrespect(ed)?\b/i, /\bboundar(y|ies)\b/i, /\bmad\b/i],
-      shame_guilt: [/\bshame(d)?\b/i, /\bguilt(y)?\b/i, /I(’|'|`)m the problem/i, /\bworthless|not enough\b/i, /\bfailed|failure\b/i],
-      confusion_overwhelm: [/\boverwhelm(ed|ing)?\b/i, /\bconfus(ed|ion)\b/i, /\bstuck\b/i, /\bfog(gy)?\b/i, /\btoo much\b/i],
-      lonely_abandoned: [/\blonely\b/i, /\babandon(ed|ment)\b/i, /\bunseen\b/i, /\bleft out\b/i, /\bunloved\b/i],
-      stress_burnout: [/\bstress(ed|ful)?\b/i, /\bburnout|burnt out|burned out\b/i, /\bfried\b/i, /\bexhaust(ed|ion)\b/i],
-      heartbreak_loss: [/\bheartbreak|heartbroken\b/i, /\bloss\b/i, /\bdevastat(ed|ing)\b/i, /\bbereft\b/i],
-      jealousy_comparison: [/\bjealous(y)?\b/i, /\benvy|envious\b/i, /\bcompare|comparison\b/i, /\bbehind\b/i],
-      numb_dissociate: [/\bnumb\b/i, /\bdissociat(e|ed|ing|ion)\b/i, /\bblank\b/i, /can(’|'|`)t feel/i],
-      hopeless_despair: [/\bhopeless\b/i, /\bdespair\b/i, /\bwhy try\b/i, /\bnothing works\b/i, /\bdone\b/i]
-    };
-
-    function detectEmotion(text){
-      const scores = Object.fromEntries(Object.keys(CLARITY).map(k => [k,0]));
-      for (const [key, patterns] of Object.entries(KEYWORDS)) {
-        for (const pat of patterns) if (pat.test(text)) scores[key] += 1;
-      }
-      let best = "confusion_overwhelm";
-      let bestScore = -1;
-      const priority = ["hopeless_despair","numb_dissociate","fear_anxiety","sadness_grief","anger_boundary","shame_guilt","lonely_abandoned","stress_burnout","heartbreak_loss","jealousy_comparison","confusion_overwhelm"];
-      for (const [k, v] of Object.entries(scores)) {
-        const tieBreaker = -priority.indexOf(k);
-        const current = (v * 1000) + tieBreaker;
-        if (current > bestScore) { bestScore = current; best = k; }
-      }
-      const sum = Object.values(scores).reduce((a,b)=>a+b,0);
-      return sum === 0 ? "confusion_overwhelm" : best;
-    }
-    function qs(name){ return new URLSearchParams(location.search).get(name) }
-
-    // ------------------ CLARITY FORM ------------------
-    const form = document.getElementById('clarity-form');
-    const resultCard = document.getElementById('result-card');
-    const chatCard = document.getElementById('chat-card');
-
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const t = document.getElementById('feelings').value.trim();
-      if(!t) return;
-
-      const key = detectEmotion(t.toLowerCase());
-      window.__lastEmotionKey = key;
-
-      const d = CLARITY[key];
-      resultCard.classList.remove('hidden');
-      document.getElementById('label-pill').textContent = d.label;
-      document.getElementById('aka').textContent = d.aka.join(', ');
-      document.getElementById('why').textContent = d.why;
-      document.getElementById('nervous').textContent = d.nervous_system;
-      document.getElementById('need').textContent = d.need;
-
-      const isFull = qs('full') === '1';
-      const fullBlock = document.getElementById('full-block');
-      const upgradeBlock = document.getElementById('upgrade-block');
-
-      if(isFull){
-        fullBlock.classList.remove('hidden');
-        upgradeBlock.classList.add('hidden');
-        document.getElementById('reframe').textContent = d.reframe;
-        document.getElementById('regulate').textContent = d.regulate;
-        document.getElementById('next_step').textContent = d.next_step;
-        document.getElementById('affirmation').textContent = '“' + d.affirmation + '”';
-      } else {
-        fullBlock.classList.add('hidden');
-        upgradeBlock.classList.remove('hidden');
-      }
-
-      // Reveal chat
-      chatCard.classList.remove('hidden');
-    });
-
-    // ------------------ JOURNAL CHAT ------------------
-    const CHAT_KEY = 'mynd_chat_history_v1';
-    const chatLogEl = document.getElementById('chat-log');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-
-    function loadChat(){ try{ return JSON.parse(localStorage.getItem(CHAT_KEY)||'[]'); }catch{return []} }
-    function saveChat(h){ localStorage.setItem(CHAT_KEY, JSON.stringify(h)); }
-    function appendMsg(role, text){
-      const row = document.createElement('div'); row.className='row';
-      const badge = document.createElement('div');
-      badge.className = 'chat-badge' + (role==='assistant'?' ai':'');
-      badge.textContent = role==='user' ? 'You' : 'AI';
-      const bubble = document.createElement('div');
-      bubble.style.background = '#0f1a1c';
-      bubble.style.border = '1px solid #173033';
-      bubble.style.padding = '10px 12px';
-      bubble.style.borderRadius = '12px';
-      bubble.style.whiteSpace = 'pre-wrap';
-      bubble.textContent = text;
-      row.appendChild(badge); row.appendChild(bubble);
-      chatLogEl.appendChild(row);
-      chatLogEl.scrollTop = chatLogEl.scrollHeight;
-    }
-
-    const history = loadChat();
-    if (history.length){
-      chatCard.classList.remove('hidden');
-      history.forEach(m => appendMsg(m.role, m.content));
-    }
-
-    chatForm?.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const content = chatInput.value.trim();
-      if(!content) return;
-
-      appendMsg('user', content);
-      history.push({role:'user', content});
-      saveChat(history);
-      chatInput.value = '';
-
-      // ---- EDIT THIS: your Cloudflare Worker endpoint URL
-      const WORKER_URL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev/api/chat';
-
-      // Loading placeholder
-      appendMsg('assistant', '…');
-
-      try {
-        const payload = {
-          messages: history.slice(-10), // last 10 turns
-          context: {
-            emotionKey: window.__lastEmotionKey || null,
-            page: 'index',
-            fullMode: (qs('full') === '1')
-          }
-        };
-        const res = await fetch(WORKER_URL, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        // replace last assistant placeholder with actual text
-        chatLogEl.lastChild.remove();
-        const reply = data.reply || 'I’m here with you. Try sending that again if the connection hiccuped.';
-        appendMsg('assistant', reply);
-        history.push({role:'assistant', content: reply});
-        saveChat(history);
-      } catch (err){
-        chatLogEl.lastChild.remove();
-        appendMsg('assistant', 'I couldn’t reach the chat service. Please try again in a moment.');
-      }
-    });
-  </script>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 </body>
 </html>
