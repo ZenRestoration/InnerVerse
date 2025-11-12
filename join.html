@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Join — Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="join">
+  <!-- Progress + Orbs -->
+  <div class="progress" id="progress"></div>
+  <div class="orb a" id="orbA"></div>
+  <div class="orb b" id="orbB"></div>
+  <div class="orb c" id="orbC"></div>
+
+  <!-- NAV -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">Mynd</div>
+      <a href="index.html" data-page="home">Home</a>
+      <a href="education.html" data-page="education">Education</a>
+      <a href="families.html" data-page="families">Emotional Families</a>
+      <a href="regulation.html" data-page="regulation">Regulation</a>
+      <a href="scripts.html" data-page="scripts">Scripts</a>
+      <a href="affirmations.html" data-page="affirmations">Affirmations</a>
+      <a href="faq.html" data-page="faq">FAQ</a>
+      <a href="about.html" data-page="about">About</a>
+      <span class="spacer"></span>
+      <a class="chip" href="join.html" data-page="join">Membership</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero reveal">
+      <span class="tagline"><span class="dot"></span> Membership</span>
+      <h1>The Mynd Sanctuary</h1>
+      <p class="sub">A members area with gentle micro-lessons, audio practices, and printable tools. Education that meets you where you are—calm, practical, soul-aware.</p>
+    </div>
+
+    <div class="sp"></div>
+
+    <section class="card reveal">
+      <div class="pill">Founding Plan</div>
+      <ul>
+        <li>Short, loving lessons for real life</li>
+        <li>Audio nervous-system practices</li>
+        <li>Printable scripts & ritual templates</li>
+        <li>Gentle Q&A vault over time</li>
+      </ul>
+      <div class="hr"></div>
+      <!-- Replace the href with your checkout URL; keep it simple for MVP -->
+      <p><a class="chip" href="#" onclick="alert('Connect this to your Gumroad or Lemon Squeezy checkout when ready.');return false;">Become a Founding Member</a></p>
+      <p class="tiny">After checkout, you can redirect back to the site (e.g., to Education) to continue learning.</p>
+    </section>
+
+    <footer class="reveal">Mynd · © <span id="yr"></span> · Built with care</footer>
+  </main>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <script src="app.js"></script>
+</body>
+</html>
