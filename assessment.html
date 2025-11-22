@@ -32,8 +32,700 @@
         radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
         var(--bg);
       color: var(--text);
-      line-height:1.65;
+      line-height:1.7;
       min-height:100vh;
+    }
+
+    a { color:inherit; text-decoration:none; }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header / Nav */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to bottom,
+        rgba(244, 240, 231, 0.96),
+        rgba(244, 240, 231, 0.9),
+        transparent
+      );
+      border-bottom: 1px solid rgba(221, 209, 192, 0.9);
+    }
+
+    .nav {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 0;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--accent);
+    }
+
+    .brand-orb {
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #c7d9c0 40%, #31422f 100%);
+      box-shadow:0 0 0 1px rgba(178,190,173,0.7),
+                 0 8px 18px rgba(49,66,47,0.4);
+    }
+
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a {
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.25rem;
+      width:0;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after {
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"] {
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .nav-cta {
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(162,147,126,0.8);
+      font-size:0.85rem;
+      color:var(--accent);
+      background:rgba(253,250,244,0.9);
+    }
+
+    .nav-toggle {
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
+    @media (max-width:800px) {
+      .nav-links { display:none; }
+      .nav-toggle { display:block; }
+      .nav-links.mobile-open {
+        display:flex;
+        position:absolute;
+        top:54px;
+        right:1.5rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.7rem 0.9rem;
+        background:#fdfaf4;
+        border-radius:12px;
+        box-shadow:0 18px 40px rgba(34,32,27,0.25);
+        border:1px solid var(--border);
+      }
+    }
+
+    /* Buttons */
+
+    .btn {
+      border-radius:999px;
+      padding:0.8rem 1.35rem;
+      font-size:0.9rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.4rem;
+      transition:background var(--transition), color var(--transition),
+                  transform 110ms ease, box-shadow var(--transition), border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary {
+      background:linear-gradient(135deg,#445c42,#7b8f6a);
+      color:#fdfaf4;
+      box-shadow:0 12px 28px rgba(68,92,66,0.35);
+      font-weight:600;
+      margin-top:0.6rem;
+    }
+
+    .btn-primary:hover {
+      transform:translateY(-1px);
+      box-shadow:0 16px 36px rgba(68,92,66,0.42);
+    }
+
+    .btn-secondary {
+      background:rgba(253,250,244,0.95);
+      color:var(--accent);
+      border-color:rgba(178,165,148,0.9);
+    }
+
+    .btn-secondary:hover {
+      background:#fdfaf4;
+      transform:translateY(-1px);
+    }
+
+    /* Main layout */
+
+    main { padding:3rem 0 3rem; }
+
+    h1 {
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow {
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .lead {
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.2rem;
+    }
+
+    .lead-small {
+      font-size:0.84rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.6rem;
+    }
+
+    .layout {
+      display:grid;
+      grid-template-columns:minmax(0,1.4fr) minmax(0,1.1fr);
+      gap:2rem;
+    }
+
+    @media (max-width:880px){
+      .layout{grid-template-columns:minmax(0,1fr);}
+    }
+
+    form {
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.7rem;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    label {
+      font-size:0.86rem;
+      color:var(--muted);
+      display:block;
+      margin-bottom:0.25rem;
+    }
+
+    .label-caption {
+      font-size:0.78rem;
+      color:rgba(107,100,88,0.8);
+      margin-bottom:0.25rem;
+    }
+
+    input, select, textarea {
+      width:100%;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#fdfaf4;
+      color:var(--text);
+      padding:0.6rem 0.7rem;
+      font-size:0.9rem;
+      margin-bottom:0.9rem;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color:rgba(107,100,88,0.75);
+    }
+
+    textarea { min-height:80px; resize:vertical; }
+
+    .question {
+      margin-bottom:1rem;
+      padding-bottom:0.7rem;
+      border-bottom:1px dashed rgba(221,209,192,0.9);
+    }
+
+    .question:last-of-type { border-bottom:none; }
+
+    .question-title {
+      font-weight:500;
+      color:var(--accent);
+      margin-bottom:0.15rem;
+      font-size:0.9rem;
+    }
+
+    .question-helper {
+      font-size:0.8rem;
+      color:rgba(107,100,88,0.9);
+      margin-bottom:0.25rem;
+    }
+
+    .options {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.5rem;
+      margin-top:0.3rem;
+    }
+
+    .option-pill {
+      font-size:0.82rem;
+      padding:0.32rem 0.7rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fdfaf4;
+      cursor:pointer;
+      color:var(--muted);
+    }
+
+    .option-pill.active {
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      color:var(--accent);
+    }
+
+    .note {
+      font-size:0.78rem;
+      color:var(--muted);
+      margin-top:0.7rem;
+    }
+
+    .result-card {
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.4rem 1.3rem 1.6rem;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    .result-pill {
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.35rem;
+    }
+
+    .result-heading {
+      font-size:1.1rem;
+      margin-bottom:0.4rem;
+      color:var(--accent);
+    }
+
+    .result-section {
+      margin-top:0.7rem;
+    }
+
+    .result-section strong {
+      display:block;
+      margin-bottom:0.15rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    .mini-legend {
+      margin-top:1rem;
+      padding-top:0.7rem;
+      border-top:1px dashed rgba(221,209,192,0.9);
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+
+    .mini-legend-row {
+      margin-top:0.35rem;
+    }
+
+    .mini-legend-row span:first-child {
+      display:inline-block;
+      min-width:3.2rem;
+      font-weight:600;
+      color:var(--accent);
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+
+    /* Footer */
+
+    footer {
+      border-top:1px solid rgba(221,209,192,1);
+      padding:1.6rem 0 2.2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      background:#f7f2e9;
+      margin-top:2rem;
+    }
+
+    .footer-grid {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a {
+      color:var(--muted);
+    }
+
+    .footer-links a:hover {
+      color:var(--accent);
+    }
+
+    @media (max-width:680px) {
+      footer {
+        padding-bottom:2.3rem;
+      }
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html#top">Home</a>
+          <a href="index.html#start-here">Start Here</a>
+          <a href="index.html#path">The Mynd Path</a>
+          <a href="assessment.html" aria-current="page">Assessment</a>
+          <a href="index.html#vault" class="nav-cta">XP Vault</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div style="margin-bottom:2rem;">
+      <p class="eyebrow">Free Emotional Assessment</p>
+      <h1>Discover your current emotional pattern.</h1>
+      <p class="lead">
+        This 2–3 minute check-in helps you name your current emotional pattern,
+        dysregulation style, and nervous system tendencies — so you know exactly
+        where to begin on the Mynd path.
+      </p>
+      <p class="lead-small">
+        Answer as you are <strong>right now</strong>, not how you think you “should” be.
+        There are no wrong answers. This is a gentle mirror, not a test or diagnosis.
+      </p>
+    </div>
+
+    <div class="layout">
+      <form id="assessmentForm">
+        <div class="question">
+          <span class="question-title">Optional details</span>
+          <p class="question-helper">You don’t need to add these to see your snapshot. They’re here if you want to save or share it later.</p>
+          <label for="name">Name (optional)</label>
+          <input id="name" name="name" type="text" placeholder="You can leave this blank if you prefer." />
+          <label for="email">Email (optional, for sending your result)</label>
+          <input id="email" name="email" type="email" placeholder="Add your email if you want a copy of this snapshot." />
+        </div>
+
+        <div class="question" data-question="state">
+          <span class="question-title">1. Right now, my body feels mostly…</span>
+          <p class="question-helper">Focus on your <strong>body</strong> first — not your thoughts or story.</p>
+          <div class="options">
+            <button type="button" class="option-pill" data-value="fight">Tense, wired, irritable (fight)</button>
+            <button type="button" class="option-pill" data-value="flight">Restless, busy, scattered (flight)</button>
+            <button type="button" class="option-pill" data-value="freeze">Numb, blank, shut down (freeze)</button>
+            <button type="button" class="option-pill" data-value="fawn">Over-giving, over-explaining, pleasing (fawn)</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="trigger">
+          <span class="question-title">2. Lately, I get thrown off most by…</span>
+          <p class="question-helper">Think about the last few weeks. What reliably knocks you out of balance?</p>
+          <div class="options">
+            <button type="button" class="option-pill" data-value="conflict">Conflict, criticism, or tension with others</button>
+            <button type="button" class="option-pill" data-value="uncertainty">Uncertainty about the future or big decisions</button>
+            <button type="button" class="option-pill" data-value="overload">Too many demands, notifications, or tasks at once</button>
+            <button type="button" class="option-pill" data-value="lonely">Feeling unseen, lonely, or forgotten</button>
+          </div>
+        </div>
+
+        <div class="question">
+          <span class="question-title">3. In close relationships, I usually feel…</span>
+          <p class="question-helper">Go with the option that feels most familiar over time, not just this week.</p>
+          <label for="attachment" class="label-caption">This helps us understand how your nervous system behaves in closeness.</label>
+          <select id="attachment" name="attachment">
+            <option value="">Select one</option>
+            <option value="anxious">Anxious: worried they’ll leave, overthinking everything</option>
+            <option value="avoidant">Avoidant: needing lots of space, pulling away when it’s close</option>
+            <option value="mixed">Both: swinging between anxious and avoidant</option>
+            <option value="secure">Mostly secure: I can be close and independent</option>
+          </select>
+        </div>
+
+        <div class="question">
+          <span class="question-title">4. When I’m overwhelmed, I usually cope by…</span>
+          <p class="question-helper">Write a few quick words. Don’t over-edit — your first examples are usually the clearest.</p>
+          <label for="coping" class="label-caption">Example: “scrolling”, “fixing everyone else’s problems”, “shutting down”, “overworking”.</label>
+          <textarea id="coping" name="coping" placeholder="Example: scrolling, fixing everyone else’s problems, disappearing, overworking, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          View My Snapshot →
+        </button>
+        <p class="note">
+          This is not a diagnosis. It’s a compassionate mirror of what your system might be trying to do
+          <em>for</em> you. Use it as a starting point for curiosity, not a label you’re stuck with.
+        </p>
+      </form>
+
+      <aside class="result-card" id="resultCard">
+        <div class="result-pill">Your Snapshot</div>
+        <div class="result-heading" id="resultTitle">Answer the questions to see your pattern.</div>
+        <p id="resultIntro" style="margin-bottom:0.6rem;">
+          Once you submit, this panel will summarize:
+        </p>
+        <ul style="font-size:0.85rem; color:var(--muted); margin-left:1rem; margin-bottom:0.6rem;">
+          <li>your likely <strong>core emotional pattern</strong></li>
+          <li>your main <strong>dysregulation style</strong> (how your system protects you)</li>
+          <li>a brief <strong>nervous system snapshot</strong></li>
+          <li>a suggested <strong>starting pillar</strong> on the Mynd path</li>
+        </ul>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.5rem;">
+          You can return to this page anytime. Your pattern can shift as your life and resources change.
+        </p>
+
+        <div id="resultContent" style="display:none;">
+          <div class="result-section">
+            <strong>Core emotional pattern</strong>
+            <p id="corePattern"></p>
+          </div>
+          <div class="result-section">
+            <strong>Dysregulation style</strong>
+            <p id="dysStyle"></p>
+          </div>
+          <div class="result-section">
+            <strong>Nervous system snapshot</strong>
+            <p id="nsSnapshot"></p>
+          </div>
+          <div class="result-section">
+            <strong>Suggested starting pillar</strong>
+            <p id="suggestedPillar"></p>
+          </div>
+          <div class="result-section">
+            <strong>Next steps</strong>
+            <p style="margin-bottom:0.4rem;">
+              Start with one small, doable thing. For most people, that’s the
+              <a href="state.html" style="color:var(--accent-2); text-decoration:underline;">State</a> lesson:
+              learning how to notice “Oh, I’m in fight/flight/freeze/fawn” before trying to fix your whole life.
+            </p>
+            <p style="font-size:0.82rem; color:var(--muted);">
+              From there, you can move into <em>Patterns</em>, <em>Needs</em>, <em>Boundaries</em>, and
+              <em>Integration</em> on the main Mynd path, at your own pace.
+            </p>
+          </div>
+        </div>
+
+        <div class="mini-legend">
+          <p style="font-weight:500; color:var(--accent); font-size:0.8rem; margin-bottom:0.25rem;">
+            Quick legend: what these states are trying to do for you
+          </p>
+          <div class="mini-legend-row">
+            <span>FIGHT</span>
+            <span>Protects you by pushing back — arguing, defending, controlling.</span>
+          </div>
+          <div class="mini-legend-row">
+            <span>FLIGHT</span>
+            <span>Protects you by moving faster — planning, fixing, avoiding stillness.</span>
+          </div>
+          <div class="mini-legend-row">
+            <span>FREEZE</span>
+            <span>Protects you by numbing — going blank, shutting down, “I don’t know.”</span>
+          </div>
+          <div class="mini-legend-row">
+            <span>FAWN</span>
+            <span>Protects you by pleasing — smoothing things over, caretaking, over-explaining.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html#top">Home</a>
+        <a href="index.html#start-here">Start Here</a>
+        <a href="index.html#path">The Mynd Path</a>
+        <a href="index.html#vault">XP Vault</a>
+      </div>
+      <div>
+        <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const optionBlocks = document.querySelectorAll('.question[data-question] .option-pill');
+    optionBlocks.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.question');
+        parent.querySelectorAll('.option-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        parent.dataset.selected = btn.dataset.value;
+      });
+    });
+
+    const form = document.getElementById('assessmentForm');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultIntro = document.getElementById('resultIntro');
+    const resultContent = document.getElementById('resultContent');
+    const corePattern = document.getElementById('corePattern');
+    const dysStyle = document.getElementById('dysStyle');
+    const nsSnapshot = document.getElementById('nsSnapshot');
+    const suggestedPillar = document.getElementById('suggestedPillar');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const stateQuestion = document.querySelector('.question[data-question="state"]');
+      const triggerQuestion = document.querySelector('.question[data-question="trigger"]');
+      const state = stateQuestion ? (stateQuestion.dataset.selected || '') : '';
+      const trigger = triggerQuestion ? (triggerQuestion.dataset.selected || '') : '';
+      const attachment = document.getElementById('attachment').value;
+      const coping = (document.getElementById('coping').value || '').trim();
+
+      let core = '';
+      let dys = '';
+      let ns = '';
+      let pillar = '';
+
+      // Base pattern from state
+      if (state === 'fight') {
+        core = "You tend to move toward problems with intensity — defending, fixing, or arguing your way through discomfort.";
+        dys = "Fight-leaning dysregulation: your system protects you by pushing back when something feels threatening or unfair.";
+        ns = "Your body often sits in a slightly elevated state: jaw, shoulders, and chest may feel tight or ready, even when nothing is “wrong” on the surface.";
+        pillar = "Begin with <strong>State</strong> to learn micro downshifts before conflict, then visit <strong>Boundaries</strong> to separate healthy protection from automatic reactivity.";
+      } else if (state === 'flight') {
+        core = "You cope by moving faster — planning, working, scrolling, or staying busy so you don’t have to fully land in your body.";
+        dys = "Flight-leaning dysregulation: your system keeps you moving so you don’t have to feel stuck, trapped, or helpless.";
+        ns = "Your nervous system feels more familiar with motion than stillness, which can make rest feel unsafe, lazy, or like you’re “falling behind.”";
+        pillar = "Start with <strong>State</strong> and gentle grounding practices, then explore <strong>Patterns</strong> around over-functioning and productivity.";
+      } else if (state === 'freeze') {
+        core = "When overwhelmed, you go blank, numb, or detached — it feels like nothing is happening, but everything is happening inside.";
+        dys = "Freeze-leaning dysregulation: your system protects you by turning the volume down on experience so you can survive what feels like too much.";
+        ns = "Your body may feel heavy, far away, or like you’re watching your life from behind glass. Motivation and decisions can feel almost impossible.";
+        pillar = "Begin with very small somatic practices in <strong>State</strong> (micro-movements, warmth, gentle stimulation), then move into <strong>Needs</strong> when a bit more safety returns.";
+      } else if (state === 'fawn') {
+        core = "You move toward people with caretaking, people-pleasing, or over-explaining in order to stay safe, loved, or useful.";
+        dys = "Fawn-leaning dysregulation: your system protects you by keeping others okay, even if it quietly costs you your own needs and limits.";
+        ns = "Your nervous system is trained to scan others first and you second, which can make it hard to know what you actually feel or want.";
+        pillar = "Start with <strong>Patterns</strong> to understand your relational history, then explore <strong>Boundaries</strong> and <strong>Needs</strong> to slowly put yourself back into the equation.";
+      } else {
+        core = "Your pattern is still forming — or you use several strategies depending on who you’re with and how resourced you feel.";
+        dys = "Mixed dysregulation: you may move between fight, flight, freeze, and fawn, as your system experiments with different ways to keep you safe.";
+        ns = "Pay attention to the first few seconds of activation; they often show your primary pattern before other strategies layer on top.";
+        pillar = "Begin with <strong>State</strong> to notice your earliest signals, then explore whichever pillar (Patterns, Needs, or Boundaries) feels most relevant today.";
+      }
+
+      // Deepen based on trigger
+      if (trigger === 'conflict') {
+        dys += " Conflict feels high-stakes, so your system may jump quickly into protection, appeasement, or shutdown to avoid rejection or shame.";
+      } else if (trigger === 'uncertainty') {
+        dys += " Unclear futures can activate you more than actual problems, because you can’t prepare, control, or “do something” yet.";
+      } else if (trigger === 'overload') {
+        dys += " Too many inputs at once overwhelm your bandwidth, making even small tasks feel impossible and fueling self-criticism.";
+      } else if (trigger === 'lonely') {
+        dys += " Feeling unseen or forgotten can echo earlier experiences of emotional neglect or invisibility, even if your current situation looks “fine” from the outside.";
+      }
+
+      // Deepen based on attachment style
+      if (attachment === 'anxious') {
+        ns += " In relationships, your system often scans for signs of withdrawal or abandonment, which can make small changes feel like big threats.";
+      } else if (attachment === 'avoidant') {
+        ns += " In relationships, closeness can start to feel like pressure, so distance and self-sufficiency become your main regulators.";
+      } else if (attachment === 'mixed') {
+        ns += " You may swing between craving closeness and needing distance, which can be confusing for you and for the people you care about.";
+      } else if (attachment === 'secure') {
+        ns += " You likely have some secure wiring, even if stress still pulls you into old protective patterns when things feel overwhelming.";
+      }
+
+      // Lightly reflect coping text if they wrote something
+      if (coping) {
+        ns += " When you’re overwhelmed, you’ve noticed you tend to cope by: “" + coping + "”. This gives clues about what feels safer or more familiar to your body than simply feeling the emotion directly.";
+      }
+
+      resultTitle.textContent = "Here’s what your system might be trying to do for you.";
+      resultIntro.style.display = "none";
+      resultContent.style.display = "block";
+      corePattern.textContent = core;
+      dysStyle.textContent = dys;
+      nsSnapshot.textContent = ns;
+      suggestedPillar.innerHTML = pillar;
+    });
+  </script>
+</body>
+</html>
     }
 
     a { color:inherit; text-decoration:none; }
@@ -623,3 +1315,4 @@
   </script>
 </body>
 </html>
+
