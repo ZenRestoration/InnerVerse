@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Patterns — Understand Your Loops | Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="See your emotional patterns as old protection instead of proof that you're broken, and learn realistic ways to change them." />
+  <style>
+    :root {
+      /* Mossy, earthy palette (aligned with other pages) */
+      --bg: #f4f0e7;        /* warm parchment */
+      --bg-alt: #e7e0d0;    /* deeper parchment */
+      --card: #fdfaf4;
+      --accent: #445c42;    /* deep moss */
+      --accent-soft: #d7e1d1;
+      --accent-2: #7b8f6a;  /* sage */
+      --text: #222222;
+      --muted: #6b6458;
+      --border: #ddd1c0;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(34, 32, 27, 0.14);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --transition: 160ms ease;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    body{
+      font-family:var(--font-sans);
+      background:
+        radial-gradient(circle at top left, #e1eadb 0, transparent 55%),
+        radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.5rem;}
+
+    /* Header / Nav */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(
+        to bottom,
+        rgba(244,240,231,0.96),
+        rgba(244,240,231,0.9),
+        transparent
+      );
+      border-bottom:1px solid rgba(221,209,192,0.9);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--accent);
+    }
+
+    .brand-orb{
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #c7d9c0 40%, #31422f 100%);
+      box-shadow:0 0 0 1px rgba(178,190,173,0.7),
+                 0 8px 18px rgba(49,66,47,0.4);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.25rem;
+      width:0;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .nav-cta{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(162,147,126,0.8);
+      font-size:0.85rem;
+      color:var(--accent);
+      background:rgba(253,250,244,0.9);
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{
+        display:flex;
+        position:absolute;
+        top:54px;
+        right:1.5rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.7rem 0.9rem;
+        background:#fdfaf4;
+        border-radius:12px;
+        box-shadow:0 18px 40px rgba(34,32,27,0.25);
+        border:1px solid var(--border);
+      }
+    }
+
+    /* Main */
+
+    main{padding:3rem 0 3rem;}
+
+    h1{
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .lead{
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.8rem;
+    }
+
+    section{
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+
+    section h2{
+      font-size:1.15rem;
+      margin-bottom:0.45rem;
+      color:var(--accent);
+    }
+
+    h3{
+      font-size:0.98rem;
+      margin-top:0.75rem;
+      margin-bottom:0.35rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    section p{
+      color:var(--muted);
+      margin-bottom:0.55rem;
+    }
+
+    ul{
+      color:var(--muted);
+      margin-left:1.1rem;
+      font-size:0.9rem;
+    }
+
+    li+li{margin-top:0.3rem;}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.45rem;
+      margin-top:0.6rem;
+    }
+
+    .chip{
+      font-size:0.8rem;
+      padding:0.26rem 0.7rem;
+      border-radius:999px;
+      border:1px dashed rgba(162,147,126,0.8);
+      color:var(--muted);
+      background:#fbf6eb;
+    }
+
+    .label-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+      font-size:0.8rem;
+      padding:0.2rem 0.7rem;
+      border-radius:999px;
+      border:1px solid rgba(178,165,148,0.9);
+      background:#fbf6eb;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .label-pill span{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--accent);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.6rem;
+    }
+
+    @media(max-width:880px){
+      .two-col{grid-template-columns:minmax(0,1fr);}
+    }
+
+    .card{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .card-title{
+      font-size:0.96rem;
+      margin-bottom:0.2rem;
+      color:var(--accent);
+      font-weight:500;
+    }
+
+    /* Scripts */
+
+    .script{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.6rem;
+    }
+
+    .script strong{
+      display:block;
+      margin-bottom:0.15rem;
+      color:var(--accent);
+    }
+
+    .script code{
+      font-family:inherit;
+      white-space:pre-line;
+    }
+
+    /* Buttons */
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.7rem;
+      margin-top:0.9rem;
+    }
+
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:
+        background var(--transition),
+        color var(--transition),
+        transform 120ms ease,
+        box-shadow var(--transition),
+        border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#445c42,#7b8f6a);
+      color:#fdfaf4;
+      box-shadow:0 14px 32px rgba(68,92,66,0.35);
+      font-weight:600;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(68,92,66,0.45);
+    }
+
+    .btn-secondary{
+      background:rgba(253,250,244,0.95);
+      color:var(--accent);
+      border-color:rgba(178,165,148,0.9);
+    }
+
+    .btn-secondary:hover{
+      background:#fdfaf4;
+      transform:translateY(-1px);
+    }
+
+    /* Footer */
+
+    footer{
+      border-top:1px solid rgba(221,209,192,1);
+      padding:1.6rem 0 2.2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      background:#f7f2e9;
+      margin-top:2rem;
+    }
+
+    .footer-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a{
+      color:var(--muted);
+    }
+
+    .footer-links a:hover{
+      color:var(--accent);
+    }
+
+    @media(max-width:680px){
+      footer{
+        padding-bottom:2.3rem;
+      }
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The Mynd Path</a>
+        <a href="xp-vault.html" class="nav-cta">XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <!-- INTRO -->
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Module 03 — Patterns</p>
+    <h1>Understand your patterns: old protection, new choices.</h1>
+    <p class="lead">
+      Goal: help you see your loops as old protection instead of proof that you’re broken — and give
+      you realistic ways to change. Your patterns are what your younger self came up with to survive.
+    </p>
+    <div class="chips">
+      <div class="chip">Patterns are old survival strategies.</div>
+      <div class="chip">Familiar isn’t the same as good.</div>
+      <div class="chip">Awareness makes new paths possible.</div>
+    </div>
+  </div>
+
+  <!-- LESSON 1 — WHY PATTERNS FORM -->
+  <section id="why-patterns">
+    <div class="label-pill">
+      <span>Lesson 1</span> Why patterns form
+    </div>
+    <h2>Your patterns are not random.</h2>
+    <p>
+      Core idea: your patterns are not random. They’re what your younger self came up with to survive
+      the situations you were in.
+    </p>
+
+    <h3>1. Patterns are old survival strategies</h3>
+    <p>Many “annoying habits” were once clever ways to stay safe, connected, or less unsafe.</p>
+    <ul>
+      <li><strong>Laughing everything off →</strong> kept you from being targeted.</li>
+      <li><strong>Forgetting your own needs →</strong> kept the peace in a chaotic home.</li>
+      <li><strong>Overachieving →</strong> earned love, approval, or safety.</li>
+      <li>
+        <strong>Choosing unavailable people →</strong> feels familiar if intimacy was always
+        unpredictable.
+      </li>
+    </ul>
+
+    <h3>2. They once protected you</h3>
+    <p>Maybe:</p>
+    <ul>
+      <li>saying “yes” kept you out of trouble</li>
+      <li>being “the good one” lowered the risk of anger</li>
+      <li>disappearing kept you safer than being visible</li>
+    </ul>
+    <p>
+      Your system doesn’t automatically know you’re grown now. It still runs the old code as if
+      you’re in the same dangers.
+    </p>
+
+    <h3>3. They repeat because they’re familiar</h3>
+    <p>Familiar does not mean healthy — it just means known.</p>
+    <ul>
+      <li><strong>If chaos was normal →</strong> calm can feel suspicious.</li>
+      <li><strong>If criticism was constant →</strong> kindness can feel unsafe.</li>
+      <li><strong>If chasing love was the norm →</strong> secure connection can feel boring or “off”.</li>
+    </ul>
+    <p>
+      So you might keep picking situations that feel like home, even if “home” was painful.
+    </p>
+
+    <h3>4. Recognizing patterns without shame</h3>
+    <p>Instead of:</p>
+    <p><em>“I always ruin everything.”</em></p>
+    <p>Try:</p>
+    <p>
+      <strong>“This is a very old pattern my system uses to avoid pain. I’m learning something new.”</strong>
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“Which reactions in my life feel old, automatic, or exaggerated for the current situation?”</li>
+      <li>“Who or what does this pattern remind me of?”</li>
+      <li>“If this pattern could speak, what would it say it’s protecting me from?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Pattern Mapping</strong>
+      <code>
+Pick ONE pattern (e.g. scrolling for hours, texting exes, overworking, ghosting when overwhelmed)
+and map it:
+
+Trigger → Body reaction → Emotion → Story → Urge → Behaviour → Hidden need → Fear underneath
+
+Example:
+
+Trigger: Someone doesn’t immediately reply
+Body: tight chest, hot face
+Emotion: anxiety + shame
+Story: “I said something wrong; they’re done with me.”
+Urge: send 5 follow-up messages or say “forget it” and disconnect
+Behaviour: over-text OR go cold
+Hidden need: reassurance, feeling that you matter and are allowed to take up space
+Fear: being abandoned for showing need
+
+Just seeing this written out can be life-changing — it turns “I’m a mess” into a map.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 2 — YOUR CORE STORIES -->
+  <section id="core-stories">
+    <div class="label-pill">
+      <span>Lesson 2</span> Your core stories
+    </div>
+    <h2>The sentences that secretly run your life.</h2>
+    <p>
+      Core idea: your behaviour is powered by repeated sentences in your head that feel like facts,
+      not opinions.
+    </p>
+
+    <h3>1. Repeating internal narratives</h3>
+    <p>Common core stories:</p>
+    <ul>
+      <li>“I’m too much.”</li>
+      <li>“I’m not enough.”</li>
+      <li>“People leave.”</li>
+      <li>“It’s my job to fix everything.”</li>
+      <li>“My needs are a burden.”</li>
+      <li>“If I relax, everything will fall apart.”</li>
+    </ul>
+    <p>
+      These often start in childhood, then get “proof” added in every relationship and work
+      situation after.
+    </p>
+
+    <h3>2. What they sound like in real life</h3>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Everyday moments</div>
+        <ul>
+          <li>Partner is quiet → “Here we go, they’re pulling away; I should tone it down.”</li>
+          <li>You make a small mistake → “I’m such an idiot; everyone can see I’m not competent.”</li>
+          <li>You think about saying no → “They’ll think I’m selfish; I’ll lose them.”</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Hidden story under the moment</div>
+        <ul>
+          <li>“I’m too much.”</li>
+          <li>“I’m not enough.”</li>
+          <li>“People only stay if I give them everything.”</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>3. How stories shape behaviour</h3>
+    <ul>
+      <li><strong>“I’m too much” →</strong> shrink, make yourself palatable, always “chill”.</li>
+      <li><strong>“I’m not enough” →</strong> overwork, overgive, overexplain.</li>
+      <li><strong>“People always leave” →</strong> cling harder OR leave first.</li>
+      <li><strong>“I’m the problem” →</strong> apologize for everything, never ask for your own needs.</li>
+    </ul>
+
+    <h3>4. Which stories come from childhood</h3>
+    <ul>
+      <li><strong>Always being blamed →</strong> “I cause problems.”</li>
+      <li><strong>Praised only when helpful →</strong> “My worth is in what I do for others.”</li>
+      <li><strong>Parents emotionally unavailable →</strong> “I’m too much or not interesting enough.”</li>
+    </ul>
+    <p>
+      Seeing the origin doesn’t excuse harm you do now, but it explains your wiring — and gives you
+      a starting point to rewire.
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What story do I leap to the second something feels emotionally risky?”</li>
+      <li>“Where do I remember feeling that same ‘truth’ as a child or teen?”</li>
+      <li>“What does this story try to protect me from feeling?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Story Reframe</strong>
+      <code>
+When you notice a strong narrative, fill in:
+
+“The story I’m telling myself right now is ____.
+No wonder I feel ____.
+Another possibility is ____.”
+
+Example:
+
+“The story I’m telling myself is ‘They’re bored of me and pulling away.’
+No wonder I feel panicky and small.
+Another possibility is they’re exhausted and not great at communicating when they’re drained.”
+
+You’re not forcing yourself to believe the new story; you’re creating space.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 3 — CREATING NEW PATHS -->
+  <section id="new-paths">
+    <div class="label-pill">
+      <span>Lesson 3</span> Creating new paths
+    </div>
+    <h2>Transformation is made of micro-choices.</h2>
+    <p>
+      Core idea: transformation is made of micro-choices, not personality transplants. A 2-degree
+      turn repeated will change your life.
+    </p>
+
+    <h3>1. Micro-choices create transformation</h3>
+    <p>
+      Think of a car: a 2-degree turn now puts you in a completely different place in 6 months.
+    </p>
+    <ul>
+      <li>Saying “I’ll get back to you” instead of instant yes.</li>
+      <li>Pausing 30 seconds before replying.</li>
+      <li>Leaving the group chat for 10 minutes when triggered instead of fighting.</li>
+    </ul>
+
+    <h3>2. Noticing the choice-point</h3>
+    <p>There’s often a split second where:</p>
+    <ul>
+      <li>your chest tightens before you agree</li>
+      <li>your jaw clenches before you fire a text</li>
+      <li>your body slumps before you start scrolling</li>
+    </ul>
+    <p>
+      That moment is gold. That’s where a new path can begin — not later, not in theory, but right
+      there.
+    </p>
+
+    <h3>3. Interrupting the old reaction with compassion</h3>
+    <p>Instead of:</p>
+    <p><em>“Ugh, here I go again, I’m pathetic.”</em></p>
+    <p>Try:</p>
+    <p>
+      <strong>“Of course I want to do the old thing; it kept me safe. I’m allowed to test a new option.”</strong>
+    </p>
+
+    <h3>4. Building a new emotional path</h3>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Old path</div>
+        <ul>
+          <li>Trigger → Panic → People-please → Resentment → Collapse.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">New path</div>
+        <ul>
+          <li>Trigger → Notice → 3 breaths → honest “I need to think about it” → less resentment.</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:0.6rem;">
+      You don’t have to get it perfect for it to count. Each small deviation is you laying down a
+      new track in your nervous system.
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What is one micro-choice I can make the next time this pattern appears?”</li>
+      <li>“If I were 10% kinder to myself, what would I do differently in that moment?”</li>
+      <li>“What does my future, more regulated self do in this situation?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — The 10% Upgrade</strong>
+      <code>
+Next time you feel a pattern kicking in, ask:
+
+“What would a 10% better choice look like right now?”
+
+Examples:
+
+• Instead of staying 3 extra hours at work → leaving 30 minutes earlier.
+• Instead of agreeing instantly → saying “Can I let you know tomorrow?”
+• Instead of sending 10 messages → sending 1 honest one and then doing a regulation tool.
+
+10% is sustainable. 100% is theatre.
+      </code>
+    </div>
+  </section>
+
+  <!-- WRAP-UP -->
+  <section id="wrap">
+    <h2>Bringing it together: honour the pattern, walk a new path.</h2>
+    <p>
+      Seeing your patterns as old protection doesn’t mean you’re stuck with them forever. It means
+      you can honour why they formed while slowly, gently choosing something different.
+    </p>
+    <p>
+      Each time you notice a loop, name it, and make even a slightly kinder choice, you’re becoming
+      the person your younger self needed.
+    </p>
+
+    <div class="btn-row">
+      <a href="integrate.html" class="btn btn-primary">Next module: Integrate →</a>
+      <a href="xp-vault.html" class="btn btn-secondary">Go deeper with guided pattern work in XP Vault →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">The Mynd Path</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
