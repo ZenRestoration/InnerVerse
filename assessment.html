@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Emotional Assessment — Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A 2–3 minute emotional assessment to discover your core emotional pattern, dysregulation style, and nervous system state." />
+  <style>
+    :root {
+      --bg: #050910;
+      --card: #101827;
+      --accent: #6ee7b7;
+      --accent-2: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.5);
+      --transition: 200ms ease;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top,#020617 0,#000 60%);
+      color: var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+
+    a { color:inherit; text-decoration:none; }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.78), transparent);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .nav {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.9rem 0;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:0.4rem;
+      font-weight:600;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    .brand-orb {
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);
+      box-shadow:0 0 28px rgba(34,197,94,0.7);
+    }
+
+    .nav-links {
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a {
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.35rem;
+      width:0;
+      height:2px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after {
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"] {
+      color:#e5e7eb;
+    }
+
+    .nav-cta {
+      padding:0.45rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.5);
+      font-size:0.85rem;
+      color:#e5e7eb;
+      display:inline-flex;
+      align-items:center;
+      gap:0.35rem;
+      background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);
+      box-shadow:0 0 0 1px rgba(15,23,42,0.7);
+    }
+
+    .nav-cta span{font-size:1.1rem;}
+
+    .nav-toggle {
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
+    @media (max-width:800px) {
+      .nav-links { display:none; }
+      .nav-toggle { display:block; }
+      .nav-links.mobile-open {
+        display:flex;
+        position:absolute;
+        top:56px;
+        right:1.25rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.75rem 0.9rem;
+        background:#020617;
+        border-radius:14px;
+        box-shadow:var(--shadow-soft);
+        border:1px solid var(--border);
+      }
+    }
+
+    main { padding:3.2rem 0 3rem; }
+
+    h1 {
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow {
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--accent);
+      margin-bottom:0.7rem;
+    }
+
+    .lead {
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.6rem;
+    }
+
+    .layout {
+      display:grid;
+      grid-template-columns:minmax(0,1.4fr) minmax(0,1.1fr);
+      gap:2rem;
+    }
+
+    @media (max-width:880px){
+      .layout{grid-template-columns:minmax(0,1fr);}
+    }
+
+    form {
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.7rem;
+      font-size:0.9rem;
+    }
+
+    label {
+      font-size:0.86rem;
+      color:var(--muted);
+      display:block;
+      margin-bottom:0.25rem;
+    }
+
+    input, select, textarea {
+      width:100%;
+      border-radius:10px;
+      border:1px solid rgba(55,65,81,1);
+      background:#020617;
+      color:var(--text);
+      padding:0.6rem 0.7rem;
+      font-size:0.9rem;
+      margin-bottom:0.9rem;
+    }
+
+    textarea { min-height:80px; resize:vertical; }
+
+    .question {
+      margin-bottom:1rem;
+      padding-bottom:0.6rem;
+      border-bottom:1px dashed rgba(31,41,55,1);
+    }
+
+    .question:last-of-type { border-bottom:none; }
+
+    .options {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.5rem;
+      margin-top:0.4rem;
+    }
+
+    .option-pill {
+      font-size:0.82rem;
+      padding:0.32rem 0.7rem;
+      border-radius:999px;
+      border:1px solid rgba(55,65,81,1);
+      background:#020617;
+      cursor:pointer;
+    }
+
+    .option-pill input {
+      display:none;
+    }
+
+    .option-pill.active {
+      border-color:var(--accent);
+      background:rgba(22,163,74,0.12);
+      color:var(--accent);
+    }
+
+    .btn {
+      border-radius:999px;
+      padding:0.8rem 1.35rem;
+      font-size:0.9rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.4rem;
+      transition:background var(--transition), color var(--transition), transform 120ms ease, box-shadow var(--transition), border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary {
+      background:radial-gradient(circle at top left,#22c55e,#16a34a);
+      color:#052e16;
+      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      font-weight:600;
+      margin-top:0.6rem;
+    }
+
+    .btn-primary:hover {
+      transform:translateY(-1px);
+      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+    }
+
+    .note {
+      font-size:0.78rem;
+      color:var(--muted);
+      margin-top:0.7rem;
+    }
+
+    .result-card {
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.4rem 1.3rem 1.6rem;
+      font-size:0.9rem;
+    }
+
+    .result-pill {
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.35rem;
+    }
+
+    .result-heading {
+      font-size:1.1rem;
+      margin-bottom:0.4rem;
+    }
+
+    .result-section {
+      margin-top:0.7rem;
+    }
+
+    .result-section strong {
+      display:block;
+      margin-bottom:0.15rem;
+    }
+
+    footer {
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+
+    .footer-grid {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a:hover { color:#e5e7eb; }
+
+    @media (max-width:680px) {
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Home</a>
+          <a href="start-here.html">Start Here</a>
+          <a href="assessment.html" aria-current="page">Emotional Assessment</a>
+          <a href="pillars.html">The 5 Pillars</a>
+          <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div style="margin-bottom:2rem;">
+      <p class="eyebrow">Free Emotional Assessment</p>
+      <h1>Discover your emotional pattern.</h1>
+      <p class="lead">
+        This 2–3 minute check-in helps you name your current emotional pattern,
+        dysregulation style, and nervous system tendencies — so you know exactly
+        where to begin in the Mynd path.
+      </p>
+    </div>
+
+    <div class="layout">
+      <form id="assessmentForm">
+        <div class="question">
+          <label for="name">Name (optional)</label>
+          <input id="name" name="name" type="text" placeholder="You can leave this blank if you prefer." />
+        </div>
+
+        <div class="question">
+          <label for="email">Email (optional, for sending your result)</label>
+          <input id="email" name="email" type="email" placeholder="Add your email if you want a copy of this snapshot." />
+        </div>
+
+        <div class="question" data-question="state">
+          <label>Right now, my body feels mostly…</label>
+          <div class="options">
+            <button type="button" class="option-pill" data-value="fight">Tense, wired, irritable (fight)</button>
+            <button type="button" class="option-pill" data-value="flight">Restless, busy, scattered (flight)</button>
+            <button type="button" class="option-pill" data-value="freeze">Numb, blank, shut down (freeze)</button>
+            <button type="button" class="option-pill" data-value="fawn">Over-giving, over-explaining, pleasing (fawn)</button>
+          </div>
+        </div>
+
+        <div class="question" data-question="trigger">
+          <label>What tends to throw you off the most lately?</label>
+          <div class="options">
+            <button type="button" class="option-pill" data-value="conflict">Conflict or criticism</button>
+            <button type="button" class="option-pill" data-value="uncertainty">Uncertainty about the future</button>
+            <button type="button" class="option-pill" data-value="overload">Too many demands at once</button>
+            <button type="button" class="option-pill" data-value="lonely">Feeling unseen, lonely, or forgotten</button>
+          </div>
+        </div>
+
+        <div class="question">
+          <label for="attachment">In close relationships, I usually feel…</label>
+          <select id="attachment" name="attachment">
+            <option value="">Select one</option>
+            <option value="anxious">Anxious: worried they’ll leave, overthinking everything</option>
+            <option value="avoidant">Avoidant: needing lots of space, pull away when it’s close</option>
+            <option value="mixed">Both: swinging between anxious and avoidant</option>
+            <option value="secure">Mostly secure: I can be close and independent</option>
+          </select>
+        </div>
+
+        <div class="question">
+          <label for="coping">When I’m overwhelmed, I usually cope by…</label>
+          <textarea id="coping" name="coping" placeholder="Example: scrolling, fixing everyone else’s problems, disappearing, overworking, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          View My Snapshot →
+        </button>
+        <p class="note">
+          This is not a diagnosis. It’s a compassionate mirror of what your system might be trying to do for you.
+        </p>
+      </form>
+
+      <aside class="result-card" id="resultCard">
+        <div class="result-pill">Your Snapshot</div>
+        <div class="result-heading" id="resultTitle">Answer the questions to see your pattern.</div>
+        <p id="resultIntro" style="color:var(--muted); margin-bottom:0.6rem;">
+          Once you submit, this panel will summarize your likely emotional pattern,
+          dysregulation style, and a gentle starting point inside Mynd.
+        </p>
+
+        <div id="resultContent" style="display:none;">
+          <div class="result-section">
+            <strong>Core emotional pattern</strong>
+            <p id="corePattern"></p>
+          </div>
+          <div class="result-section">
+            <strong>Dysregulation style</strong>
+            <p id="dysStyle"></p>
+          </div>
+          <div class="result-section">
+            <strong>Nervous system snapshot</strong>
+            <p id="nsSnapshot"></p>
+          </div>
+          <div class="result-section">
+            <strong>Suggested starting pillar</strong>
+            <p id="suggestedPillar"></p>
+          </div>
+          <div class="result-section">
+            <strong>Next steps</strong>
+            <p>
+              Start with a single tool. For most people, that’s the
+              <a href="state.html" style="color:var(--accent-2);">State</a> lesson.
+              Let your nervous system feel met before you try to “optimize” it.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="pillars.html">5 Pillars</a>
+        <a href="xp-vault.html">XP Vault</a>
+      </div>
+      <div>
+        <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const optionBlocks = document.querySelectorAll('.question[data-question] .option-pill');
+    optionBlocks.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.closest('.question');
+        parent.querySelectorAll('.option-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        parent.dataset.selected = btn.dataset.value;
+      });
+    });
+
+    const form = document.getElementById('assessmentForm');
+    const resultCard = document.getElementById('resultCard');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultIntro = document.getElementById('resultIntro');
+    const resultContent = document.getElementById('resultContent');
+    const corePattern = document.getElementById('corePattern');
+    const dysStyle = document.getElementById('dysStyle');
+    const nsSnapshot = document.getElementById('nsSnapshot');
+    const suggestedPillar = document.getElementById('suggestedPillar');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const state = document.querySelector('.question[data-question="state"]').dataset.selected || '';
+      const trigger = document.querySelector('.question[data-question="trigger"]').dataset.selected || '';
+      const attachment = document.getElementById('attachment').value;
+
+      let core = '';
+      let dys = '';
+      let ns = '';
+      let pillar = '';
+
+      if (state === 'fight') {
+        core = "You tend to move toward problems with intensity — defending, fixing, or arguing your way through discomfort.";
+        dys = "Fight-leaning dysregulation: your system protects you by pushing back.";
+        ns = "Your body often sits in a slightly elevated state: jaw, shoulders, and chest may feel tight or ready.";
+        pillar = "Begin with <strong>State</strong> to learn micro downshifts before conflict, then visit <strong>Boundaries</strong> to separate protection from reactivity.";
+      } else if (state === 'flight') {
+        core = "You cope by moving faster — planning, working, scrolling, or staying busy to avoid landing in your body.";
+        dys = "Flight-leaning dysregulation: your system keeps you moving so you don’t have to feel stuck.";
+        ns = "Your nervous system feels more comfortable in motion than in stillness, which can make rest feel unsafe or guilty.";
+        pillar = "Start with <strong>State</strong> and gentle grounding, then explore <strong>Patterns</strong> around over-functioning and productivity.";
+      } else if (state === 'freeze') {
+        core = "When overwhelmed, you go blank, numb, or detached — it feels like nothing is happening, but everything is happening inside.";
+        dys = "Freeze-leaning dysregulation: your system protects you by turning the volume down on experience.";
+        ns = "Your body may feel heavy, far away, or like you’re behind glass. Time can feel stretchy or unreal.";
+        pillar = "Begin with very small somatic practices in <strong>State</strong>, then move into <strong>Needs</strong> when some safety returns.";
+      } else if (state === 'fawn') {
+        core = "You move toward people with caretaking, people-pleasing, or over-explaining in order to stay safe and connected.";
+        dys = "Fawn-leaning dysregulation: your system protects you by keeping others okay, even at your expense.";
+        ns = "Your nervous system is trained to scan others first, you second — which slowly drains your capacity and clarity.";
+        pillar = "Start with <strong>Patterns</strong> to understand your relational history, then explore <strong>Boundaries</strong> and <strong>Needs</strong>.";
+      } else {
+        core = "Your pattern is still forming. A mix of states is normal — your system is trying multiple strategies to keep you safe.";
+        dys = "Mixed dysregulation: your state may shift depending on who you’re with, how resourced you are, and how sudden the stressor is.";
+        ns = "Pay attention to the first few seconds of activation; they often show your primary pattern before other strategies layer on.";
+        pillar = "Begin with <strong>State</strong> to notice your earliest signals, then explore whichever pillar feels most relevant today.";
+      }
+
+      if (trigger === 'conflict') {
+        dys += " Conflict feels high-stakes, so your system may jump quickly into protection or appeasement.";
+      } else if (trigger === 'uncertainty') {
+        dys += " Unclear futures can activate you more than actual problems, because you can’t prepare or control.";
+      } else if (trigger === 'overload') {
+        dys += " Too many inputs at once overwhelm your bandwidth, making even small tasks feel impossible.";
+      } else if (trigger === 'lonely') {
+        dys += " Feeling unseen or forgotten can echo earlier experiences of emotional neglect or invisibility.";
+      }
+
+      if (attachment === 'anxious') {
+        ns += " In relationships, your system often scans for signs of withdrawal or abandonment.";
+      } else if (attachment === 'avoidant') {
+        ns += " In relationships, closeness can feel like pressure, so distance becomes your main regulator.";
+      } else if (attachment === 'mixed') {
+        ns += " You may swing between craving closeness and needing distance, which can be confusing for you and others.";
+      } else if (attachment === 'secure') {
+        ns += " You likely have some secure wiring, even if stress still pulls you into old patterns.";
+      }
+
+      resultTitle.textContent = "Here’s what your system might be trying to do for you.";
+      resultIntro.style.display = "none";
+      resultContent.style.display = "block";
+      corePattern.textContent = core;
+      dysStyle.textContent = dys;
+      nsSnapshot.textContent = ns;
+      suggestedPillar.innerHTML = pillar;
+    });
+  </script>
+</body>
+</html>
