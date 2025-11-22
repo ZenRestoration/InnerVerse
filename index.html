@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <title>Mynd — Clear, Human Emotional Education</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Mynd is emotional literacy for humans — a simple way to understand your nervous system, patterns, needs, and relationships." />
+  <meta name="description" content="Mynd is emotional literacy for humans — a simple, grounded way to understand your nervous system, patterns, needs, and relationships." />
   <style>
     :root {
-      /* Mossy, earthy palette */
+      /* Mossy, earthy palette (air + earth) */
       --bg: #f4f0e7;        /* warm parchment */
       --bg-alt: #e7e0d0;    /* deeper parchment */
       --card: #fdfaf4;
@@ -252,7 +252,7 @@
     /* HERO */
 
     .hero {
-      padding: 3.2rem 0 2.4rem;
+      padding: 3.2rem 0 2.6rem;
       display: grid;
       grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
       gap: 2.6rem;
@@ -275,16 +275,34 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 3vw, 2.7rem);
-      line-height: 1.1;
-      margin-bottom: 0.75rem;
+      font-size: clamp(2.3rem, 3.2vw, 2.9rem);
+      line-height: 1.05;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-highlight {
+      display: inline-block;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: #fbf6eb;
+      border: 1px solid rgba(221, 209, 192, 0.9);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
     }
 
     .hero-sub {
       font-size: 1rem;
       color: var(--muted);
-      max-width: 30rem;
-      margin-bottom: 1.5rem;
+      max-width: 32rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-sub strong {
+      color: var(--accent);
+      font-weight: 500;
     }
 
     .hero-ctas {
@@ -298,7 +316,7 @@
     .hero-note {
       font-size: 0.86rem;
       color: var(--muted);
-      max-width: 28rem;
+      max-width: 30rem;
     }
 
     .hero-note strong {
@@ -314,7 +332,7 @@
         radial-gradient(circle at bottom right, rgba(191, 175, 146, 0.45), transparent 60%);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
-      min-height: 240px;
+      min-height: 260px;
       padding: 1px;
     }
 
@@ -327,55 +345,66 @@
     .hero-visual-inner {
       height: 100%;
       border-radius: 23px;
-      padding: 1.1rem 1.1rem 1.2rem;
+      padding: 1.2rem 1.2rem 1.3rem;
       background: linear-gradient(to bottom, #fdfaf4 0, #f0f3ed 55%, #e7efe3 100%);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 0.9rem;
     }
 
-    .forest {
-      flex: 1;
-      border-radius: 18px;
-      overflow: hidden;
-      background:
-        linear-gradient(to top, rgba(34, 34, 34, 0.35), transparent 50%),
-        url("https://images.pexels.com/photos/167404/pexels-photo-167404.jpeg?auto=compress&cs=tinysrgb&w=1200") center/cover no-repeat;
-      display: flex;
-      align-items: flex-end;
-      padding: 0.8rem;
-    }
-
-    .forest-label {
-      font-size: 0.76rem;
-      color: #fdfaf4;
-      background: rgba(31, 41, 31, 0.55);
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
+    .hero-tagline {
+      font-size: 0.82rem;
+      color: var(--muted);
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      border: 1px solid rgba(236, 235, 228, 0.7);
-      backdrop-filter: blur(6px);
     }
 
-    .forest-dot {
-      width: 7px;
-      height: 7px;
+    .hero-tagline-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: #d1fae5;
+      background: #445c42;
     }
 
-    .hero-caption {
-      margin-top: 0.8rem;
-      font-size: 0.78rem;
+    .hero-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.4rem;
+    }
+
+    .hero-card {
+      border-radius: 14px;
+      background: rgba(253, 250, 244, 0.95);
+      border: 1px solid rgba(221, 209, 192, 0.9);
+      padding: 0.75rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .hero-card-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       color: var(--muted);
     }
 
-    @media (max-width: 640px) {
-      .hero-caption {
-        max-width: 260px;
-      }
+    .hero-card-title {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-caption {
+      margin-top: 0.5rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+      max-width: 260px;
     }
 
     /* Simple grid helpers */
@@ -413,7 +442,7 @@
       color: var(--accent);
     }
 
-    /* How it works / start here */
+    /* Start here / how it works */
 
     .steps-list {
       list-style: none;
@@ -454,6 +483,31 @@
       margin: 0.16rem;
       color: var(--muted);
       background: rgba(253, 250, 244, 0.95);
+    }
+
+    /* “Is this you?” section */
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .mini-card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 1rem 1.1rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .mini-title {
+      font-size: 0.92rem;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+      font-weight: 500;
     }
 
     /* Mynd Path */
@@ -568,6 +622,17 @@
       margin-top: 0.25rem;
     }
 
+    /* About */
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #e4d9c7 38%, #b6a187 100%);
+      border: 1px solid rgba(210, 198, 180, 0.9);
+    }
+
     /* Footer */
 
     footer {
@@ -648,11 +713,12 @@
     <!-- HERO -->
     <section class="shell hero" id="top">
       <div>
-        <p class="hero-eyebrow">From survival mode to self-understanding</p>
+        <span class="hero-highlight">For minds that think a lot &amp; feel deeply</span>
+        <p class="hero-eyebrow">Air for clarity · Earth for grounding</p>
         <h1>Clear, human emotional education for everyday life.</h1>
         <p class="hero-sub">
-          Understand what your nervous system is doing, why your patterns make sense,
-          and how to respond with more care — to yourself and to others.
+          Mynd helps you <strong>name what you feel</strong>, understand why your reactions make sense,
+          and build a more grounded, self-respecting way to move through the world.
         </p>
 
         <div class="hero-ctas">
@@ -665,25 +731,83 @@
         </div>
 
         <p class="hero-note">
-          You don’t have to be “broken” to learn how you work.
-          <strong>Mynd is the emotional education most of us never got.</strong>
+          You don’t have to be “broken” to want language, structure, and tools.
+          <strong>Mynd is the emotional education most of us never got at school.</strong>
         </p>
       </div>
 
-      <aside class="hero-visual" aria-label="Forest visualization of the mind">
+      <aside class="hero-visual" aria-label="Mynd overview visual">
         <div class="hero-visual-inner">
-          <div class="forest">
-            <div class="forest-label">
-              <span class="forest-dot"></span>
-              From tangled thoughts → a path through the trees
+          <div class="hero-tagline">
+            <span class="hero-tagline-dot"></span>
+            One inner world, four places to start.
+          </div>
+
+          <div class="hero-grid">
+            <div class="hero-card">
+              <div class="hero-card-label">Pillar 01</div>
+              <div class="hero-card-title">State</div>
+              <p>Read your nervous system. Is this fight, flight, freeze, fawn, or safe enough?</p>
+            </div>
+            <div class="hero-card">
+              <div class="hero-card-label">Pillar 02</div>
+              <div class="hero-card-title">Patterns</div>
+              <p>See the loops you fall into — overthinking, shutdown, people-pleasing, conflict.</p>
+            </div>
+            <div class="hero-card">
+              <div class="hero-card-label">Pillar 03</div>
+              <div class="hero-card-title">Needs</div>
+              <p>Translate reactions into clear needs and requests, instead of guessing games.</p>
+            </div>
+            <div class="hero-card">
+              <div class="hero-card-label">Pillar 04 &amp; 05</div>
+              <div class="hero-card-title">Boundaries &amp; Integration</div>
+              <p>Protect your energy and practice new choices until they feel like “you”.</p>
             </div>
           </div>
+
           <p class="hero-caption">
-            Soon, this will be a gentle looping video: a slow walk through an old-growth forest,
-            breathing with you as your nervous system settles.
+            Soon this space will become a slow, looping forest video — a breathing room for your nervous system
+            while you learn.
           </p>
         </div>
       </aside>
+    </section>
+
+    <!-- IS THIS YOU -->
+    <section class="shell section" id="is-this-you">
+      <div class="section-header">
+        <p class="section-eyebrow">Is this you?</p>
+        <h2 class="section-title">You think a lot, feel a lot, and carry a lot.</h2>
+        <p class="section-intro">
+          Mynd is for the over-thinkers with big hearts — the ones who’ve been tracking
+          everyone else’s emotions for years and are finally ready to include themselves.
+        </p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <p class="mini-title">“I can explain everyone else, but not myself.”</p>
+          <p>
+            You’re great at giving advice and reading the room, but when it comes
+            to your own feelings, everything blurs into “too much” or “I’m fine”.
+          </p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-title">Your body keeps the score… loudly.</p>
+          <p>
+            Tight chest, buzzing mind, sudden shutdowns, social hangovers — you’re
+            starting to suspect your nervous system has a lot to say.
+          </p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-title">You want change, not just insight.</p>
+          <p>
+            You’ve consumed the content. Now you want simple, grounded practices
+            you can actually do in real life, not just in theory.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- START HERE / HOW IT WORKS -->
@@ -692,8 +816,8 @@
         <p class="section-eyebrow">Start here</p>
         <h2 class="section-title">A simple path into your inner world.</h2>
         <p class="section-intro">
-          You don’t need a huge plan. You just need a starting point. Mynd gives you language,
-          structure, and small practices to understand what’s happening inside — without shame.
+          You don’t need a huge plan. You just need a doorway. Mynd organizes your inner world into
+          clear pieces so your Gemini mind can understand, and your earthy body can exhale.
         </p>
       </div>
 
@@ -715,8 +839,8 @@
             </li>
           </ul>
           <div class="chips-row">
-            <span class="chip">No diagnosis. Just education.</span>
-            <span class="chip">Designed for real life.</span>
+            <span class="chip">No diagnosis. Just language &amp; structure.</span>
+            <span class="chip">Designed for busy, layered lives.</span>
           </div>
         </div>
 
@@ -729,8 +853,8 @@
             <span class="list-pill">Awareness of your patterns</span>
             <span class="list-pill">Healthier boundaries</span>
             <span class="list-pill">Capacity for hard conversations</span>
-            <span class="list-pill">Tools to calm your body</span>
-            <span class="list-pill">More self-respect and self-trust</span>
+            <span class="list-pill">Somatic tools to calm your body</span>
+            <span class="list-pill">More self-respect &amp; self-trust</span>
           </div>
         </div>
       </div>
@@ -801,8 +925,8 @@
         <p class="section-eyebrow">Free assessment</p>
         <h2 class="section-title">Get a snapshot of your emotional pattern.</h2>
         <p class="section-intro">
-          A short reflection to help you see your current state, pattern, and needs —
-          so you’re not starting from “I don’t even know what’s wrong.”
+          A short reflection to help you see your current state, pattern, and needs — so you’re
+          not starting from “I don’t even know what’s wrong.”
         </p>
       </div>
 
@@ -866,8 +990,8 @@
         <p class="section-eyebrow">Tools</p>
         <h2 class="section-title">Small practices for real moments.</h2>
         <p class="section-intro">
-          You don’t need a 60-minute ritual to shift. These tools are made for
-          the in-between moments: after a hard text, before a call, in the car, in bed.
+          You don’t need a 60-minute ritual to shift. These tools are made for the in-between
+          moments: after a hard text, before a call, in the car, in bed.
         </p>
       </div>
 
@@ -958,8 +1082,8 @@
         <p class="section-eyebrow">About</p>
         <h2 class="section-title">Hi, I’m Brook.</h2>
         <p class="section-intro">
-          I care about making emotional literacy and nervous system education feel human,
-          warm, and actually usable in the middle of real life.
+          Gemini mind, Capricorn Moon, Taurus heart — I care about making emotional literacy
+          feel clear, grounded, and actually usable in the middle of real life.
         </p>
       </div>
 
@@ -967,7 +1091,8 @@
         <div>
           <p style="font-size:0.92rem; color:var(--muted); margin-bottom:0.8rem;">
             My work lives where psychology, somatics, and lived experience overlap.
-            I’ve been the over-giver, the conflict-avoider, the one carrying everyone’s feelings.
+            I’ve been the over-giver, the conflict-avoider, the one carrying everyone’s feelings
+            and wondering why I was so exhausted.
           </p>
           <p style="font-size:0.92rem; color:var(--muted); margin-bottom:0.8rem;">
             Mynd is the curriculum I wish we all got at 13 — translated into language
@@ -989,7 +1114,7 @@
           </div>
           <p>
             “I don’t want you to become a concept or a diagnosis. I want you to feel like
-            a person again — someone who makes sense to themselves.”
+            a person again — someone who makes sense to themselves, in their body and in their life.”
           </p>
         </aside>
       </div>
@@ -1011,7 +1136,7 @@
         <a href="#assessment">Assessment</a>
         <a href="#vault">XP Vault</a>
         <a href="#start-here">Start Here</a>
-        <a href="#path">5 Pillars</a>
+        <a href="#path">The Mynd Path</a>
         <a href="#top">Back to top ↑</a>
       </div>
       <div>
