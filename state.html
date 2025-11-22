@@ -2,106 +2,424 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>State — Mynd Curriculum</title>
+  <title>State — Reading Your Nervous System | Mynd</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Learn to recognize and name your state — the language of your nervous system. The first step toward awareness and emotional mastery." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css" />
+  <meta name="description" content="Learn to notice fight, flight, freeze, and fawn. Name your state, understand your nervous system, and regulate gently." />
+  <style>
+    :root {
+      --bg:#050910;
+      --card:#101827;
+      --accent:#6ee7b7;
+      --accent-2:#38bdf8;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+      --radius-lg:18px;
+      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
+      --transition:200ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:var(--font-sans);
+      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
+      border-bottom:1px solid rgba(15,23,42,0.9);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
+    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
+    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
+    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{width:100%;}
+    .nav-links a[aria-current="page"]{color:#e5e7eb;}
+    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
+    .nav-cta span{font-size:1.1rem;}
+    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+    }
+
+    main{padding:3.2rem 0 3rem;}
+    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
+    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
+    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.6rem;}
+
+    section{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+    section h2{font-size:1.15rem;margin-bottom:0.45rem;}
+    section p{color:var(--muted);margin-bottom:0.55rem;}
+
+    .states-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.8rem;
+    }
+    @media(max-width:720px){
+      .states-grid{grid-template-columns:minmax(0,1fr);}
+    }
+    .state-card{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      cursor:pointer;
+      transition:border var(--transition),background var(--transition),transform 120ms ease;
+    }
+    .state-card.active{
+      border-color:var(--accent);
+      background:rgba(22,163,74,0.14);
+      transform:translateY(-1px);
+    }
+    .state-tag{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--muted);margin-bottom:0.2rem;}
+    .state-name{font-size:0.98rem;margin-bottom:0.15rem;}
+    .state-body{font-size:0.86rem;color:var(--muted);}
+
+    .chips{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.6rem;}
+    .chip{font-size:0.8rem;padding:0.26rem 0.7rem;border-radius:999px;border:1px dashed rgba(148,163,184,0.7);color:var(--muted);}
+
+    ul{color:var(--muted);margin-left:1.1rem;font-size:0.9rem;}
+    li+li{margin-top:0.28rem;}
+
+    .reg-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.7rem;
+    }
+    @media(max-width:800px){
+      .reg-grid{grid-template-columns:minmax(0,1fr);}
+    }
+    .reg-card{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+    }
+    .reg-title{font-size:0.95rem;margin-bottom:0.2rem;}
+
+    .script{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.5rem;
+    }
+    .script code{font-family:inherit;}
+
+    .btn-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:0.8rem;}
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:background var(--transition),color var(--transition),transform 120ms ease,box-shadow var(--transition),border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:radial-gradient(circle at top left,#22c55e,#16a34a);
+      color:#052e16;
+      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      font-weight:600;
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+    }
+    .btn-secondary{
+      background:rgba(15,23,42,0.9);
+      color:var(--text);
+      border-color:rgba(148,163,184,0.5);
+    }
+    .btn-secondary:hover{
+      background:#020617;
+      border-color:rgba(148,163,184,0.9);
+      transform:translateY(-1px);
+    }
+
+    footer{
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
+    .footer-links a:hover{color:#e5e7eb;}
+    @media(max-width:680px){
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
 </head>
-<body data-page="curriculum">
-  <div class="progress" id="progress"></div>
-  <div class="orb a" id="orbA"></div><div class="orb b" id="orbB"></div><div class="orb c" id="orbC"></div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
-      <a href="../index.html">Home</a>
-      <a href="../curriculum/index.html" class="active">Curriculum</a>
-      <a href="state.html">State</a>
-      <a href="story.html">Story</a>
-      <a href="need.html">Need</a>
-      <a href="step.html">Step</a>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
     </div>
-  </header>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The 5 Pillars</a>
+        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
 
-  <main class="wrap">
-    <div class="hero reveal">
-      <span class="tagline"><span class="dot"></span> Lesson One</span>
-      <h1>The Language of the Body</h1>
-      <p class="sub">
-        Before the mind creates a story, the body has already spoken.
-        Awareness begins in sensation — the pulse beneath thought.
-      </p>
+<main class="shell">
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Pillar 01 — State</p>
+    <h1>Reading your state: what your nervous system is saying.</h1>
+    <p class="lead">
+      Before you can change anything, you have to see what you’re in.
+      This lesson helps you notice fight/flight/freeze/fawn, name your feelings,
+      and offer your body small, doable regulation tools.
+    </p>
+  </div>
+
+  <section id="ns-basics">
+    <h2>Nervous system 101 (the short version).</h2>
+    <p>
+      Your nervous system is not trying to ruin your life — it’s trying to keep you alive.
+      It has different “gears” or states, depending on whether it senses safety, danger, or
+      impossibility.
+    </p>
+    <ul>
+      <li><strong>Safe enough:</strong> you can connect, think, play, rest.</li>
+      <li><strong>Danger:</strong> you mobilize into fight or flight.</li>
+      <li><strong>Too much / no way out:</strong> you drop into freeze or fawn.</li>
+    </ul>
+    <p>
+      Naming your state turns “what’s wrong with me?” into
+      “oh, my body is trying to protect me right now.”
+    </p>
+    <div class="chips">
+      <div class="chip">Nothing is wrong with you.</div>
+      <div class="chip">Your body has a history.</div>
+      <div class="chip">Your state is information, not identity.</div>
+    </div>
+  </section>
+
+  <section id="states">
+    <h2>The four protection states: fight, flight, freeze, fawn.</h2>
+    <p>Tap each card to highlight the one that feels most familiar today.</p>
+
+    <div class="states-grid" id="stateGrid">
+      <article class="state-card" data-state="fight">
+        <div class="state-tag">State</div>
+        <div class="state-name">Fight</div>
+        <div class="state-body">
+          <strong>Body:</strong> tight jaw, clenched fists, heat in chest/face.<br>
+          <strong>Thoughts:</strong> “This is wrong. They’re wrong. I have to fix this now.”<br>
+          <strong>Behaviour:</strong> arguing, defending, slamming doors, sharp texts.
+        </div>
+      </article>
+
+      <article class="state-card" data-state="flight">
+        <div class="state-tag">State</div>
+        <div class="state-name">Flight</div>
+        <div class="state-body">
+          <strong>Body:</strong> racing heart, shallow breath, can’t sit still.<br>
+          <strong>Thoughts:</strong> “I have to do more. There isn’t enough time.”<br>
+          <strong>Behaviour:</strong> overworking, over-planning, constant scrolling.
+        </div>
+      </article>
+
+      <article class="state-card" data-state="freeze">
+        <div class="state-tag">State</div>
+        <div class="state-name">Freeze</div>
+        <div class="state-body">
+          <strong>Body:</strong> heavy limbs, numbness, foggy head.<br>
+          <strong>Thoughts:</strong> “What’s the point? I can’t.”<br>
+          <strong>Behaviour:</strong> zoning out, procrastinating, feeling detached.
+        </div>
+      </article>
+
+      <article class="state-card" data-state="fawn">
+        <div class="state-tag">State</div>
+        <div class="state-name">Fawn</div>
+        <div class="state-body">
+          <strong>Body:</strong> tension in throat/chest, smile that feels glued on.<br>
+          <strong>Thoughts:</strong> “If they’re okay, I’m okay.”<br>
+          <strong>Behaviour:</strong> appeasing, over-explaining, self-abandoning.
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="naming">
+    <h2>Naming feelings: giving shape to what’s inside.</h2>
+    <p>
+      Your nervous system speaks in sensations; your mind speaks in stories.
+      Emotional language bridges the two.
+    </p>
+    <ul>
+      <li><strong>Body first:</strong> “My chest feels tight, my stomach is heavy.”</li>
+      <li><strong>Then emotion:</strong> “I feel anxious, disappointed, and a bit angry.”</li>
+      <li><strong>Then meaning:</strong> “Part of me is scared I’m not enough.”</li>
+    </ul>
+    <p>Try this tiny script:</p>
+    <div class="script">
+      <code>
+        Right now my body feels &lt;SENSATION&gt;. Emotion-wise I’m noticing &lt;FEELING WORDS&gt;.  
+        It makes sense I feel this way because &lt;REASON&gt;.
+      </code>
+    </div>
+  </section>
+
+  <section id="somatic">
+    <h2>Somatic basics: 60–90 second resets.</h2>
+    <p>
+      Regulation doesn’t have to be a 60-minute practice. Micro-movements done often are
+      more realistic for a busy, layered life.
+    </p>
+
+    <div class="reg-grid">
+      <div class="reg-card">
+        <div class="reg-title">For fight (heat &amp; anger)</div>
+        <p>
+          Press your palms together and push for 5–10 seconds, then release with a slow exhale.
+          Repeat 3 times. Imagine sending excess heat down your arms and out through your hands.
+        </p>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">For flight (speed &amp; panic)</div>
+        <p>
+          Sit and place both feet flat on the floor. Look around and name 5 things you can see,
+          4 you can feel, 3 you can hear, 2 you can smell, 1 you can taste.
+        </p>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">For freeze / fawn (numb &amp; collapse)</div>
+        <p>
+          Gently tap along your arms and legs with your fingertips. Wiggle your toes.
+          Whisper, “I’m here. I’m allowed to exist.” Start with movement that is 2/10 effort.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="scripts">
+    <h2>Example scripts: speaking from state, not shame.</h2>
+    <p>Try using language that honours your state instead of attacking yourself for it.</p>
+
+    <div class="script">
+      <strong>In conflict (fight/flight):</strong><br>
+      <code>
+        “I notice my body is really activated right now. I care about this,  
+        but I need a short pause to settle so I don’t say things I’ll regret.”
+      </code>
     </div>
 
-    <section class="card reveal">
-      <h2>Emotions are the body’s first language</h2>
-      <p>
-        Think of your body like a compass. Every tightness, ache, flutter, or heat is data — information from your inner world.
-        It’s not random; it’s communication. Your nervous system is saying, <em>“Something matters.”</em>
-      </p>
-      <p>
-        But most of us learned to silence that language. We push through, intellectualize, or judge how we feel.
-        The first step in awareness is re-learning how to listen — not to analyze the emotion, but to <em>feel</em> it without fleeing.
-      </p>
+    <div class="script">
+      <strong>When you’re shutting down (freeze):</strong><br>
+      <code>
+        “I’m not checked out because I don’t care. I’m overwhelmed.  
+        I need some time to feel my body again and then I can respond.”
+      </code>
+    </div>
 
-      <div class="hr"></div>
+    <div class="script">
+      <strong>When you’re over-giving (fawn):</strong><br>
+      <code>
+        “Part of me wants to say yes so you’re okay,  
+        but another part knows I don’t have capacity. I’m going to listen to that part.”
+      </code>
+    </div>
+  </section>
 
-      <h3>Try this right now</h3>
-      <ul>
-        <li>Pause for 10 seconds.</li>
-        <li>Notice one area in your body that feels the loudest — tension, warmth, tightness, ache.</li>
-        <li>Say silently: “Body, I hear you.”</li>
-      </ul>
-      <p>That’s it. You just spoke your body’s language fluently — awareness.</p>
+  <section id="practice">
+    <h2>Your daily 3-minute State practice.</h2>
+    <p>Use this as a simple, repeatable ritual — morning, midday, or before sleep.</p>
+    <ul>
+      <li>1 minute — Notice: “What state am I in? Fight, flight, freeze, fawn, or safe enough?”</li>
+      <li>1 minute — Name: 2–3 body sensations + 2–3 feeling words.</li>
+      <li>1 minute — Nurture: choose one micro practice from above that matches your state.</li>
+    </ul>
 
-      <div class="hr"></div>
-      <h3>Analogy: The Weather of the Mind</h3>
-      <p>
-        Your emotions are like weather. They shift, move, and pass.
-        The problem arises when we identify <em>with</em> the storm instead of <em>observing</em> it.
-        You are the sky, not the storm.
-      </p>
-      <p class="muted"><em>When you learn to identify your weather, you stop believing you are the rain.</em></p>
-    </section>
+    <div class="btn-row">
+      <a href="patterns.html" class="btn btn-primary">
+        Next lesson: Patterns →
+      </a>
+      <a href="xp-vault.html" class="btn btn-secondary">
+        Go deeper in XP Vault →
+      </a>
+    </div>
+  </section>
+</main>
 
-    <div class="sp"></div>
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">5 Pillars</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
-    <section class="card reveal center">
-      <h2>Practice: Name It to Tame It</h2>
-      <p class="sub">Saying what you feel reduces the body’s threat signal by up to 40%. It’s neurobiology — not just poetry.</p>
-      <p>Try saying out loud:
-        “This feels like <strong>fear</strong>.” or “This feels like <strong>grief</strong>.”
-        You’re not labeling to judge — you’re labeling to lead.
-      </p>
-      <p><a class="chip" href="story.html">Continue to Lesson Two →</a></p>
-    </section>
-  </main>
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  <footer class="reveal">Mynd · © <span id="yr"></span></footer>
-  <button class="to-top" id="toTop">↑</button>
-  <script src="../app.js"></script>
-
-  <!-- Progress tracking (runs after DOM is ready) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      // Normalize title to get lesson key (handles different dash characters)
-      const raw = (document.title || '');
-      const split = raw.split('—'); // em dash
-      const key = (split[0] ? split[0] : raw).trim().toLowerCase(); // "State"
-      if (key){
-        const storageKey = 'lesson_' + key;
-        if (localStorage.getItem(storageKey) !== 'done'){
-          localStorage.setItem(storageKey, 'started');
-        }
-      }
-      // Mark done when continuing
-      document.querySelectorAll('a.chip, a[href*="state"], a[href*="story"], a[href*="need"], a[href*="step"]').forEach(a=>{
-        a.addEventListener('click', ()=>{
-          if (key){ localStorage.setItem('lesson_' + key, 'done'); }
-        });
-      });
+  const stateCards = document.querySelectorAll('.state-card');
+  stateCards.forEach(card => {
+    card.addEventListener('click', () => {
+      stateCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
     });
-  </script>
+  });
+</script>
 </body>
 </html>
