@@ -7,60 +7,179 @@
   <meta name="description" content="Learn emotional and somatic boundaries, red flags, and practical language for saying no without abandoning yourself." />
   <style>
     :root {
-      --bg:#050910;
-      --card:#101827;
-      --accent:#6ee7b7;
-      --accent-2:#38bdf8;
-      --text:#e5e7eb;
-      --muted:#9ca3af;
-      --border:#1f2937;
-      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
-      --radius-lg:18px;
-      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
-      --transition:200ms ease;
+      /* Mossy, earthy palette (aligned with other Mynd pages) */
+      --bg: #f4f0e7;        /* warm parchment */
+      --bg-alt: #e7e0d0;    /* deeper parchment */
+      --card: #fdfaf4;
+      --accent: #445c42;    /* deep moss */
+      --accent-soft: #d7e1d1;
+      --accent-2: #7b8f6a;  /* sage */
+      --text: #222222;
+      --muted: #6b6458;
+      --border: #ddd1c0;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(34, 32, 27, 0.14);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --transition: 160ms ease;
     }
+
     *{box-sizing:border-box;margin:0;padding:0;}
+
     body{
       font-family:var(--font-sans);
-      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      background:
+        radial-gradient(circle at top left, #e1eadb 0, transparent 55%),
+        radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
+        var(--bg);
       color:var(--text);
-      line-height:1.6;
+      line-height:1.65;
       min-height:100vh;
     }
+
     a{color:inherit;text-decoration:none;}
-    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.5rem;}
+
+    /* Header / Nav */
 
     header{
-      position:sticky;top:0;z-index:40;
-      backdrop-filter:blur(18px);
-      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
-      border-bottom:1px solid rgba(15,23,42,0.9);
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(
+        to bottom,
+        rgba(244,240,231,0.96),
+        rgba(244,240,231,0.9),
+        transparent
+      );
+      border-bottom:1px solid rgba(221,209,192,0.9);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
-    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
-    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
-    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
-    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
-    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--accent);
+    }
+
+    .brand-orb{
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #c7d9c0 40%, #31422f 100%);
+      box-shadow:0 0 0 1px rgba(178,190,173,0.7),
+                 0 8px 18px rgba(49,66,47,0.4);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.25rem;
+      width:0;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
     .nav-links a:hover::after,
-    .nav-links a[aria-current="page"]::after{width:100%;}
-    .nav-links a[aria-current="page"]{color:#e5e7eb;}
-    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
-    .nav-cta span{font-size:1.1rem;}
-    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .nav-cta{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(162,147,126,0.8);
+      font-size:0.85rem;
+      color:var(--accent);
+      background:rgba(253,250,244,0.9);
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
     @media(max-width:800px){
       .nav-links{display:none;}
       .nav-toggle{display:block;}
-      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+      .nav-links.mobile-open{
+        display:flex;
+        position:absolute;
+        top:54px;
+        right:1.5rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.7rem 0.9rem;
+        background:#fdfaf4;
+        border-radius:12px;
+        box-shadow:0 18px 40px rgba(34,32,27,0.25);
+        border:1px solid var(--border);
+      }
     }
 
-    main{padding:3.2rem 0 3rem;}
-    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
-    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
-    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.6rem;}
+    /* Main */
+
+    main{padding:3rem 0 3rem;}
+
+    h1{
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .lead{
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.8rem;
+    }
 
     section{
-      background:rgba(15,23,42,0.96);
+      background:var(--card);
       border-radius:var(--radius-lg);
       border:1px solid var(--border);
       box-shadow:var(--shadow-soft);
@@ -68,10 +187,41 @@
       margin-bottom:1.8rem;
       font-size:0.9rem;
     }
-    section h2{font-size:1.15rem;margin-bottom:0.45rem;}
-    section p{color:var(--muted);margin-bottom:0.55rem;}
-    ul{color:var(--muted);margin-left:1.1rem;font-size:0.9rem;}
+
+    section h2{
+      font-size:1.15rem;
+      margin-bottom:0.45rem;
+      color:var(--accent);
+    }
+
+    section p{
+      color:var(--muted);
+      margin-bottom:0.55rem;
+    }
+
+    ul{
+      color:var(--muted);
+      margin-left:1.1rem;
+      font-size:0.9rem;
+    }
+
     li+li{margin-top:0.3rem;}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.45rem;
+      margin-top:0.6rem;
+    }
+
+    .chip{
+      font-size:0.8rem;
+      padding:0.26rem 0.7rem;
+      border-radius:999px;
+      border:1px dashed rgba(162,147,126,0.8);
+      color:var(--muted);
+      background:#fbf6eb;
+    }
 
     .two-col{
       display:grid;
@@ -79,21 +229,29 @@
       gap:0.8rem;
       margin-top:0.6rem;
     }
+
     @media(max-width:880px){
       .two-col{grid-template-columns:minmax(0,1fr);}
     }
+
     .card{
-      background:#020617;
+      background:#fbf6eb;
       border-radius:14px;
       border:1px solid var(--border);
       padding:0.9rem 0.95rem;
       font-size:0.86rem;
       color:var(--muted);
     }
-    .card-title{font-size:0.96rem;margin-bottom:0.2rem;}
+
+    .card-title{
+      font-size:0.96rem;
+      margin-bottom:0.2rem;
+      color:var(--accent);
+      font-weight:500;
+    }
 
     .script{
-      background:#020617;
+      background:#fbf6eb;
       border-radius:14px;
       border:1px solid var(--border);
       padding:0.85rem 0.95rem;
@@ -101,6 +259,13 @@
       color:var(--muted);
       margin-top:0.5rem;
     }
+
+    .script strong{
+      display:block;
+      margin-bottom:0.15rem;
+      color:var(--accent);
+    }
+
     .script code{font-family:inherit;}
 
     .tabs{
@@ -109,23 +274,36 @@
       gap:0.55rem;
       margin-top:0.6rem;
     }
+
     .tab-btn{
       font-size:0.82rem;
       padding:0.32rem 0.8rem;
       border-radius:999px;
-      border:1px solid rgba(55,65,81,1);
-      background:#020617;
+      border:1px solid rgba(178,165,148,0.9);
+      background:#fbf6eb;
       cursor:pointer;
+      color:var(--muted);
+      transition:background var(--transition),border var(--transition),color var(--transition),transform 120ms ease;
     }
+
     .tab-btn.active{
       border-color:var(--accent);
-      background:rgba(22,163,74,0.16);
+      background:#e3ebdd;
       color:var(--accent);
+      transform:translateY(-1px);
     }
 
     .scripts-panel{margin-top:0.6rem;}
 
-    .btn-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:0.8rem;}
+    /* Buttons */
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.7rem;
+      margin-top:0.9rem;
+    }
+
     .btn{
       border-radius:999px;
       padding:0.75rem 1.25rem;
@@ -136,42 +314,76 @@
       align-items:center;
       justify-content:center;
       gap:0.35rem;
-      transition:background var(--transition),color var(--transition),transform 120ms ease,box-shadow var(--transition),border var(--transition);
+      transition:
+        background var(--transition),
+        color var(--transition),
+        transform 120ms ease,
+        box-shadow var(--transition),
+        border var(--transition);
       text-decoration:none;
       white-space:nowrap;
     }
+
     .btn-primary{
-      background:radial-gradient(circle at top left,#22c55e,#16a34a);
-      color:#052e16;
-      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      background:linear-gradient(135deg,#445c42,#7b8f6a);
+      color:#fdfaf4;
+      box-shadow:0 14px 32px rgba(68,92,66,0.35);
       font-weight:600;
     }
+
     .btn-primary:hover{
       transform:translateY(-1px);
-      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+      box-shadow:0 18px 40px rgba(68,92,66,0.45);
     }
+
     .btn-secondary{
-      background:rgba(15,23,42,0.9);
-      color:var(--text);
-      border-color:rgba(148,163,184,0.5);
+      background:rgba(253,250,244,0.95);
+      color:var(--accent);
+      border-color:rgba(178,165,148,0.9);
     }
+
     .btn-secondary:hover{
-      background:#020617;
-      border-color:rgba(148,163,184,0.9);
+      background:#fdfaf4;
       transform:translateY(-1px);
     }
 
+    /* Footer */
+
     footer{
-      border-top:1px solid rgba(15,23,42,1);
-      padding:1.4rem 0 2rem;
+      border-top:1px solid rgba(221,209,192,1);
+      padding:1.6rem 0 2.2rem;
       font-size:0.8rem;
       color:var(--muted);
+      background:#f7f2e9;
       margin-top:2rem;
     }
-    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
-    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
-    .footer-links a:hover{color:#e5e7eb;}
+
+    .footer-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a{
+      color:var(--muted);
+    }
+
+    .footer-links a:hover{
+      color:var(--accent);
+    }
+
     @media(max-width:680px){
+      footer{
+        padding-bottom:2.3rem;
+      }
       .footer-grid{flex-direction:column;}
     }
   </style>
@@ -189,8 +401,8 @@
         <a href="index.html">Home</a>
         <a href="start-here.html">Start Here</a>
         <a href="assessment.html">Emotional Assessment</a>
-        <a href="pillars.html">The 5 Pillars</a>
-        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+        <a href="pillars.html">The Mynd Path</a>
+        <a href="xp-vault.html" class="nav-cta">XP Vault</a>
       </div>
     </nav>
   </div>
@@ -203,7 +415,8 @@
     <p class="lead">
       Boundaries are not walls to keep people out — they’re the edges that let
       you stay in your own life. This lesson gives you emotional and somatic
-      boundaries, red flags, and scripts for saying “no” without hardening.
+      boundaries, red flags, and scripts for saying “no” without hardening or
+      abandoning yourself.
     </p>
   </div>
 
@@ -232,6 +445,12 @@
         </ul>
       </div>
     </div>
+
+    <div class="chips">
+      <div class="chip">Boundaries are information, not punishment.</div>
+      <div class="chip">Your “no” protects your “yes.”</div>
+      <div class="chip">You’re allowed to adjust your edges over time.</div>
+    </div>
   </section>
 
   <section id="red-flags">
@@ -242,12 +461,16 @@
       <li>You notice you always leave interactions feeling drained, anxious, or smaller.</li>
       <li>They only respect your boundary when it benefits them.</li>
       <li>You find yourself rehearsing conversations in your head for hours before seeing them.</li>
+      <li>They escalate, guilt-trip, or retaliate when you set even a small limit.</li>
     </ul>
+    <p style="margin-top:0.6rem;">
+      Red flags don’t require you to prove anything. They invite you to believe your body.
+    </p>
   </section>
 
   <section id="scripts">
     <h2>Boundary scripts (click a tab to view).</h2>
-    <p>Use these as starting points and adjust to your tone and culture.</p>
+    <p>Use these as starting points and adjust to your tone, culture, and context.</p>
 
     <div class="tabs">
       <button class="tab-btn active" data-script="soft">Soft “no”</button>
@@ -258,40 +481,70 @@
 
     <div class="scripts-panel" id="soft">
       <div class="script">
-        <strong>Soft no:</strong><br>
+        <strong>Soft no:</strong>
         <code>
           “Thank you for the invite. I don’t have capacity for that right now,  
           but I appreciate you thinking of me.”
+        </code>
+      </div>
+      <div class="script">
+        <strong>Soft limit with care:</strong>
+        <code>
+          “I love you and I want to support you.  
+          Right now I can listen for about 10 more minutes,  
+          then I need to take a break for myself.”
         </code>
       </div>
     </div>
 
     <div class="scripts-panel" id="firm" style="display:none;">
       <div class="script">
-        <strong>Firm no:</strong><br>
+        <strong>Firm no:</strong>
         <code>
           “I’m not available for topics like that anymore.  
           If the conversation goes there, I’m going to leave the room.”
+        </code>
+      </div>
+      <div class="script">
+        <strong>Firm limit with family:</strong>
+        <code>
+          “I’ve shared this before, but I’ll be clear again:  
+          I’m not willing to be spoken to in that way.  
+          If it continues, I’ll end the call/visit.”
         </code>
       </div>
     </div>
 
     <div class="scripts-panel" id="repeat" style="display:none;">
       <div class="script">
-        <strong>Broken-record boundary:</strong><br>
+        <strong>Broken-record boundary:</strong>
         <code>
           “I understand you see it differently. I’m still not available for that.”  
           (Repeat the same sentence calmly; no extra explaining.)
+        </code>
+      </div>
+      <div class="script">
+        <strong>When they push back:</strong>
+        <code>
+          “I hear that this is frustrating. My boundary is the same.”  
+          (You don’t have to debate your limits.)
         </code>
       </div>
     </div>
 
     <div class="scripts-panel" id="exit" style="display:none;">
       <div class="script">
-        <strong>Exit plan:</strong><br>
+        <strong>Exit plan:</strong>
         <code>
           “I’m going to head out now. This doesn’t feel good for me.  
           We can talk again when it’s calmer.”
+        </code>
+      </div>
+      <div class="script">
+        <strong>Exit without over-explaining:</strong>
+        <code>
+          “This conversation isn’t working for me.  
+          I’m going to take some space and we can revisit it another time.” 
         </code>
       </div>
     </div>
@@ -307,7 +560,8 @@
       <li>Ignoring thirst, bathroom breaks, or hunger to keep the peace</li>
     </ul>
     <p style="margin-top:0.6rem;">
-      These are not inconveniences — they’re data.
+      These are not inconveniences — they’re data. Your nervous system is whispering,
+      “Something here is too much, too fast, or not okay for me.”
     </p>
   </section>
 
@@ -320,7 +574,12 @@
       <li>From 3-hour visits → 1.5-hour visits.</li>
       <li>From replying instantly → replying when regulated.</li>
       <li>From explaining everything → one clear sentence.</li>
+      <li>From saying “it’s fine” → “it’s actually not okay with me.”</li>
     </ul>
+    <p style="margin-top:0.6rem;">
+      Boundaries are a practice, not a personality type. Every small edge you honor
+      teaches your system: “I’m on my own side now.”
+    </p>
 
     <div class="btn-row">
       <a href="integration.html" class="btn btn-primary">Next lesson: Integration →</a>
@@ -338,7 +597,7 @@
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="assessment.html">Assessment</a>
-      <a href="pillars.html">5 Pillars</a>
+      <a href="pillars.html">The Mynd Path</a>
       <a href="xp-vault.html">XP Vault</a>
     </div>
     <div>
@@ -357,6 +616,7 @@
 
   const tabBtns = document.querySelectorAll('.tab-btn');
   const scriptPanels = document.querySelectorAll('.scripts-panel');
+
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.dataset.script;
