@@ -2,139 +2,1180 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Mynd — Education for Human Evolution</title>
+  <title>Mynd — Clear, Human Emotional Education</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Mynd is emotional literacy for humans — a new way of understanding yourself using psychology, nervous system science, and compassionate self-awareness." />
+  <style>
+    :root {
+      --bg: #050910;
+      --bg-alt: #0c111b;
+      --card: #101827;
+      --accent: #6ee7b7;
+      --accent-soft: rgba(110, 231, 183, 0.16);
+      --accent-2: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.5);
+      --transition: 200ms ease;
+    }
 
-  <!-- SEO -->
-  <meta name="description" content="Mynd is an education system for human evolution — uniting emotional intelligence, belief awareness, values, and perception into a practical path of self-mastery and collective growth." />
-  <meta property="og:title" content="Mynd — Education for Human Evolution" />
-  <meta property="og:description" content="Learn the architecture of awareness. Grow through emotion, belief, and perception toward a wiser, more compassionate world." />
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- Fonts & Styles -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header / Nav */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.78), transparent);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .brand-orb {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0 0, #22c55e 40%, #0f172a 100%);
+      box-shadow: 0 0 28px rgba(34, 197, 94, 0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 0.2rem 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.35rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent-2));
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after {
+      width: 100%;
+    }
+
+    .nav-links a[aria-current="page"] {
+      color: #e5e7eb;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.18), transparent);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7);
+    }
+
+    .nav-cta span {
+      font-size: 1.1rem;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 800px) {
+      .nav-links {
+        display: none;
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .nav-links.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 56px;
+        right: 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 0.9rem;
+        background: #020617;
+        border-radius: 14px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid var(--border);
+      }
+    }
+
+    /* Hero */
+
+    .hero {
+      padding: 4.4rem 0 3.4rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.25fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 3.2rem;
+      }
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      opacity: 0.9;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 3vw, 2.8rem);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      padding: 0.26rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.3rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.8rem 1.4rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background var(--transition), color var(--transition), transform 120ms ease, box-shadow var(--transition), border var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #22c55e, #22c55e 45%, #16a34a 100%);
+      color: #052e16;
+      box-shadow: 0 14px 45px rgba(22, 163, 74, 0.6);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 55px rgba(22, 163, 74, 0.75);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    .btn-secondary:hover {
+      background: #020617;
+      border-color: rgba(148, 163, 184, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .hero-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .hero-note strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 1px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at top, rgba(110, 231, 183, 0.55), transparent 55%),
+        radial-gradient(circle at bottom, rgba(56, 189, 248, 0.4), transparent 60%),
+        linear-gradient(to bottom right, #0f172a, #020617);
+      box-shadow: var(--shadow-soft);
+      min-height: 260px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 880px) {
+      .hero-visual {
+        order: -1;
+      }
+    }
+
+    .hero-visual-inner {
+      height: 100%;
+      border-radius: 29px;
+      padding: 1.4rem 1.4rem 1.7rem;
+      background: radial-gradient(circle at 10% 0, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.88));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .forest {
+      position: relative;
+      flex: 1;
+      border-radius: 18px;
+      overflow: hidden;
+      background:
+        linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent 40%),
+        url("https://images.pexels.com/photos/167404/pexels-photo-167404.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .forest-overlay {
+      font-size: 0.74rem;
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.78);
+      padding: 0.55rem 0.7rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .forest-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-video-hint {
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* Sections */
+
+    section {
+      padding: 2.8rem 0;
+      border-top: 1px solid rgba(15, 23, 42, 0.95);
+    }
+
+    .section-headline {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-intro {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 36rem;
+      margin-bottom: 1.6rem;
+    }
+
+    /* What Mynd Is */
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 2.6rem;
+    }
+
+    @media (max-width: 800px) {
+      .what-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .what-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 1);
+      padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .what-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .list-pill {
+      font-size: 0.85rem;
+      display: inline-flex;
+      padding: 0.42rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      margin: 0.16rem;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    /* Mynd Path */
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .pillar-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(31, 41, 55, 1);
+      padding: 1rem 0.95rem 1.05rem;
+      font-size: 0.85rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 140ms ease, box-shadow var(--transition), border-color var(--transition), background 150ms ease;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at top, rgba(55, 65, 81, 0.8), rgba(15, 23, 42, 0.96));
+    }
+
+    .pillar-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 10%, var(--accent), transparent 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .pillar-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .pillar-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--accent-2);
+      margin-top: 0.4rem;
+    }
+
+    /* Assessment */
+
+    .assessment {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 2.2rem;
+    }
+
+    @media (max-width: 880px) {
+      .assessment {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+    }
+
+    .chip {
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    .assessment-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1.4rem;
+      border: 1px solid rgba(31, 41, 55, 1);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.86rem;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(55, 65, 81, 1);
+      opacity: 0.6;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(110, 231, 183, 0.9);
+    }
+
+    /* Tools */
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .tools-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .tool-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(31, 41, 55, 1);
+      padding: 0.95rem 1rem;
+      font-size: 0.86rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .tool-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .tool-title {
+      font-size: 0.95rem;
+    }
+
+    .tool-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* Vault */
+
+    .vault {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
+      gap: 2.2rem;
+    }
+
+    @media (max-width: 880px) {
+      .vault {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .vault-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 1);
+      padding: 1.4rem 1.5rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vault-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 0.6rem;
+    }
+
+    .vault-pill span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-2);
+    }
+
+    .vault-list {
+      list-style: none;
+      margin: 0.7rem 0 0;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.3rem 1.2rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .vault-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .vault-list li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 0.35rem;
+    }
+
+    .vault-price {
+      font-size: 1.1rem;
+      margin-top: 0.7rem;
+    }
+
+    .vault-background {
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      background: radial-gradient(circle at 0 0, #22c55e, transparent 55%), radial-gradient(circle at 100% 100%, #38bdf8, transparent 55%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .vault-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* About */
+
+    .about {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .about {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 10%, #f9fafb, #6ee7b7 40%, #0f172a 100%);
+      border: 2px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9), 0 16px 35px rgba(15, 23, 42, 1);
+      margin-bottom: 0.7rem;
+    }
+
+    .about-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 1);
+      padding: 1.4rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 1);
+      padding: 1.6rem 0 2.2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .footer-social a {
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    @media (max-width: 700px) {
+      footer {
+        padding-bottom: 2.8rem;
+      }
+      .footer-grid {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
-<body data-page="home">
-  <!-- Progress bar + Orbs -->
-  <div class="progress" id="progress"></div>
-  <div class="orb a" id="orbA"></div>
-  <div class="orb b" id="orbB"></div>
-  <div class="orb c" id="orbC"></div>
-
-  <!-- NAV -->
+<body>
   <header>
-    <div class="wrap nav">
-      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
-      <a href="index.html" data-page="home">Home</a>
-      <a href="curriculum.html" data-page="curriculum">Curriculum</a>
-      <a href="patterns.html" data-page="patterns">Patterns</a>
-      <a href="practices.html" data-page="practices">Practices</a>
-      <a href="language.html" data-page="language">Language</a>
-      <a href="anchors.html" data-page="anchors">Anchors</a>
-      <a href="faq.html" data-page="faq">FAQ</a>
-      <a href="about.html" data-page="about">About</a>
-      <span class="spacer"></span>
-      <a class="chip" href="join.html" data-page="join">Membership</a>
+    <div class="shell nav">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="start-here.html">Start Here</a>
+          <a href="assessment.html">Emotional Assessment</a>
+          <a href="pillars.html">The 5 Pillars</a>
+          <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
+  <main>
     <!-- HERO -->
-    <div class="hero reveal">
-      <span class="tagline"><span class="dot"></span> The School of Consciousness</span>
-      <h1>An education system for human evolution</h1>
-      <p class="sub">
-        Mynd teaches the architecture of awareness — how emotions, beliefs, and values shape perception, relationships, and reality itself.
-        Learn to regulate, reflect, and grow through a clear, practical framework for self-mastery and collective healing.
-      </p>
-      <div class="tiny">
-        Begin with the <a href="curriculum.html">Curriculum</a>, then explore <a href="patterns.html">Patterns</a> and <a href="practices.html">Practices</a>.
+    <section class="shell hero" id="top">
+      <div>
+        <p class="eyebrow">From dysregulated to clear</p>
+        <h1>Clear, human emotional education for real life.</h1>
+        <p class="hero-sub">
+          Learn your emotional patterns, regulate your nervous system, and build healthy relationships —
+          one human skill at a time.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge">Nervous system-aware</div>
+          <div class="badge">Trauma-informed</div>
+          <div class="badge">Zero fluff, all humans</div>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="start-here.html" class="btn btn-primary">
+            Start Here
+            <span>↗</span>
+          </a>
+          <a href="#assessment" class="btn btn-secondary">
+            Free Emotional Assessment
+          </a>
+        </div>
+
+        <p class="hero-note">
+          Your website is not “content” — it’s a <strong>journey</strong> from dysregulation to clarity.
+        </p>
       </div>
-    </div>
 
-    <div class="sp"></div>
+      <aside class="hero-visual" aria-label="Forest visualization of the mind">
+        <div class="hero-visual-inner">
+          <div class="forest">
+            <div class="forest-overlay">
+              <span class="forest-dot"></span>
+              Guided from “My Mind” → Mynd
+            </div>
+          </div>
+          <div class="hero-video-hint">
+            <div class="pill">
+              ⏺ This is where your “My Mind / Mynd” loop will live
+            </div>
+            <div style="font-size:0.75rem;">
+              Soft forest. Moving mist. Slow particles. A calm nervous system modeled on-screen.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-    <!-- MISSION -->
-    <section class="card reveal">
-      <div class="pill">Mission</div>
-      <h2>From insight to evolution</h2>
-      <p class="muted">
-        Mynd exists to re-educate how humans feel, think, and connect. We teach you to name your state, understand the beliefs and perceptions underneath,
-        and meet the real need with integrity. It’s psychologically sound and spiritually grounded — designed for real life and wise action.
+    <!-- WHAT MYND IS -->
+    <section class="shell" id="what">
+      <p class="section-headline">What Mynd is</p>
+      <h2 class="section-title">Emotional literacy for humans.</h2>
+      <p class="section-intro">
+        Mynd is a new way of understanding yourself using psychology, nervous system science,
+        and compassionate self-awareness — so you can stop guessing what’s wrong and start
+        working with what’s real.
       </p>
-      <div class="grid grid-3">
-        <div class="card lift" style="padding:16px">
-          <div class="label">Name It</div>
-          <p>Truth reduces threat. “This feels like fear / grief / shame / confusion.” Naming brings regulation online.</p>
+
+      <div class="what-grid">
+        <div class="what-card">
+          <h3>Clear language for your inner world</h3>
+          <p style="color:var(--muted); margin-bottom:0.9rem;">
+            When you can name your state, you can navigate it. Mynd gives you simple words
+            and repeatable tools to decode what your body, emotions, and mind are actually saying.
+          </p>
+          <p style="font-size:0.86rem; color:var(--muted);">
+            Not therapy. Not diagnosis. Just the missing layer of emotional education most
+            of us never got in school — translated into everyday life.
+          </p>
         </div>
-        <div class="card lift" style="padding:16px">
-          <div class="label">Understand It</div>
-          <p>Emotions, beliefs, and perceptions are messengers. Ask what’s being protected — and what story is steering the moment.</p>
-        </div>
-        <div class="card lift" style="padding:16px">
-          <div class="label">Meet the Need</div>
-          <p>Safety, dignity, belonging, rest, truth, movement, repair. Needs are instructions for evolution, not weaknesses.</p>
+
+        <div>
+          <div style="margin-bottom:0.5rem; font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.18em;">
+            With Mynd, you’ll learn to:
+          </div>
+          <div>
+            <span class="list-pill">Learn emotional states</span>
+            <span class="list-pill">Understand patterns</span>
+            <span class="list-pill">Build boundaries</span>
+            <span class="list-pill">Heal your inner child</span>
+            <span class="list-pill">Regulate your nervous system</span>
+            <span class="list-pill">Grow confidence</span>
+            <span class="list-pill">Navigate relationships</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="sp"></div>
+    <!-- MYND PATH / 5 PILLARS -->
+    <section class="shell" id="path">
+      <p class="section-headline">The Mynd Path</p>
+      <h2 class="section-title">Five pillars for emotional clarity.</h2>
+      <p class="section-intro">
+        Your inner world isn’t random. It follows a path:
+        first you recognize your <strong>state</strong>, then you uncover the
+        <strong>patterns</strong>, understand your <strong>needs</strong>, create
+        <strong>boundaries</strong>, and finally <strong>integrate</strong> it all into daily life.
+      </p>
 
-    <!-- WHAT'S INSIDE -->
-    <section class="card reveal">
-      <div class="pill">What’s Inside</div>
-      <h2>Your learning toolkit</h2>
-      <div class="grid grid-3">
-        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#F6FBFF)">
-          <h3>Curriculum</h3>
-          <p>Understand the framework: state → story → need → step. Apply it to anything.</p>
-          <p><a href="curriculum.html">Open Curriculum →</a></p>
-        </div>
-        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#F8F7FF)">
-          <h3>Patterns</h3>
-          <p>Recognize patterned states: why they arise, how they feel in the body, and what they need.</p>
-          <p><a href="patterns.html">Explore Patterns →</a></p>
-        </div>
-        <div class="card lift" style="padding:16px;background:linear-gradient(180deg,#FFFFFF,#FFF7FA)">
-          <h3>Practices</h3>
-          <p>90-second nervous-system practices that actually help.</p>
-          <p><a href="practices.html">See Practices →</a></p>
-        </div>
-        <div class="card lift" style="padding:16px">
-          <h3>Language</h3>
-          <p>Words for boundaries, repair, asking for presence, and clarity requests.</p>
-          <p><a href="language.html">Use Language →</a></p>
-        </div>
-        <div class="card lift" style="padding:16px">
-          <h3>Anchors</h3>
-          <p>Short lines that land in the body and shift state through breath and tone.</p>
-          <p><a href="anchors.html">Read Anchors →</a></p>
-        </div>
-        <div class="card lift" style="padding:16px">
-          <h3>About & FAQ</h3>
-          <p>Where this came from, how to use it, and what’s next for the platform.</p>
-          <p><a href="about.html">About</a> · <a href="faq.html">FAQ</a></p>
-        </div>
+      <div class="pillars-grid">
+        <article class="pillar-card" onclick="location.href='state.html'">
+          <div class="pillar-icon">●</div>
+          <div class="pillar-label">Pillar 01</div>
+          <div class="pillar-title">State</div>
+          <p>Learn to read your nervous system and name what you’re in.</p>
+          <a href="state.html">Explore State <span>↗</span></a>
+        </article>
+
+        <article class="pillar-card" onclick="location.href='patterns.html'">
+          <div class="pillar-icon">∞</div>
+          <div class="pillar-label">Pillar 02</div>
+          <div class="pillar-title">Patterns</div>
+          <p>See the loops you’re stuck in — and why you keep repeating them.</p>
+          <a href="patterns.html">Explore Patterns <span>↗</span></a>
+        </article>
+
+        <article class="pillar-card" onclick="location.href='needs.html'">
+          <div class="pillar-icon">♡</div>
+          <div class="pillar-label">Pillar 03</div>
+          <div class="pillar-title">Needs</div>
+          <p>Identify what you actually need, not just how you’re coping.</p>
+          <a href="needs.html">Explore Needs <span>↗</span></a>
+        </article>
+
+        <article class="pillar-card" onclick="location.href='boundaries.html'">
+          <div class="pillar-icon">⧉</div>
+          <div class="pillar-label">Pillar 04</div>
+          <div class="pillar-title">Boundaries</div>
+          <p>Protect your energy and relationships without shutting down.</p>
+          <a href="boundaries.html">Explore Boundaries <span>↗</span></a>
+        </article>
+
+        <article class="pillar-card" onclick="location.href='integration.html'">
+          <div class="pillar-icon">✶</div>
+          <div class="pillar-label">Pillar 05</div>
+          <div class="pillar-title">Integration</div>
+          <p>Turn awareness into practice, rituals, and relational upgrades.</p>
+          <a href="integration.html">Explore Integration <span>↗</span></a>
+        </article>
+      </div>
+
+      <div style="margin-top:1.4rem; font-size:0.82rem; color:var(--muted);">
+        Prefer a structured view? Visit the full
+        <a href="pillars.html" style="color:var(--accent-2);">Mynd Pillars index</a>.
       </div>
     </section>
 
-    <div class="sp"></div>
+    <!-- FREE ASSESSMENT -->
+    <section class="shell" id="assessment">
+      <p class="section-headline">Free Assessment</p>
+      <h2 class="section-title">Discover your emotional pattern.</h2>
+      <div class="assessment">
+        <div>
+          <p class="section-intro" style="margin-bottom:1rem;">
+            In 2–3 minutes, you’ll get a snapshot of:
+          </p>
+          <ul style="color:var(--muted); font-size:0.9rem; margin-left:1rem; margin-bottom:1rem;">
+            <li>your core emotional pattern</li>
+            <li>your dysregulation style</li>
+            <li>your most common nervous system state</li>
+            <li>personalized guidance for your next step</li>
+          </ul>
+          <p style="font-size:0.86rem; color:var(--muted);">
+            This is not a diagnosis. Think of it as a mirror:
+            an honest reflection of what’s happening in your system so you know
+            where to begin.
+          </p>
 
-    <!-- PHASE II COMING SOON -->
-    <section class="card reveal" style="background:linear-gradient(180deg,#FFFFFF,#F8FAFC); text-align:center;">
-      <div class="pill">Phase II · Coming Soon</div>
-      <h2>The Evolution Era of Mynd</h2>
-      <p class="muted">
-        Mynd is expanding into a living system of human evolution — integrating beliefs, values, perception, and conscious community.
-        You’ll earn experience points for inner work, reflection, and contribution; every personal breakthrough strengthens the collective Mynd.
-      </p>
-      <p><a class="ghost" href="join.html">Become a Founding Member</a></p>
+          <div class="chip-row">
+            <span class="chip">Takes ~3 minutes</span>
+            <span class="chip">Email results to yourself</span>
+            <span class="chip">No spam. Just clarity.</span>
+          </div>
+
+          <div style="margin-top:1.4rem;">
+            <a href="assessment.html" class="btn btn-primary">
+              Take the Assessment →
+            </a>
+          </div>
+        </div>
+
+        <aside class="assessment-card">
+          <strong style="display:block; margin-bottom:0.3rem;">Preview: your result snapshot</strong>
+          <p style="margin-bottom:0.7rem;">
+            “You tend to shift between <strong>fight</strong> and <strong>fawn</strong> when overwhelmed.
+            Your nervous system rarely feels fully off-duty, which makes rest feel unsafe.”
+          </p>
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.7rem;">
+            You’ll also get:
+          </p>
+          <ul style="font-size:0.8rem; color:var(--muted); margin-left:1rem; margin-bottom:0.7rem;">
+            <li>Language for your state</li>
+            <li>Why your pattern makes sense</li>
+            <li>Somatic resets you can try today</li>
+            <li>Which Mynd pillar to start with</li>
+          </ul>
+          <div class="progress-dots">
+            <div class="dot active"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <footer class="reveal">Mynd · © <span id="yr"></span> · Education for Human Evolution</footer>
+    <!-- FEATURED TOOLS -->
+    <section class="shell" id="tools">
+      <p class="section-headline">Featured tools</p>
+      <h2 class="section-title">Free human tools to ground your day.</h2>
+      <p class="section-intro">
+        Start with simple practices. Each tool is designed to be used in real life —
+        between messages, after hard conversations, or whenever your body says “I’m not okay.”
+      </p>
+
+      <div class="tools-grid">
+        <article class="tool-card">
+          <div class="tool-tag">Check-in</div>
+          <div class="tool-title">Emotional Check-in</div>
+          <p>3 questions to name your state and feel one step clearer.</p>
+          <div class="tool-meta">Use in: morning, after conflict, before sleep.</div>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-tag">Reset</div>
+          <div class="tool-title">Nervous System Reset</div>
+          <p>Micro somatic practices you can do in 60–90 seconds.</p>
+          <div class="tool-meta">Fight, flight, freeze &amp; fawn friendly.</div>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-tag">Boundaries</div>
+          <div class="tool-title">Boundary Scripts</div>
+          <p>Language for saying “no” without abandoning yourself.</p>
+          <div class="tool-meta">Text, call, and in-person examples.</div>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-tag">Inner Child</div>
+          <div class="tool-title">Inner Child Journaling Prompts</div>
+          <p>Gentle prompts to hear and respond to the younger you.</p>
+          <div class="tool-meta">Pairs well with tea + soft lighting.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- XP VAULT -->
+    <section class="shell" id="vault">
+      <p class="section-headline">Experience Points™ Vault</p>
+      <h2 class="section-title">A home for your emotional mastery.</h2>
+      <div class="vault">
+        <div>
+          <p class="section-intro" style="margin-bottom:1rem;">
+            The Experience Points™ Vault is your membership space for deeper work:
+            guided lessons, audio practices, and living templates you can return to
+            anytime you feel lost, numb, or overwhelmed.
+          </p>
+          <ul style="color:var(--muted); font-size:0.9rem; margin-left:1rem; margin-bottom:1.1rem;">
+            <li>Emotional lessons you can revisit</li>
+            <li>Nervous system tools and somatic scripts</li>
+            <li>Journaling templates &amp; reflection rituals</li>
+            <li>Relationship repair prompts &amp; scripts</li>
+            <li>Step-by-step emotional mastery modules</li>
+          </ul>
+          <a href="xp-vault.html" class="btn btn-secondary">
+            Explore the XP Vault →
+          </a>
+        </div>
+
+        <aside class="vault-card">
+          <div class="vault-background"></div>
+          <div class="vault-card-inner">
+            <div class="vault-pill">
+              <span></span>
+              Membership Snapshot
+            </div>
+            <h3 style="margin-bottom:0.4rem;">Experience Points™ Vault</h3>
+            <p style="font-size:0.85rem; color:var(--muted);">
+              A calm, structured space to practice the 5 Mynd pillars — with support,
+              structure, and tools you don’t have to make yourself.
+            </p>
+
+            <ul class="vault-list">
+              <li>Core Mynd lessons (video + text)</li>
+              <li>Guided audio nervous system resets</li>
+              <li>Inner child &amp; parts-work prompts</li>
+              <li>Boundary &amp; repair script library</li>
+              <li>Somatic micro-practices for busy days</li>
+              <li>Integration rituals &amp; reflection labs</li>
+            </ul>
+
+            <p class="vault-price">
+              Launch pricing coming soon. <span style="font-size:0.85rem; color:var(--muted);">Join the waitlist inside the Vault page.</span>
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="shell" id="about">
+      <p class="section-headline">About</p>
+      <h2 class="section-title">Hi, I’m Brook.</h2>
+      <div class="about">
+        <div>
+          <p class="section-intro">
+            I teach emotional clarity, nervous system awareness, and human relationships —
+            in a way that feels human. No clinical wall, no spiritual bypassing.
+          </p>
+          <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.9rem;">
+            My work sits at the intersection of psychology, somatics, and lived experience.
+            Mynd is the curriculum I wish we all got at 13 — translated for your adult life now.
+          </p>
+          <p style="font-size:0.9rem; color:var(--muted);">
+            Whether you’re burnt out, over-giving, chronically anxious, or simply ready to
+            not repeat the same relational cycles, you’re in the right place.
+          </p>
+        </div>
+        <aside class="about-card">
+          <div class="avatar" aria-hidden="true"></div>
+          <p>
+            “I believe every human deserves a basic emotional user manual —
+            something that explains what your body is doing, why your patterns
+            make sense, and how to walk yourself back home when you feel lost.”
+          </p>
+        </aside>
+      </div>
+    </section>
   </main>
 
-  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-  <script src="app.js"></script>
+  <footer>
+    <div class="shell footer-grid">
+      <div>
+        <div class="brand">
+          <span class="brand-orb"></span>
+          <span>Mynd</span>
+        </div>
+        <p style="margin-top:0.6rem; max-width:20rem;">
+          Clear, human emotional education for real life.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="xp-vault.html">XP Vault</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="pillars.html">5 Pillars</a>
+        <a href="#top">Back to top ↑</a>
+      </div>
+      <div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="Email">Email</a>
+        </div>
+        <p style="margin-top:0.6rem;">© <span id="year"></span> Mynd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
