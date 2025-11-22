@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Boundaries — Protecting Your Energy | Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learn emotional and somatic boundaries, red flags, and practical language for saying no without abandoning yourself." />
+  <style>
+    :root {
+      --bg:#050910;
+      --card:#101827;
+      --accent:#6ee7b7;
+      --accent-2:#38bdf8;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+      --radius-lg:18px;
+      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
+      --transition:200ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:var(--font-sans);
+      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
+      border-bottom:1px solid rgba(15,23,42,0.9);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
+    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
+    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
+    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{width:100%;}
+    .nav-links a[aria-current="page"]{color:#e5e7eb;}
+    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
+    .nav-cta span{font-size:1.1rem;}
+    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+    }
+
+    main{padding:3.2rem 0 3rem;}
+    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
+    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
+    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.6rem;}
+
+    section{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+    section h2{font-size:1.15rem;margin-bottom:0.45rem;}
+    section p{color:var(--muted);margin-bottom:0.55rem;}
+    ul{color:var(--muted);margin-left:1.1rem;font-size:0.9rem;}
+    li+li{margin-top:0.3rem;}
+
+    .two-col{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.6rem;
+    }
+    @media(max-width:880px){
+      .two-col{grid-template-columns:minmax(0,1fr);}
+    }
+    .card{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+    .card-title{font-size:0.96rem;margin-bottom:0.2rem;}
+
+    .script{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.5rem;
+    }
+    .script code{font-family:inherit;}
+
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.55rem;
+      margin-top:0.6rem;
+    }
+    .tab-btn{
+      font-size:0.82rem;
+      padding:0.32rem 0.8rem;
+      border-radius:999px;
+      border:1px solid rgba(55,65,81,1);
+      background:#020617;
+      cursor:pointer;
+    }
+    .tab-btn.active{
+      border-color:var(--accent);
+      background:rgba(22,163,74,0.16);
+      color:var(--accent);
+    }
+
+    .scripts-panel{margin-top:0.6rem;}
+
+    .btn-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:0.8rem;}
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:background var(--transition),color var(--transition),transform 120ms ease,box-shadow var(--transition),border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:radial-gradient(circle at top left,#22c55e,#16a34a);
+      color:#052e16;
+      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      font-weight:600;
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+    }
+    .btn-secondary{
+      background:rgba(15,23,42,0.9);
+      color:var(--text);
+      border-color:rgba(148,163,184,0.5);
+    }
+    .btn-secondary:hover{
+      background:#020617;
+      border-color:rgba(148,163,184,0.9);
+      transform:translateY(-1px);
+    }
+
+    footer{
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
+    .footer-links a:hover{color:#e5e7eb;}
+    @media(max-width:680px){
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The 5 Pillars</a>
+        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Pillar 04 — Boundaries</p>
+    <h1>Boundaries: love with edges.</h1>
+    <p class="lead">
+      Boundaries are not walls to keep people out — they’re the edges that let
+      you stay in your own life. This lesson gives you emotional and somatic
+      boundaries, red flags, and scripts for saying “no” without hardening.
+    </p>
+  </div>
+
+  <section id="what">
+    <h2>Emotional vs somatic boundaries.</h2>
+    <p>
+      Emotional boundaries protect your feelings, values, and time.
+      Somatic boundaries protect your body and nervous system.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">Emotional boundaries</div>
+        <ul>
+          <li>Choosing what topics you’re available to discuss</li>
+          <li>Not taking responsibility for someone else’s mood</li>
+          <li>Refusing to be spoken to with contempt or cruelty</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Somatic boundaries</div>
+        <ul>
+          <li>How close someone stands or touches you</li>
+          <li>How much noise/stimulation you can handle</li>
+          <li>How late you’re willing to stay or how long you visit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="red-flags">
+    <h2>Red flags: when boundaries are needed now.</h2>
+    <p>Some behaviours tell you it’s time to tighten, not explain harder.</p>
+    <ul>
+      <li>They mock, belittle, or roll their eyes when you express your feelings.</li>
+      <li>You notice you always leave interactions feeling drained, anxious, or smaller.</li>
+      <li>They only respect your boundary when it benefits them.</li>
+      <li>You find yourself rehearsing conversations in your head for hours before seeing them.</li>
+    </ul>
+  </section>
+
+  <section id="scripts">
+    <h2>Boundary scripts (click a tab to view).</h2>
+    <p>Use these as starting points and adjust to your tone and culture.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-script="soft">Soft “no”</button>
+      <button class="tab-btn" data-script="firm">Firm “no”</button>
+      <button class="tab-btn" data-script="repeat">Broken-record</button>
+      <button class="tab-btn" data-script="exit">Exit plan</button>
+    </div>
+
+    <div class="scripts-panel" id="soft">
+      <div class="script">
+        <strong>Soft no:</strong><br>
+        <code>
+          “Thank you for the invite. I don’t have capacity for that right now,  
+          but I appreciate you thinking of me.”
+        </code>
+      </div>
+    </div>
+
+    <div class="scripts-panel" id="firm" style="display:none;">
+      <div class="script">
+        <strong>Firm no:</strong><br>
+        <code>
+          “I’m not available for topics like that anymore.  
+          If the conversation goes there, I’m going to leave the room.”
+        </code>
+      </div>
+    </div>
+
+    <div class="scripts-panel" id="repeat" style="display:none;">
+      <div class="script">
+        <strong>Broken-record boundary:</strong><br>
+        <code>
+          “I understand you see it differently. I’m still not available for that.”  
+          (Repeat the same sentence calmly; no extra explaining.)
+        </code>
+      </div>
+    </div>
+
+    <div class="scripts-panel" id="exit" style="display:none;">
+      <div class="script">
+        <strong>Exit plan:</strong><br>
+        <code>
+          “I’m going to head out now. This doesn’t feel good for me.  
+          We can talk again when it’s calmer.”
+        </code>
+      </div>
+    </div>
+  </section>
+
+  <section id="somatic">
+    <h2>Somatic signals that a boundary is needed.</h2>
+    <p>Notice what your body does <em>before</em> your mind convinces you to stay.</p>
+    <ul>
+      <li>Jaw clamps down, shoulders creep toward ears</li>
+      <li>Stomach dips, nausea or sudden fatigue</li>
+      <li>Feeling smaller, quieter, or strangely far away</li>
+      <li>Ignoring thirst, bathroom breaks, or hunger to keep the peace</li>
+    </ul>
+    <p style="margin-top:0.6rem;">
+      These are not inconveniences — they’re data.
+    </p>
+  </section>
+
+  <section id="practice">
+    <h2>Boundary practice: one step up, not ten.</h2>
+    <p>
+      Instead of going from “no boundaries” to “cut everyone off”, choose a 1-step upgrade:
+    </p>
+    <ul>
+      <li>From 3-hour visits → 1.5-hour visits.</li>
+      <li>From replying instantly → replying when regulated.</li>
+      <li>From explaining everything → one clear sentence.</li>
+    </ul>
+
+    <div class="btn-row">
+      <a href="integration.html" class="btn btn-primary">Next lesson: Integration →</a>
+      <a href="xp-vault.html" class="btn btn-secondary">Boundary labs inside XP Vault →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">5 Pillars</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const scriptPanels = document.querySelectorAll('.scripts-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.script;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      scriptPanels.forEach(panel => {
+        panel.style.display = panel.id === target ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
