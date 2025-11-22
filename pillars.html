@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The 5 Mynd Pillars — Emotional Education Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="An index of the 5 Mynd pillars: State, Patterns, Needs, Boundaries, and Integration. Your emotional education map." />
+  <style>
+    :root {
+      --bg:#050910;
+      --card:#101827;
+      --accent:#6ee7b7;
+      --accent-2:#38bdf8;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+      --radius-lg:18px;
+      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
+      --transition:200ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:var(--font-sans);
+      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
+      border-bottom:1px solid rgba(15,23,42,0.9);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
+    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
+    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
+    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{width:100%;}
+    .nav-links a[aria-current="page"]{color:#e5e7eb;}
+    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
+    .nav-cta span{font-size:1.1rem;}
+    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+    }
+
+    main{padding:3.2rem 0 3rem;}
+    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
+    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
+    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.4rem;}
+
+    .map-card{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      padding:1.4rem 1.4rem 1.6rem;
+      box-shadow:var(--shadow-soft);
+      margin-bottom:2.2rem;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    .pillars-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:1rem;
+    }
+    @media(max-width:960px){
+      .pillars-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+    }
+    @media(max-width:640px){
+      .pillars-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+
+    .pillar-card{
+      background:#020617;
+      border-radius:16px;
+      border:1px solid var(--border);
+      padding:1rem 0.95rem 1.05rem;
+      font-size:0.85rem;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform 140ms ease, box-shadow var(--transition), border-color var(--transition), background 150ms ease;
+    }
+    .pillar-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 50px rgba(15,23,42,0.9);
+      border-color:rgba(148,163,184,0.7);
+      background:radial-gradient(circle at top,rgba(55,65,81,0.8),rgba(15,23,42,0.96));
+    }
+    .pillar-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:0.3rem;}
+    .pillar-title{font-size:0.98rem;margin-bottom:0.25rem;}
+    .pillar-body{color:var(--muted);}
+    .pillar-link{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.8rem;color:var(--accent-2);margin-top:0.45rem;}
+
+    .legend{
+      font-size:0.82rem;
+      color:var(--muted);
+      margin-top:1.4rem;
+    }
+
+    footer{
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
+    .footer-links a:hover{color:#e5e7eb;}
+    @media(max-width:680px){
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Home</a>
+          <a href="start-here.html">Start Here</a>
+          <a href="assessment.html">Emotional Assessment</a>
+          <a href="pillars.html" aria-current="page">The 5 Pillars</a>
+          <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div style="margin-bottom:1.9rem;">
+      <p class="eyebrow">The Mynd Map</p>
+      <h1>The 5 Mynd pillars.</h1>
+      <p class="lead">
+        These five pillars are your emotional map. You don’t have to master them all at once —
+        you only need to know which pillar you’re currently in.
+      </p>
+    </div>
+
+    <div class="map-card">
+      <p>
+        Imagine your inner world as a journey:
+      </p>
+      <p style="margin-top:0.4rem;">
+        You start by noticing your <strong>State</strong> (what your nervous system is doing).
+        Then you zoom out to see your <strong>Patterns</strong>. From there, you clarify your
+        <strong>Needs</strong>, create <strong>Boundaries</strong> to protect those needs, and
+        finally <strong>Integrate</strong> new ways of living into your daily life.
+      </p>
+      <p style="margin-top:0.4rem;">
+        Click into whichever pillar feels most alive for you today:
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+      <article class="pillar-card" onclick="location.href='state.html'">
+        <div class="pillar-label">Pillar 01</div>
+        <div class="pillar-title">State</div>
+        <p class="pillar-body">
+          Learn to recognize fight, flight, freeze, and fawn in real time so you can respond with care instead of shame.
+        </p>
+        <div class="pillar-link">Go to State lesson <span>↗</span></div>
+      </article>
+
+      <article class="pillar-card" onclick="location.href='patterns.html'">
+        <div class="pillar-label">Pillar 02</div>
+        <div class="pillar-title">Patterns</div>
+        <p class="pillar-body">
+          See your repeating emotional loops, family roles, and self-sabotage cycles — and why they began.
+        </p>
+        <div class="pillar-link">Go to Patterns lesson <span>↗</span></div>
+      </article>
+
+      <article class="pillar-card" onclick="location.href='needs.html'">
+        <div class="pillar-label">Pillar 03</div>
+        <div class="pillar-title">Needs</div>
+        <p class="pillar-body">
+          Identify your emotional and relational needs, separate them from coping habits, and put words to them.
+        </p>
+        <div class="pillar-link">Go to Needs lesson <span>↗</span></div>
+      </article>
+
+      <article class="pillar-card" onclick="location.href='boundaries.html'">
+        <div class="pillar-label">Pillar 04</div>
+        <div class="pillar-title">Boundaries</div>
+        <p class="pillar-body">
+          Learn to say “no”, set limits, and protect your capacity without hardening your heart.
+        </p>
+        <div class="pillar-link">Go to Boundaries lesson <span>↗</span></div>
+      </article>
+
+      <article class="pillar-card" onclick="location.href='integration.html'">
+        <div class="pillar-label">Pillar 05</div>
+        <div class="pillar-title">Integration</div>
+        <p class="pillar-body">
+          Turn awareness into practice: daily rituals, relational upgrades, and identity shifts over time.
+        </p>
+        <div class="pillar-link">Go to Integration lesson <span>↗</span></div>
+      </article>
+    </div>
+
+    <p class="legend">
+      Not sure where to begin? Take the
+      <a href="assessment.html" style="color:var(--accent-2);">Emotional Assessment</a> and
+      start with whichever pillar it points you toward. You can always circle back.
+    </p>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Mynd</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Assessment</a>
+        <a href="xp-vault.html">XP Vault</a>
+      </div>
+      <div>
+        <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
