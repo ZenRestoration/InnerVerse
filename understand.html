@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Understand — Know Your Inner Landscape | Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Go from 'I don’t know what’s wrong with me' to 'I can clearly see what’s happening inside and why it makes sense.' Learn your inner layers, emotional weather, and needs." />
+  <style>
+    :root {
+      /* Mossy, earthy palette */
+      --bg: #f4f0e7;        /* warm parchment */
+      --bg-alt: #e7e0d0;    /* deeper parchment */
+      --card: #fdfaf4;
+      --accent: #445c42;    /* deep moss */
+      --accent-soft: #d7e1d1;
+      --accent-2: #7b8f6a;  /* sage */
+      --text: #222222;
+      --muted: #6b6458;
+      --border: #ddd1c0;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(34, 32, 27, 0.14);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --transition: 160ms ease;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body{
+      font-family:var(--font-sans);
+      background:
+        radial-gradient(circle at top left, #e1eadb 0, transparent 55%),
+        radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none;}
+
+    .shell{
+      max-width:960px;
+      margin:0 auto;
+      padding:0 1.5rem;
+    }
+
+    /* Header / Nav */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(
+        to bottom,
+        rgba(244,240,231,0.96),
+        rgba(244,240,231,0.9),
+        transparent
+      );
+      border-bottom:1px solid rgba(221,209,192,0.9);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--accent);
+    }
+
+    .brand-orb{
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #c7d9c0 40%, #31422f 100%);
+      box-shadow:0 0 0 1px rgba(178,190,173,0.7),
+                 0 8px 18px rgba(49,66,47,0.4);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.25rem;
+      width:0;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .nav-cta{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(162,147,126,0.8);
+      font-size:0.85rem;
+      color:var(--accent);
+      background:rgba(253,250,244,0.9);
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{
+        display:flex;
+        position:absolute;
+        top:54px;
+        right:1.5rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.7rem 0.9rem;
+        background:#fdfaf4;
+        border-radius:12px;
+        box-shadow:0 18px 40px rgba(34,32,27,0.25);
+        border:1px solid var(--border);
+      }
+    }
+
+    /* Main */
+
+    main{padding:3rem 0 3rem;}
+
+    h1{
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .lead{
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.8rem;
+    }
+
+    section{
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+
+    section h2{
+      font-size:1.15rem;
+      margin-bottom:0.45rem;
+      color:var(--accent);
+    }
+
+    h3{
+      font-size:0.98rem;
+      margin-top:0.75rem;
+      margin-bottom:0.35rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    section p{
+      color:var(--muted);
+      margin-bottom:0.55rem;
+    }
+
+    ul{
+      color:var(--muted);
+      margin-left:1.1rem;
+      font-size:0.9rem;
+    }
+
+    li+li{margin-top:0.28rem;}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.45rem;
+      margin-top:0.6rem;
+    }
+
+    .chip{
+      font-size:0.8rem;
+      padding:0.26rem 0.7rem;
+      border-radius:999px;
+      border:1px dashed rgba(162,147,126,0.8);
+      color:var(--muted);
+      background:#fbf6eb;
+    }
+
+    /* Cards / grids */
+
+    .states-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.9rem;
+      margin-top:0.8rem;
+    }
+
+    @media(max-width:720px){
+      .states-grid{grid-template-columns:minmax(0,1fr);}
+    }
+
+    .state-card{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      cursor:pointer;
+      transition:
+        border var(--transition),
+        background var(--transition),
+        transform 120ms ease,
+        box-shadow var(--transition);
+    }
+
+    .state-card.active{
+      border-color:var(--accent);
+      background:#fdfaf4;
+      box-shadow:0 10px 24px rgba(68,92,66,0.22);
+      transform:translateY(-1px);
+    }
+
+    .state-tag{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--muted);
+      margin-bottom:0.2rem;
+    }
+
+    .state-name{
+      font-size:0.98rem;
+      margin-bottom:0.15rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    .state-body{
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .reg-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.9rem;
+      margin-top:0.7rem;
+    }
+
+    @media(max-width:800px){
+      .reg-grid{grid-template-columns:minmax(0,1fr);}
+    }
+
+    .reg-card{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .reg-title{
+      font-size:0.95rem;
+      margin-bottom:0.2rem;
+      color:var(--accent);
+      font-weight:500;
+    }
+
+    /* Scripts / prompts */
+
+    .script{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.6rem;
+    }
+
+    .script strong{
+      display:block;
+      margin-bottom:0.3rem;
+      color:var(--accent);
+    }
+
+    .script code{
+      font-family:inherit;
+      white-space:pre-line;
+    }
+
+    .label-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+      font-size:0.8rem;
+      padding:0.2rem 0.7rem;
+      border-radius:999px;
+      border:1px solid rgba(178,165,148,0.8);
+      background:#fbf6eb;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .label-pill span{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--accent);
+    }
+
+    /* Buttons */
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.7rem;
+      margin-top:0.9rem;
+    }
+
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:
+        background var(--transition),
+        color var(--transition),
+        transform 120ms ease,
+        box-shadow var(--transition),
+        border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#445c42,#7b8f6a);
+      color:#fdfaf4;
+      box-shadow:0 14px 32px rgba(68,92,66,0.35);
+      font-weight:600;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(68,92,66,0.45);
+    }
+
+    .btn-secondary{
+      background:rgba(253,250,244,0.95);
+      color:var(--accent);
+      border-color:rgba(178,165,148,0.9);
+    }
+
+    .btn-secondary:hover{
+      background:#fdfaf4;
+      transform:translateY(-1px);
+    }
+
+    /* Footer */
+
+    footer{
+      border-top:1px solid rgba(221,209,192,1);
+      padding:1.6rem 0 2.2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      background:#f7f2e9;
+      margin-top:2rem;
+    }
+
+    .footer-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a{
+      color:var(--muted);
+    }
+
+    .footer-links a:hover{
+      color:var(--accent);
+    }
+
+    @media(max-width:680px){
+      footer{
+        padding-bottom:2.3rem;
+      }
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The Mynd Path</a>
+        <a href="xp-vault.html" class="nav-cta">XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <!-- INTRO -->
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Module 01 — Understand</p>
+    <h1>Know your inner landscape.</h1>
+    <p class="lead">
+      Goal: help you go from <em>“I don’t know what’s wrong with me”</em> to
+      <em>“I can clearly see what’s happening inside and why it makes sense.”</em>
+      This module teaches you how to read your inner world as data, not evidence that you’re broken.
+    </p>
+    <div class="chips">
+      <div class="chip">Nothing is wrong with you.</div>
+      <div class="chip">Your reactions have a logic.</div>
+      <div class="chip">Awareness comes before change.</div>
+    </div>
+  </div>
+
+  <!-- LESSON 1 -->
+  <section id="lesson-1">
+    <div class="label-pill">
+      <span>Lesson 1</span> What’s actually happening inside you
+    </div>
+    <h2>The four layers of an inner experience.</h2>
+    <p>
+      Every reaction has four layers. When you can see each layer, you stop feeling like a chaotic
+      blur and start feeling like a human with understandable data.
+    </p>
+
+    <div class="states-grid" id="layersGrid">
+      <article class="state-card" data-layer="body">
+        <div class="state-tag">Layer</div>
+        <div class="state-name">Body sensations (the raw data feed)</div>
+        <div class="state-body">
+          <strong>Examples:</strong> tight chest, lump in throat, butterflies or knots in stomach,
+          buzzing limbs, heaviness in shoulders, headache or pressure behind eyes, shaky hands,
+          sweaty palms.<br><br>
+          These are not random; they’re your body broadcasting:<br>
+          <em>“Something is happening. Pay attention.”</em>
+        </div>
+      </article>
+
+      <article class="state-card" data-layer="emotion">
+        <div class="state-tag">Layer</div>
+        <div class="state-name">Emotional waves (the colour overlay)</div>
+        <div class="state-body">
+          <strong>Examples:</strong> anxiety, sadness, anger, shame, guilt, irritation, jealousy,
+          relief, joy, numbness — often layered (anxious + ashamed, sad + angry).<br><br>
+          The emotion is your body’s label for what the sensation <em>might</em> mean.
+        </div>
+      </article>
+
+      <article class="state-card" data-layer="story">
+        <div class="state-tag">Layer</div>
+        <div class="state-name">Thoughts &amp; stories (the narrator)</div>
+        <div class="state-body">
+          <strong>Examples:</strong> “I messed everything up.” “They’re probably mad at me.”
+          “This always happens.” “I must be the problem.” “They’re going to leave.”<br><br>
+          These stories are based on past experiences, not just the present moment. Your brain is
+          trying to predict danger and keep you safe.
+        </div>
+      </article>
+
+      <article class="state-card" data-layer="urge">
+        <div class="state-tag">Layer</div>
+        <div class="state-name">Urges &amp; behaviours (the emergency response)</div>
+        <div class="state-body">
+          <strong>Examples:</strong> slam the door, raise your voice, over-explain, send long
+          texts, ghost, withdraw, go quiet, work/clean/scroll/drink/eat/hook up/shop, “fix it now”
+          conversations or “run away” avoidance.<br><br>
+          Your behaviour is your system choosing how to respond to what it thinks is happening.
+        </div>
+      </article>
+    </div>
+
+    <h3>Real-life example 1 — The delayed reply</h3>
+    <p><strong>Situation:</strong> Your friend or partner doesn’t reply for 6 hours.</p>
+    <ul>
+      <li><strong>Body:</strong> tight chest, restless legs, stomach sinking.</li>
+      <li><strong>Emotion:</strong> anxiety + irritation.</li>
+      <li><strong>Story:</strong> “They’re ignoring me. I care more. I’m not a priority.”</li>
+      <li>
+        <strong>Urge/behaviour:</strong> type a long, angry text — or go cold and decide,
+        “Fine, I won’t text them either.”
+      </li>
+    </ul>
+    <p>
+      Underneath, this reaction might be trying to protect you from feeling:
+      <em>“I’m unimportant, just like I felt with a parent, ex, or old friend.”</em>
+    </p>
+
+    <h3>Real-life example 2 — Being interrupted at work</h3>
+    <p><strong>Situation:</strong> Your coworker cuts you off in a meeting.</p>
+    <ul>
+      <li><strong>Body:</strong> heat in your face, clenched jaw, hands fidgeting.</li>
+      <li><strong>Emotion:</strong> anger + embarrassment.</li>
+      <li><strong>Story:</strong> “No one takes me seriously. I’m invisible here.”</li>
+      <li>
+        <strong>Urge/behaviour:</strong> shut down and say nothing — or jump in later with a sharp
+        tone.
+      </li>
+    </ul>
+    <p>
+      Again, the body is remembering how it felt to be dismissed in the past, not just this one
+      meeting.
+    </p>
+
+    <h3>How to notice the layers without judgment</h3>
+    <p>
+      Most people are trained to respond with criticism, not curiosity:<br>
+      “Ugh, why am I like this?” “I’m so dramatic.” “Other people don’t freak out like this.”
+    </p>
+    <p>This adds a <strong>fifth layer: shame</strong> — and shame makes everything louder.</p>
+    <p>Curiosity sounds like:</p>
+    <ul>
+      <li>“Okay, my heart is pounding. Interesting.”</li>
+      <li>“I’m telling myself they hate me — where have I felt that before?”</li>
+      <li>“No wonder I feel intense, that hit an old wound.”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Micro-practice in the wild (the inner snapshot before reacting):</strong>
+      <code>
+Pause. Before you send the reactive text or shut down, quietly name:
+
+My body: &lt;SENSATION&gt;
+My emotion: &lt;FEELING&gt;
+My story: &lt;WHAT I’M TELLING MYSELF&gt;
+My urge: &lt;WHAT I WANT TO DO&gt;
+
+Then add: “No wonder I feel this strongly.”
+You don’t have to change anything yet — simply noticing is already regulation.
+      </code>
+    </div>
+
+    <h3>Why awareness calms the system</h3>
+    <p>
+      When you name what’s happening inside, your brain shifts from
+      <strong>threat mode</strong> (“Danger, do something now!”) to
+      <strong>meaning mode</strong> (“Oh, this is that familiar ‘I’m being rejected’ feeling.”).
+    </p>
+    <p>Awareness reduces:</p>
+    <ul>
+      <li>confusion: “What’s wrong with me?”</li>
+      <li>self-blame: “I’m just broken.”</li>
+    </ul>
+    <p>And increases:</p>
+    <ul>
+      <li>self-trust: “I understand what’s going on.”</li>
+      <li>choice: “I have options besides my auto-pilot reaction.”</li>
+    </ul>
+    <p>
+      It’s like turning the lights on in a messy room. The mess doesn’t instantly vanish, but
+      suddenly you can see what you’re dealing with.
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What did I feel in my body most often this week?”</li>
+      <li>“What emotion do I avoid naming because it feels ‘too much’ or ‘weak’?”</li>
+      <li>“What story does my mind jump to when something feels uncomfortable?”</li>
+      <li>“Which urge shows up more: shut down, fix, defend, or avoid?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — The Inner Snapshot (2 minutes)</strong>
+      <code>
+Once a day (or after a strong moment), ask yourself slowly:
+
+• What sensations are present in my body?
+• If this sensation was an emotion, what might it be?
+• What story is my mind offering?
+• What might I be needing?
+
+Complete the sentence:
+
+“Right now, I feel &lt;EMOTION(S)&gt; and I notice it in &lt;BODY PART(S)&gt;.
+I’m telling myself &lt;STORY&gt;.
+I might need &lt;NEED&gt;.”
+
+Example:
+“Right now, I feel anxious and sad, and I notice it in my throat and chest.
+I’m telling myself they don’t care.
+I might need reassurance or to check in with them calmly.”
+
+Repeat this enough and your inner world starts to feel legible, not chaotic.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 2 -->
+  <section id="lesson-2">
+    <div class="label-pill">
+      <span>Lesson 2</span> The weather of your inner world
+    </div>
+    <h2>You are the sky, not the storm.</h2>
+    <p>
+      Your emotions are weather passing through your sky. They can be intense without being your
+      entire identity.
+    </p>
+
+    <h3>Your emotions as weather patterns</h3>
+    <p>Instead of saying “I am anxious,” try noticing your inner weather:</p>
+
+    <div class="reg-grid">
+      <div class="reg-card">
+        <div class="reg-title">Storm</div>
+        <p>
+          Big feelings: anger, panic, sobbing, yelling, intense activation. Everything feels loud
+          and urgent.
+        </p>
+      </div>
+      <div class="reg-card">
+        <div class="reg-title">Fog</div>
+        <p>
+          Confusion, brain fog, numbness, shutdown. You feel present but far away from yourself.
+        </p>
+      </div>
+      <div class="reg-card">
+        <div class="reg-title">Drizzle</div>
+        <p>
+          Low mood, heaviness, mild sadness. You can still function, but everything feels grey.
+        </p>
+      </div>
+      <div class="reg-card">
+        <div class="reg-title">Wind</div>
+        <p>
+          Restlessness, constant movement, agitation. Hard to sit still or feel settled in your
+          body.
+        </p>
+      </div>
+      <div class="reg-card">
+        <div class="reg-title">Sun</div>
+        <p>
+          Ease, openness, lightness. You feel more spacious, connected, and able to play or rest.
+        </p>
+      </div>
+      <div class="reg-card">
+        <div class="reg-title">Mixed weather</div>
+        <p>
+          You can have fog in the morning, sun after a good message, then a storm after a hard
+          conversation — all in one day. That’s human.
+        </p>
+      </div>
+    </div>
+
+    <h3>Temporary ≠ your identity</h3>
+    <p>Language matters:</p>
+    <ul>
+      <li>“I am broken” → “I’m having a really painful day.”</li>
+      <li>“I’m a mess” → “I’m in a lot of emotional storm right now.”</li>
+      <li>“I’m an anxious person” → “I’m having a big anxiety wave today.”</li>
+    </ul>
+    <p>
+      One cements shame. The other leaves room for change. If you are the storm, you feel doomed.
+      If the storm is happening <em>inside</em> you, you can ride it, support yourself, and know it
+      will pass.
+    </p>
+
+    <h3>Learning to witness without fusing</h3>
+    <p>
+      <strong>Fusion:</strong> “I feel anxious, therefore something is wrong and I am wrong.”<br>
+      <strong>Witnessing:</strong> “I notice big anxiety weather rolling in. That makes sense given
+      what’s happening.”
+    </p>
+
+    <p><strong>Real-life example:</strong></p>
+    <p>Imagine you get an unexpected, serious-sounding email from your boss.</p>
+    <ul>
+      <li><strong>Old response:</strong> “I’m such an idiot, I’m going to get fired, I always screw up.”</li>
+      <li>
+        <strong>New response:</strong> “Wow, storm. My chest is tight, my thoughts are racing.
+        This makes sense — my body associates authority with danger. I can support myself through
+        this.”
+      </li>
+    </ul>
+    <p>
+      You’re not bypassing the feeling; you’re adding context and compassion. You stay as the sky,
+      watching the weather move through.
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What inner weather showed up for me today?”</li>
+      <li>“When my weather is stormy, do I attack myself or describe the experience?”</li>
+      <li>“How do I take care of myself on grey days vs sunny days?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Name the weather</strong>
+      <code>
+Whenever you feel a shift, pause and name it:
+
+“I’m noticing a &lt;storm / fog / drizzle / wind / sunshine / clouds&gt; of &lt;EMOTION(S)&gt; inside.
+It feels like &lt;BODY SENSATIONS&gt;.
+It makes sense because &lt;CONTEXT&gt;.”
+
+Example:
+“I’m noticing a storm of shame and fear inside.
+It feels like my chest is collapsing and my stomach is heavy.
+It makes sense because I shared something vulnerable and I’m scared I’ll be judged.”
+
+This keeps you in the observer seat of your life — the sky, not the storm.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 3 -->
+  <section id="lesson-3">
+    <div class="label-pill">
+      <span>Lesson 3</span> Needs beneath emotions
+    </div>
+    <h2>Emotions are notification pings; needs are what they’re about.</h2>
+    <p>
+      Feelings aren’t problems to erase; they are signals. Under every emotion, there is a need
+      trying to be seen.
+    </p>
+
+    <h3>Emotions as signals (not flaws)</h3>
+    <ul>
+      <li><strong>Anger →</strong> “Something feels unfair, disrespected, or crossed.”</li>
+      <li><strong>Sadness →</strong> “I’ve lost something important or feel far from what I value.”</li>
+      <li><strong>Anxiety →</strong> “Something feels unpredictable or potentially unsafe.”</li>
+      <li><strong>Shame →</strong> “I’m scared I’ll be rejected if I’m truly seen.”</li>
+      <li><strong>Jealousy →</strong> “Something I value (attention, affection, recognition) feels threatened.”</li>
+    </ul>
+    <p>
+      You don’t have to “get rid of” emotions; you have to understand what they’re pointing toward.
+    </p>
+
+    <h3>Every feeling connects to a need</h3>
+    <div class="states-grid">
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Anger</div>
+        <div class="state-body">
+          Often points to needs for fairness, respect, boundaries, or repair. The fire is
+          protecting something important.
+        </div>
+      </article>
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Sadness</div>
+        <div class="state-body">
+          Often points to needs for comfort, validation, time to grieve, or to honour what was
+          lost.
+        </div>
+      </article>
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Anxiety</div>
+        <div class="state-body">
+          Often points to needs for clarity, predictability, support, or grounding. Your system
+          wants something to hold onto.
+        </div>
+      </article>
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Shame</div>
+        <div class="state-body">
+          Often points to needs for acceptance, understanding, and being seen in your full
+          complexity instead of judged.
+        </div>
+      </article>
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Jealousy</div>
+        <div class="state-body">
+          Often points to needs for security, reassurance, being chosen, or acknowledged as
+          important.
+        </div>
+      </article>
+      <article class="state-card">
+        <div class="state-tag">Signal → Need</div>
+        <div class="state-name">Numbness</div>
+        <div class="state-body">
+          Often points to needs for rest, safety, and space. Sometimes the system is so flooded
+          it hits pause.
+        </div>
+      </article>
+    </div>
+
+    <h3>Common human needs (not “needy”, just human)</h3>
+    <ul>
+      <li>Safety (emotional and physical)</li>
+      <li>Rest and recovery</li>
+      <li>Understanding (“Please see me accurately.”)</li>
+      <li>Space (quiet, alone time)</li>
+      <li>Reassurance and predictability</li>
+      <li>Connection and closeness</li>
+      <li>Respect and honesty</li>
+      <li>Autonomy and choice</li>
+    </ul>
+
+    <h3>Real-life vignettes</h3>
+    <p><strong>1. Snapping at a partner on their phone</strong></p>
+    <ul>
+      <li><strong>Emotion:</strong> irritation, hurt.</li>
+      <li><strong>Story:</strong> “They don’t care about me. I’m boring. I’m not important.”</li>
+      <li><strong>Need:</strong> connection, engagement, feeling like you matter.</li>
+    </ul>
+
+    <p><strong>2. Sunday night dread</strong></p>
+    <ul>
+      <li><strong>Emotion:</strong> anxiety, heaviness.</li>
+      <li><strong>Story:</strong> “I can’t do this again. I’m failing at life.”</li>
+      <li><strong>Need:</strong> safety, meaning, or boundaries around workload and time.</li>
+    </ul>
+
+    <h3>Learning your inner language</h3>
+    <p>
+      You’ll have “signature needs” that show up again and again. For example, you might mostly
+      need:
+    </p>
+    <ul>
+      <li>to feel emotionally safe and not mocked</li>
+      <li>to feel wanted, not just useful</li>
+      <li>to feel free to say “no” without losing love</li>
+    </ul>
+    <p>
+      When you learn your main needs, your life starts making more sense. Patterns stop feeling
+      random and start feeling understandable.
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What need is most often unmet for me?”</li>
+      <li>“What need have I been quietly ignoring because I’m scared it’s ‘too much’?”</li>
+      <li>“How do I usually react when this key need isn’t met?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Needs mapping</strong>
+      <code>
+1. Write down 3 emotions you feel repeatedly.
+   e.g. anxiety, resentment, numbness.
+
+2. For each, fill in:
+   “When I feel &lt;EMOTION&gt;, I usually need &lt;NEED&gt;.”
+   “The reason this need scares me is &lt;FEAR / BELIEF&gt;.”
+
+Example:
+“When I feel resentment, I usually need rest and to feel appreciated.
+The reason this need scares me is I’m afraid if I ask for rest,
+people will think I’m lazy or ungrateful.”
+
+This moves you from:
+“I’m just moody” → “I have consistent needs that have been unmet for a long time.”
+      </code>
+    </div>
+  </section>
+
+  <!-- WRAP-UP / CTA -->
+  <section id="practice">
+    <h2>Bringing it together: your daily 3-minute “Understand” ritual.</h2>
+    <p>Use this as a simple, repeatable check-in — morning, midday, or before sleep.</p>
+    <ul>
+      <li>
+        <strong>1 minute — Layers:</strong> “What’s happening in my body, emotion, story, and urge
+        right now?”
+      </li>
+      <li>
+        <strong>1 minute — Weather:</strong> “What’s the weather of my inner world? Storm, fog,
+        drizzle, wind, sun, or mixed?”
+      </li>
+      <li>
+        <strong>1 minute — Need:</strong> “Given all of this, what might I be needing?”
+      </li>
+    </ul>
+
+    <div class="btn-row">
+      <a href="patterns.html" class="btn btn-primary">
+        Next module: Patterns →
+      </a>
+      <a href="xp-vault.html" class="btn btn-secondary">
+        Go deeper in XP Vault →
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">The Mynd Path</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const stateCards = document.querySelectorAll('.state-card');
+  stateCards.forEach(card => {
+    card.addEventListener('click', () => {
+      stateCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
