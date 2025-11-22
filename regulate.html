@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Regulate — Regulate Your State | Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Give yourself a menu of realistic regulation tools you can actually use in the middle of real life to come back to 'safe enough'." />
+  <style>
+    :root {
+      /* Mossy, earthy palette (consistent with other pages) */
+      --bg: #f4f0e7;        /* warm parchment */
+      --bg-alt: #e7e0d0;    /* deeper parchment */
+      --card: #fdfaf4;
+      --accent: #445c42;    /* deep moss */
+      --accent-soft: #d7e1d1;
+      --accent-2: #7b8f6a;  /* sage */
+      --text: #222222;
+      --muted: #6b6458;
+      --border: #ddd1c0;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 45px rgba(34, 32, 27, 0.14);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      --transition: 160ms ease;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body{
+      font-family:var(--font-sans);
+      background:
+        radial-gradient(circle at top left, #e1eadb 0, transparent 55%),
+        radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      min-height:100vh;
+    }
+
+    a{color:inherit;text-decoration:none;}
+
+    .shell{
+      max-width:960px;
+      margin:0 auto;
+      padding:0 1.5rem;
+    }
+
+    /* Header / Nav */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(
+        to bottom,
+        rgba(244,240,231,0.96),
+        rgba(244,240,231,0.9),
+        transparent
+      );
+      border-bottom:1px solid rgba(221,209,192,0.9);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      font-weight:600;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      font-size:0.9rem;
+      color:var(--accent);
+    }
+
+    .brand-orb{
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 20%, #fdfaf4 0, #c7d9c0 40%, #31422f 100%);
+      box-shadow:0 0 0 1px rgba(178,190,173,0.7),
+                 0 8px 18px rgba(49,66,47,0.4);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.9rem;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:0.2rem 0;
+      position:relative;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-0.25rem;
+      width:0;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(to right,var(--accent),var(--accent-2));
+      transition:width var(--transition);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .nav-cta{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid rgba(162,147,126,0.8);
+      font-size:0.85rem;
+      color:var(--accent);
+      background:rgba(253,250,244,0.9);
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{
+        display:flex;
+        position:absolute;
+        top:54px;
+        right:1.5rem;
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0.7rem 0.9rem;
+        background:#fdfaf4;
+        border-radius:12px;
+        box-shadow:0 18px 40px rgba(34,32,27,0.25);
+        border:1px solid var(--border);
+      }
+    }
+
+    /* Main */
+
+    main{padding:3rem 0 3rem;}
+
+    h1{
+      font-size:clamp(2rem,3vw,2.4rem);
+      margin-bottom:0.6rem;
+    }
+
+    .eyebrow{
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .lead{
+      font-size:0.96rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:1.8rem;
+    }
+
+    section{
+      background:var(--card);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+
+    section h2{
+      font-size:1.15rem;
+      margin-bottom:0.45rem;
+      color:var(--accent);
+    }
+
+    h3{
+      font-size:0.98rem;
+      margin-top:0.75rem;
+      margin-bottom:0.35rem;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    section p{
+      color:var(--muted);
+      margin-bottom:0.55rem;
+    }
+
+    ul{
+      color:var(--muted);
+      margin-left:1.1rem;
+      font-size:0.9rem;
+    }
+
+    li+li{margin-top:0.3rem;}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.45rem;
+      margin-top:0.6rem;
+    }
+
+    .chip{
+      font-size:0.8rem;
+      padding:0.26rem 0.7rem;
+      border-radius:999px;
+      border:1px dashed rgba(162,147,126,0.8);
+      color:var(--muted);
+      background:#fbf6eb;
+    }
+
+    /* Label pill + scripts */
+
+    .label-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+      font-size:0.8rem;
+      padding:0.2rem 0.7rem;
+      border-radius:999px;
+      border:1px solid rgba(178,165,148,0.9);
+      background:#fbf6eb;
+      color:var(--muted);
+      margin-bottom:0.7rem;
+    }
+
+    .label-pill span{
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--accent);
+    }
+
+    .script{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.6rem;
+    }
+
+    .script strong{
+      display:block;
+      margin-bottom:0.3rem;
+      color:var(--accent);
+    }
+
+    .script code{
+      font-family:inherit;
+      white-space:pre-line;
+    }
+
+    /* Grids */
+
+    .reg-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0.9rem;
+      margin-top:0.7rem;
+    }
+
+    @media(max-width:880px){
+      .reg-grid{grid-template-columns:minmax(0,1fr);}
+    }
+
+    .reg-card{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .reg-title{
+      font-size:0.95rem;
+      margin-bottom:0.2rem;
+      color:var(--accent);
+      font-weight:500;
+    }
+
+    /* Roles grid (reused for Body / Mind / Heart) */
+
+    .roles-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.9rem;
+      margin-top:0.7rem;
+    }
+
+    @media(max-width:880px){
+      .roles-grid{grid-template-columns:minmax(0,1fr);}
+    }
+
+    .role-card{
+      background:#fbf6eb;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .role-title{
+      font-size:0.95rem;
+      margin-bottom:0.2rem;
+      color:var(--accent);
+      font-weight:500;
+    }
+
+    /* Buttons */
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.7rem;
+      margin-top:0.9rem;
+    }
+
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:
+        background var(--transition),
+        color var(--transition),
+        transform 120ms ease,
+        box-shadow var(--transition),
+        border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#445c42,#7b8f6a);
+      color:#fdfaf4;
+      box-shadow:0 14px 32px rgba(68,92,66,0.35);
+      font-weight:600;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(68,92,66,0.45);
+    }
+
+    .btn-secondary{
+      background:rgba(253,250,244,0.95);
+      color:var(--accent);
+      border-color:rgba(178,165,148,0.9);
+    }
+
+    .btn-secondary:hover{
+      background:#fdfaf4;
+      transform:translateY(-1px);
+    }
+
+    /* Footer */
+
+    footer{
+      border-top:1px solid rgba(221,209,192,1);
+      padding:1.6rem 0 2.2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      background:#f7f2e9;
+      margin-top:2rem;
+    }
+
+    .footer-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.9rem;
+    }
+
+    .footer-links a{
+      color:var(--muted);
+    }
+
+    .footer-links a:hover{
+      color:var(--accent);
+    }
+
+    @media(max-width:680px){
+      footer{
+        padding-bottom:2.3rem;
+      }
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The Mynd Path</a>
+        <a href="xp-vault.html" class="nav-cta">XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <!-- INTRO -->
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Module 02 — Regulate</p>
+    <h1>Regulate your state: coming back to “safe enough.”</h1>
+    <p class="lead">
+      Goal: give you a menu of realistic, non-performative tools you can actually use in the middle
+      of real life to come back to “safe enough.” Not perfect, not zen — just enough safety to have
+      choice again.
+    </p>
+    <div class="chips">
+      <div class="chip">Overwhelm is a body event first.</div>
+      <div class="chip">Regulation is not performance.</div>
+      <div class="chip">Safe enough is a win.</div>
+    </div>
+  </div>
+
+  <!-- LESSON 1: UNDERSTANDING YOUR SIGNALS -->
+  <section id="signals">
+    <div class="label-pill">
+      <span>Lesson 1</span> Understanding your signals
+    </div>
+    <h2>Overwhelm happens in the body first.</h2>
+    <p>
+      Core idea: overwhelm is a body event first, a thought problem second. Your body usually knows
+      long before your mind catches up.
+    </p>
+
+    <h3>1. Overwhelm happens in the body first</h3>
+    <p>Typical early body signals:</p>
+    <ul>
+      <li>you stop breathing fully or start holding your breath</li>
+      <li>your shoulders lock up or creep toward your ears</li>
+      <li>your jaw clenches, teeth press together</li>
+      <li>your stomach flips, clenches, or drops</li>
+      <li>your hands go numb, cold, or tingly</li>
+    </ul>
+    <p>
+      If you only listen to your thoughts, you miss the early warning system — and end up noticing
+      only once you’re already in a spiral.
+    </p>
+
+    <h3>2. Early cues to watch for</h3>
+    <ul>
+      <li><strong>Tight chest →</strong> “Something feels threatening.”</li>
+      <li><strong>Rapid thoughts →</strong> mind trying to control every possible scenario.</li>
+      <li><strong>Numbness / floaty feeling →</strong> system overloaded, shutting some circuits off.</li>
+      <li><strong>Jitteriness →</strong> extra adrenaline, urge to move, escape, or talk nonstop.</li>
+      <li><strong>Tunnel vision →</strong> hyper-focus on one problem, can’t see context.</li>
+      <li><strong>Urgent need to run or fix →</strong> cancel everything or send That Big Message.</li>
+    </ul>
+
+    <p><strong>Micro-examples:</strong></p>
+    <ul>
+      <li>
+        You open your banking app → your chest tightens → you immediately want to close it and avoid.
+      </li>
+      <li>
+        You see “Can we talk?” on your phone → your stomach drops → your mind sprints into worst-case
+        scenarios.
+      </li>
+    </ul>
+
+    <h3>3. Why your system activates</h3>
+    <ul>
+      <li>
+        <strong>Past experiences:</strong> similar tone, expression, or situation =
+        “I know this; it was dangerous before.”
+      </li>
+      <li>
+        <strong>Perceived threat:</strong> not just physical (car crash) but emotional
+        (rejection, conflict, criticism).
+      </li>
+      <li>
+        <strong>Emotional memory:</strong> your body remembers more than your conscious mind.
+      </li>
+      <li>
+        <strong>Sensory overload:</strong> noise, lights, demands, messages, clutter — all piled
+        together.
+      </li>
+    </ul>
+    <p>
+      Knowing this helps you shift from “I overreact to everything” to
+      <strong>“My system is doing exactly what it was trained to do.”</strong>
+    </p>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“Which physical cues show up first when I’m overwhelmed?”</li>
+      <li>“What situations send my system into chaos the quickest?”</li>
+      <li>“How do I currently know I need a break — and how often do I ignore that signal?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Body Signal Log</strong>
+      <code>
+Once or twice a day, complete:
+
+“I noticed my body doing ____.
+My mind said ____.
+I chose to ____.”
+
+Example:
+“I noticed my heart racing and my stomach dropping when I saw my dad’s name on my phone.
+My mind said, ‘You’re in trouble; this will be bad.’
+I chose to let it ring, take 10 breaths, and call back later when I felt steadier.”
+
+Over time, this log becomes your personal nervous system map.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 2: COMING BACK INTO YOUR BODY -->
+  <section id="coming-back">
+    <div class="label-pill">
+      <span>Lesson 2</span> Coming back into your body
+    </div>
+    <h2>Regulation is helping your body believe you’re safe enough to choose.</h2>
+    <p>
+      Core idea: regulation is not “calming down to be good.” It’s helping your body believe you’re
+      safe enough to have options again.
+    </p>
+
+    <h3>1. Why regulation works</h3>
+    <p>Your nervous system is constantly asking:</p>
+    <ul>
+      <li>“Am I safe?”</li>
+      <li>“Can I rest?”</li>
+      <li>“Do I need to defend?”</li>
+    </ul>
+    <p>
+      Regulation techniques are ways of answering: <strong>“Right now, in this room, I’m safe
+      enough to slow down.”</strong>
+    </p>
+
+    <h3>2. Core practices (with where / when to use them)</h3>
+    <div class="reg-grid">
+      <div class="reg-card">
+        <div class="reg-title">a) Slowed exhale breathing</div>
+        <p><strong>Good for:</strong> anxiety, anger, racing thoughts.</p>
+        <ul>
+          <li>Inhale for 4, exhale for 6–8.</li>
+          <li>Do 5–10 cycles.</li>
+          <li>Great in the car, bathroom, bed, or on a walk.</li>
+        </ul>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">b) Grounding through senses</div>
+        <p><strong>Good for:</strong> spiralling thoughts, panic, dissociation.</p>
+        <ul>
+          <li>5 things you can see.</li>
+          <li>4 things you can feel.</li>
+          <li>3 things you can hear.</li>
+          <li>2 things you can smell.</li>
+          <li>1 thing you can taste.</li>
+        </ul>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">c) Movement + shaking</div>
+        <p><strong>Good for:</strong> anger, adrenaline, restlessness, freeze.</p>
+        <ul>
+          <li>Shake limbs for 30–60 seconds.</li>
+          <li>Walk around the block, stretch, or dance to one song.</li>
+          <li>
+            Think of animals shaking after a scare — you’re helping your body complete that cycle.
+          </li>
+        </ul>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">d) Orientation (look around the room)</div>
+        <p><strong>Good for:</strong> feeling trapped, flashbacky, or unsafe without clear reason.</p>
+        <ul>
+          <li>Slowly scan the space.</li>
+          <li>Name objects and colours.</li>
+          <li>
+            Remind yourself: “I’m in my kitchen / room / car. It’s &lt;time&gt;. I’m here now.”
+          </li>
+        </ul>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">e) Touch (self-soothing)</div>
+        <p><strong>Good for:</strong> shame, sadness, loneliness.</p>
+        <ul>
+          <li>Hand on chest + slow exhale.</li>
+          <li>Hand on back of neck.</li>
+          <li>Hugging a pillow or stuffed animal.</li>
+          <li>Weighted blanket or wrapped in a blanket cocoon.</li>
+        </ul>
+      </div>
+
+      <div class="reg-card">
+        <div class="reg-title">Choosing in context</div>
+        <p>
+          You don’t have to do everything. One small practice is enough to begin shifting your
+          state.
+        </p>
+      </div>
+    </div>
+
+    <h3>3. Choosing the right tool for the moment</h3>
+    <ul>
+      <li><strong>If you feel wired & anxious →</strong> slowed exhale + senses.</li>
+      <li><strong>If you feel empty & numb →</strong> gentle movement + orientation.</li>
+      <li><strong>If you’re furious →</strong> shaking + movement first, then breath.</li>
+      <li>
+        <strong>If you’re ashamed →</strong> touch + gentle words:
+        “I’m with you. This is hard, and you’re not a monster.”
+      </li>
+    </ul>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What actually helps me when I’m anxious — not what I think should help?”</li>
+      <li>“What has brought me out of shutdown in the past?”</li>
+      <li>“Which tools feel grounding and which feel like ‘too much work’?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — The 3-Step Reset</strong>
+      <code>
+Whenever you feel on edge or reactive:
+
+1) Pause output
+   • Don’t send the text.
+   • Don’t answer yet.
+   • Don’t keep arguing.
+
+2) Return to the body
+   • Choose one tool: breath, senses, movement, orientation, or touch.
+   • Do it for at least 60–90 seconds, even if your mind complains.
+
+3) Offer simple words
+   “I’m here.
+    I don’t have to fix everything in this minute.
+    One small step is enough.”
+
+Aim for a 10–20% shift, not total zen.
+      </code>
+    </div>
+  </section>
+
+  <!-- LESSON 3: PERSONAL REGULATION PLAN -->
+  <section id="plan">
+    <div class="label-pill">
+      <span>Lesson 3</span> Your personal regulation plan
+    </div>
+    <h2>Generic advice isn’t enough. You need your own menu.</h2>
+    <p>
+      Core idea: everyone’s system is different. You need a personalized list of what reliably
+      soothes <em>you</em> — in your body, mind, and heart.
+    </p>
+
+    <h3>1. Create a list of what soothes you</h3>
+    <p>Start by dividing into three areas:</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-title">Body</div>
+        <p>
+          Hot shower or bath, stretching, short walk, dancing to one song, curling up in blankets,
+          lying on the floor, swimming, gentle yoga, feeling sunlight on your skin.
+        </p>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Mind</div>
+        <p>
+          Journaling, brain dump, reading, puzzles, gentle show, calming music, ambient noise,
+          silence, guided meditation, writing lists of “done” instead of “to-do”.
+        </p>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Heart</div>
+        <p>
+          Voice note to a friend, hugging a pet, talking to someone safe, prayer or ritual,
+          drawing or painting, singing, meaningful quotes, revisiting memories that remind you
+          you’re loved.
+        </p>
+      </div>
+    </div>
+
+    <h3>2. Plan for your patterns</h3>
+    <p>If you already know your go-to responses, build around them:</p>
+    <ul>
+      <li>
+        <strong>If you overwork when anxious →</strong> plan a hard stop time, put it in your
+        calendar, and choose a body soothing activity for that moment.
+      </li>
+      <li>
+        <strong>If you people-please when scared →</strong> have 1–2 boundary sentences pre-written,
+        like: “I really appreciate you asking, but I don’t have capacity for that right now.”
+      </li>
+      <li>
+        <strong>If you shut down when criticized →</strong> plan a phrase such as:
+        “I’m overwhelmed. I need a break and I want to come back to this.”
+      </li>
+    </ul>
+
+    <h3>3. How to regulate in relationships</h3>
+    <p>Regulation gets stronger when you let others in on your patterns.</p>
+    <ul>
+      <li>
+        “When I’m overwhelmed, I might go quiet. I’m not punishing you; I’m regulating.”
+      </li>
+      <li>
+        “If I say, ‘Can we pause?’, it means I’m trying not to shut down completely.”
+      </li>
+      <li>
+        “Sometimes I might need a break from my phone. It helps if you know I’ll reply when I’m able.”
+      </li>
+    </ul>
+    <p>This builds co-regulation instead of confusion and guessing.</p>
+
+    <h3>4. Repairing your system after activation</h3>
+    <p>After a blow-up, panic, or spiral, you can still tend to your system:</p>
+    <ul>
+      <li><strong>Body first →</strong> shower, walk, breath, stretch, eat something grounding.</li>
+      <li>
+        <strong>Meaning next →</strong> journal: What happened? What did I feel? What did I need?
+      </li>
+      <li>
+        <strong>Communication last →</strong> when regulated enough, share with the other person if
+        needed.
+      </li>
+    </ul>
+
+    <h3>Reflection prompts</h3>
+    <ul>
+      <li>“What brings me back to myself reliably?”</li>
+      <li>“What soothing things have I been withholding as ‘rewards’ instead of basic care?”</li>
+      <li>“What do I wish others understood about what overwhelm looks like in me?”</li>
+    </ul>
+
+    <div class="script">
+      <strong>Exercise — Build your “State Shift Kit”</strong>
+      <code>
+Create a simple list:
+
+• 5 things that calm your body
+• 5 things that calm your mind
+• 5 things that reconnect you to the present
+• 3 people you can reasonably reach out to for support
+
+Put this list:
+• in your notes app,
+• on a sticky note by your bed,
+• or as a screenshot background.
+
+This becomes your go-to menu when your mind goes blank in the middle of a storm.
+      </code>
+    </div>
+  </section>
+
+  <!-- WRAP-UP / CTA -->
+  <section id="wrap">
+    <h2>Bringing it together: your regulation in real life.</h2>
+    <p>
+      Regulation is not about never getting activated again. It’s about noticing earlier, responding
+      with care instead of shame, and having a few simple, practiced tools ready for when life
+      inevitably gets loud.
+    </p>
+    <p>
+      Each time you choose one small regulation step, you’re teaching your system:
+      <strong>“I’m with you. We’re not alone in this anymore.”</strong>
+    </p>
+
+    <div class="btn-row">
+      <a href="patterns.html" class="btn btn-primary">Next module: Patterns →</a>
+      <a href="xp-vault.html" class="btn btn-secondary">Go deeper with guided regulation in XP Vault →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">The Mynd Path</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
