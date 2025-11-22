@@ -2,105 +2,405 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Patterns — Mynd</title>
+  <title>Patterns — Emotional Loops & Roles | Mynd</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Recognize patterned states and the beliefs underneath. Each pattern includes the why, body cues, and needs — paired with practices." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Understand your emotional patterns, childhood roles, self-sabotage cycles, and trauma loops so you can stop repeating them." />
+  <style>
+    :root {
+      --bg:#050910;
+      --card:#101827;
+      --accent:#6ee7b7;
+      --accent-2:#38bdf8;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+      --radius-lg:18px;
+      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
+      --transition:200ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:var(--font-sans);
+      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
+      border-bottom:1px solid rgba(15,23,42,0.9);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
+    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
+    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
+    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{width:100%;}
+    .nav-links a[aria-current="page"]{color:#e5e7eb;}
+    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
+    .nav-cta span{font-size:1.1rem;}
+    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+    }
+
+    main{padding:3.2rem 0 3rem;}
+    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
+    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
+    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.6rem;}
+
+    section{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+    section h2{font-size:1.15rem;margin-bottom:0.45rem;}
+    section p{color:var(--muted);margin-bottom:0.55rem;}
+    ul{color:var(--muted);margin-left:1.1rem;font-size:0.9rem;}
+    li+li{margin-top:0.3rem;}
+
+    .accordion{
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#020617;
+      overflow:hidden;
+      margin-top:0.5rem;
+    }
+    .acc-item+.acc-item{border-top:1px solid rgba(31,41,55,1);}
+    .acc-header{
+      padding:0.7rem 0.8rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:0.88rem;
+      cursor:pointer;
+    }
+    .acc-title{font-weight:500;}
+    .acc-icon{font-size:1rem;color:var(--muted);}
+    .acc-body{
+      padding:0 0.8rem 0.75rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      display:none;
+    }
+    .acc-item.open .acc-body{display:block;}
+    .acc-item.open .acc-icon{transform:rotate(90deg);}
+
+    .roles-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.7rem;
+    }
+    @media(max-width:880px){
+      .roles-grid{grid-template-columns:minmax(0,1fr);}
+    }
+    .role-card{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+    }
+    .role-title{font-size:0.95rem;margin-bottom:0.2rem;}
+
+    .btn-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:0.8rem;}
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:background var(--transition),color var(--transition),transform 120ms ease,box-shadow var(--transition),border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:radial-gradient(circle at top left,#22c55e,#16a34a);
+      color:#052e16;
+      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      font-weight:600;
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+    }
+    .btn-secondary{
+      background:rgba(15,23,42,0.9);
+      color:var(--text);
+      border-color:rgba(148,163,184,0.5);
+    }
+    .btn-secondary:hover{
+      background:#020617;
+      border-color:rgba(148,163,184,0.9);
+      transform:translateY(-1px);
+    }
+
+    footer{
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
+    .footer-links a:hover{color:#e5e7eb;}
+    @media(max-width:680px){
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
 </head>
-<body data-page="patterns">
-  <div class="progress" id="progress"></div>
-  <div class="orb a" id="orbA"></div><div class="orb b" id="orbB"></div><div class="orb c" id="orbC"></div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
-      <a href="index.html" data-page="home">Home</a>
-      <a href="curriculum.html" data-page="curriculum">Curriculum</a>
-      <a href="patterns.html" data-page="patterns">Patterns</a>
-      <a href="practices.html" data-page="practices">Practices</a>
-      <a href="language.html" data-page="language">Language</a>
-      <a href="anchors.html" data-page="anchors">Anchors</a>
-      <a href="faq.html" data-page="faq">FAQ</a>
-      <a href="about.html" data-page="about">About</a>
-      <span class="spacer"></span>
-      <a class="chip" href="join.html" data-page="join">Membership</a>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
     </div>
-  </header>
-
-  <main class="wrap">
-    <div class="hero reveal">
-      <span class="tagline"><span class="dot"></span> Pattern Language</span>
-      <h1>Recognize your patterns</h1>
-      <p class="sub">Each pattern includes a why (often a belief or prediction), a body-state, and a need. Pair with the Practices library.</p>
-    </div>
-
-    <div class="sp"></div>
-
-    <section class="card reveal">
-      <div class="pill">Patterns</div>
-      <div class="grid grid-2">
-        <details class="lift"><summary>Fear / Anxiety <span class="badge">panic, worry, dread</span></summary>
-          <p><span class="label">Why</span><br>Overestimation of danger to keep you safe; uncertainty intolerance; belief “if I worry, I can prevent it.”</p>
-          <p><span class="label">Body</span><br>Fight/flight: shallow breath, tight chest, scanning.</p>
-          <p><span class="label">Need</span><br>Safety cues, grounding, smaller doable steps.</p>
-        </details>
-        <details class="lift"><summary>Sadness / Grief <span class="badge">heavy, low, teary</span></summary>
-          <p><span class="label">Why</span><br>Metabolizing loss or unmet expectations. Love with nowhere to go.</p>
-          <p><span class="label">Body</span><br>Low energy, withdrawal, heaviness behind eyes.</p>
-          <p><span class="label">Need</span><br>Permission, warmth, pacing, meaning-making.</p>
-        </details>
-        <details class="lift"><summary>Anger / Boundary Injury <span class="badge">irritation, rage</span></summary>
-          <p><span class="label">Why</span><br>A value, limit, or dignity was crossed; belief “I must defend to be safe.”</p>
-          <p><span class="label">Body</span><br>Heat, jaw/shoulder tension, urge to act.</p>
-          <p><span class="label">Need</span><br>Respect, clarity, a calm boundary.</p>
-        </details>
-        <details class="lift"><summary>Shame / Guilt <span class="badge">“I’m the problem”</span></summary>
-          <p><span class="label">Why</span><br>Internalized criticism to avoid exclusion; conflates “I did” with “I am.”</p>
-          <p><span class="label">Body</span><br>Collapse/freeze, avoidance, small voice.</p>
-          <p><span class="label">Need</span><br>Accurate responsibility, compassion, repair (if needed).</p>
-        </details>
-        <details class="lift"><summary>Confusion / Overwhelm <span class="badge">stuck, foggy</span></summary>
-          <p><span class="label">Why</span><br>Competing priorities; fear of wrong choice; belief “I must get it perfect.”</p>
-          <p><span class="label">Body</span><br>Racing thoughts + low motivation.</p>
-          <p><span class="label">Need</span><br>Reduce inputs, choose one thing, time-bound focus.</p>
-        </details>
-        <details class="lift"><summary>Loneliness / Abandonment <span class="badge">unseen, left out</span></summary>
-          <p><span class="label">Why</span><br>Attachment wound expects distance; belief “I’m too much / not enough.”</p>
-          <p><span class="label">Body</span><br>Ache in chest/throat, sensitivity to distance.</p>
-          <p><span class="label">Need</span><br>Warmth, co-regulation, direct bids for contact.</p>
-        </details>
-        <details class="lift"><summary>Stress / Burnout <span class="badge">fried, no capacity</span></summary>
-          <p><span class="label">Why</span><br>Chronic output without replenishment; belief “I must earn rest.”</p>
-          <p><span class="label">Body</span><br>Fatigue, irritability, poor focus.</p>
-          <p><span class="label">Need</span><br>Rest, basics (sleep, water, light), reset expectations.</p>
-        </details>
-        <details class="lift"><summary>Heartbreak / Loss <span class="badge">broken, bereft</span></summary>
-          <p><span class="label">Why</span><br>Attachment ruptured or a dream dissolved; mourning a future that won’t happen.</p>
-          <p><span class="label">Body</span><br>Waves of grief, intrusive recall.</p>
-          <p><span class="label">Need</span><br>Ritual, meaning-making, gentle pacing.</p>
-        </details>
-        <details class="lift"><summary>Jealousy / Comparison <span class="badge">envy, behind</span></summary>
-          <p><span class="label">Why</span><br>Another mirrors a disowned desire; belief “there isn’t enough for me.”</p>
-          <p><span class="label">Body</span><br>Tension + self-criticism loop.</p>
-          <p><span class="label">Need</span><br>Own desire, self-compassion, your plan.</p>
-        </details>
-        <details class="lift"><summary>Numb / Dissociated <span class="badge">blank, can’t feel</span></summary>
-          <p><span class="label">Why</span><br>Capacity was exceeded; the system protected you by disconnecting.</p>
-          <p><span class="label">Body</span><br>Low tone, fog, low impulse.</p>
-          <p><span class="label">Need</span><br>Gentle activation: light, warmth, movement, sound.</p>
-        </details>
-        <details class="lift"><summary>Hopeless / Despair <span class="badge">why try, nothing works</span></summary>
-          <p><span class="label">Why</span><br>Past pain generalized into “permanent.”</p>
-          <p><span class="label">Body</span><br>Collapse, global negative bias.</p>
-          <p><span class="label">Need</span><br>Tiny proof of agency, co-regulation, future seed.</p>
-        </details>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The 5 Pillars</a>
+        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
       </div>
-    </section>
-  </main>
+    </nav>
+  </div>
+</header>
 
-  <footer class="reveal">Mynd · © <span id="yr"></span> · Education for Human Evolution</footer>
-  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-  <script src="app.js"></script>
+<main class="shell">
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Pillar 02 — Patterns</p>
+    <h1>Patterns: the loops that run your life until you see them.</h1>
+    <p class="lead">
+      Emotional patterns are not evidence that you’re broken — they’re evidence that
+      your system adapted. Here we map childhood conditioning, roles, and self-sabotage
+      cycles so you can choose something new.
+    </p>
+  </div>
+
+  <section id="loops">
+    <h2>What is an emotional pattern?</h2>
+    <p>
+      An emotional pattern is a repeated sequence of sensation → thought → behaviour
+      that your system learned keeps you safe (or less unsafe).
+    </p>
+    <ul>
+      <li><strong>Trigger:</strong> something reminds your body of past danger.</li>
+      <li><strong>State:</strong> you shift into fight/flight/freeze/fawn.</li>
+      <li><strong>Story:</strong> your mind explains what’s happening based on old data.</li>
+      <li><strong>Action:</strong> you react in familiar ways, even if they hurt now.</li>
+    </ul>
+    <p>
+      Patterns feel like “this is just how I am” — until you name them and see their origin.
+    </p>
+  </section>
+
+  <section id="roles">
+    <h2>Childhood conditioning &amp; emotional roles.</h2>
+    <p>
+      Many of your adult patterns started as childhood jobs: roles you took on to keep
+      connection, stability, or invisibility.
+    </p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-title">The Responsible One</div>
+        <p>
+          Grew up managing chaos or emotions at home. Pattern now: over-functioning,
+          burnout, feeling guilty when you rest.
+        </p>
+      </div>
+      <div class="role-card">
+        <div class="role-title">The Peacemaker</div>
+        <p>
+          Mediated conflict, kept everyone okay. Pattern now: avoiding hard conversations,
+          agreeing outwardly while resenting inwardly.
+        </p>
+      </div>
+      <div class="role-card">
+        <div class="role-title">The Invisible One</div>
+        <p>
+          Learned it was safer to be quiet/unnoticed. Pattern now: shrinking, not asking
+          for help, feeling overlooked.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:0.7rem;">
+      You might recognize several roles. They’re not life sentences — just starting points
+      for compassion.
+    </p>
+  </section>
+
+  <section id="accordion">
+    <h2>Common loops (tap to expand).</h2>
+
+    <div class="accordion" id="patternsAcc">
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-title">Self-sabotage &amp; “almost there” cycles</div>
+          <div class="acc-icon">›</div>
+        </div>
+        <div class="acc-body">
+          <p>
+            You work hard, get close to what you want, then “randomly” shut down, pick a fight,
+            overspend, or disappear.
+          </p>
+          <p>
+            Underneath is often a belief like, “If I actually succeed, I’ll be more visible /
+            more alone / more pressured.” Sabotage is protection in disguise.
+          </p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-title">Trauma loops &amp; emotional flashbacks</div>
+          <div class="acc-icon">›</div>
+        </div>
+        <div class="acc-body">
+          <p>
+            Your body reacts to current events with the intensity of the past.
+            You know logically you’re safe, but your system is convinced you’re not.
+          </p>
+          <p>
+            These are not overreactions — they’re proportional to what your system
+            remembers. Naming them as “flashbacks” can be relieving.
+          </p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-title">Over-thinking &amp; catastrophizing</div>
+          <div class="acc-icon">›</div>
+        </div>
+        <div class="acc-body">
+          <p>
+            The brain tries to think its way out of feelings. Planning every possible
+            scenario was once a survival skill.
+          </p>
+          <p>
+            When you notice spirals, try: “My mind is creating options. I don’t have to believe all of them.”
+          </p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-title">Avoidant vs anxious cycles in relationships</div>
+          <div class="acc-icon">›</div>
+        </div>
+        <div class="acc-body">
+          <p>
+            One person pursues, the other distances. The more one chases, the more the other
+            retreats — and vice versa.
+          </p>
+          <p>
+            These are not “good vs bad” styles — they’re nervous system strategies.
+            Naming the dance is the first step to changing it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="triggers">
+    <h2>Triggers: the doorway into your pattern.</h2>
+    <p>
+      Triggers are not proof you’re weak. They’re proof your system is still holding
+      unprocessed material.
+    </p>
+    <ul>
+      <li>Notice what <strong>always</strong> sets you off: tone, silence, mess, late replies, etc.</li>
+      <li>Ask, “Where have I felt this before?” (earlier in life, another relationship)</li>
+      <li>Ask, “What did I have to do back then to stay safe or connected?”</li>
+    </ul>
+    <p>
+      That “old job” is probably still running.
+    </p>
+  </section>
+
+  <section id="exercise">
+    <h2>Pattern-mapping exercise (journal-friendly).</h2>
+    <p>Use this template with one specific situation in mind:</p>
+    <ul>
+      <li><strong>1. Trigger:</strong> What actually happened? (Keep it factual.)</li>
+      <li><strong>2. State:</strong> Which state did I go into? (fight/flight/freeze/fawn)</li>
+      <li><strong>3. Story:</strong> What did I tell myself it meant about me/them?</li>
+      <li><strong>4. Action:</strong> What did I do next?</li>
+      <li><strong>5. Origin:</strong> Where does this feel familiar from in my past?</li>
+      <li><strong>6. Need:</strong> What did I actually need right then?</li>
+    </ul>
+    <p style="margin-top:0.6rem;">
+      Even doing this once a week starts creating distance between <em>you</em> and the loop.
+    </p>
+
+    <div class="btn-row">
+      <a href="needs.html" class="btn btn-primary">Next lesson: Needs →</a>
+      <a href="xp-vault.html" class="btn btn-secondary">Unlock guided pattern work in XP Vault →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">5 Pillars</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  document.querySelectorAll('.acc-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement;
+      const acc = item.parentElement;
+      acc.querySelectorAll('.acc-item').forEach(i => {
+        if(i !== item) i.classList.remove('open');
+      });
+      item.classList.toggle('open');
+    });
+  });
+</script>
 </body>
 </html>
