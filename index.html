@@ -36,7 +36,7 @@
         radial-gradient(circle at bottom right, #efe0cf 0, transparent 60%),
         var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.7;
       min-height: 100vh;
     }
 
@@ -59,7 +59,7 @@
 
     .section {
       padding: 3rem 0;
-      border-top: 1px solid rgba(221, 209, 192, 0.7);
+      border-top: 1px solid rgba(221, 209, 192, 0.5);
     }
 
     .section:first-of-type {
@@ -80,7 +80,7 @@
     }
 
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 0.4rem;
     }
 
@@ -174,7 +174,7 @@
       border: 1px solid rgba(162, 147, 126, 0.8);
       font-size: 0.85rem;
       color: var(--accent);
-      background: rgba(253, 250, 244, 0.9);
+      background: rgba(253, 250, 244, 0.95);
     }
 
     .nav-toggle {
@@ -249,21 +249,44 @@
       transform: translateY(-1px);
     }
 
-    /* HERO */
+    /* HERO — simplified, centered */
 
     .hero {
       padding: 3.2rem 0 2.6rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 2.6rem;
-      align-items: center;
     }
 
-    @media (max-width: 880px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        padding-top: 2.5rem;
+    .hero-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    @media (max-width: 700px) {
+      .hero-inner {
+        text-align: left;
       }
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.16rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(210, 198, 180, 0.9);
+      background: rgba(253, 250, 244, 0.95);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-label-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #445c42;
     }
 
     .hero-eyebrow {
@@ -271,33 +294,20 @@
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--muted);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero h1 {
-      font-size: clamp(2.3rem, 3.2vw, 2.9rem);
-      line-height: 1.05;
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-highlight {
-      display: inline-block;
-      padding: 0.1rem 0.4rem;
-      border-radius: 999px;
-      background: #fbf6eb;
-      border: 1px solid rgba(221, 209, 192, 0.9);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      margin-bottom: 0.65rem;
+      font-size: clamp(2.3rem, 3.2vw, 2.8rem);
+      line-height: 1.07;
+      margin-bottom: 0.8rem;
     }
 
     .hero-sub {
       font-size: 1rem;
       color: var(--muted);
-      max-width: 32rem;
-      margin-bottom: 1.4rem;
+      max-width: 36rem;
+      margin-bottom: 1.6rem;
     }
 
     .hero-sub strong {
@@ -310,101 +320,18 @@
       flex-wrap: wrap;
       gap: 0.8rem;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.1rem;
     }
 
     .hero-note {
       font-size: 0.86rem;
       color: var(--muted);
-      max-width: 30rem;
+      max-width: 32rem;
     }
 
     .hero-note strong {
       color: var(--accent);
       font-weight: 500;
-    }
-
-    .hero-visual {
-      position: relative;
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at top left, rgba(136, 164, 131, 0.45), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(191, 175, 146, 0.45), transparent 60%);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      min-height: 260px;
-      padding: 1px;
-    }
-
-    @media (max-width: 880px) {
-      .hero-visual {
-        order: -1;
-      }
-    }
-
-    .hero-visual-inner {
-      height: 100%;
-      border-radius: 23px;
-      padding: 1.2rem 1.2rem 1.3rem;
-      background: linear-gradient(to bottom, #fdfaf4 0, #f0f3ed 55%, #e7efe3 100%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .hero-tagline {
-      font-size: 0.82rem;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .hero-tagline-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #445c42;
-    }
-
-    .hero-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.65rem;
-      margin-top: 0.4rem;
-    }
-
-    .hero-card {
-      border-radius: 14px;
-      background: rgba(253, 250, 244, 0.95);
-      border: 1px solid rgba(221, 209, 192, 0.9);
-      padding: 0.75rem 0.8rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .hero-card-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-    }
-
-    .hero-card-title {
-      font-size: 0.9rem;
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .hero-caption {
-      margin-top: 0.5rem;
-      font-size: 0.76rem;
-      color: var(--muted);
-      max-width: 260px;
     }
 
     /* Simple grid helpers */
@@ -431,7 +358,7 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       padding: 1.4rem 1.6rem;
-      box-shadow: 0 12px 28px rgba(34, 32, 27, 0.09);
+      box-shadow: 0 12px 28px rgba(34, 32, 27, 0.08);
       font-size: 0.94rem;
       color: var(--muted);
     }
@@ -483,31 +410,6 @@
       margin: 0.16rem;
       color: var(--muted);
       background: rgba(253, 250, 244, 0.95);
-    }
-
-    /* “Is this you?” section */
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-      margin-top: 1.2rem;
-    }
-
-    .mini-card {
-      background: var(--card);
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 1rem 1.1rem;
-      font-size: 0.86rem;
-      color: var(--muted);
-    }
-
-    .mini-title {
-      font-size: 0.92rem;
-      color: var(--accent);
-      margin-bottom: 0.35rem;
-      font-weight: 500;
     }
 
     /* Mynd Path */
@@ -591,35 +493,6 @@
       background: var(--accent);
       opacity: 1;
       box-shadow: 0 0 0 3px rgba(68, 92, 66, 0.22);
-    }
-
-    /* Tools */
-
-    .tools-grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      margin-top: 1.4rem;
-    }
-
-    .tool-title {
-      font-size: 0.98rem;
-      color: var(--accent);
-      margin-bottom: 0.15rem;
-    }
-
-    .tool-tag {
-      font-size: 0.76rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.2rem;
-    }
-
-    .tool-meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
     }
 
     /* About */
@@ -712,8 +585,11 @@
   <main>
     <!-- HERO -->
     <section class="shell hero" id="top">
-      <div>
-        <span class="hero-highlight">For minds that think a lot &amp; feel deeply</span>
+      <div class="hero-inner">
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          For minds that think a lot &amp; feel deeply
+        </div>
         <p class="hero-eyebrow">Air for clarity · Earth for grounding</p>
         <h1>Clear, human emotional education for everyday life.</h1>
         <p class="hero-sub">
@@ -735,79 +611,6 @@
           <strong>Mynd is the emotional education most of us never got at school.</strong>
         </p>
       </div>
-
-      <aside class="hero-visual" aria-label="Mynd overview visual">
-        <div class="hero-visual-inner">
-          <div class="hero-tagline">
-            <span class="hero-tagline-dot"></span>
-            One inner world, four places to start.
-          </div>
-
-          <div class="hero-grid">
-            <div class="hero-card">
-              <div class="hero-card-label">Pillar 01</div>
-              <div class="hero-card-title">State</div>
-              <p>Read your nervous system. Is this fight, flight, freeze, fawn, or safe enough?</p>
-            </div>
-            <div class="hero-card">
-              <div class="hero-card-label">Pillar 02</div>
-              <div class="hero-card-title">Patterns</div>
-              <p>See the loops you fall into — overthinking, shutdown, people-pleasing, conflict.</p>
-            </div>
-            <div class="hero-card">
-              <div class="hero-card-label">Pillar 03</div>
-              <div class="hero-card-title">Needs</div>
-              <p>Translate reactions into clear needs and requests, instead of guessing games.</p>
-            </div>
-            <div class="hero-card">
-              <div class="hero-card-label">Pillar 04 &amp; 05</div>
-              <div class="hero-card-title">Boundaries &amp; Integration</div>
-              <p>Protect your energy and practice new choices until they feel like “you”.</p>
-            </div>
-          </div>
-
-          <p class="hero-caption">
-            Soon this space will become a slow, looping forest video — a breathing room for your nervous system
-            while you learn.
-          </p>
-        </div>
-      </aside>
-    </section>
-
-    <!-- IS THIS YOU -->
-    <section class="shell section" id="is-this-you">
-      <div class="section-header">
-        <p class="section-eyebrow">Is this you?</p>
-        <h2 class="section-title">You think a lot, feel a lot, and carry a lot.</h2>
-        <p class="section-intro">
-          Mynd is for the over-thinkers with big hearts — the ones who’ve been tracking
-          everyone else’s emotions for years and are finally ready to include themselves.
-        </p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini-card">
-          <p class="mini-title">“I can explain everyone else, but not myself.”</p>
-          <p>
-            You’re great at giving advice and reading the room, but when it comes
-            to your own feelings, everything blurs into “too much” or “I’m fine”.
-          </p>
-        </div>
-        <div class="mini-card">
-          <p class="mini-title">Your body keeps the score… loudly.</p>
-          <p>
-            Tight chest, buzzing mind, sudden shutdowns, social hangovers — you’re
-            starting to suspect your nervous system has a lot to say.
-          </p>
-        </div>
-        <div class="mini-card">
-          <p class="mini-title">You want change, not just insight.</p>
-          <p>
-            You’ve consumed the content. Now you want simple, grounded practices
-            you can actually do in real life, not just in theory.
-          </p>
-        </div>
-      </div>
     </section>
 
     <!-- START HERE / HOW IT WORKS -->
@@ -817,7 +620,7 @@
         <h2 class="section-title">A simple path into your inner world.</h2>
         <p class="section-intro">
           You don’t need a huge plan. You just need a doorway. Mynd organizes your inner world into
-          clear pieces so your Gemini mind can understand, and your earthy body can exhale.
+          clear pieces so your mind can understand, and your body can exhale.
         </p>
       </div>
 
@@ -981,48 +784,6 @@
             <div class="dot"></div>
           </div>
         </aside>
-      </div>
-    </section>
-
-    <!-- FEATURED TOOLS -->
-    <section class="shell section" id="tools">
-      <div class="section-header">
-        <p class="section-eyebrow">Tools</p>
-        <h2 class="section-title">Small practices for real moments.</h2>
-        <p class="section-intro">
-          You don’t need a 60-minute ritual to shift. These tools are made for the in-between
-          moments: after a hard text, before a call, in the car, in bed.
-        </p>
-      </div>
-
-      <div class="tools-grid">
-        <article class="card">
-          <div class="tool-tag">Check-in</div>
-          <div class="tool-title">2-Minute Emotional Check-in</div>
-          <p>Three simple questions to help you name what you feel and how intense it is.</p>
-          <div class="tool-meta">Use: mornings, after conflict, before big decisions.</div>
-        </article>
-
-        <article class="card">
-          <div class="tool-tag">Nervous system</div>
-          <div class="tool-title">Micro Nervous System Reset</div>
-          <p>Gentle breath + body practices that fit into 60–90 seconds.</p>
-          <div class="tool-meta">Designed for fight, flight, freeze &amp; fawn.</div>
-        </article>
-
-        <article class="card">
-          <div class="tool-tag">Boundaries</div>
-          <div class="tool-title">Soft Boundary Scripts</div>
-          <p>Language for saying “no” or “not right now” without over-explaining.</p>
-          <div class="tool-meta">Text, voice note, and in-person phrases.</div>
-        </article>
-
-        <article class="card">
-          <div class="tool-tag">Inner child</div>
-          <div class="tool-title">Inner Child Check-in Page</div>
-          <p>One page you can return to when you feel small, ashamed, or alone.</p>
-          <div class="tool-meta">Pairs well with tea, blankets, and slow music.</div>
-        </article>
       </div>
     </section>
 
