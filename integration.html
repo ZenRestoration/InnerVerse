@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Integration — Living the Work | Mynd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bring State, Patterns, Needs, and Boundaries together into daily practices, routines, and relationship upgrades." />
+  <style>
+    :root {
+      --bg:#050910;
+      --card:#101827;
+      --accent:#6ee7b7;
+      --accent-2:#38bdf8;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+      --radius-lg:18px;
+      --shadow-soft:0 18px 45px rgba(0,0,0,0.5);
+      --transition:200ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:var(--font-sans);
+      background:radial-gradient(circle at top,#020617 0,#000 60%);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;}
+    .shell{max-width:960px;margin:0 auto;padding:0 1.25rem;}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,0.96),rgba(2,6,23,0.78),transparent);
+      border-bottom:1px solid rgba(15,23,42,0.9);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;}
+    .brand{display:flex;align-items:center;gap:0.4rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-size:0.9rem;color:var(--muted);}
+    .brand-orb{width:18px;height:18px;border-radius:999px;background:radial-gradient(circle at 30% 20%,#bbf7d0 0,#22c55e 40%,#0f172a 100%);box-shadow:0 0 28px rgba(34,197,94,0.7);}
+    .nav-links{display:flex;align-items:center;gap:1.2rem;font-size:0.9rem;}
+    .nav-links a{color:var(--muted);padding:0.2rem 0;position:relative;}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-0.35rem;width:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent-2));transition:width var(--transition);}
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{width:100%;}
+    .nav-links a[aria-current="page"]{color:#e5e7eb;}
+    .nav-cta{padding:0.45rem 0.9rem;border-radius:999px;border:1px solid rgba(148,163,184,0.5);font-size:0.85rem;color:#e5e7eb;display:inline-flex;align-items:center;gap:0.35rem;background:radial-gradient(circle at top left,rgba(148,163,184,0.18),transparent);box-shadow:0 0 0 1px rgba(15,23,42,0.7);}
+    .nav-cta span{font-size:1.1rem;}
+    .nav-toggle{display:none;border:none;background:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+    @media(max-width:800px){
+      .nav-links{display:none;}
+      .nav-toggle{display:block;}
+      .nav-links.mobile-open{display:flex;position:absolute;top:56px;right:1.25rem;flex-direction:column;align-items:flex-start;padding:0.75rem 0.9rem;background:#020617;border-radius:14px;box-shadow:var(--shadow-soft);border:1px solid var(--border);}
+    }
+
+    main{padding:3.2rem 0 3rem;}
+    h1{font-size:clamp(2rem,3vw,2.4rem);margin-bottom:0.6rem;}
+    .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:0.7rem;}
+    .lead{font-size:0.96rem;color:var(--muted);max-width:40rem;margin-bottom:1.6rem;}
+
+    section{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:1.5rem 1.4rem 1.6rem;
+      margin-bottom:1.8rem;
+      font-size:0.9rem;
+    }
+    section h2{font-size:1.15rem;margin-bottom:0.45rem;}
+    section p{color:var(--muted);margin-bottom:0.55rem;}
+    ul{color:var(--muted);margin-left:1.1rem;font-size:0.9rem;}
+    li+li{margin-top:0.3rem;}
+
+    .three-col{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0.8rem;
+      margin-top:0.6rem;
+    }
+    @media(max-width:880px){
+      .three-col{grid-template-columns:minmax(0,1fr);}
+    }
+    .card{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.9rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+    .card-title{font-size:0.96rem;margin-bottom:0.2rem;}
+
+    .checklist{
+      list-style:none;
+      margin-left:0;
+    }
+    .checklist li::before{
+      content:"☐";
+      margin-right:0.35rem;
+      color:var(--muted);
+    }
+
+    .script{
+      background:#020617;
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:0.85rem 0.95rem;
+      font-size:0.86rem;
+      color:var(--muted);
+      margin-top:0.5rem;
+    }
+    .script code{font-family:inherit;}
+
+    .btn-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:0.8rem;}
+    .btn{
+      border-radius:999px;
+      padding:0.75rem 1.25rem;
+      font-size:0.88rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.35rem;
+      transition:background var(--transition),color var(--transition),transform 120ms ease,box-shadow var(--transition),border var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:radial-gradient(circle at top left,#22c55e,#16a34a);
+      color:#052e16;
+      box-shadow:0 14px 45px rgba(22,163,74,0.6);
+      font-weight:600;
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 55px rgba(22,163,74,0.75);
+    }
+    .btn-secondary{
+      background:rgba(15,23,42,0.9);
+      color:var(--text);
+      border-color:rgba(148,163,184,0.5);
+    }
+    .btn-secondary:hover{
+      background:#020617;
+      border-color:rgba(148,163,184,0.9);
+      transform:translateY(-1px);
+    }
+
+    footer{
+      border-top:1px solid rgba(15,23,42,1);
+      padding:1.4rem 0 2rem;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:2rem;
+    }
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-start;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:0.9rem;}
+    .footer-links a:hover{color:#e5e7eb;}
+    @media(max-width:680px){
+      .footer-grid{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The 5 Pillars</a>
+        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <div style="margin-bottom:2rem;">
+    <p class="eyebrow">Pillar 05 — Integration</p>
+    <h1>Integration: turning insight into a new normal.</h1>
+    <p class="lead">
+      Integration is where you stop collecting emotional concepts and start
+      living them. It’s not a one-time breakthrough — it’s a daily relationship
+      with your State, Patterns, Needs, and Boundaries.
+    </p>
+  </div>
+
+  <section id="overview">
+    <h2>Integration = repetition with kindness.</h2>
+    <p>
+      You will not “never get triggered again”. Integration means:
+    </p>
+    <ul>
+      <li>You notice sooner.</li>
+      <li>You speak to yourself more gently.</li>
+      <li>You choose slightly different actions, again and again.</li>
+    </ul>
+    <p>
+      Tiny shifts, repeated, become your new baseline.
+    </p>
+  </section>
+
+  <section id="daily-practices">
+    <h2>Daily practices: 5–15 minutes.</h2>
+    <p>Here’s a simple menu you can pull from instead of doomscrolling.</p>
+
+    <div class="three-col">
+      <div class="card">
+        <div class="card-title">Morning (2–5 minutes)</div>
+        <ul>
+          <li>One State check-in (“what am I in?”)</li>
+          <li>One sentence about your Pattern you’re watching today</li>
+          <li>One Need you commit to honouring (“I will eat at least one real meal”)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Daytime (micro-moments)</div>
+        <ul>
+          <li>3 deep breaths before replying to hard messages</li>
+          <li>Standing up between tasks to feel your feet</li>
+          <li>One boundary sentence instead of over-explaining</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Evening (5–10 minutes)</div>
+        <ul>
+          <li>Journal: “When did my State change today?”</li>
+          <li>Note: “Which Pattern did I notice?”</li>
+          <li>Gratitude: “What did I do differently this time?”</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="identity">
+    <h2>Identity work: who you’re becoming.</h2>
+    <p>
+      Your nervous system loves familiarity. Integration asks you to become
+      familiar with a new identity, slowly.
+    </p>
+    <ul>
+      <li>From “I’m too much / not enough” → “I’m a human learning new skills.”</li>
+      <li>From “I always fix everything” → “I’m someone who lets others hold responsibility.”</li>
+      <li>From “I never have needs” → “I’m someone whose needs matter, including to me.”</li>
+    </ul>
+    <div class="script">
+      <strong>Identity affirmation:</strong><br>
+      <code>
+        “I am someone who notices my state and responds with care.  
+        Even when I fall back into old patterns, I am still someone who is changing.”
+      </code>
+    </div>
+  </section>
+
+  <section id="relationships">
+    <h2>Relationship upgrades.</h2>
+    <p>
+      Integration isn’t just internal — it shifts your relationships. Try choosing
+      one relationship to gently upgrade over the next month.
+    </p>
+    <ul class="checklist">
+      <li>Have one honest conversation using a need + boundary script.</li>
+      <li>Shorten or soften time with someone who consistently drains you.</li>
+      <li>Invite more support from someone safe (“Can I vent, or do you have capacity?”).</li>
+      <li>Celebrate one moment where you responded differently than before.</li>
+    </ul>
+  </section>
+
+  <section id="wrap">
+    <h2>Keeping the path alive.</h2>
+    <p>
+      You can cycle through these pillars as many times as you need. Life will
+      keep offering new “labs” — new situations where your State, Patterns, Needs,
+      and Boundaries get to practice.
+    </p>
+    <p>
+      When things feel overwhelming again, that doesn’t mean you failed. It means it’s
+      time to revisit:
+    </p>
+    <ul>
+      <li><strong>State:</strong> What am I in?</li>
+      <li><strong>Patterns:</strong> What loop is trying to run?</li>
+      <li><strong>Needs:</strong> What do I truly need?</li>
+      <li><strong>Boundaries:</strong> What’s okay / not okay for me?</li>
+    </ul>
+
+    <div class="btn-row">
+      <a href="xp-vault.html" class="btn btn-primary">Continue inside XP Vault →</a>
+      <a href="assessment.html" class="btn btn-secondary">Retake Emotional Assessment →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">5 Pillars</a>
+      <a href="xp-vault.html">XP Vault</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile-open');
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
