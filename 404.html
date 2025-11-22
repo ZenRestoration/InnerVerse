@@ -2,239 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>404 — Page Not Found • Mynd</title>
+  <title>Page Not Found — Mynd</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex" />
-  <meta name="description" content="We couldn’t find that page. Explore the Mynd curriculum, pattern maps, practices, and scripts." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <meta name="description" content="This page doesn’t exist. Let’s guide you back to solid ground." />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Page-specific polish */
-    .hero.center{text-align:center}
-    .big404{
-      font-family:"Playfair Display",serif; font-size:84px; line-height:0.9;
-      letter-spacing:-.02em; margin:0 0 4px; color:#0F3E41;
-      text-shadow:0 10px 30px rgba(24,46,66,.08);
-    }
-    .soft-card{
-      background:#ffffff; border:1px solid var(--line); border-radius:18px;
-      box-shadow:0 10px 26px rgba(24,46,66,.08); padding:16px;
-    }
-    .grid-cta{display:grid; gap:12px}
-    @media(min-width:860px){ .grid-cta{grid-template-columns:repeat(3,1fr)} }
-    .chip.full{display:block; text-align:center}
-    .ghost{
-      display:inline-block; padding:8px 12px; border-radius:999px;
-      border:1px solid rgba(28,182,173,.35);
-      color:#114B4F; font-weight:600; background:rgba(255,255,255,.6);
-      backdrop-filter:saturate(1.1) blur(4px); text-decoration:none;
-    }
-    .finder{display:flex; gap:10px; align-items:center; padding:10px 12px; border-radius:14px;
-      border:1px solid var(--line); background:#fff; box-shadow:0 6px 16px rgba(24,46,66,.06)}
-    .finder input{
-      width:100%; border:none; outline:none; font-size:14px; background:transparent;
-    }
-    .results{display:grid; gap:10px; margin-top:12px}
-    @media(min-width:900px){ .results{grid-template-columns:repeat(2,1fr)} }
-    .result{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      padding:12px; border:1px solid var(--line); border-radius:14px; background:#fff;
-    }
-    .result .title{font-weight:600}
-    .kbd{
-      font-size:11px; padding:2px 6px; border:1px solid var(--line); border-radius:6px; background:#F7FAFD; color:#2D4C72;
-    }
-    .tiny a{color:#1f6c67; text-decoration:none; font-weight:600}
-    .tiny a:hover{text-decoration:underline}
-    .muted i{opacity:.9}
-  </style>
 </head>
-<body data-page="error">
-  <!-- Progress + Orbs -->
-  <div class="progress" id="progress"></div>
-  <div class="orb a" id="orbA"></div>
-  <div class="orb b" id="orbB"></div>
-  <div class="orb c" id="orbC"></div>
-
-  <!-- NAV -->
-  <header>
-    <div class="wrap nav">
-      <div class="brand">Mynd <span class="tag-sub">Education for Human Evolution</span></div>
-      <a href="index.html" data-page="home">Home</a>
-      <a href="curriculum/index.html" data-page="curriculum">Curriculum</a>
-      <a href="patterns.html" data-page="patterns">Patterns</a>
-      <a href="practices.html" data-page="practices">Practices</a>
-      <a href="language.html" data-page="language">Language</a>
-      <a href="anchors.html" data-page="anchors">Anchors</a>
-      <a href="faq.html" data-page="faq">FAQ</a>
-      <a href="about.html" data-page="about">About</a>
-      <span class="spacer"></span>
-      <a class="chip" href="join.html" data-page="join">Membership</a>
+<body>
+<header>
+  <div class="shell nav">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
     </div>
-  </header>
+    <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="start-here.html">Start Here</a>
+        <a href="assessment.html">Emotional Assessment</a>
+        <a href="pillars.html">The 5 Pillars</a>
+        <a href="xp-vault.html" class="nav-cta"><span>●</span> XP Vault</a>
+      </div>
+    </nav>
+  </div>
+</header>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <div class="hero reveal center">
-      <span class="tagline"><span class="dot"></span> Not Found</span>
-      <div class="big404">404</div>
-      <h1>This page seems to have jumped timelines</h1>
-      <p class="sub">
-        It might have been renamed as our curriculum evolved. Let’s get you where you were going—calm, clear, and fast.
-      </p>
-      <div class="tiny">
-        Tip: Press <span class="kbd">/</span> to jump to Quick Find.
+<main class="shell">
+  <section>
+    <div class="not-found">
+      <div class="not-found-badge">You wandered off the path</div>
+
+      <div class="not-found-orb">
+        <div class="not-found-ring"></div>
+        <div class="not-found-orb-label">mynd</div>
+      </div>
+
+      <div class="not-found-code">404</div>
+
+      <div>
+        <h1 style="font-size:1.5rem;margin:0 0 0.35rem;">
+          This page doesn’t live here yet.
+        </h1>
+        <p style="margin:0;color:var(--muted);max-width:26rem;">
+          Think of this as a gentle checkpoint. You’re not lost&mdash;you’ve just stepped
+          outside the map. Let’s guide you back to where your nervous system feels held.
+        </p>
+      </div>
+
+      <div class="btn-row" style="justify-content:center;">
+        <a href="index.html" class="btn btn-primary">
+          ← Return to Home
+        </a>
+        <a href="start-here.html" class="btn btn-secondary">
+          Start the Mynd path →
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="sp"></div>
+  <section>
+    <h2 style="margin-bottom:0.4rem;">Quick links.</h2>
+    <p style="margin-bottom:0.7rem;">
+      Choose where you’d like to go next:
+    </p>
+    <ul>
+      <li><a href="assessment.html" style="color:var(--accent-2);">Take the Emotional Assessment</a></li>
+      <li><a href="pillars.html" style="color:var(--accent-2);">Explore the 5 Mynd Pillars</a></li>
+      <li><a href="xp-vault.html" style="color:var(--accent-2);">Learn about the XP Vault</a></li>
+      <li><a href="start-here.html" style="color:var(--accent-2);">Watch the “Start Here” intro</a></li>
+    </ul>
+  </section>
+</main>
 
-    <!-- QUICK ACTIONS -->
-    <section class="card reveal">
-      <div class="pill">Quick Actions</div>
-      <div class="grid grid-3">
-        <a class="chip full" href="index.html">← Back to Home</a>
-        <a class="chip full" href="curriculum/index.html">Open the Curriculum</a>
-        <a class="chip full" href="join.html">Become a Member</a>
-      </div>
-    </section>
+<footer>
+  <div class="shell footer-grid">
+    <div class="brand">
+      <span class="brand-orb"></span>
+      <span>Mynd</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="pillars.html">5 Pillars</a>
+      <a href="xp-vault.html">XP Vault</a>
+      <a href="start-here.html">Start Here</a>
+    </div>
+    <div>
+      <p>© <span id="year"></span> Mynd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
-    <div class="sp"></div>
-
-    <!-- QUICK FIND -->
-    <section class="card reveal">
-      <div class="pill">Quick Find</div>
-      <div class="finder" role="search" aria-label="Quick Find">
-        <span class="kbd">/</span>
-        <input id="q" type="search" placeholder="Type to find: curriculum, patterns, practices, scripts…" autocomplete="off" />
-      </div>
-
-      <div id="results" class="results">
-        <!-- Popular targets -->
-        <a class="result lift" data-title="Curriculum — The Architecture of Awareness" href="curriculum/index.html">
-          <div>
-            <div class="title">Curriculum</div>
-            <div class="muted tiny">State → Story → Need → Step</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="Patterns — Common Protectors and their Medicine" href="patterns.html">
-          <div>
-            <div class="title">Patterns</div>
-            <div class="muted tiny">Fear, shame, anger, overwhelm, and more</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="Practices — 90-second Nervous System Tools" href="practices.html">
-          <div>
-            <div class="title">Practices</div>
-            <div class="muted tiny">Physiological sigh, 4/6 breath, orienting</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="Language — Scripts for Boundaries, Repair, Presence" href="language.html">
-          <div>
-            <div class="title">Language</div>
-            <div class="muted tiny">Words that land when it matters</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="Anchors — Short Lines that Land in the Body" href="anchors.html">
-          <div>
-            <div class="title">Anchors</div>
-            <div class="muted tiny">Steady phrases for tough moments</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="FAQ — Using Mynd well" href="faq.html">
-          <div>
-            <div class="title">FAQ</div>
-            <div class="muted tiny">Access, pacing, refunds, and more</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-
-        <a class="result lift" data-title="About — Why I built Mynd" href="about.html">
-          <div>
-            <div class="title">About</div>
-            <div class="muted tiny">The vow behind the work</div>
-          </div>
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
-    <div class="sp"></div>
-
-    <!-- BACKTRACK / HELP -->
-    <section class="card reveal">
-      <div class="pill">Need a hand?</div>
-      <div class="grid grid-2">
-        <div class="soft-card">
-          <div class="label">Return to where you were</div>
-          <p class="muted">If you followed a broken link, try going back to the previous page.</p>
-          <p><button id="backBtn" class="chip" type="button">Go Back</button></p>
-          <p class="tiny" id="refInfo"></p>
-        </div>
-        <div class="soft-card">
-          <div class="label">Tell us about a broken link</div>
-          <p class="muted">If something’s off, I want to fix it. Kindly include the page you came from.</p>
-          <p><a class="ghost" href="mailto:hello@yourmynd.co?subject=Broken%20link%20on%20Mynd&body=Hi%20Brook%2C%0A%0AI%20hit%20a%20404%20on%3A%20%5Bpaste%20URL%5D%0AFrom%3A%20%5Breferrer%20URL%5D%0AWhat%20I%20expected%3A%20%5Bdescribe%5D%0A">Email support →</a></p>
-          <p class="tiny">No bots. Just care.</p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="reveal">Mynd · © <span id="yr"></span> · Education for Human Evolution</footer>
-  </main>
-
-  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
-
-  <script src="app.js"></script>
-  <script>
-    // Focus Quick Find with "/" key
-    document.addEventListener('keydown', (e)=>{
-      if (e.key === '/' && !e.metaKey && !e.ctrlKey){
-        const el = document.getElementById('q');
-        if (el){ e.preventDefault(); el.focus(); }
-      }
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-open');
     });
-
-    // Simple client-side filter for results
-    const q = document.getElementById('q');
-    const results = document.querySelectorAll('#results .result');
-    function filter(){
-      const v = (q.value || '').toLowerCase().trim();
-      results.forEach(card=>{
-        const t = (card.getAttribute('data-title') || '').toLowerCase();
-        card.style.display = t.includes(v) ? '' : 'none';
-      });
-    }
-    if (q){
-      q.addEventListener('input', filter);
-    }
-
-    // Back button using referrer if allowed
-    const ref = document.referrer || '';
-    const refInfo = document.getElementById('refInfo');
-    const backBtn = document.getElementById('backBtn');
-    if (ref && refInfo){
-      refInfo.textContent = "From: " + ref;
-    }
-    if (backBtn){
-      backBtn.addEventListener('click', ()=>{
-        if (ref && new URL(ref).origin === location.origin){
-          location.href = ref; // safer than history.back() if referrer exists and is same-origin
-        } else {
-          history.length > 1 ? history.back() : (location.href = 'index.html');
-        }
-      });
-    }
-  </script>
+  }
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+</script>
 </body>
 </html>
