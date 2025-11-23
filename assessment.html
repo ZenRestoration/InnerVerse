@@ -673,21 +673,34 @@
   </footer>
 
   <script>
+    // Nav toggle (guarded so it can't break other scripts)
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('mobile-open');
-    });
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('mobile-open');
+      });
+    }
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
 
-    const optionBlocks = document.querySelectorAll('.question[data-question] .option-pill');
+    // OPTION PILL LOGIC (fixed)
+    const optionBlocks = document.querySelectorAll('.option-pill');
     optionBlocks.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const parent = btn.closest('.question');
-        parent.querySelectorAll('.option-pill').forEach(b => b.classList.remove('active'));
+      btn.addEventListener('click', (e) => {
+        e.preventDefault(); // make sure it never tries to submit the form
+        const parentQuestion = btn.closest('.question');
+        if (!parentQuestion) return;
+
+        // Clear active state in this question only
+        parentQuestion.querySelectorAll('.option-pill').forEach(b => b.classList.remove('active'));
+        // Set active on clicked
         btn.classList.add('active');
-        parent.dataset.selected = btn.dataset.value;
+        // Store selected value on the question container
+        parentQuestion.dataset.selected = btn.dataset.value || '';
       });
     });
 
@@ -707,4 +720,95 @@
       const wishQuestion = document.querySelector('.question[data-question="wish"]');
       const state = stateQuestion ? (stateQuestion.dataset.selected || '') : '';
       const trigger = triggerQuestion ? (triggerQuestion.dataset.selected || '') : '';
-      const wish = wishQuestion ? (wishQuestion.dataset.selected
+      const wish = wishQuestion ? (wishQuestion.dataset.selected || '') : '';
+      const attachment = document.getElementById('attachment').value;
+      const coping = (document.getElementById('coping').value || '').trim();
+
+      let core = '';
+      let dys = '';
+      let ns = '';
+      let pillar = '';
+
+      // Base pattern from state
+      if (state === 'fight') {
+        core = "You tend to move toward problems with intensity — defending, fixing, or arguing your way through discomfort.";
+        dys = "Fight-leaning protection: your system tries to keep you safe by pushing back when something feels threatening, unfair, or out of your control.";
+        ns = "Your body often sits in a slightly elevated state: jaw, shoulders, and chest may feel tight or ready, even when nothing is “wrong” on the surface.";
+        pillar = "Begin with <strong>Understand</strong> to map what’s actually happening in your body and reactions, then explore <strong>Regulate</strong> to practice small downshifts before and after conflict.";
+      } else if (state === 'flight') {
+        core = "You cope by moving faster — planning, working, scrolling, or staying busy so you don’t have to fully land in your body.";
+        dys = "Flight-leaning protection: your system keeps you moving so you don’t have to feel stuck, trapped, or helpless.";
+        ns = "Your nervous system feels more familiar with motion than stillness, which can make rest feel unsafe, lazy, or like you’re “falling behind.”";
+        pillar = "Start with <strong>Understand</strong> and then <strong>Regulate</strong>, focusing on tiny pauses, breath, and nervous system resets that don’t feel like slamming on the brakes.";
+      } else if (state === 'freeze') {
+        core = "When overwhelmed, you go blank, numb, or detached — it feels like nothing is happening, but everything is happening inside.";
+        dys = "Freeze-leaning protection: your system turns the volume down on experience so you can survive what feels like too much, too fast, or inescapable.";
+        ns = "Your body may feel heavy, far away, or like you’re watching your life from behind glass. Motivation and decisions can feel almost impossible.";
+        pillar = "Begin with very small practices in <strong>Understand</strong> and <strong>Regulate</strong> (micro-movements, warmth, gentle stimulation), then move into <strong>Patterns</strong> when a bit more safety returns.";
+      } else if (state === 'fawn') {
+        core = "You move toward people with caretaking, people-pleasing, or over-explaining in order to stay safe, loved, or useful.";
+        dys = "Fawn-leaning protection: your system keeps you focused on keeping others okay, even if it quietly costs you your own needs and limits.";
+        ns = "Your nervous system is trained to scan others first and you second, which can make it hard to know what you actually feel or want.";
+        pillar = "Start with <strong>Patterns</strong> to understand your relational history, then explore <strong>Regulate</strong> and <strong>Integrate</strong> to practice tiny, self-respecting choices in real time.";
+      } else {
+        core = "Your pattern is still forming — or you use several strategies depending on who you’re with and how resourced you feel.";
+        dys = "Mixed protection: you may move between fight, flight, freeze, and fawn, as your system experiments with different ways to keep you safe.";
+        ns = "Pay attention to the first few seconds of activation; they often show your primary pattern before other strategies layer on top.";
+        pillar = "Begin with <strong>Understand</strong> to notice your earliest signals, then explore whichever module (Regulate, Patterns, or Integrate) feels most relevant today.";
+      }
+
+      // Deepen based on trigger
+      if (trigger === 'conflict') {
+        dys += " Conflict feels high-stakes, so your system may jump quickly into protection, appeasement, or shutdown to avoid rejection, shame, or escalation.";
+      } else if (trigger === 'uncertainty') {
+        dys += " Unclear futures can activate you more than actual problems, because you can’t prepare, control, or “do something” yet.";
+      } else if (trigger === 'overload') {
+        dys += " Too many inputs at once overwhelm your bandwidth, making even small tasks feel impossible and fueling self-criticism or collapse.";
+      } else if (trigger === 'lonely') {
+        dys += " Feeling unseen or forgotten can echo earlier experiences of emotional neglect or invisibility, even if your current situation looks “fine” from the outside.";
+      }
+
+      // Deepen based on attachment style
+      if (attachment === 'anxious') {
+        ns += " In relationships, your system often scans for signs of withdrawal or abandonment, which can make small changes feel like big threats.";
+      } else if (attachment === 'avoidant') {
+        ns += " In relationships, closeness can start to feel like pressure, so distance and self-sufficiency become your main regulators.";
+      } else if (attachment === 'mixed') {
+        ns += " You may swing between craving closeness and needing distance, which can be confusing for you and for the people you care about.";
+      } else if (attachment === 'secure') {
+        ns += " You likely have some secure wiring, even if stress still pulls you into old protective patterns when things feel overwhelming.";
+      }
+
+      // Reflect coping text if they wrote something
+      if (coping) {
+        ns += " When you’re overwhelmed, you’ve noticed you tend to cope by: “" + coping + "”. This gives clues about what currently feels safer or more familiar to your body than simply feeling the emotion directly.";
+      }
+
+      // Reflect wish
+      if (wish) {
+        let wishText = "";
+        if (wish === "clarity") {
+          wishText = "clarity about what you’re feeling and why.";
+        } else if (wish === "calm") {
+          wishText = "more calm, grounding, and steadiness in your system.";
+        } else if (wish === "relating") {
+          wishText = "more self-respect, honesty, and mutuality in your relationships.";
+        } else if (wish === "energy") {
+          wishText = "more energy, motivation, and a sense of direction.";
+        } else if (wish === "support") {
+          wishText = "more support, understanding, and the feeling of being held by others.";
+        }
+        ns += " Right now, you also named that you most wish you had " + wishText + " Let that guide what you prioritize first.";
+      }
+
+      resultTitle.textContent = "Here’s what your system might be trying to do for you.";
+      resultIntro.style.display = "none";
+      resultContent.style.display = "block";
+      corePattern.textContent = core;
+      dysStyle.textContent = dys;
+      nsSnapshot.textContent = ns;
+      suggestedPillar.innerHTML = pillar;
+    });
+  </script>
+</body>
+</html>
