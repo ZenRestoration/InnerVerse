@@ -11,7 +11,8 @@
   <meta property="og:description" content="A calm, premium system for inner authority, self-trust, and integration — without urgency or performance." />
   <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="./assets/style.css" />
+  <!-- CRITICAL FIX: root-relative path so it works from /pages/* too -->
+  <link rel="stylesheet" href="/assets/style.css" />
 </head>
 
 <body>
@@ -23,7 +24,8 @@
   <header>
     <div class="wrap">
       <div class="nav">
-        <a class="brand" href="./index.html" aria-label="Experience Points home">
+        <!-- CRITICAL FIX: root-relative nav -->
+        <a class="brand" href="/" aria-label="Experience Points home">
           <div class="logo" aria-hidden="true"></div>
           <div class="name">
             <strong>Experience Points</strong>
@@ -32,12 +34,12 @@
         </a>
 
         <nav class="navlinks" aria-label="Primary">
-          <a href="./index.html" data-nav="home">Home</a>
-          <a href="./pages/origin.html" data-nav="origin">Origin</a>
-          <a href="./pages/path.html" data-nav="path">The Path</a>
-          <a href="./pages/map.html" data-nav="map">The Map</a>
-          <a href="./pages/side-quests.html" data-nav="side-quests">Side Quests</a>
-          <a href="./pages/practice.html" data-nav="practice">Practice</a>
+          <a href="/" data-nav="home">Home</a>
+          <a href="/pages/origin.html" data-nav="origin">Origin</a>
+          <a href="/pages/path.html" data-nav="path">The Path</a>
+          <a href="/pages/map.html" data-nav="map">The Map</a>
+          <a href="/pages/side-quests.html" data-nav="side-quests">Side Quests</a>
+          <a href="/pages/practice.html" data-nav="practice">Practice</a>
         </nav>
 
         <div class="nav-right">
@@ -53,12 +55,12 @@
 
       <div id="mobileNav" class="mobile-nav" hidden>
         <div class="panelbox" role="navigation" aria-label="Mobile">
-          <a href="./index.html">Home</a>
-          <a href="./pages/origin.html">Origin</a>
-          <a href="./pages/path.html">The Path</a>
-          <a href="./pages/map.html">The Map</a>
-          <a href="./pages/side-quests.html">Side Quests</a>
-          <a href="./pages/practice.html">Practice</a>
+          <a href="/">Home</a>
+          <a href="/pages/origin.html">Origin</a>
+          <a href="/pages/path.html">The Path</a>
+          <a href="/pages/map.html">The Map</a>
+          <a href="/pages/side-quests.html">Side Quests</a>
+          <a href="/pages/practice.html">Practice</a>
         </div>
       </div>
     </div>
@@ -86,7 +88,7 @@
               </p>
 
               <div class="hero-ctas">
-                <a class="btn primary" href="./pages/path.html">
+                <a class="btn primary" href="/pages/path.html">
                   <span>Start on The Path</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -94,7 +96,7 @@
                   </svg>
                 </a>
 
-                <a class="btn ghost" href="./pages/origin.html">
+                <a class="btn ghost" href="/pages/origin.html">
                   <span>Read the Origin</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -130,7 +132,7 @@
                 <span>Integration</span>
                 <span><b style="color:var(--text); letter-spacing:-0.02em;">The missing step</b></span>
               </div>
-              <div class="xp-bar" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
+              <div class="xp-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
                 <span style="width:72%"></span>
               </div>
               <div class="row" style="margin-top:10px;">
@@ -277,9 +279,7 @@
             <div class="kicker">What you’ll find here</div>
             <h2>Four doors. No overwhelm.</h2>
           </div>
-          <p class="lead">
-            Just what is useful — when it is useful.
-          </p>
+          <p class="lead">Just what is useful — when it is useful.</p>
         </div>
 
         <div class="grid3">
@@ -287,7 +287,7 @@
             <h4>The Path</h4>
             <p>A calm beginning. Orientation. No pressure — just direction.</p>
             <div class="chiprow">
-              <a class="btn ghost" href="./pages/path.html" style="padding:10px 12px;border-radius:14px;">Begin →</a>
+              <a class="btn ghost" href="/pages/path.html" style="padding:10px 12px;border-radius:14px;">Begin →</a>
             </div>
           </article>
 
@@ -295,7 +295,7 @@
             <h4>The Map</h4>
             <p>Language and frameworks to make sense of your inner world — without self-blame.</p>
             <div class="chiprow">
-              <a class="btn ghost" href="./pages/map.html" style="padding:10px 12px;border-radius:14px;">View →</a>
+              <a class="btn ghost" href="/pages/map.html" style="padding:10px 12px;border-radius:14px;">View →</a>
             </div>
           </article>
 
@@ -303,7 +303,7 @@
             <h4>Side Quests</h4>
             <p>Small practices that turn insight into lived change.</p>
             <div class="chiprow">
-              <a class="btn ghost" href="./pages/side-quests.html" style="padding:10px 12px;border-radius:14px;">Choose →</a>
+              <a class="btn ghost" href="/pages/side-quests.html" style="padding:10px 12px;border-radius:14px;">Choose →</a>
             </div>
           </article>
         </div>
@@ -315,16 +315,14 @@
             <div>
               <div class="kicker">Primary invitation</div>
               <h3>Start on The Path — or explore Side Quests.</h3>
-              <p>
-                A calm beginning. A clear entry point. No pressure — just direction.
-              </p>
+              <p>A calm beginning. A clear entry point. No pressure — just direction.</p>
               <p class="fineprint" style="margin-top:10px;">
                 Experience Points is built for inner authority, not dependence. Take what resonates. Leave what doesn’t. Return to yourself.
               </p>
             </div>
 
             <div style="display:flex; flex-direction:column; gap:10px;">
-              <a class="btn primary" href="./pages/path.html">
+              <a class="btn primary" href="/pages/path.html">
                 <span>Begin on The Path</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -332,14 +330,14 @@
                 </svg>
               </a>
 
-              <a class="btn ghost" href="./pages/side-quests.html">
+              <a class="btn ghost" href="/pages/side-quests.html">
                 <span>Choose a Side Quest</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
 
-              <a class="btn ghost" href="./pages/origin.html">
+              <a class="btn ghost" href="/pages/origin.html">
                 <span>Why this exists</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -378,12 +376,12 @@
           </div>
 
           <div class="links" aria-label="Footer links">
-            <a href="./pages/origin.html">Origin</a>
-            <a href="./pages/path.html">The Path</a>
-            <a href="./pages/map.html">The Map</a>
-            <a href="./pages/side-quests.html">Side Quests</a>
-            <a href="./pages/practice.html">Practice</a>
-            <a href="./index.html">Home</a>
+            <a href="/pages/origin.html">Origin</a>
+            <a href="/pages/path.html">The Path</a>
+            <a href="/pages/map.html">The Map</a>
+            <a href="/pages/side-quests.html">Side Quests</a>
+            <a href="/pages/practice.html">Practice</a>
+            <a href="/">Home</a>
           </div>
         </div>
       </div>
