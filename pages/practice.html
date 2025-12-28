@@ -444,16 +444,19 @@
         });
       });
 
-      // Email validation + local placeholder storage
+      // Email validation
       function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
       }
+
+      // PRACTICE WAITLIST — serverless endpoint (Cloudflare Worker)
+      const ENDPOINT = "https://wild-cloud-7a40.brooklynnblais.workers.dev";
 
       const form = $("#practiceNotifyForm");
       const msg = $("#pMsg");
 
       if (form && msg) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
           msg.textContent = "";
 
@@ -468,17 +471,46 @@
             return;
           }
 
-          const payload = { name: name || null, email, focus: focus || null, ts: new Date().toISOString() };
-          try {
-            const key = "xp_practice_notify";
-            const existing = JSON.parse(localStorage.getItem(key) || "[]");
-            existing.push(payload);
-            localStorage.setItem(key, JSON.stringify(existing));
-          } catch (err) {}
+          // UI state
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const prevBtnText = submitBtn ? submitBtn.innerHTML : "";
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.85";
+            submitBtn.innerHTML = "<span>Adding you…</span>";
+          }
 
-          msg.textContent = "✅ You’re on the quiet update list. You’ll hear from us when there’s something real to share.";
-          msg.style.color = "rgba(106,247,197,0.95)";
-          form.reset();
+          try {
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name: name || null, email, focus: focus || null })
+            });
+
+            const out = await res.json().catch(() => ({}));
+
+            if (!res.ok || !out.ok) {
+              msg.textContent = out.error || "Something went wrong. Please try again in a moment.";
+              msg.style.color = "rgba(255,211,106,0.95)";
+              if (submitBtn) submitBtn.disabled = false;
+              if (submitBtn) submitBtn.style.opacity = "";
+              if (submitBtn) submitBtn.innerHTML = prevBtnText || "<span>Notify Me (Quietly)</span>";
+              return;
+            }
+
+            msg.textContent = "✅ You’re on the quiet update list. You’ll hear from us when there’s something real to share.";
+            msg.style.color = "rgba(106,247,197,0.95)";
+            form.reset();
+          } catch (err) {
+            msg.textContent = "Network error. Please check your connection and try again.";
+            msg.style.color = "rgba(255,211,106,0.95)";
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.style.opacity = "";
+              submitBtn.innerHTML = prevBtnText || "<span>Notify Me (Quietly)</span>";
+            }
+          }
         });
       }
 
