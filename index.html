@@ -1,22 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page="home">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Experience Points — Level up through lived experience</title>
-  <meta name="description" content="Experience Points is a home for people who are ready to grow honestly — through real life, real feelings, real choices — and to turn lived experience into self-trust." />
+  <meta name="description" content="Experience Points is a home for people ready to grow honestly — through real life, real feelings, real choices — and turn lived experience into self-trust." />
   <meta name="theme-color" content="#0b1a16" />
 
   <meta property="og:title" content="Experience Points — Level up through lived experience" />
-  <meta property="og:description" content="A calm, premium space for integration: the translation of experience into wisdom, pain into clarity, and authority back to your inner compass." />
+  <meta property="og:description" content="A calm, premium system for inner authority, self-trust, and integration — without urgency or performance." />
   <meta property="og:type" content="website" />
 
   <link rel="stylesheet" href="./assets/style.css" />
 </head>
 
-<body data-page="home">
+<body>
   <div class="bg-wrap" aria-hidden="true">
-    <canvas id="stars"></canvas>
+    <canvas class="stars"></canvas>
     <div class="glow-film"></div>
   </div>
 
@@ -32,29 +32,33 @@
         </a>
 
         <nav class="navlinks" aria-label="Primary">
-          <a href="./index.html" aria-current="page">Home</a>
+          <a href="./index.html" data-nav="home">Home</a>
+          <a href="./pages/origin.html" data-nav="origin">Origin</a>
+          <a href="./pages/path.html" data-nav="path">The Path</a>
+          <a href="./pages/map.html" data-nav="map">The Map</a>
+          <a href="./pages/side-quests.html" data-nav="side-quests">Side Quests</a>
+          <a href="./pages/practice.html" data-nav="practice">Practice</a>
+        </nav>
+
+        <div class="nav-right">
+          <span class="pill" title="A calm beginning, built with integrity.">
+            <span class="dot" aria-hidden="true"></span>
+            Built for inner authority
+          </span>
+          <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+            <span class="menu-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileNav" class="mobile-nav" hidden>
+        <div class="panelbox" role="navigation" aria-label="Mobile">
+          <a href="./index.html">Home</a>
           <a href="./pages/origin.html">Origin</a>
           <a href="./pages/path.html">The Path</a>
           <a href="./pages/map.html">The Map</a>
           <a href="./pages/side-quests.html">Side Quests</a>
           <a href="./pages/practice.html">Practice</a>
-        </nav>
-
-        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <span class="bars" aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <div id="mobileMenu" class="mobile-menu" hidden>
-        <a href="./index.html" aria-current="page">Home</a>
-        <a href="./pages/origin.html">Origin</a>
-        <a href="./pages/path.html">The Path</a>
-        <a href="./pages/map.html">The Map</a>
-        <a href="./pages/side-quests.html">Side Quests</a>
-        <a href="./pages/practice.html">Practice</a>
-        <div class="mobile-actions">
-          <a class="btn ghost" href="./pages/origin.html">Read the Origin</a>
-          <a class="btn primary" href="./pages/path.html">Start on The Path</a>
         </div>
       </div>
     </div>
@@ -69,15 +73,16 @@
             <div class="hero-inner">
               <span class="pill">
                 <span class="dot" aria-hidden="true"></span>
-                A calm system for integration and inner authority
+                Growth without performance. Depth without chaos.
               </span>
 
               <h1>Level up through lived experience.</h1>
 
               <p class="subhead">
-                Not by performing. Not by proving. Not by becoming “better” for someone else.<br />
-                <strong style="color:rgba(234,247,240,0.95);">Experience Points</strong> is a home for people who are ready to grow honestly — through real life, real feelings, real choices —
-                and to turn everything they’ve survived, learned, and noticed into <em>self-trust</em>.
+                Not by performing. Not by proving. Not by becoming “better” for someone else.<br><br>
+                <strong>Experience Points</strong> is a home for people who are ready to grow honestly —
+                through real life, real feelings, real choices — and to turn everything they’ve survived,
+                learned, and noticed into <em>self-trust</em>.
               </p>
 
               <div class="hero-ctas">
@@ -98,124 +103,118 @@
               </div>
 
               <div class="microproof" aria-label="Quick proof points">
-                <span class="badge"><b>Truth</b> <em>over performance</em></span>
-                <span class="badge"><b>Pacing</b> <em>your nervous system can trust</em></span>
-                <span class="badge"><b>Integration</b> <em>over endless consuming</em></span>
+                <span class="badge"><b>Clarity</b> <em>without coercion</em></span>
+                <span class="badge"><b>Pacing</b> <em>that keeps you online</em></span>
+                <span class="badge"><b>Integration</b> <em>over consuming</em></span>
               </div>
-
-              <hr class="sep" />
-
-              <div class="section-head" style="margin-bottom:0;">
-                <div>
-                  <div class="kicker">The core idea</div>
-                  <h2 style="font-size: clamp(22px, 2.2vw, 30px);">Your life has already given you XP.</h2>
-                </div>
-                <p class="lead">
-                  In role-playing games, characters don’t level up because they were perfect — they level up because they engage.
-                </p>
-              </div>
-
-              <div class="steps" style="margin-top:14px;">
-                <div class="step">
-                  <div class="num">01</div>
-                  <div>
-                    <h4>Engage the moment in front of you</h4>
-                    <p>Not someday. Not after you “figure it out.” Real life is the training ground.</p>
-                  </div>
-                </div>
-                <div class="step">
-                  <div class="num">02</div>
-                  <div>
-                    <h4>Learn from what didn’t work</h4>
-                    <p>No shame loops. No identity collapse. Information, then adjustment.</p>
-                  </div>
-                </div>
-                <div class="step">
-                  <div class="num">03</div>
-                  <div>
-                    <h4>Adapt without abandoning yourself</h4>
-                    <p>Flexibility without self-erasure. Integrity without rigidity.</p>
-                  </div>
-                </div>
-                <div class="step">
-                  <div class="num">04</div>
-                  <div>
-                    <h4>Build skill through repetition</h4>
-                    <p>Not theory. Not intensity. Small, true actions that compound.</p>
-                  </div>
-                </div>
-              </div>
-
-              <hr class="sep" />
-
-              <p class="lead" style="max-width: 78ch;">
-                Experience Points exists to support the part most people skip: <strong style="color:rgba(234,247,240,0.95);">integration</strong>.
-                The translation of experience into wisdom. The conversion of pain into clarity. The return of authority to your own inner compass.
-              </p>
             </div>
           </div>
 
-          <!-- Right panel -->
-          <aside class="hero-card panel" aria-label="What this space is">
+          <aside class="hero-card panel" aria-label="Core idea preview">
             <div class="panel-top">
               <div>
-                <h3>What this space is (and is not)</h3>
+                <h3>The core idea</h3>
                 <p>
-                  This is not a place where you come to be fixed. It’s a place where you come to remember yourself.
+                  In role-playing games, characters don’t level up because they were perfect.
+                  They level up because they engage.
                 </p>
               </div>
               <span class="pill" style="margin-top:2px;">
                 <span class="dot" aria-hidden="true"></span>
-                Inner authority
+                Your life has XP
               </span>
             </div>
 
-            <div class="xp-meter" style="--bar:72%;" aria-label="Alignment meter">
+            <div class="xp-meter" aria-label="XP metaphor">
               <div class="row">
-                <span>Alignment</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">Steady</b> <span style="opacity:.7">over forced</span></span>
+                <span>Integration</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">The missing step</b></span>
               </div>
-              <div class="xp-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
-                <span></span>
+              <div class="xp-bar" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
+                <span style="width:72%"></span>
               </div>
               <div class="row" style="margin-top:10px;">
-                <span>Method</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">Signals → Discernment → Choice</b></span>
+                <span>Result</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">Self-trust</b></span>
               </div>
             </div>
 
-            <div class="grid2" style="margin-top: 2px;">
-              <div class="card" style="padding:16px;">
-                <h4 style="margin:0 0 8px;">We don’t treat emotions as problems.</h4>
-                <p>We treat them as signals — and build language so you can navigate instead of shame-spiral.</p>
-                <div class="chiprow">
-                  <span class="chip">Truth</span>
-                  <span class="chip">Discernment</span>
-                  <span class="chip">Self-leadership</span>
+            <div class="panel-cards">
+              <div class="mini">
+                <div class="title">
+                  <span>How XP is earned</span>
+                  <b>Engage → Learn → Adapt</b>
                 </div>
+                <ul>
+                  <li>Facing the moment in front of you</li>
+                  <li>Learning from what didn’t work</li>
+                  <li>Adapting without abandoning yourself</li>
+                  <li>Building skills through repetition, not theory</li>
+                  <li>Choosing a direction and committing to it</li>
+                </ul>
               </div>
 
-              <div class="card" style="padding:16px;">
-                <h4 style="margin:0 0 8px;">We don’t force “forgiveness” or “gratitude.”</h4>
-                <p>We build reality, pacing, and boundaries — slowly enough that your system can trust it.</p>
-                <div class="chiprow">
-                  <span class="chip">No bypassing</span>
-                  <span class="chip">No coercion</span>
-                  <span class="chip">No urgency</span>
+              <div class="mini">
+                <div class="title">
+                  <span>What we do differently</span>
+                  <b>Integration, not bypass</b>
                 </div>
-              </div>
-            </div>
-
-            <div class="quote" style="margin-top: 6px;">
-              <p>
-                “Growth isn’t self-improvement. Growth is alignment between what you know, what you feel, what you choose — and what you keep repeating.”
-              </p>
-              <div class="who">
-                <span><b>Experience Points</b> · philosophy</span>
-                <span>quiet power</span>
+                <ul>
+                  <li>Translation of experience into wisdom</li>
+                  <li>Conversion of pain into clarity</li>
+                  <li>Return of authority to your inner compass</li>
+                </ul>
               </div>
             </div>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT THIS IS / IS NOT -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">What this space is</div>
+            <h2>A quiet, premium container for self-leadership.</h2>
+          </div>
+          <p class="lead">
+            This is not a place where you come to be fixed.
+            It’s a place where you come to remember yourself — and build a relationship with your inner reality you can trust.
+          </p>
+        </div>
+
+        <div class="grid3">
+          <article class="card">
+            <h4>We treat emotions as signals.</h4>
+            <p>Not problems. Not proof you’re broken. Signals that can be understood and integrated.</p>
+            <div class="chiprow">
+              <span class="chip">Discernment</span>
+              <span class="chip">Self-leadership</span>
+              <span class="chip">Clarity</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h4>We don’t force forgiveness.</h4>
+            <p>No coercive gratitude. No “high vibe” bypass. Truth first — slowly enough that your nervous system can trust it.</p>
+            <div class="chiprow">
+              <span class="chip">Truth</span>
+              <span class="chip">Pacing</span>
+              <span class="chip">Safety</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h4>We restore inner authority.</h4>
+            <p>So you can make decisions without guilt, hold boundaries without collapse, and build a life that feels like yours.</p>
+            <div class="chiprow">
+              <span class="chip">Boundaries</span>
+              <span class="chip">Choice</span>
+              <span class="chip">Integration</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -226,79 +225,44 @@
         <div class="section-head">
           <div>
             <div class="kicker">Who this is for</div>
-            <h2>Depth without chaos. Clarity without manipulation.</h2>
+            <h2>Perceptive people who are done shrinking.</h2>
           </div>
           <p class="lead">
-            You don’t need more motivation. You need a system that helps you trust your perception, regulate without self-suppression,
-            and make choices you can stand behind.
+            You don’t need more motivation. You need a system that supports real-life alignment —
+            what you know, what you feel, what you choose, and what you tolerate.
           </p>
         </div>
 
-        <div class="grid3">
-          <article class="card">
-            <h4>Perceptive — carrying too much alone</h4>
-            <p>
-              You see patterns quickly, but you’ve had nowhere safe to place your insight. This gives you language, pacing, and structure.
-            </p>
-            <div class="chiprow">
-              <span class="chip">Discernment</span>
-              <span class="chip">Containment</span>
-              <span class="chip">Self-trust</span>
-            </div>
-          </article>
-
-          <article class="card">
-            <h4>Independent early — ready for choice</h4>
-            <p>
-              You learned survival fast. Now you want a life built by choice, not bracing. Not collapse. Not performance.
-            </p>
-            <div class="chiprow">
-              <span class="chip">Boundaries</span>
-              <span class="chip">Direction</span>
-              <span class="chip">Integrity</span>
-            </div>
-          </article>
-
-          <article class="card">
-            <h4>“Too sensitive” — actually too accurate</h4>
-            <p>
-              You weren’t wrong. You were picking up what others avoided. Here, accuracy becomes navigation — not self-blame.
-            </p>
-            <div class="chiprow">
-              <span class="chip">Reality</span>
-              <span class="chip">Nervous system</span>
-              <span class="chip">Clarity</span>
-            </div>
-          </article>
-        </div>
-
-        <div class="steps" style="margin-top:14px;">
+        <div class="steps">
           <div class="step">
             <div class="num">01</div>
             <div>
-              <h4>Trust your perception</h4>
-              <p>Rebuild authority internally so you stop outsourcing reality to louder voices.</p>
+              <h4>You carry too much alone.</h4>
+              <p>You’re self-aware — but you’ve been holding your insight without a safe place to land it.</p>
             </div>
           </div>
+
           <div class="step">
             <div class="num">02</div>
             <div>
-              <h4>Regulate without self-suppression</h4>
-              <p>Stay online in your body while your truth stays intact.</p>
+              <h4>You want depth without chaos.</h4>
+              <p>Spirituality or psychology without manipulation, urgency, or identity pressure.</p>
             </div>
           </div>
+
           <div class="step">
             <div class="num">03</div>
             <div>
-              <h4>Hold boundaries without collapse</h4>
-              <p>Clean, calm, consistent — not reactive, not performative.</p>
+              <h4>You were called “too sensitive” when you were too accurate.</h4>
+              <p>You’re not behind — you’re ready to live from reality, not conditioning.</p>
             </div>
           </div>
+
           <div class="step">
             <div class="num">04</div>
             <div>
-              <h4>Create a life that feels like yours</h4>
-              <p>Alignment between what you know, feel, choose, tolerate, and repeat.</p>
+              <h4>You’re ready to build a life that matches what you know is true.</h4>
+              <p>Trust your perception. Regulate without suppression. Choose without guilt.</p>
             </div>
           </div>
         </div>
@@ -311,120 +275,78 @@
         <div class="section-head">
           <div>
             <div class="kicker">What you’ll find here</div>
-            <h2>Four doors. No overwhelm. Just what’s useful — when it’s useful.</h2>
+            <h2>Four doors. No overwhelm.</h2>
           </div>
           <p class="lead">
-            Experience Points is built to be returned to — not consumed. Choose the doorway that matches where you are right now.
+            Just what is useful — when it is useful.
           </p>
         </div>
 
-        <div class="grid2">
-          <div class="card">
+        <div class="grid3">
+          <article class="card">
             <h4>The Path</h4>
-            <p>A calm beginning. A clear entry point. No pressure — just direction.</p>
+            <p>A calm beginning. Orientation. No pressure — just direction.</p>
             <div class="chiprow">
-              <span class="chip">Start here</span>
-              <span class="chip">Orientation</span>
-              <span class="chip">Pacing</span>
+              <a class="btn ghost" href="./pages/path.html" style="padding:10px 12px;border-radius:14px;">Begin →</a>
             </div>
-            <div style="margin-top:14px;">
+          </article>
+
+          <article class="card">
+            <h4>The Map</h4>
+            <p>Language and frameworks to make sense of your inner world — without self-blame.</p>
+            <div class="chiprow">
+              <a class="btn ghost" href="./pages/map.html" style="padding:10px 12px;border-radius:14px;">View →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h4>Side Quests</h4>
+            <p>Small practices that turn insight into lived change.</p>
+            <div class="chiprow">
+              <a class="btn ghost" href="./pages/side-quests.html" style="padding:10px 12px;border-radius:14px;">Choose →</a>
+            </div>
+          </article>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <div class="cta-band">
+          <div class="cta-inner">
+            <div>
+              <div class="kicker">Primary invitation</div>
+              <h3>Start on The Path — or explore Side Quests.</h3>
+              <p>
+                A calm beginning. A clear entry point. No pressure — just direction.
+              </p>
+              <p class="fineprint" style="margin-top:10px;">
+                Experience Points is built for inner authority, not dependence. Take what resonates. Leave what doesn’t. Return to yourself.
+              </p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
               <a class="btn primary" href="./pages/path.html">
-                <span>Begin →</span>
+                <span>Begin on The Path</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
-            </div>
-          </div>
 
-          <div class="card">
-            <h4>The Origin</h4>
-            <p>Why this exists, what it refuses, and the stance it’s built on.</p>
-            <div class="chiprow">
-              <span class="chip">Clarity</span>
-              <span class="chip">Ethics</span>
-              <span class="chip">Inner authority</span>
-            </div>
-            <div style="margin-top:14px;">
-              <a class="btn ghost" href="./pages/origin.html">
-                <span>Read →</span>
+              <a class="btn ghost" href="./pages/side-quests.html">
+                <span>Choose a Side Quest</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
-            </div>
-          </div>
 
-          <div class="card">
-            <h4>The Map</h4>
-            <p>Language and distinctions that make your inner world navigable.</p>
-            <div class="chiprow">
-              <span class="chip">Sense-making</span>
-              <span class="chip">No diagnosis</span>
-              <span class="chip">No hierarchy</span>
-            </div>
-            <div style="margin-top:14px;">
-              <a class="btn ghost" href="./pages/map.html">
-                <span>View →</span>
+              <a class="btn ghost" href="./pages/origin.html">
+                <span>Why this exists</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </a>
             </div>
-          </div>
-
-          <div class="card">
-            <h4>Side Quests + Practice</h4>
-            <p>Small experiments now. Ongoing integration later. Both designed to stay humane.</p>
-            <div class="chiprow">
-              <span class="chip">Real life</span>
-              <span class="chip">Low pressure</span>
-              <span class="chip">Continuity</span>
-            </div>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn ghost" href="./pages/side-quests.html">Choose a Side Quest →</a>
-              <a class="btn primary" href="./pages/practice.html">Explore Practice →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RELATIONAL INVITATION + CTA -->
-    <section id="join">
-      <div class="wrap">
-        <div class="cta-band">
-          <div class="cta-inner">
-            <div>
-              <div class="kicker">Relational invitation</div>
-              <h3>This is the threshold — the part where you stop living by other people’s rules.</h3>
-              <p>
-                If being perceived feels like pressure… if you’ve been carrying insight with nowhere safe to put it…
-                you’re not behind. You’re in the moment where the character returns to their own compass.
-              </p>
-              <p class="fineprint" style="margin-top:10px;">
-                Optional: join for quiet updates when Practice opens. No urgency. No scarcity language. No pressure.
-              </p>
-            </div>
-
-            <form id="xpForm" data-xp-form="waitlist" novalidate>
-              <div class="field">
-                <input class="input" name="name" autocomplete="name" placeholder="Your name (optional)" aria-label="Your name" />
-                <input class="input" name="email" autocomplete="email" placeholder="Your email" aria-label="Your email" required />
-              </div>
-              <input class="input" name="intent" placeholder="What are you integrating right now? (optional)" aria-label="Your intent" />
-              <button class="btn primary" type="submit">
-                <span>Join for quiet updates</span>
-                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-
-              <div class="fineprint" data-xp-msg role="status" aria-live="polite"></div>
-              <div class="fineprint">Take what resonates. Leave what doesn’t. Return to yourself.</div>
-            </form>
           </div>
         </div>
       </div>
@@ -441,10 +363,16 @@
                 <div style="margin-top:3px;">Built for inner authority, not dependence.</div>
               </div>
             </div>
-            <div style="margin-top:10px;">
-              <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t. Return to yourself.
+
+            <div style="margin-top:10px; line-height:1.55;">
+              Take what resonates. Leave what doesn’t. Return to yourself.
             </div>
-            <div style="margin-top:8px; max-width: 70ch; line-height:1.5;">
+
+            <div style="margin-top:10px;">
+              <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points.
+            </div>
+
+            <div style="margin-top:8px; max-width: 78ch; line-height:1.5;">
               <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
             </div>
           </div>
@@ -455,13 +383,142 @@
             <a href="./pages/map.html">The Map</a>
             <a href="./pages/side-quests.html">Side Quests</a>
             <a href="./pages/practice.html">Practice</a>
-            <a href="#top" aria-label="Back to top">Top ↑</a>
+            <a href="./index.html">Home</a>
           </div>
         </div>
       </div>
     </footer>
   </main>
 
-  <script src="./assets/site.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+      // Year
+      $("#year").textContent = String(new Date().getFullYear());
+
+      // Active nav
+      const page = document.documentElement.getAttribute("data-page");
+      $$("[data-nav]").forEach(a => {
+        if (a.getAttribute("data-nav") === page) a.classList.add("active");
+      });
+
+      // Mobile menu
+      const btn = $(".menu-btn");
+      const mobile = $("#mobileNav");
+      if (btn && mobile) {
+        const setState = (open) => {
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          mobile.hidden = !open;
+        };
+        setState(false);
+        btn.addEventListener("click", () => {
+          const open = btn.getAttribute("aria-expanded") !== "true";
+          setState(open);
+        });
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setState(false);
+        });
+        $$("#mobileNav a").forEach(a => a.addEventListener("click", () => setState(false)));
+      }
+
+      // Starfield
+      const canvas = document.querySelector("canvas.stars");
+      const ctx = canvas.getContext("2d", { alpha: true });
+
+      let W = 0, H = 0;
+      const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const stars = [];
+      const STAR_COUNT = 160;
+      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+
+      function makeStars() {
+        stars.length = 0;
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: rand(0, W),
+            y: rand(0, H),
+            r: rand(0.6, 1.9),
+            a: rand(0.10, 0.75),
+            vx: rand(-0.08, 0.08),
+            vy: rand(0.02, 0.14),
+            tw: rand(0.002, 0.010),
+            ph: rand(0, Math.PI * 2)
+          });
+        }
+      }
+
+      let mouseX = window.innerWidth * 0.5, mouseY = window.innerHeight * 0.4;
+      window.addEventListener("pointermove", (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        const vg = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, Math.max(W, H) * 0.65);
+        vg.addColorStop(0, "rgba(0,0,0,0)");
+        vg.addColorStop(1, "rgba(0,0,0,0.35)");
+        ctx.fillStyle = vg;
+        ctx.fillRect(0, 0, W, H);
+
+        const px = (mouseX / Math.max(1, W) - 0.5) * 10;
+        const py = (mouseY / Math.max(1, H) - 0.5) * 10;
+
+        for (const s of stars) {
+          s.ph += s.tw;
+          const twinkle = (Math.sin(s.ph) * 0.08) + 0.92;
+
+          const x = s.x + px * (s.r * 0.35);
+          const y = s.y + py * (s.r * 0.35);
+
+          const g = ctx.createRadialGradient(x, y, 0, x, y, s.r * 5.2);
+          g.addColorStop(0, `rgba(234,247,240,${Math.min(0.10, s.a * 0.25)})`);
+          g.addColorStop(1, "rgba(234,247,240,0)");
+
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, y, s.r * 5.2, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = `rgba(234,247,240,${(s.a * twinkle).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(x, y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (!prefersReduce) { s.x += s.vx; s.y += s.vy; }
+
+          if (s.y > H + 10) { s.y = -10; s.x = rand(0, W); }
+          if (s.x > W + 10) s.x = -10;
+          if (s.x < -10) s.x = W + 10;
+        }
+
+        if (!prefersReduce) requestAnimationFrame(draw);
+      }
+
+      resize();
+      makeStars();
+      requestAnimationFrame(draw);
+
+      let rT = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(rT);
+        rT = setTimeout(() => { resize(); makeStars(); }, 180);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
