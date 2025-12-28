@@ -1,25 +1,49 @@
-InnerVerse — Learning Hub
+# Experience Points
 
-A growing garden of practical, compassionate, and powerful tools for life’s ups and downs.
+**Level up through lived experience.**
 
-InnerVerse is a premium, content-first web app designed to feel like luxury self-care: calm visuals, clear structure, and deeply helpful lessons. It ships as a single, production-ready HTML file (vanilla JS + CSS) with a minimalist left-side directory, a narrative Self-Discovery module, and a lightweight membership gate (Stripe checkout link + local unlock codes for dev/demo).
+Experience Points is a quiet, grounded project focused on self-trust, integration, and conscious growth through real life — not performance, optimization, or urgency.
 
-⚠️ Note: The included membership gate uses localStorage for demo purposes. For real payments/access control, you’ll want a server-side verification flow (details below).
+This repository hosts the public-facing website for **Experience Points**, built as a static site (GitHub Pages–friendly) with clarity, accessibility, and longevity in mind.
 
-✨ Features
+---
 
-Minimalist left directory to navigate modules.
+## What Experience Points Is
 
-Narrative, app-ready lessons with story-style writing, practices, tools, and check-ins.
+Experience Points is not a self-help brand in the traditional sense.
 
-“Meaningful typography” cues (e.g., 3D/4D/5D lenses use different fonts).
+It exists to help people:
+- translate lived experience into insight
+- rebuild trust with their inner signals
+- understand adaptive patterns without self-blame
+- make decisions with clarity instead of compulsion
+- integrate awareness into daily life, slowly and safely
 
-Smooth chip navigation to jump to key lesson anchors.
+This project prioritizes:
+- nervous-system-aware pacing
+- ethical design
+- non-coercive language
+- user autonomy
+- depth without overwhelm
 
-Reader comforts: dropcaps, soft gradients, wide margins, and section dividers.
+---
 
-Local bookmarks (❤️ buttons) saved to localStorage.
+## Core Philosophy
 
-Lightweight paywall: Stripe payment link + dev unlock codes.
+Growth is not self-improvement.
 
-Zero build tooling: Works as a static site on any host (Netlify, Vercel, Pages, S3, etc.).
+Growth is alignment between:
+- what you know
+- what you feel
+- what you choose
+- what you tolerate
+- what you repeat
+
+Experience Points exists to support that alignment — without telling people who to be or how fast to change.
+
+---
+
+## Site Structure
+
+This site is intentionally simple and durable.
+
