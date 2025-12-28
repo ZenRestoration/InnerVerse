@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Path — Start Here</title>
-  <meta name="description" content="The Path is a calm orientation: where you are, what your system protects, and how to begin without urgency or collapse." />
+  <title>The Path — Experience Points</title>
+  <meta name="description" content="Start here. The Path is a calm orientation to help you relate to yourself differently — without force, urgency, or collapse." />
   <meta name="theme-color" content="#0b1a16" />
-  <link rel="stylesheet" href="/assets/style.css" />
+
+  <meta property="og:title" content="The Path — Experience Points" />
+  <meta property="og:description" content="A calm beginning. A clear entry point. No pressure — just direction." />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="../assets/style.css" />
 </head>
 
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-
+<body data-page="path">
   <div class="bg-wrap" aria-hidden="true">
     <canvas id="stars"></canvas>
     <div class="glow-film"></div>
@@ -20,279 +23,232 @@
   <header>
     <div class="wrap">
       <div class="nav">
-        <a class="brand" href="/index.html" aria-label="Experience Points home">
+        <a class="brand" href="../index.html" aria-label="Experience Points home">
           <div class="logo" aria-hidden="true"></div>
           <div class="name">
             <strong>Experience Points</strong>
-            <span>The Path</span>
+            <span>Level up through lived experience</span>
           </div>
         </a>
 
         <nav class="navlinks" aria-label="Primary">
-          <a href="/index.html">Home</a>
-          <a href="/pages/origin.html">Origin</a>
-          <a href="/pages/path.html">The Path</a>
-          <a href="/pages/map.html">The Map</a>
-          <a href="/pages/side-quests.html">Side Quests</a>
-          <a href="/pages/practice.html">Practice</a>
+          <a href="../index.html">Home</a>
+          <a href="./origin.html">Origin</a>
+          <a href="./path.html" aria-current="page">The Path</a>
+          <a href="./map.html">The Map</a>
+          <a href="./side-quests.html">Side Quests</a>
+          <a href="./practice.html">Practice</a>
         </nav>
 
-        <div style="display:flex; align-items:center; gap:10px;">
-          <a class="btn ghost" href="/pages/side-quests.html">Explore Side Quests</a>
-          <a class="btn primary" href="/pages/map.html">View The Map</a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="bars" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="mobile-menu" hidden>
+        <a href="../index.html">Home</a>
+        <a href="./origin.html">Origin</a>
+        <a href="./path.html" aria-current="page">The Path</a>
+        <a href="./map.html">The Map</a>
+        <a href="./side-quests.html">Side Quests</a>
+        <a href="./practice.html">Practice</a>
+        <div class="mobile-actions">
+          <a class="btn ghost" href="./map.html">View The Map</a>
+          <a class="btn primary" href="./side-quests.html">Explore Side Quests</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main id="main">
-    <section class="hero" style="padding-bottom: 10px;">
+  <main id="top">
+    <section class="hero">
       <div class="wrap">
-        <div class="hero-card">
-          <div class="hero-inner">
-            <div class="kicker">Start here</div>
-            <h1>The Path</h1>
-            <p class="subhead">
-              If you’re here, it’s likely because something in you already knows it’s time to relate to yourself differently.
-              Not to overhaul your life overnight. Not to fix what’s “wrong.” But to stop moving against yourself.
-              <br><br>
-              The Path exists to help you begin — calmly, clearly, and on your own terms.
-            </p>
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="hero-inner">
+              <span class="pill"><span class="dot" aria-hidden="true"></span> Start here</span>
 
-            <div class="hero-ctas">
-              <a class="btn primary" href="#first-step">Your first step</a>
-              <a class="btn ghost" href="/pages/origin.html">Read the Origin</a>
-            </div>
+              <h1>The Path</h1>
 
-            <div class="microproof">
-              <span class="badge"><b>Orientation</b> <em>not a program</em></span>
-              <span class="badge"><b>Pacing</b> <em>that keeps you online</em></span>
-              <span class="badge"><b>Choice</b> <em>without guilt</em></span>
+              <p class="subhead">
+                If you’re here, it’s likely because something in you already knows it’s time to relate to yourself differently —
+                not to overhaul your life overnight, not to fix what’s “wrong,” but to stop moving against yourself.
+              </p>
+
+              <div class="microproof">
+                <span class="badge"><b>Orientation</b> <em>not a program</em></span>
+                <span class="badge"><b>Pacing</b> <em>nervous-system aware</em></span>
+                <span class="badge"><b>Choice</b> <em>without collapse</em></span>
+              </div>
+
+              <hr class="sep" />
+
+              <div class="section-head" style="margin-bottom:0;">
+                <div>
+                  <div class="kicker">What the Path is (and is not)</div>
+                  <h2 style="font-size: clamp(22px, 2.2vw, 30px);">A calm orientation — on your terms.</h2>
+                </div>
+                <p class="lead">
+                  The Path is not a checklist or a promise of transformation by force. It helps you begin clearly.
+                </p>
+              </div>
+
+              <div class="steps" style="margin-top:14px;">
+                <div class="step">
+                  <div class="num">01</div>
+                  <div>
+                    <h4>Understand where you are</h4>
+                    <p>Not who you “should” be — but what’s true right now.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">02</div>
+                  <div>
+                    <h4>Notice what your system protects</h4>
+                    <p>What’s been held at bay — and what it costs.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">03</div>
+                  <div>
+                    <h4>Recognize outdated adaptations</h4>
+                    <p>Patterns that were intelligent — and are now too expensive.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">04</div>
+                  <div>
+                    <h4>Choose one next step</h4>
+                    <p>Without urgency. Without collapse. Without self-erasure.</p>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="sep" />
+
+              <div class="quote">
+                <p>
+                  “Many people don’t struggle because they lack insight. They struggle because they have too much insight with nowhere safe to land it.”
+                </p>
+                <div class="who">
+                  <span><b>A quiet truth</b></span>
+                  <span>bridge insight → integration</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <aside class="hero-card panel" aria-label="Where you might be right now">
+            <div class="panel-top">
+              <div>
+                <h3>Where you might be right now</h3>
+                <p>You don’t need to diagnose yourself. Notice what feels familiar.</p>
+              </div>
+              <span class="pill" style="margin-top:2px;"><span class="dot" aria-hidden="true"></span> Signals</span>
+            </div>
+
+            <div class="card" style="padding:16px;">
+              <h4 style="margin:0 0 10px;">You might be here if…</h4>
+              <ul style="margin:0; padding-left: 16px; color: var(--muted); line-height:1.6; font-size: 13.5px;">
+                <li>You feel calm alone, but dysregulated in relationship</li>
+                <li>You overthink decisions because you don’t trust yourself to choose</li>
+                <li>You minimize your needs to avoid conflict</li>
+                <li>You feel emotionally “flat” after years of holding it together</li>
+                <li>You’ve outgrown your old life, but don’t know what replaces it</li>
+              </ul>
+              <div class="chiprow">
+                <span class="chip">Nothing is wrong</span>
+                <span class="chip">Adaptation</span>
+                <span class="chip">Ready for alignment</span>
+              </div>
+            </div>
+
+            <div class="xp-meter" style="--bar:62%;">
+              <div class="row">
+                <span>First step</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">Notice</b> <span style="opacity:.7">not fix</span></span>
+              </div>
+              <div class="xp-bar" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+                <span></span>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <span>Tempo</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">Slow enough to stay online</b></span>
+              </div>
+            </div>
+
+            <div class="card" style="padding:16px;">
+              <h4 style="margin:0 0 8px;">Your first step (simple + optional)</h4>
+              <p style="margin:0; color: var(--muted); line-height: 1.6;">
+                Pay attention to one moment this week where you override an internal signal.
+                Notice what you felt and what you chose. Don’t change anything yet. Awareness is already progress.
+              </p>
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn ghost" href="./side-quests.html">Explore Side Quests →</a>
+                <a class="btn primary" href="./map.html">View The Map →</a>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section style="padding-top: 34px;">
+    <section>
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="kicker">What The Path is (and is not)</div>
-            <h2>A calm orientation — not a checklist.</h2>
+            <div class="kicker">How to use Experience Points</div>
+            <h2>Return to it — don’t rush it.</h2>
           </div>
           <p class="lead">
-            The Path helps you understand where you are right now, notice what your system has been protecting you from,
-            recognize what no longer serves you, and choose your next step without urgency or collapse.
+            This space is designed for sustainable integration: language that lands, practices that fit inside real life, and permission to pause.
           </p>
         </div>
 
         <div class="grid3">
-          <article class="card">
-            <h4>Not a program</h4>
-            <p>You’re not here to “complete” yourself. You’re here to relate to yourself truthfully.</p>
-            <div class="chiprow"><span class="chip">No performance</span><span class="chip">No forcing</span></div>
-          </article>
-          <article class="card">
-            <h4>Not a checklist</h4>
-            <p>We don’t measure progress by intensity. We measure it by honesty + continuity.</p>
-            <div class="chiprow"><span class="chip">Continuity</span><span class="chip">Integrity</span></div>
-          </article>
-          <article class="card">
-            <h4>An orientation</h4>
-            <p>So your nervous system can tolerate change — and your choices can become consistent.</p>
-            <div class="chiprow"><span class="chip">Pacing</span><span class="chip">Safety</span></div>
-          </article>
-        </div>
-
-        <div style="height:18px;"></div>
-
-        <div class="card">
-          <div class="prose">
-            <div class="quote">
-              <p>
-                <strong>A quiet truth:</strong><br>
-                Many people don’t struggle because they lack insight.
-                They struggle because they have too much insight with nowhere safe to land it.
-              </p>
-            </div>
-            <p>
-              They see patterns. They understand dynamics. They know what isn’t working.
-              But knowing alone doesn’t create change.
-            </p>
-            <p>
-              Change happens when insight becomes integrated — when what you know is allowed to influence what you choose,
-              what you tolerate, and how you live.
-            </p>
-            <p><strong>The Path is about building that bridge.</strong></p>
-          </div>
-        </div>
-
-        <div style="height:22px;"></div>
-
-        <div class="section-head">
-          <div>
-            <div class="kicker">Where you might be right now</div>
-            <h2>Signs of an intelligent system ready for something more honest.</h2>
-          </div>
-          <p class="lead">
-            You don’t need to diagnose yourself — but one of these may feel familiar.
-            There’s nothing wrong with you.
-          </p>
-        </div>
-
-        <div class="grid2">
           <div class="card">
-            <div class="prose">
-              <ul>
-                <li>You feel calm alone, but dysregulated in relationship</li>
-                <li>You overthink decisions because you don’t trust yourself to choose</li>
-                <li>You minimize your needs to avoid conflict</li>
-              </ul>
-            </div>
+            <h4>Read slowly</h4>
+            <p>Let language land before trying to apply it.</p>
+            <div class="chiprow"><span class="chip">No urgency</span><span class="chip">Let it settle</span></div>
           </div>
           <div class="card">
-            <div class="prose">
-              <ul>
-                <li>You feel emotionally “flat” after years of holding it together</li>
-                <li>You’ve outgrown your old life, but don’t know what replaces it</li>
-                <li>You want depth without chaos</li>
-              </ul>
-            </div>
+            <h4>Notice your body</h4>
+            <p>Tension, relief, resistance — information, not obstacles.</p>
+            <div class="chiprow"><span class="chip">Signals</span><span class="chip">Sensation</span></div>
+          </div>
+          <div class="card">
+            <h4>Practice in real life</h4>
+            <p>Growth happens through lived moments, not consumption.</p>
+            <div class="chiprow"><span class="chip">Experiment</span><span class="chip">Repeat</span></div>
           </div>
         </div>
 
-        <div style="height:22px;"></div>
-
-        <div class="section-head">
-          <div>
-            <div class="kicker">How to use Experience Points</div>
-            <h2>It’s not something you do all at once. It’s something you return to.</h2>
-          </div>
-          <p class="lead">
-            Read slowly. Notice your body. Choose selectively. Practice in real life. Pause when needed.
-            Integration requires rest as much as effort.
-          </p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="num">01</div>
-            <div>
-              <h4>Read slowly</h4>
-              <p>Let language land before trying to apply it.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">02</div>
-            <div>
-              <h4>Notice your body</h4>
-              <p>Tension, relief, resistance — information, not obstacles.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">03</div>
-            <div>
-              <h4>Choose selectively</h4>
-              <p>You don’t need everything. You need what resonates now.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="num">04</div>
-            <div>
-              <h4>Practice in real life</h4>
-              <p>Growth happens through lived moments — not consumption.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="height:22px;"></div>
-
-        <div id="first-step" class="cta-band">
+        <div class="cta-band" style="margin-top: 14px;">
           <div class="cta-inner">
             <div>
-              <div class="kicker">Your first step</div>
-              <h3>Begin with noticing.</h3>
+              <div class="kicker">When you want structure</div>
+              <h3>The Map offers language without rigidity.</h3>
               <p>
-                Pay attention to one moment this week where you feel yourself override an internal signal.
-                Notice what you felt. Notice what you chose. Don’t change anything yet.
-              </p>
-              <p class="fineprint">
-                Awareness is already progress.
+                Shared language for inner experience, distinctions that reduce self-blame, frameworks that help you make sense of patterns —
+                clarity without control.
               </p>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="/pages/side-quests.html">Explore Side Quests →</a>
-              <a class="btn ghost" href="/pages/map.html">View The Map →</a>
+              <a class="btn primary" href="./map.html">View The Map →</a>
+              <a class="btn ghost" href="./practice.html">Learn about Practice →</a>
             </div>
           </div>
         </div>
 
-        <div style="height:18px;"></div>
-
-        <div class="section-head">
-          <div>
-            <div class="kicker">When you want structure</div>
-            <h2>The Map gives language before action.</h2>
-          </div>
-          <p class="lead">
-            Some people want shared language for inner experience, distinctions that reduce self-blame,
-            frameworks that clarify patterns, and clarity without rigidity.
+        <div class="quote" style="margin-top:14px;">
+          <p>
+            “The Path doesn’t tell you who to become. It helps you hear yourself clearly enough to choose.”
           </p>
-        </div>
-
-        <div class="grid2">
-          <div class="card">
-            <h4>The Map offers</h4>
-            <div class="prose">
-              <ul>
-                <li>Shared language for inner experience</li>
-                <li>Distinctions that reduce self-blame</li>
-                <li>Frameworks that clarify patterns</li>
-                <li>Clarity without rigidity</li>
-              </ul>
-            </div>
-            <div style="margin-top:12px;">
-              <a class="btn ghost" href="/pages/map.html">View The Map →</a>
-            </div>
-          </div>
-
-          <div class="card">
-            <h4>When you’re ready to go deeper</h4>
-            <div class="prose">
-              <p>
-                There’s a difference between insight and practice.
-                Practice is where old patterns loosen, new responses become available, and trust is rebuilt over time.
-              </p>
-              <p>
-                There is no pressure to enter. You’ll know when it’s time.
-              </p>
-            </div>
-            <div style="margin-top:12px;">
-              <a class="btn ghost" href="/pages/practice.html">Learn about Practice →</a>
-            </div>
+          <div class="who">
+            <span><b>Closing</b></span>
+            <span>becoming aligned</span>
           </div>
         </div>
-
-        <div style="height:18px;"></div>
-
-        <div class="card">
-          <div class="prose">
-            <p><strong>A note on choice</strong></p>
-            <p>
-              Nothing here is mandatory. You don’t need permission to move at your pace.
-              The Path doesn’t tell you who to become.
-              It helps you hear yourself clearly enough to choose.
-            </p>
-            <p><strong>Closing</strong></p>
-            <p>
-              If your life has been shaped by adaptation, awareness, and endurance…
-              the next phase is not about becoming stronger.
-              It’s about becoming aligned.
-            </p>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -303,28 +259,31 @@
             <div style="display:flex; align-items:center; gap:10px;">
               <div class="logo" style="width:30px;height:30px;border-radius:12px;" aria-hidden="true"></div>
               <div>
-                <div style="font-weight:900; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
-                <div style="margin-top:3px;">Return to yourself — calmly, clearly, consistently.</div>
+                <div style="font-weight:800; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
+                <div style="margin-top:3px;">Begin where you are. No performance required.</div>
               </div>
             </div>
             <div style="margin-top:10px;">
               <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points. All rights reserved.
             </div>
+            <div style="margin-top:8px; max-width: 70ch; line-height:1.5;">
+              <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
+            </div>
           </div>
 
           <div class="links" aria-label="Footer links">
-            <a href="/pages/origin.html">Origin</a>
-            <a href="/pages/path.html">The Path</a>
-            <a href="/pages/map.html">The Map</a>
-            <a href="/pages/side-quests.html">Side Quests</a>
-            <a href="/pages/practice.html">Practice</a>
-            <a href="/index.html">Home ↑</a>
+            <a href="../index.html">Home</a>
+            <a href="./origin.html">Origin</a>
+            <a href="./map.html">The Map</a>
+            <a href="./side-quests.html">Side Quests</a>
+            <a href="./practice.html">Practice</a>
+            <a href="#top" aria-label="Back to top">Top ↑</a>
           </div>
         </div>
       </div>
     </footer>
   </main>
 
-  <script defer src="/assets/app.js"></script>
+  <script src="../assets/site.js"></script>
 </body>
 </html>
