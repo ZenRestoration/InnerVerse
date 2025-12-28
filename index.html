@@ -4,14 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Experience Points — Level up through lived experience</title>
-  <meta name="description" content="Experience Points is a home for people ready to grow honestly—through real life, real feelings, real choices—turning lived experience into self-trust." />
+  <meta name="description" content="Experience Points is a home for people who are ready to grow honestly — through real life, real feelings, real choices — and to turn lived experience into self-trust." />
   <meta name="theme-color" content="#0b1a16" />
-  <link rel="stylesheet" href="/assets/style.css" />
+
+  <meta property="og:title" content="Experience Points — Level up through lived experience" />
+  <meta property="og:description" content="A calm, premium space for integration: the translation of experience into wisdom, pain into clarity, and authority back to your inner compass." />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="./assets/style.css" />
 </head>
 
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-
+<body data-page="home">
   <div class="bg-wrap" aria-hidden="true">
     <canvas id="stars"></canvas>
     <div class="glow-film"></div>
@@ -20,7 +23,7 @@
   <header>
     <div class="wrap">
       <div class="nav">
-        <a class="brand" href="/index.html" aria-label="Experience Points home">
+        <a class="brand" href="./index.html" aria-label="Experience Points home">
           <div class="logo" aria-hidden="true"></div>
           <div class="name">
             <strong>Experience Points</strong>
@@ -29,32 +32,35 @@
         </a>
 
         <nav class="navlinks" aria-label="Primary">
-          <a href="/index.html">Home</a>
-          <a href="/pages/origin.html">Origin</a>
-          <a href="/pages/path.html">The Path</a>
-          <a href="/pages/map.html">The Map</a>
-          <a href="/pages/side-quests.html">Side Quests</a>
-          <a href="/pages/practice.html">Practice</a>
+          <a href="./index.html" aria-current="page">Home</a>
+          <a href="./pages/origin.html">Origin</a>
+          <a href="./pages/path.html">The Path</a>
+          <a href="./pages/map.html">The Map</a>
+          <a href="./pages/side-quests.html">Side Quests</a>
+          <a href="./pages/practice.html">Practice</a>
         </nav>
 
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span class="pill" title="A calm pre-launch with ethical pacing.">
-            <span class="dot" aria-hidden="true"></span>
-            Founding cohort opens quietly
-          </span>
-          <button class="btn primary" type="button" data-scroll="#join">
-            <span>Join the Waitlist</span>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="bars" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="mobile-menu" hidden>
+        <a href="./index.html" aria-current="page">Home</a>
+        <a href="./pages/origin.html">Origin</a>
+        <a href="./pages/path.html">The Path</a>
+        <a href="./pages/map.html">The Map</a>
+        <a href="./pages/side-quests.html">Side Quests</a>
+        <a href="./pages/practice.html">Practice</a>
+        <div class="mobile-actions">
+          <a class="btn ghost" href="./pages/origin.html">Read the Origin</a>
+          <a class="btn primary" href="./pages/path.html">Start on The Path</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main id="main">
+  <main id="top">
     <!-- HERO -->
     <section class="hero">
       <div class="wrap">
@@ -63,20 +69,19 @@
             <div class="hero-inner">
               <span class="pill">
                 <span class="dot" aria-hidden="true"></span>
-                A quiet home for inner authority — not performance
+                A calm system for integration and inner authority
               </span>
 
               <h1>Level up through lived experience.</h1>
 
               <p class="subhead">
-                Not by performing. Not by proving. Not by becoming “better” for someone else.
-                <br><br>
-                Experience Points is a home for people who are ready to grow honestly — through real life, real feelings, real choices —
-                and to turn everything they’ve survived, learned, and noticed into <strong>self-trust</strong>.
+                Not by performing. Not by proving. Not by becoming “better” for someone else.<br />
+                <strong style="color:rgba(234,247,240,0.95);">Experience Points</strong> is a home for people who are ready to grow honestly — through real life, real feelings, real choices —
+                and to turn everything they’ve survived, learned, and noticed into <em>self-trust</em>.
               </p>
 
               <div class="hero-ctas">
-                <a class="btn primary" href="/pages/path.html" aria-label="Start on The Path">
+                <a class="btn primary" href="./pages/path.html">
                   <span>Start on The Path</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -84,7 +89,7 @@
                   </svg>
                 </a>
 
-                <a class="btn ghost" href="/pages/origin.html" aria-label="Read the Origin">
+                <a class="btn ghost" href="./pages/origin.html">
                   <span>Read the Origin</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -93,181 +98,124 @@
               </div>
 
               <div class="microproof" aria-label="Quick proof points">
-                <span class="badge"><b>Depth</b> <em>without chaos</em></span>
-                <span class="badge"><b>Structure</b> <em>without rigidity</em></span>
-                <span class="badge"><b>Truth</b> <em>without force</em></span>
+                <span class="badge"><b>Truth</b> <em>over performance</em></span>
+                <span class="badge"><b>Pacing</b> <em>your nervous system can trust</em></span>
+                <span class="badge"><b>Integration</b> <em>over endless consuming</em></span>
               </div>
-            </div>
-          </div>
 
-          <!-- Right preview panel (premium feel) -->
-          <aside class="hero-card panel" aria-label="Preview panel">
-            <div class="panel-top">
-              <div>
-                <h3>You don’t need a new personality.</h3>
-                <p>You need a clearer relationship with your inner reality — steady enough to guide your choices.</p>
+              <hr class="sep" />
+
+              <div class="section-head" style="margin-bottom:0;">
+                <div>
+                  <div class="kicker">The core idea</div>
+                  <h2 style="font-size: clamp(22px, 2.2vw, 30px);">Your life has already given you XP.</h2>
+                </div>
+                <p class="lead">
+                  In role-playing games, characters don’t level up because they were perfect — they level up because they engage.
+                </p>
               </div>
-              <span class="pill" style="margin-top:2px;">
-                <span class="dot" aria-hidden="true"></span>
-                Live concept
-              </span>
-            </div>
 
-            <div class="xp-meter" aria-label="XP meter mock">
-              <div class="row">
-                <span>Integration Momentum</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">+64 XP</b> <span style="opacity:.7">/ 100</span></span>
+              <div class="steps" style="margin-top:14px;">
+                <div class="step">
+                  <div class="num">01</div>
+                  <div>
+                    <h4>Engage the moment in front of you</h4>
+                    <p>Not someday. Not after you “figure it out.” Real life is the training ground.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">02</div>
+                  <div>
+                    <h4>Learn from what didn’t work</h4>
+                    <p>No shame loops. No identity collapse. Information, then adjustment.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">03</div>
+                  <div>
+                    <h4>Adapt without abandoning yourself</h4>
+                    <p>Flexibility without self-erasure. Integrity without rigidity.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="num">04</div>
+                  <div>
+                    <h4>Build skill through repetition</h4>
+                    <p>Not theory. Not intensity. Small, true actions that compound.</p>
+                  </div>
+                </div>
               </div>
-              <div class="xp-bar" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
-                <span></span>
-              </div>
-              <div class="row" style="margin-top:10px;">
-                <span>Streak</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">8 days</b></span>
-              </div>
-            </div>
 
-            <div class="mini">
-              <div class="title">
-                <span>Today’s Translation</span>
-                <b>Experience → Wisdom</b>
-              </div>
-              <ul>
-                <li>Identify the moment (no story)</li>
-                <li>Name the signal (body + emotion)</li>
-                <li>Choose one action that matches truth</li>
-              </ul>
-            </div>
+              <hr class="sep" />
 
-            <div class="mini">
-              <div class="title">
-                <span>Navigation</span>
-                <b>Use what’s useful</b>
-              </div>
-              <ul>
-                <li><a href="/pages/map.html" style="text-decoration:underline; text-underline-offset:3px;">The Map</a> gives language</li>
-                <li><a href="/pages/side-quests.html" style="text-decoration:underline; text-underline-offset:3px;">Side Quests</a> give practice</li>
-                <li><a href="/pages/practice.html" style="text-decoration:underline; text-underline-offset:3px;">Practice</a> holds continuity</li>
-              </ul>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- CORE IDEA -->
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">The Core Idea</div>
-            <h2>In games, you don’t level up because you were perfect.<br>You level up because you engage.</h2>
-          </div>
-          <p class="lead">
-            Your life has already given you XP. Experience Points exists to support the part most people skip:
-            <strong>integration</strong> — the translation of experience into wisdom, the conversion of pain into clarity, the return of authority to your inner compass.
-          </p>
-        </div>
-
-        <div class="grid3">
-          <article class="card">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-            <h4>Facing the moment in front of you</h4>
-            <p>Not bypassing. Not performing. Meeting reality directly — gently enough to stay with yourself.</p>
-            <div class="chiprow">
-              <span class="chip">Presence</span>
-              <span class="chip">Honesty</span>
-              <span class="chip">Signal-reading</span>
-            </div>
-          </article>
-
-          <article class="card">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h4>Learning from what didn’t work</h4>
-            <p>Without self-blame. Without collapse. You don’t need punishment — you need clarity.</p>
-            <div class="chiprow">
-              <span class="chip">Discernment</span>
-              <span class="chip">Repair</span>
-              <span class="chip">Resilience</span>
-            </div>
-          </article>
-
-          <article class="card">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 17l10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7 7h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <h4>Choosing a direction and committing</h4>
-            <p>Alignment isn’t intensity. It’s congruence — what you know, feel, choose, tolerate, and repeat finally match.</p>
-            <div class="chiprow">
-              <span class="chip">Boundaries</span>
-              <span class="chip">Self-leadership</span>
-              <span class="chip">Momentum</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHAT THIS SPACE IS / IS NOT -->
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="kicker">What this space is</div>
-            <h2>Not a place where you come to be fixed.<br>A place where you come to remember yourself.</h2>
-          </div>
-          <p class="lead">
-            Here, emotions aren’t problems. They’re signals.
-            We don’t force forgiveness, gratitude, or positive thinking.
-            We build truth, discernment, and self-leadership — slowly enough that your nervous system can trust it.
-          </p>
-        </div>
-
-        <div class="grid2">
-          <div class="card">
-            <h4>We move with your nervous system.</h4>
-            <p>
-              No overwhelm. No constant consuming. Just what’s useful — when it’s useful.
-            </p>
-            <div class="chiprow">
-              <span class="chip">Pacing</span>
-              <span class="chip">Safety</span>
-              <span class="chip">Integration</span>
-            </div>
-          </div>
-          <div class="card">
-            <h4>We restore inner authority.</h4>
-            <p>
-              This is for people who are done shrinking to keep peace, who have outgrown external authority,
-              and who are ready to make choices they can stand behind.
-            </p>
-            <div class="chiprow">
-              <span class="chip">Discernment</span>
-              <span class="chip">Truth</span>
-              <span class="chip">Self-trust</span>
-            </div>
-          </div>
-        </div>
-
-        <div style="height:14px;"></div>
-
-        <div class="card">
-          <div class="prose">
-            <div class="quote">
-              <p>
-                <strong>Growth isn’t self-improvement.</strong><br>
-                Growth is alignment between: what you know, what you feel, what you choose, what you tolerate, and what you keep repeating.
-                When those become congruent, you don’t just “heal.” <strong>You become undeniable to yourself.</strong>
+              <p class="lead" style="max-width: 78ch;">
+                Experience Points exists to support the part most people skip: <strong style="color:rgba(234,247,240,0.95);">integration</strong>.
+                The translation of experience into wisdom. The conversion of pain into clarity. The return of authority to your own inner compass.
               </p>
             </div>
           </div>
+
+          <!-- Right panel -->
+          <aside class="hero-card panel" aria-label="What this space is">
+            <div class="panel-top">
+              <div>
+                <h3>What this space is (and is not)</h3>
+                <p>
+                  This is not a place where you come to be fixed. It’s a place where you come to remember yourself.
+                </p>
+              </div>
+              <span class="pill" style="margin-top:2px;">
+                <span class="dot" aria-hidden="true"></span>
+                Inner authority
+              </span>
+            </div>
+
+            <div class="xp-meter" style="--bar:72%;" aria-label="Alignment meter">
+              <div class="row">
+                <span>Alignment</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">Steady</b> <span style="opacity:.7">over forced</span></span>
+              </div>
+              <div class="xp-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
+                <span></span>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <span>Method</span>
+                <span><b style="color:var(--text); letter-spacing:-0.02em;">Signals → Discernment → Choice</b></span>
+              </div>
+            </div>
+
+            <div class="grid2" style="margin-top: 2px;">
+              <div class="card" style="padding:16px;">
+                <h4 style="margin:0 0 8px;">We don’t treat emotions as problems.</h4>
+                <p>We treat them as signals — and build language so you can navigate instead of shame-spiral.</p>
+                <div class="chiprow">
+                  <span class="chip">Truth</span>
+                  <span class="chip">Discernment</span>
+                  <span class="chip">Self-leadership</span>
+                </div>
+              </div>
+
+              <div class="card" style="padding:16px;">
+                <h4 style="margin:0 0 8px;">We don’t force “forgiveness” or “gratitude.”</h4>
+                <p>We build reality, pacing, and boundaries — slowly enough that your system can trust it.</p>
+                <div class="chiprow">
+                  <span class="chip">No bypassing</span>
+                  <span class="chip">No coercion</span>
+                  <span class="chip">No urgency</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quote" style="margin-top: 6px;">
+              <p>
+                “Growth isn’t self-improvement. Growth is alignment between what you know, what you feel, what you choose — and what you keep repeating.”
+              </p>
+              <div class="who">
+                <span><b>Experience Points</b> · philosophy</span>
+                <span>quiet power</span>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -278,134 +226,204 @@
         <div class="section-head">
           <div>
             <div class="kicker">Who this is for</div>
-            <h2>Depth without overwhelm. Clarity without manipulation.</h2>
+            <h2>Depth without chaos. Clarity without manipulation.</h2>
           </div>
           <p class="lead">
-            Experience Points is for you if you’re perceptive and self-aware — but carrying too much alone.
-            If you want choice, not survival. If you’ve been called “too sensitive” when you were actually too accurate.
+            You don’t need more motivation. You need a system that helps you trust your perception, regulate without self-suppression,
+            and make choices you can stand behind.
           </p>
         </div>
 
         <div class="grid3">
           <article class="card">
-            <h4>Trust your perception</h4>
-            <p>Separate conditioning from truth. Stop outsourcing your signal.</p>
-            <div class="chiprow"><span class="chip">Discernment</span><span class="chip">Boundaries</span></div>
+            <h4>Perceptive — carrying too much alone</h4>
+            <p>
+              You see patterns quickly, but you’ve had nowhere safe to place your insight. This gives you language, pacing, and structure.
+            </p>
+            <div class="chiprow">
+              <span class="chip">Discernment</span>
+              <span class="chip">Containment</span>
+              <span class="chip">Self-trust</span>
+            </div>
           </article>
+
           <article class="card">
-            <h4>Regulate without suppression</h4>
-            <p>Calm isn’t collapse. Regulation lets you stay present to what’s true.</p>
-            <div class="chiprow"><span class="chip">Safety</span><span class="chip">Presence</span></div>
+            <h4>Independent early — ready for choice</h4>
+            <p>
+              You learned survival fast. Now you want a life built by choice, not bracing. Not collapse. Not performance.
+            </p>
+            <div class="chiprow">
+              <span class="chip">Boundaries</span>
+              <span class="chip">Direction</span>
+              <span class="chip">Integrity</span>
+            </div>
           </article>
+
           <article class="card">
-            <h4>Decide without guilt</h4>
-            <p>Make choices you can stand behind — without urgency or self-erasure.</p>
-            <div class="chiprow"><span class="chip">Clarity</span><span class="chip">Self-trust</span></div>
+            <h4>“Too sensitive” — actually too accurate</h4>
+            <p>
+              You weren’t wrong. You were picking up what others avoided. Here, accuracy becomes navigation — not self-blame.
+            </p>
+            <div class="chiprow">
+              <span class="chip">Reality</span>
+              <span class="chip">Nervous system</span>
+              <span class="chip">Clarity</span>
+            </div>
           </article>
+        </div>
+
+        <div class="steps" style="margin-top:14px;">
+          <div class="step">
+            <div class="num">01</div>
+            <div>
+              <h4>Trust your perception</h4>
+              <p>Rebuild authority internally so you stop outsourcing reality to louder voices.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">02</div>
+            <div>
+              <h4>Regulate without self-suppression</h4>
+              <p>Stay online in your body while your truth stays intact.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">03</div>
+            <div>
+              <h4>Hold boundaries without collapse</h4>
+              <p>Clean, calm, consistent — not reactive, not performative.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">04</div>
+            <div>
+              <h4>Create a life that feels like yours</h4>
+              <p>Alignment between what you know, feel, choose, tolerate, and repeat.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- WHERE TO GO -->
+    <!-- WHAT YOU'LL FIND HERE -->
     <section>
       <div class="wrap">
         <div class="section-head">
           <div>
             <div class="kicker">What you’ll find here</div>
-            <h2>A simple page tree that matches how growth actually works.</h2>
+            <h2>Four doors. No overwhelm. Just what’s useful — when it’s useful.</h2>
           </div>
           <p class="lead">
-            No overwhelm. No maze. Just clear entry points: orient, name what’s happening, try something small, then integrate over time.
+            Experience Points is built to be returned to — not consumed. Choose the doorway that matches where you are right now.
           </p>
         </div>
 
-        <div class="steps">
-          <div class="step">
-            <div class="num">01</div>
-            <div>
-              <h4>The Path</h4>
-              <p>A calm beginning. A clear entry point. No pressure — just direction.</p>
-              <div style="margin-top:10px;">
-                <a class="btn ghost" href="/pages/path.html">Begin →</a>
-              </div>
+        <div class="grid2">
+          <div class="card">
+            <h4>The Path</h4>
+            <p>A calm beginning. A clear entry point. No pressure — just direction.</p>
+            <div class="chiprow">
+              <span class="chip">Start here</span>
+              <span class="chip">Orientation</span>
+              <span class="chip">Pacing</span>
+            </div>
+            <div style="margin-top:14px;">
+              <a class="btn primary" href="./pages/path.html">
+                <span>Begin →</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div class="step">
-            <div class="num">02</div>
-            <div>
-              <h4>The Map</h4>
-              <p>Language + distinctions to make sense of your inner world without self-blame.</p>
-              <div style="margin-top:10px;">
-                <a class="btn ghost" href="/pages/map.html">View →</a>
-              </div>
+          <div class="card">
+            <h4>The Origin</h4>
+            <p>Why this exists, what it refuses, and the stance it’s built on.</p>
+            <div class="chiprow">
+              <span class="chip">Clarity</span>
+              <span class="chip">Ethics</span>
+              <span class="chip">Inner authority</span>
+            </div>
+            <div style="margin-top:14px;">
+              <a class="btn ghost" href="./pages/origin.html">
+                <span>Read →</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div class="step">
-            <div class="num">03</div>
-            <div>
-              <h4>Side Quests</h4>
-              <p>Small practices that turn insight into lived change — optional by design.</p>
-              <div style="margin-top:10px;">
-                <a class="btn ghost" href="/pages/side-quests.html">Choose →</a>
-              </div>
+          <div class="card">
+            <h4>The Map</h4>
+            <p>Language and distinctions that make your inner world navigable.</p>
+            <div class="chiprow">
+              <span class="chip">Sense-making</span>
+              <span class="chip">No diagnosis</span>
+              <span class="chip">No hierarchy</span>
+            </div>
+            <div style="margin-top:14px;">
+              <a class="btn ghost" href="./pages/map.html">
+                <span>View →</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div class="step">
-            <div class="num">04</div>
-            <div>
-              <h4>Practice</h4>
-              <p>Ongoing integration for deeper work and long-term evolution — held over time.</p>
-              <div style="margin-top:10px;">
-                <a class="btn ghost" href="/pages/practice.html">Learn →</a>
-              </div>
+          <div class="card">
+            <h4>Side Quests + Practice</h4>
+            <p>Small experiments now. Ongoing integration later. Both designed to stay humane.</p>
+            <div class="chiprow">
+              <span class="chip">Real life</span>
+              <span class="chip">Low pressure</span>
+              <span class="chip">Continuity</span>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn ghost" href="./pages/side-quests.html">Choose a Side Quest →</a>
+              <a class="btn primary" href="./pages/practice.html">Explore Practice →</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRIMARY CTA -->
+    <!-- RELATIONAL INVITATION + CTA -->
     <section id="join">
       <div class="wrap">
         <div class="cta-band">
           <div class="cta-inner">
             <div>
-              <div class="kicker">Primary invitation</div>
-              <h3>This is the threshold where the character stops living by other people’s rules.</h3>
+              <div class="kicker">Relational invitation</div>
+              <h3>This is the threshold — the part where you stop living by other people’s rules.</h3>
               <p>
-                If you’ve been surviving with your nervous system on guard… if being perceived feels like pressure…
-                if you’ve been carrying insight with nowhere safe to put it… you’re not behind.
-                You’re in the part of the story where truth becomes livable.
+                If being perceived feels like pressure… if you’ve been carrying insight with nowhere safe to put it…
+                you’re not behind. You’re in the moment where the character returns to their own compass.
               </p>
               <p class="fineprint" style="margin-top:10px;">
-                Experience Points is built for inner authority, not dependence. Take what resonates. Leave what doesn’t. Return to yourself.
+                Optional: join for quiet updates when Practice opens. No urgency. No scarcity language. No pressure.
               </p>
             </div>
 
-            <form id="waitlistForm" novalidate>
+            <form id="xpForm" data-xp-form="waitlist" novalidate>
               <div class="field">
                 <input class="input" name="name" autocomplete="name" placeholder="Your name (optional)" aria-label="Your name" />
                 <input class="input" name="email" autocomplete="email" placeholder="Your email" aria-label="Your email" required />
               </div>
-              <input class="input" name="note" placeholder="What do you want to upgrade first? (e.g., boundaries, anxiety, focus)" aria-label="Your goal" />
+              <input class="input" name="intent" placeholder="What are you integrating right now? (optional)" aria-label="Your intent" />
               <button class="btn primary" type="submit">
-                <span>Join the Waitlist</span>
+                <span>Join for quiet updates</span>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
-              <div class="fineprint" data-msg role="status" aria-live="polite"></div>
-              <div class="fineprint">
-                No urgency. No spam. Just a quiet update when there’s something real to share.
-              </div>
 
-              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
-                <a class="btn ghost" href="/pages/path.html">Start on The Path</a>
-                <a class="btn ghost" href="/pages/side-quests.html">Choose a Side Quest</a>
-              </div>
+              <div class="fineprint" data-xp-msg role="status" aria-live="polite"></div>
+              <div class="fineprint">Take what resonates. Leave what doesn’t. Return to yourself.</div>
             </form>
           </div>
         </div>
@@ -419,31 +437,31 @@
             <div style="display:flex; align-items:center; gap:10px;">
               <div class="logo" style="width:30px;height:30px;border-radius:12px;" aria-hidden="true"></div>
               <div>
-                <div style="font-weight:900; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
+                <div style="font-weight:800; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
                 <div style="margin-top:3px;">Built for inner authority, not dependence.</div>
               </div>
             </div>
             <div style="margin-top:10px;">
-              <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points. All rights reserved.
+              <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t. Return to yourself.
             </div>
-            <div style="margin-top:8px; max-width: 74ch; line-height:1.5;">
-              Take what resonates. Leave what doesn’t. Return to yourself.
+            <div style="margin-top:8px; max-width: 70ch; line-height:1.5;">
+              <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
             </div>
           </div>
 
           <div class="links" aria-label="Footer links">
-            <a href="/pages/origin.html">Origin</a>
-            <a href="/pages/path.html">The Path</a>
-            <a href="/pages/map.html">The Map</a>
-            <a href="/pages/side-quests.html">Side Quests</a>
-            <a href="/pages/practice.html">Practice</a>
-            <a href="/index.html" aria-label="Back to top">Top ↑</a>
+            <a href="./pages/origin.html">Origin</a>
+            <a href="./pages/path.html">The Path</a>
+            <a href="./pages/map.html">The Map</a>
+            <a href="./pages/side-quests.html">Side Quests</a>
+            <a href="./pages/practice.html">Practice</a>
+            <a href="#top" aria-label="Back to top">Top ↑</a>
           </div>
         </div>
       </div>
     </footer>
   </main>
 
-  <script defer src="/assets/app.js"></script>
+  <script src="./assets/site.js"></script>
 </body>
 </html>
