@@ -4,17 +4,518 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Map — Experience Points</title>
-  <meta name="description" content="The Map: language and distinctions that make your inner world navigable — without diagnosis, hierarchy, or replacing your knowing." />
+  <meta name="description" content="The Map is a set of distinctions that helps you name your inner experience accurately—so self-doubt becomes navigable and truth becomes usable." />
   <meta name="theme-color" content="#0b1a16" />
 
+  <!-- Open Graph -->
   <meta property="og:title" content="The Map — Experience Points" />
-  <meta property="og:description" content="A reference, not an authority. Use it lightly. Return to it when needed." />
+  <meta property="og:description" content="A way to make sense of your inner world: distinctions, language, and clarity without coercion." />
   <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    :root{
+      --bg0:#06110e;
+      --bg1:#0b1a16;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.09);
+      --stroke: rgba(255,255,255,0.12);
+      --stroke2: rgba(255,255,255,0.18);
+
+      --text:#eaf7f0;
+      --muted: rgba(234,247,240,0.72);
+      --muted2: rgba(234,247,240,0.58);
+
+      --accent:#6af7c5;
+      --accent2:#72b6ff;
+      --accent3:#b88cff;
+      --warn:#ffd36a;
+
+      --shadow: 0 30px 80px rgba(0,0,0,0.55);
+      --shadow2: 0 18px 45px rgba(0,0,0,0.45);
+
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+
+      --max: 1160px;
+
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(1200px 900px at 15% 10%, rgba(106,247,197,0.14), transparent 60%),
+                  radial-gradient(900px 700px at 80% 20%, rgba(114,182,255,0.14), transparent 55%),
+                  radial-gradient(900px 900px at 70% 90%, rgba(184,140,255,0.12), transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    button,input,textarea{ font:inherit; color:inherit; }
+    ::selection{ background: rgba(106,247,197,0.25); }
+
+    .bg-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    canvas#stars{
+      width:100%;
+      height:100%;
+      display:block;
+      opacity:0.9;
+      filter: saturate(1.15);
+    }
+    .glow-film{
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(closest-side at 20% 25%, rgba(106,247,197,0.18), transparent 55%),
+        radial-gradient(closest-side at 78% 30%, rgba(114,182,255,0.16), transparent 55%),
+        radial-gradient(closest-side at 60% 80%, rgba(184,140,255,0.14), transparent 60%);
+      animation: drift 22s ease-in-out infinite alternate;
+      filter: blur(18px);
+      opacity:0.85;
+      transform: translate3d(0,0,0);
+    }
+    @keyframes drift{
+      0%{ transform: translate3d(-3%, -2%, 0) scale(1.05); }
+      100%{ transform: translate3d(3%, 2%, 0) scale(1.12); }
+    }
+
+    .wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(6,17,14,0.75), rgba(6,17,14,0.45));
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
+    }
+    .logo{
+      width:38px; height:38px;
+      border-radius: 14px;
+      background:
+        radial-gradient(12px 12px at 25% 25%, rgba(255,255,255,0.35), transparent 55%),
+        conic-gradient(from 220deg, rgba(106,247,197,0.95), rgba(114,182,255,0.85), rgba(184,140,255,0.85), rgba(106,247,197,0.95));
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background: radial-gradient(closest-side, rgba(255,255,255,0.22), transparent 65%);
+      transform: rotate(18deg);
+      opacity:0.8;
+      filter: blur(1px);
+    }
+    .brand .name{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brand .name strong{
+      letter-spacing: -0.02em;
+      font-size: 14.5px;
+    }
+    .brand .name span{
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 10px;
+      border-radius: 12px;
+      transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+    }
+    .navlinks a:hover{
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .navlinks a.active{
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow2);
+      font-size: 12.5px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .pill .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%),
+                  linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(106,247,197,0.12);
+    }
+
+    .btn{
+      appearance:none;
+      border:0;
+      border-radius: 16px;
+      padding: 12px 16px;
+      cursor:pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      user-select:none;
+      letter-spacing: -0.01em;
+    }
+    .btn:focus-visible{ outline: 2px solid rgba(106,247,197,0.65); outline-offset: 3px; }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(106,247,197,0.95), rgba(114,182,255,0.88), rgba(184,140,255,0.78));
+      color: rgba(6,17,14,0.96);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+    }
+    .btn.primary:hover{ transform: translateY(-1px); box-shadow: 0 22px 55px rgba(0,0,0,0.52); }
+    .btn.ghost{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+    .btn.ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.20); }
+
+    .icon{
+      width:18px; height:18px; display:inline-block;
+      opacity:0.95;
+      transform: translateY(0.5px);
+    }
+
+    main{ position:relative; }
+    section{ padding: 64px 0; }
+
+    .hero{ padding: 58px 0 26px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      align-items:stretch;
+    }
+    .hero-card{
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(800px 380px at 12% 20%, rgba(106,247,197,0.18), transparent 60%),
+        radial-gradient(700px 420px at 88% 30%, rgba(114,182,255,0.16), transparent 60%),
+        radial-gradient(900px 520px at 60% 95%, rgba(184,140,255,0.14), transparent 62%);
+      opacity:0.9;
+      pointer-events:none;
+    }
+    .hero-inner{ position:relative; padding: 28px 28px 26px; }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 4.2vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+    .subhead{
+      font-size: clamp(15px, 1.35vw, 18px);
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 18px;
+      max-width: 70ch;
+    }
+
+    .hero-ctas{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 14px;
+    }
+
+    .panel{
+      padding: 22px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      position:relative;
+    }
+    .panel .panel-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .panel h3{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+    .panel p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .panel-cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .mini{
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 14px;
+    }
+    .mini .title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .mini .title span{
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .mini .title b{
+      font-size: 13px;
+      letter-spacing:-0.01em;
+    }
+    .mini ul{
+      margin: 0;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .mini li{ margin: 6px 0; }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .kicker{
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h2{
+      margin: 0;
+      font-size: clamp(24px, 2.6vw, 36px);
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+    }
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      max-width: 70ch;
+      line-height: 1.7;
+      font-size: 14.8px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background: radial-gradient(500px 250px at 10% 20%, rgba(106,247,197,0.10), transparent 60%),
+                  radial-gradient(420px 240px at 90% 15%, rgba(114,182,255,0.10), transparent 60%);
+      opacity:0.8;
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+    .card h4{
+      margin: 12px 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.7px;
+      line-height: 1.7;
+    }
+    .card ul{
+      margin: 10px 0 0;
+      padding-left: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13.7px;
+    }
+    .card li{ margin: 7px 0; }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+      margin: 18px 0;
+    }
+
+    .cta-band{
+      border-radius: calc(var(--radius-xl) + 6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .cta-band::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(900px 420px at 10% 30%, rgba(106,247,197,0.18), transparent 60%),
+        radial-gradient(800px 420px at 80% 20%, rgba(114,182,255,0.18), transparent 60%),
+        radial-gradient(900px 520px at 60% 95%, rgba(184,140,255,0.14), transparent 62%);
+      opacity:0.9;
+      pointer-events:none;
+    }
+    .cta-inner{
+      position:relative;
+      padding: 26px;
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      align-items:center;
+    }
+    .cta-inner h3{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-0.03em;
+    }
+    .cta-inner p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height:1.7;
+      font-size: 13.7px;
+    }
+
+    footer{
+      padding: 34px 0 44px;
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+    .foot{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 18px;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding-top: 18px;
+    }
+    .foot .col{ max-width: 70ch; }
+    .foot .links{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .foot .links a{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .foot .links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .glow-film{ animation:none !important; }
+      .btn, .navlinks a, .foot .links a{ transition:none !important; }
+    }
+
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .cta-inner{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+      .brand{ min-width:auto; }
+    }
+  </style>
 </head>
 
-<body data-page="map">
+<body>
   <div class="bg-wrap" aria-hidden="true">
     <canvas id="stars"></canvas>
     <div class="glow-film"></div>
@@ -35,218 +536,350 @@
           <a href="../index.html">Home</a>
           <a href="./origin.html">Origin</a>
           <a href="./path.html">The Path</a>
-          <a href="./map.html" aria-current="page">The Map</a>
+          <a class="active" href="./map.html" aria-current="page">The Map</a>
           <a href="./side-quests.html">Side Quests</a>
           <a href="./practice.html">Practice</a>
         </nav>
 
-        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <span class="bars" aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <div id="mobileMenu" class="mobile-menu" hidden>
-        <a href="../index.html">Home</a>
-        <a href="./origin.html">Origin</a>
-        <a href="./path.html">The Path</a>
-        <a href="./map.html" aria-current="page">The Map</a>
-        <a href="./side-quests.html">Side Quests</a>
-        <a href="./practice.html">Practice</a>
-        <div class="mobile-actions">
-          <a class="btn ghost" href="./side-quests.html">Explore Side Quests</a>
-          <a class="btn primary" href="./practice.html">Explore Practice</a>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="pill" title="A system of clarity, not coercion">
+            <span class="dot" aria-hidden="true"></span>
+            Distinctions over diagnoses
+          </span>
+          <a class="btn primary" href="./side-quests.html">
+            <span>Apply it in real life</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </header>
 
   <main id="top">
+    <!-- HERO -->
     <section class="hero">
       <div class="wrap">
         <div class="hero-grid">
           <div class="hero-card">
             <div class="hero-inner">
-              <span class="pill"><span class="dot" aria-hidden="true"></span> A way to make sense of your inner world</span>
+              <span class="pill">
+                <span class="dot" aria-hidden="true"></span>
+                A way to make sense of your inner world
+              </span>
 
-              <h1>The Map</h1>
+              <h1>The Map.</h1>
 
               <p class="subhead">
-                The Map exists because many people feel lost — not because they lack direction, but because they lack shared language
-                for what they’re experiencing. When experience stays unnamed, it often becomes self-doubt, overthinking, self-blame, and exhaustion.
+                The Map exists because many people feel lost — not because they lack direction,
+                but because they lack shared language for what they’re experiencing.
               </p>
 
-              <div class="microproof">
-                <span class="badge"><b>Distinctions</b> <em>not rules</em></span>
-                <span class="badge"><b>Reference</b> <em>not authority</em></span>
-                <span class="badge"><b>Navigable</b> <em>not personal</em></span>
-              </div>
+              <div class="divider"></div>
 
-              <hr class="sep" />
+              <p class="subhead" style="margin-bottom:0;">
+                When experience stays unnamed, it often turns into:
+                <b style="color:var(--text);">self-doubt</b>, <b style="color:var(--text);">overthinking</b>,
+                <b style="color:var(--text);">self-blame</b>, and <b style="color:var(--text);">emotional exhaustion</b>.
+              </p>
 
-              <div class="grid2">
-                <div class="card">
-                  <h4>What the Map is</h4>
-                  <p>
-                    A set of distinctions — language for internal signals, adaptive patterns, emotional responses, decision points,
-                    moments of misalignment. When something is named accurately, it stops feeling personal and becomes navigable.
-                  </p>
-                </div>
-                <div class="card">
-                  <h4>What the Map is not</h4>
-                  <p>
-                    Not a belief system, not a personality model, not a diagnosis, not a hierarchy of “higher” and “lower” states,
-                    and not a replacement for your own knowing.
-                  </p>
-                </div>
+              <div class="hero-ctas">
+                <a class="btn primary" href="#distinctions">
+                  <span>Start with the distinctions</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+                <a class="btn ghost" href="./path.html">
+                  <span>Return to The Path</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M10 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
 
-          <aside class="hero-card panel" aria-label="How to use it">
+          <aside class="hero-card panel" aria-label="Map overview">
             <div class="panel-top">
               <div>
-                <h3>How to use the Map</h3>
-                <p>You don’t follow it. You consult it — lightly.</p>
+                <h3>What the Map does</h3>
+                <p>
+                  The Map doesn’t tell you where to go. It helps you understand where you are —
+                  so your next step can be grounded instead of reactive.
+                </p>
               </div>
-              <span class="pill" style="margin-top:2px;"><span class="dot" aria-hidden="true"></span> Consult</span>
+              <span class="pill" style="margin-top:2px;">
+                <span class="dot" aria-hidden="true"></span>
+                Reference, not authority
+              </span>
             </div>
 
-            <div class="xp-meter" style="--bar:66%;">
-              <div class="row">
-                <span>When to use</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">Stuck → unclear → conflicted</b></span>
+            <div class="panel-cards">
+              <div class="mini">
+                <div class="title">
+                  <span>What it is</span>
+                  <b>Distinctions, not rules</b>
+                </div>
+                <ul>
+                  <li>Language for internal signals and patterns</li>
+                  <li>Clarity for decision points and misalignment</li>
+                  <li>A way to reduce shame by naming accurately</li>
+                </ul>
               </div>
-              <div class="xp-bar" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">
-                <span></span>
-              </div>
-              <div class="row" style="margin-top:10px;">
-                <span>Grip</span>
-                <span><b style="color:var(--text); letter-spacing:-0.02em;">Light</b> <span style="opacity:.7">in your hands</span></span>
-              </div>
-            </div>
 
-            <div class="card" style="padding:16px;">
-              <h4 style="margin:0 0 8px;">Use it when:</h4>
-              <ul style="margin:0; padding-left: 16px; color: var(--muted); line-height:1.6; font-size: 13.5px;">
-                <li>You feel stuck in a pattern</li>
-                <li>You’re unsure whether to act or wait</li>
-                <li>You feel conflicted about a decision</li>
-                <li>You’re questioning your own perception</li>
-              </ul>
-              <div class="chiprow">
-                <span class="chip">Read one section</span>
-                <span class="chip">See what clarifies</span>
-                <span class="chip">Move on if not</span>
+              <div class="mini">
+                <div class="title">
+                  <span>What it’s not</span>
+                  <b>No hierarchy, no identity</b>
+                </div>
+                <ul>
+                  <li>Not a diagnosis</li>
+                  <li>Not a belief system</li>
+                  <li>Not a replacement for your knowing</li>
+                </ul>
               </div>
-            </div>
 
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn ghost" href="./path.html">Return to The Path →</a>
-              <a class="btn primary" href="./side-quests.html">Apply with Side Quests →</a>
+              <div class="mini">
+                <div class="title">
+                  <span>Use it when</span>
+                  <b>You feel stuck or self-doubting</b>
+                </div>
+                <ul>
+                  <li>When something feels urgent or absolute</li>
+                  <li>When you’re questioning your perception</li>
+                  <li>When insight is present but change stalls</li>
+                </ul>
+              </div>
             </div>
           </aside>
         </div>
       </div>
     </section>
 
+    <!-- WHAT THE MAP IS -->
     <section>
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="kicker">Core distinctions</div>
-            <h2>The heart of the Map</h2>
+            <div class="kicker">What the Map is</div>
+            <h2>Language that turns experience into something navigable.</h2>
           </div>
           <p class="lead">
-            You don’t need to memorize these. Just notice what resonates — and what changes when it’s named.
+            Language matters. When something is named accurately, it stops feeling personal
+            and starts becoming workable.
+          </p>
+        </div>
+
+        <div class="grid2">
+          <article class="card">
+            <h4>The Map is a set of distinctions.</h4>
+            <p>
+              It offers language for internal signals, adaptive patterns, emotional responses, decision points,
+              and moments of misalignment — without turning your inner world into a performance.
+            </p>
+            <ul>
+              <li>It reduces noise.</li>
+              <li>It increases discernment.</li>
+              <li>It strengthens self-trust through precision.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h4>The Map is not a new authority.</h4>
+            <p>
+              It’s a reference. Use it when it’s helpful. Ignore it when it’s not.
+              Nothing here is meant to override your intuition or pressure you into agreement.
+            </p>
+            <ul>
+              <li>No “higher vs lower” hierarchy.</li>
+              <li>No identity branding.</li>
+              <li>No forced interpretation.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE DISTINCTIONS -->
+    <section id="distinctions">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Core distinctions</div>
+            <h2>The heart of the Map.</h2>
+          </div>
+          <p class="lead">
+            You don’t need to memorize these. Read slowly. Notice which ones feel immediately true.
           </p>
         </div>
 
         <div class="grid3">
-          <div class="card">
+          <article class="card">
             <h4>Conditioning vs. Truth</h4>
             <p>
               Conditioning is what you learned to do to stay safe, included, or functional.
               Truth is what remains when you’re not bracing, performing, or self-monitoring.
-              Conditioning isn’t wrong — it’s adaptive. Truth feels quieter, steadier, less urgent, less defensive.
             </p>
-            <div class="chiprow"><span class="chip">quiet</span><span class="chip">steady</span><span class="chip">less urgent</span></div>
-          </div>
+            <ul>
+              <li><b style="color:var(--text);">Conditioning</b> often feels urgent and defensive.</li>
+              <li><b style="color:var(--text);">Truth</b> tends to feel quieter, steadier, less performative.</li>
+            </ul>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <h4>Insight vs. Integration</h4>
             <p>
-              Insight is understanding something intellectually. Integration is when that understanding changes how you live.
-              Without integration, awareness becomes weight, clarity becomes frustration, and growth stalls.
-              Experience Points focuses on translation between the two.
+              Insight is understanding. Integration is when that understanding changes how you live.
+              Without integration, insight becomes weight.
             </p>
-            <div class="chiprow"><span class="chip">understand</span><span class="chip">embody</span><span class="chip">live it</span></div>
-          </div>
+            <ul>
+              <li>Awareness without change becomes frustration.</li>
+              <li>Integration turns “I know” into “I choose differently.”</li>
+            </ul>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <h4>Regulation vs. Suppression</h4>
             <p>
-              Regulation allows emotion to move without overwhelming the system.
+              Regulation creates space for emotion to move without hijacking the system.
               Suppression forces emotion underground to maintain control.
-              Suppression often looks like being “fine” quickly, staying composed at all costs, minimizing your reactions.
             </p>
-            <div class="chiprow"><span class="chip">space</span><span class="chip">movement</span><span class="chip">no force</span></div>
-          </div>
+            <ul>
+              <li>Suppression often looks like “being fine” quickly.</li>
+              <li>Regulation is slower — and more honest.</li>
+            </ul>
+          </article>
+        </div>
 
-          <div class="card">
+        <div style="height:14px;"></div>
+
+        <div class="grid3">
+          <article class="card">
             <h4>Safety vs. Familiarity</h4>
             <p>
-              Many people mistake familiarity for safety. Familiar feels known — even if painful.
-              Safety feels spacious — even if unfamiliar. The nervous system often resists safety at first.
-              The Map helps you move slowly enough that safety doesn’t feel threatening.
+              Many people mistake familiarity for safety. Familiar can be painful — but predictable.
+              Safety can feel spacious — and unfamiliar at first.
             </p>
-            <div class="chiprow"><span class="chip">spacious</span><span class="chip">unfamiliar</span><span class="chip">slow</span></div>
-          </div>
+            <ul>
+              <li>The nervous system may resist safety initially.</li>
+              <li>The Map helps you move slowly enough that safety doesn’t feel threatening.</li>
+            </ul>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <h4>Choice vs. Compulsion</h4>
             <p>
               Choice comes from presence. Compulsion comes from pattern.
-              If something feels urgent, absolute, or all-or-nothing, it’s usually not choice.
-              Choice feels grounded, includes options, and respects timing.
+              If it feels urgent, absolute, or all-or-nothing, it’s usually not choice.
             </p>
-            <div class="chiprow"><span class="chip">grounded</span><span class="chip">options</span><span class="chip">timing</span></div>
-          </div>
+            <ul>
+              <li>Choice feels grounded and spacious.</li>
+              <li>Compulsion feels tight and immediate.</li>
+            </ul>
+          </article>
 
-          <div class="card">
-            <h4>A reminder about authority</h4>
+          <article class="card">
+            <h4>Authority reminder</h4>
             <p>
               If something resonates, trust that. If something doesn’t, don’t force it.
               The Map supports your relationship with yourself — it does not replace it.
-              You are the one living your life. You are the one making the choices.
             </p>
-            <div class="chiprow"><span class="chip">trust</span><span class="chip">don’t force</span><span class="chip">you decide</span></div>
+            <ul>
+              <li>You are the one living your life.</li>
+              <li>You are the one making the choices.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO USE -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">How to use it</div>
+            <h2>Consult it lightly. Let it clarify. Then return to life.</h2>
           </div>
+          <p class="lead">
+            You don’t “follow” the Map — you consult it. It works best when it’s light in your hands.
+          </p>
         </div>
 
-        <div class="cta-band" style="margin-top:14px;">
+        <div class="grid2">
+          <article class="card">
+            <h4>Use it when:</h4>
+            <ul>
+              <li>You feel stuck in a pattern.</li>
+              <li>You’re unsure whether to act or wait.</li>
+              <li>You feel conflicted about a decision.</li>
+              <li>You’re questioning your own perception.</li>
+            </ul>
+            <div class="divider"></div>
+            <p>
+              Read one section. See if something names your experience cleanly.
+              If it doesn’t — move on. No forcing.
+            </p>
+          </article>
+
+          <article class="card">
+            <h4>How it connects to everything else</h4>
+            <ul>
+              <li><b style="color:var(--text);">The Path</b> helps you orient yourself.</li>
+              <li><b style="color:var(--text);">The Map</b> gives language to what you’re noticing.</li>
+              <li><b style="color:var(--text);">Side Quests</b> help you test insights in real life.</li>
+              <li><b style="color:var(--text);">Practice</b> supports long-term integration.</li>
+            </ul>
+            <div class="divider"></div>
+            <p>
+              None of these work alone. They’re designed to be used as needed — based on your actual life.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHERE NEXT CTA -->
+    <section>
+      <div class="wrap">
+        <div class="cta-band">
           <div class="cta-inner">
             <div>
               <div class="kicker">Where to go next</div>
-              <h3>Apply what you’re noticing.</h3>
+              <h3>Clarity becomes real when it becomes lived.</h3>
               <p>
-                Explore Side Quests for small, optional practices grounded in real life.
-                Or learn about Practice for ongoing integration held over time.
+                If you want to apply what you’re noticing, go to Side Quests.
+                If you want ongoing support with integration over time, explore Practice.
+                Or return to The Path when you want to re-orient.
               </p>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="./side-quests.html">Explore Side Quests →</a>
-              <a class="btn ghost" href="./practice.html">Learn about Practice →</a>
-            </div>
-          </div>
-        </div>
 
-        <div class="quote" style="margin-top:14px;">
-          <p>
-            “You don’t need a better map of the world. You need a clearer map of yourself. Use this one lightly.”
-          </p>
-          <div class="who">
-            <span><b>Closing</b></span>
-            <span>return when needed</span>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-start;">
+              <a class="btn primary" href="./side-quests.html">
+                <span>Explore Side Quests</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn ghost" href="./practice.html">
+                <span>Learn about Practice</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn ghost" href="./path.html">
+                <span>Return to The Path</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M10 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -260,30 +893,147 @@
               <div class="logo" style="width:30px;height:30px;border-radius:12px;" aria-hidden="true"></div>
               <div>
                 <div style="font-weight:800; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
-                <div style="margin-top:3px;">A reference — not an authority.</div>
+                <div style="margin-top:3px;">Experience Points is built for inner authority, not dependence.</div>
               </div>
             </div>
-            <div style="margin-top:10px;">
-              <span style="opacity:.9;">©</span> <span id="year"></span> Experience Points. All rights reserved.
+            <div style="margin-top:10px; line-height:1.55;">
+              © <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t. Return to yourself.
             </div>
-            <div style="margin-top:8px; max-width: 70ch; line-height:1.5;">
+            <div style="margin-top:8px; max-width: 76ch; line-height:1.55;">
               <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
             </div>
           </div>
 
           <div class="links" aria-label="Footer links">
-            <a href="../index.html">Home</a>
             <a href="./origin.html">Origin</a>
             <a href="./path.html">The Path</a>
             <a href="./side-quests.html">Side Quests</a>
             <a href="./practice.html">Practice</a>
-            <a href="#top" aria-label="Back to top">Top ↑</a>
+            <a href="../index.html">Home</a>
           </div>
         </div>
       </div>
     </footer>
   </main>
 
-  <script src="../assets/site.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const $ = (sel, root = document) => root.querySelector(sel);
+      $("#year").textContent = String(new Date().getFullYear());
+
+      // Smooth anchor scrolling
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener("click", (e) => {
+          const id = a.getAttribute("href");
+          if (!id || id === "#") return;
+          const el = document.querySelector(id);
+          if (!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      // Starfield background
+      const canvas = document.getElementById("stars");
+      const ctx = canvas.getContext("2d", { alpha: true });
+
+      let W = 0, H = 0, DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const stars = [];
+      const STAR_COUNT = 160;
+
+      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      function makeStars() {
+        stars.length = 0;
+        for (let i = 0; i < STAR_COUNT; i++) {
+          stars.push({
+            x: rand(0, W),
+            y: rand(0, H),
+            r: rand(0.6, 1.9),
+            a: rand(0.10, 0.75),
+            vx: rand(-0.08, 0.08),
+            vy: rand(0.02, 0.14),
+            tw: rand(0.002, 0.010),
+            ph: rand(0, Math.PI * 2)
+          });
+        }
+      }
+      makeStars();
+
+      let mouseX = W * 0.5, mouseY = H * 0.4;
+      window.addEventListener("pointermove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      }, { passive: true });
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        const vg = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, Math.max(W, H) * 0.65);
+        vg.addColorStop(0, "rgba(0,0,0,0)");
+        vg.addColorStop(1, "rgba(0,0,0,0.35)");
+        ctx.fillStyle = vg;
+        ctx.fillRect(0, 0, W, H);
+
+        const px = (mouseX / Math.max(1, W) - 0.5) * 10;
+        const py = (mouseY / Math.max(1, H) - 0.5) * 10;
+
+        for (const s of stars) {
+          s.ph += s.tw;
+          const twinkle = (Math.sin(s.ph) * 0.08) + 0.92;
+
+          const x = s.x + px * (s.r * 0.35);
+          const y = s.y + py * (s.r * 0.35);
+
+          const g = ctx.createRadialGradient(x, y, 0, x, y, s.r * 5.2);
+          g.addColorStop(0, `rgba(234,247,240,${Math.min(0.10, s.a * 0.25)})`);
+          g.addColorStop(1, "rgba(234,247,240,0)");
+
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, y, s.r * 5.2, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = `rgba(234,247,240,${(s.a * twinkle).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(x, y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (!prefersReduce) {
+            s.x += s.vx;
+            s.y += s.vy;
+          }
+
+          if (s.y > H + 10) { s.y = -10; s.x = rand(0, W); }
+          if (s.x > W + 10) s.x = -10;
+          if (s.x < -10) s.x = W + 10;
+        }
+
+        if (!prefersReduce) requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+
+      let rT = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(rT);
+        rT = setTimeout(() => makeStars(), 180);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
