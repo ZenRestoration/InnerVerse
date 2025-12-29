@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en" data-page="path-companion">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Path Companion — Experience Points</title>
+  <meta name="description" content="A long-form written orientation for the threshold where survival strategies stop working and inner authority begins to return." />
+  <meta name="theme-color" content="#0b1a16" />
+
+  <meta property="og:title" content="The Path Companion — Experience Points" />
+  <meta property="og:description" content="Language for a phase of growth most people can feel — but don’t yet have words for. No urgency. No performance. A stabilizing reference." />
+  <meta property="og:type" content="website" />
+
+  <!-- Root-relative so it works from /pages/* -->
+  <link rel="stylesheet" href="/assets/style.css" />
+
+  <!-- Page-only helpers (safe) -->
+  <style>
+    /* Optional small helper styles that won't break the global system */
+    .prose p{ margin: 0 0 10px; color: var(--muted); line-height: 1.65; }
+    .prose strong{ color: var(--text); }
+    .bullets{ margin: 12px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.7; }
+    .bullets li{ margin: 6px 0; }
+    .mini-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .mini-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+    }
+    .price{
+      font-family: var(--mono);
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.20);
+      color: rgba(234,247,240,0.92);
+      white-space: nowrap;
+    }
+    .notice{
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 18px;
+      box-shadow: var(--shadow2);
+    }
+    .notice h4{ margin: 0 0 8px; letter-spacing: -0.02em; }
+    .notice p{ margin:0; color: var(--muted); line-height:1.65; font-size: 13.5px; }
+    @media (max-width: 980px){
+      .mini-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="bg-wrap" aria-hidden="true">
+    <canvas class="stars"></canvas>
+    <div class="glow-film"></div>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="/" aria-label="Experience Points home">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="name">
+            <strong>Experience Points</strong>
+            <span>Level up through lived experience</span>
+          </div>
+        </a>
+
+        <nav class="navlinks" aria-label="Primary">
+          <a href="/" data-nav="home">Home</a>
+          <a href="/pages/origin.html" data-nav="origin">Origin</a>
+          <a href="/pages/path.html" data-nav="path">The Path</a>
+          <a href="/pages/map.html" data-nav="map">The Map</a>
+          <a href="/pages/side-quests.html" data-nav="side-quests">Side Quests</a>
+          <a href="/pages/practice.html" data-nav="practice">Practice</a>
+        </nav>
+
+        <div class="nav-right">
+          <span class="pill" title="A stabilizing reference during transition">
+            <span class="dot" aria-hidden="true"></span>
+            The Path Companion
+          </span>
+
+          <a class="btn primary" href="#enter" style="padding:10px 12px;border-radius:14px;">
+            <span>Enter</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+            <span class="menu-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileNav" class="mobile-nav" hidden>
+        <div class="panelbox" role="navigation" aria-label="Mobile">
+          <a href="/">Home</a>
+          <a href="/pages/origin.html">Origin</a>
+          <a href="/pages/path.html">The Path</a>
+          <a href="/pages/map.html">The Map</a>
+          <a href="/pages/side-quests.html">Side Quests</a>
+          <a href="/pages/practice.html">Practice</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="hero-inner">
+              <span class="pill">
+                <span class="dot" aria-hidden="true"></span>
+                A threshold orientation
+              </span>
+
+              <h1>The Path Companion</h1>
+
+              <p class="subhead" style="max-width: 74ch;">
+                A threshold for those who can no longer abandon themselves.
+                <br><br>
+                This is not a course. It’s a long-form written orientation for a phase of growth most people can feel —
+                but don’t yet have language for.
+              </p>
+
+              <p class="subhead" style="margin-top:10px; max-width: 74ch;">
+                The phase where survival strategies no longer work,
+                insight alone isn’t enough,
+                and external authority stops landing.
+              </p>
+
+              <p class="subhead" style="margin-top:10px; margin-bottom:0; max-width: 74ch;">
+                If you are here, you are not lost.
+                <br>
+                You are standing at a threshold.
+              </p>
+
+              <div class="hero-ctas">
+                <a class="btn primary" href="#enter">
+                  <span>Enter the Path Companion</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+
+                <a class="btn ghost" href="/pages/path.html">
+                  <span>Start with The Path</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M10 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="microproof">
+                <span class="badge"><b>Written</b> <em>not performed</em></span>
+                <span class="badge"><b>Precise</b> <em>not motivational</em></span>
+                <span class="badge"><b>Quiet</b> <em>on purpose</em></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right panel -->
+          <aside class="hero-card panel" aria-label="Path Companion overview">
+            <div class="panel-top">
+              <div>
+                <h3>What it is</h3>
+                <p>
+                  A stabilizing reference for the in-between: when you can’t go back to old patterns,
+                  but you’re not yet living from full alignment.
+                </p>
+              </div>
+              <span class="pill" style="margin-top:2px;">
+                <span class="dot" aria-hidden="true"></span>
+                Reference, not authority
+              </span>
+            </div>
+
+            <div class="xp-meter" style="--bar: 72%;">
+              <div class="row">
+                <span>Threshold signal</span>
+                <span style="color: var(--text); font-weight:700;">Stabilizing</span>
+              </div>
+              <div class="xp-bar"><span></span></div>
+              <div class="row" style="margin-top:10px;">
+                <span>Mode</span>
+                <span>Slow read • Return often</span>
+              </div>
+            </div>
+
+            <div class="panel-cards">
+              <div class="mini">
+                <div class="title">
+                  <span>Designed for</span>
+                  <b>self-trust rebuilding</b>
+                </div>
+                <ul>
+                  <li>When insight feels heavy instead of freeing</li>
+                  <li>When you’re tired of urgency and “breakthrough” culture</li>
+                  <li>When your next step requires honesty, not hype</li>
+                </ul>
+              </div>
+
+              <div class="mini">
+                <div class="title">
+                  <span>Built to be</span>
+                  <b>safe to pause</b>
+                </div>
+                <ul>
+                  <li>No homework</li>
+                  <li>No forced application</li>
+                  <li>No dependency loop</li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO THIS IS FOR / NOT FOR -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Fit check</div>
+            <h2>Clear signal. Clear boundaries.</h2>
+          </div>
+          <p class="lead">
+            This is for people who value precision over motivation and truth over reassurance.
+            If you’re unsure, read both lists slowly and notice what lands.
+          </p>
+        </div>
+
+        <div class="mini-grid">
+          <div class="card">
+            <div class="mini-title">
+              <h4 style="margin:0;">Who this is for</h4>
+              <span class="pill" style="padding:8px 10px;"><span class="dot" aria-hidden="true"></span> Resonance</span>
+            </div>
+
+            <div class="prose">
+              <p><strong>The Path Companion is for you if:</strong></p>
+              <ul class="bullets">
+                <li>You’ve done the work — and still feel unsettled.</li>
+                <li>You see your patterns clearly, but hesitate to live differently.</li>
+                <li>You no longer resonate with urgency, performance, or identity-based healing.</li>
+                <li>You feel calm alone, but destabilized in relationship.</li>
+                <li>You’re done overriding yourself to stay functional.</li>
+                <li>You want clarity without force.</li>
+              </ul>
+              <p style="margin-top:12px;">
+                This is for people who want to meet reality without collapsing into it —
+                and who are willing to choose slowly.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="mini-title">
+              <h4 style="margin:0;">Who this is not for</h4>
+              <span class="pill" style="padding:8px 10px;"><span class="dot" aria-hidden="true"></span> No forcing</span>
+            </div>
+
+            <div class="prose">
+              <p><strong>The Path Companion is not for you if:</strong></p>
+              <ul class="bullets">
+                <li>You want a step-by-step transformation plan.</li>
+                <li>You’re looking for someone to tell you what to do.</li>
+                <li>You want emotional catharsis or constant reassurance.</li>
+                <li>You expect clarity to feel dramatic, energizing, or urgent.</li>
+                <li>You want healing to be fast, visible, or performative.</li>
+              </ul>
+              <p style="margin-top:12px;">
+                This work is quiet on purpose. It’s built to stabilize, not stimulate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IT DOES -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">What it does</div>
+            <h2>It names the phase you’re actually in — and reduces the noise around it.</h2>
+          </div>
+          <p class="lead">
+            Not by telling you who to become. By helping you stop leaving yourself behind.
+          </p>
+        </div>
+
+        <div class="grid3">
+          <article class="card">
+            <h4>Name the real phase</h4>
+            <p>
+              When you can’t go back to the old adaptations, but you’re not fully stabilized in the new.
+              Naming the phase reduces shame and improves decision-making.
+            </p>
+            <div class="chiprow"><span class="chip">Discernment</span><span class="chip">Context</span></div>
+          </article>
+
+          <article class="card">
+            <h4>Make urgency legible</h4>
+            <p>
+              Learn why urgency, flatness, or hesitation show up right when clarity arrives —
+              and how to stop confusing “activation” with “truth.”
+            </p>
+            <div class="chiprow"><span class="chip">Nervous system</span><span class="chip">Signal vs. noise</span></div>
+          </article>
+
+          <article class="card">
+            <h4>Restore internal authority</h4>
+            <p>
+              Rebuild trust in your internal signals so you don’t have to outsource your knowing —
+              or force decisions to relieve discomfort.
+            </p>
+            <div class="chiprow"><span class="chip">Self-trust</span><span class="chip">Choice</span></div>
+          </article>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">01</div>
+            <div>
+              <h4>Stabilize clarity without rushing action</h4>
+              <p>
+                Clarity doesn’t require immediate execution. Sometimes the most aligned move is to let
+                something settle in your system long enough that it becomes stable — not reactive.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">02</div>
+            <div>
+              <h4>End self-abandonment in small, real ways</h4>
+              <p>
+                Not through dramatic declarations — through micro-choices:
+                pausing before you override, noticing the compulsion, and choosing the next honest inch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IT IS / IS NOT -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">What it is (and isn’t)</div>
+            <h2>A document you return to — not something you complete.</h2>
+          </div>
+          <p class="lead">
+            Designed to be read slowly. Built to meet you during transition without creating dependence.
+          </p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h4>It is</h4>
+            <ul class="bullets">
+              <li>A long-form written orientation</li>
+              <li>A stabilizing reference during transition</li>
+              <li>Language for inner authority</li>
+              <li>A way to reduce self-doubt through precision</li>
+              <li>A companion you can revisit when your system gets loud</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4>It is not</h4>
+            <ul class="bullets">
+              <li>Therapy</li>
+              <li>Coaching</li>
+              <li>A challenge</li>
+              <li>A belief system</li>
+              <li>A replacement for your own discernment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT'S INCLUDED -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">What’s included</div>
+            <h2>The Path Companion — Master Edition</h2>
+          </div>
+          <p class="lead">
+            A carefully written, long-form document designed to be read slowly and revisited over time.
+          </p>
+        </div>
+
+        <div class="grid3">
+          <article class="card">
+            <h4>Lifetime access</h4>
+            <p>This is not a subscription. No recurring billing. No drip content.</p>
+            <div class="chiprow"><span class="chip">One-time</span><span class="chip">Yours to keep</span></div>
+          </article>
+
+          <article class="card">
+            <h4>Future revisions included</h4>
+            <p>Language evolves. You receive updates without additional cost.</p>
+            <div class="chiprow"><span class="chip">Updates</span><span class="chip">No extra charge</span></div>
+          </article>
+
+          <article class="card">
+            <h4>No worksheets. No homework.</h4>
+            <p>
+              Not because practice doesn’t matter — but because forcing application can become another form of override.
+              Side Quests exist for gentle experimentation when you want it.
+            </p>
+            <div class="chiprow"><span class="chip">Low pressure</span><span class="chip">Safe to pause</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT FITS -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">How it fits</div>
+            <h2>Part of the ecosystem — optional by design.</h2>
+          </div>
+          <p class="lead">
+            Nothing here is required to access anything else. This exists as support for a specific phase.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">01</div>
+            <div>
+              <h4>The Path orients you</h4>
+              <p>Where you are. What you’re noticing. How to begin without urgency.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">02</div>
+            <div>
+              <h4>The Path Companion stabilizes you</h4>
+              <p>Language and grounding for the threshold — so you can stop second-guessing your own signal.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">03</div>
+            <div>
+              <h4>The Map deepens language</h4>
+              <p>Distinctions that make patterns legible without turning them into identity.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">04</div>
+            <div>
+              <h4>Side Quests test insight in real life</h4>
+              <p>Small, contained experiments — safe to stop anytime.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">05</div>
+            <div>
+              <h4>Practice supports long-term integration</h4>
+              <p>Continuity and rhythm for the season you’re in — without pressure.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & ACCESS -->
+    <section id="enter">
+      <div class="wrap">
+        <div class="cta-band">
+          <div class="cta-inner">
+            <div>
+              <div class="kicker">Pricing & access</div>
+              <h3>Access to the Path Companion</h3>
+              <p>
+                No subscription. No urgency. No upsell required.
+                If it’s for you, it will still be for you tomorrow.
+              </p>
+
+              <div style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <span class="price">$79 — one-time</span>
+                <span class="pill" style="padding:8px 10px;">
+                  <span class="dot" aria-hidden="true"></span>
+                  Lifetime access • Updates included
+                </span>
+              </div>
+
+              <hr class="sep" />
+
+              <div class="notice" role="note" aria-label="Ethical boundary">
+                <h4>Ethical boundary</h4>
+                <p>
+                  The Path Companion is an educational and reflective resource. It does not diagnose, treat, or replace professional care.
+                  You remain the authority on your own experience. Engage only with what feels appropriate. Pause or step away at any time.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <form action="#" method="post" aria-label="Enter the Path Companion">
+                <div class="field">
+                  <input class="input" type="email" name="email" placeholder="Email for access link" autocomplete="email" />
+                </div>
+                <button class="btn primary" type="submit">
+                  <span>Enter the Path Companion</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+
+                <p class="fineprint">
+                  By entering, you agree you’re joining an educational resource — not treatment.
+                  <a href="/pages/origin.html">Read the stance</a>.
+                </p>
+              </form>
+
+              <div style="height:12px;"></div>
+
+              <a class="btn ghost" href="/pages/map.html" style="width:100%;">
+                <span>Not sure? Start with The Map</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:18px;"></div>
+
+        <div class="quote">
+          <p>
+            You do not need more information.
+            You need language that lets you trust yourself again.
+          </p>
+          <div class="who">
+            <span><b>Closing</b></span>
+            <span>Take what resonates. Leave what doesn’t.</span>
+          </div>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <p class="fineprint" style="margin:0; max-width: 92ch;">
+          The Path Companion exists for the moment when you can no longer abandon yourself —
+          but don’t yet know how to live from that truth.
+          This is a bridge: from insight to integration, from self-monitoring to self-trust, from survival to choice.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot">
+          <div class="col">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="logo" style="width:30px;height:30px;border-radius:12px;" aria-hidden="true"></div>
+              <div>
+                <div style="font-weight:800; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
+                <div style="margin-top:3px;">Experience Points is built for inner authority, not dependence.</div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px; line-height:1.55;">
+              © <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t. Return to yourself.
+            </div>
+
+            <div style="margin-top:8px; max-width: 76ch; line-height:1.55;">
+              <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
+            </div>
+          </div>
+
+          <div class="links" aria-label="Footer links">
+            <a href="/pages/origin.html">Origin</a>
+            <a href="/pages/path.html">The Path</a>
+            <a href="/pages/map.html">The Map</a>
+            <a href="/pages/side-quests.html">Side Quests</a>
+            <a href="/pages/practice.html">Practice</a>
+            <a href="/">Home</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script defer src="/assets/app.js"></script>
+
+  <!-- Fallback year if app.js doesn't set it -->
+  <script>
+    (function () {
+      const y = document.getElementById("year");
+      if (y && !y.textContent.trim()) y.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
