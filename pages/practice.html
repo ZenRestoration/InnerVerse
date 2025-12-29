@@ -450,10 +450,23 @@
       }
 
       // PRACTICE WAITLIST — serverless endpoint (Cloudflare Worker)
-      const ENDPOINT = "https://wild-cloud-7a40.brooklynnblais.workers.dev";
+      // Note: using text/plain avoids a CORS preflight that often causes "Network error" if OPTIONS isn't handled.
+      const ENDPOINT = "https://wild-cloud-7a40.brooklynnblais.workers.dev/";
 
       const form = $("#practiceNotifyForm");
       const msg = $("#pMsg");
+
+      async function safeReadJsonOrText(res) {
+        const text = await res.text().catch(() => "");
+        if (!text) return { json: null, text: "" };
+        try { return { json: JSON.parse(text), text }; }
+        catch { return { json: null, text }; }
+      }
+
+      function setMsg(text, ok) {
+        msg.textContent = text;
+        msg.style.color = ok ? "rgba(106,247,197,0.95)" : "rgba(255,211,106,0.95)";
+      }
 
       if (form && msg) {
         form.addEventListener("submit", async (e) => {
@@ -465,50 +478,74 @@
           const focus = ($("#pfocus")?.value || "").trim();
 
           if (!email || !isValidEmail(email)) {
-            msg.textContent = "Please enter a valid email so we can notify you when Practice opens.";
-            msg.style.color = "rgba(255,211,106,0.95)";
+            setMsg("Please enter a valid email so we can notify you when Practice opens.", false);
             $("#pemail")?.focus();
             return;
           }
 
-          // UI state
           const submitBtn = form.querySelector('button[type="submit"]');
-          const prevBtnText = submitBtn ? submitBtn.innerHTML : "";
+          const prevBtnHTML = submitBtn ? submitBtn.innerHTML : "";
           if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.style.opacity = "0.85";
             submitBtn.innerHTML = "<span>Adding you…</span>";
           }
 
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 12000);
+
           try {
+            const payload = { name: name || null, email, focus: focus || null };
+
             const res = await fetch(ENDPOINT, {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ name: name || null, email, focus: focus || null })
+              // Keep request "simple" to reduce CORS issues:
+              headers: {
+                "Content-Type": "text/plain;charset=UTF-8",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify(payload),
+              cache: "no-store",
+              redirect: "follow",
+              signal: controller.signal
             });
 
-            const out = await res.json().catch(() => ({}));
+            const { json, text } = await safeReadJsonOrText(res);
 
-            if (!res.ok || !out.ok) {
-              msg.textContent = out.error || "Something went wrong. Please try again in a moment.";
-              msg.style.color = "rgba(255,211,106,0.95)";
-              if (submitBtn) submitBtn.disabled = false;
-              if (submitBtn) submitBtn.style.opacity = "";
-              if (submitBtn) submitBtn.innerHTML = prevBtnText || "<span>Notify Me (Quietly)</span>";
+            const ok = Boolean((json && (json.ok === true)) || res.ok);
+
+            if (!res.ok || (json && json.ok === false)) {
+              const serverMsg =
+                (json && (json.error || json.message)) ||
+                (text && text.slice(0, 180)) ||
+                `Request failed (${res.status})`;
+
+              setMsg(serverMsg, false);
               return;
             }
 
-            msg.textContent = "✅ You’re on the quiet update list. You’ll hear from us when there’s something real to share.";
-            msg.style.color = "rgba(106,247,197,0.95)";
+            // If server returns structured message, prefer it
+            if (json && (json.message || json.msg)) {
+              setMsg(String(json.message || json.msg), true);
+            } else {
+              setMsg("✅ You’re on the quiet update list. You’ll hear from us when there’s something real to share.", true);
+            }
+
             form.reset();
           } catch (err) {
-            msg.textContent = "Network error. Please check your connection and try again.";
-            msg.style.color = "rgba(255,211,106,0.95)";
+            const isAbort = err && (err.name === "AbortError");
+            if (isAbort) {
+              setMsg("Timed out reaching the signup service. Please try again.", false);
+            } else {
+              // Most common here is CORS / blocked / offline (browser reports as TypeError / Failed to fetch)
+              setMsg("Network/CORS error. If you’re online, the endpoint likely isn’t allowing requests from this site yet.", false);
+            }
           } finally {
+            clearTimeout(timeout);
             if (submitBtn) {
               submitBtn.disabled = false;
               submitBtn.style.opacity = "";
-              submitBtn.innerHTML = prevBtnText || "<span>Notify Me (Quietly)</span>";
+              submitBtn.innerHTML = prevBtnHTML || "<span>Notify Me (Quietly)</span>";
             }
           }
         });
