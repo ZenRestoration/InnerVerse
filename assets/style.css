@@ -204,10 +204,14 @@ header{
 .menu-icon::before{ top:0; }
 .menu-icon::after{ bottom:0; }
 
+/* KEY FIX: your HTML uses hidden="" so CSS must respect it */
 .mobile-nav{
   display:none;
   padding: 0 0 16px;
 }
+.mobile-nav[hidden]{ display:none !important; }
+.mobile-nav:not([hidden]){ display:block; }
+
 .mobile-nav .panelbox{
   border-radius: var(--radius-xl);
   background: rgba(255,255,255,0.06);
@@ -520,6 +524,14 @@ h2{
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
+
+/* IMPORTANT: practice.html uses .grid2 — add it */
+.grid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
 .card{
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
@@ -732,14 +744,79 @@ footer{
   .btn, .navlinks a, .foot .links a{ transition:none !important; }
 }
 
-/* Responsive */
+/* Responsive (your original breakpoint) */
 @media (max-width: 980px){
   .hero-grid{ grid-template-columns: 1fr; }
   .grid3{ grid-template-columns: 1fr; }
+  .grid2{ grid-template-columns: 1fr; }
   .steps{ grid-template-columns: 1fr; }
   .cta-inner{ grid-template-columns: 1fr; }
+
   .navlinks{ display:none; }
   .menu-btn{ display:inline-flex; }
-  .mobile-nav{ display:block; }
   .brand{ min-width:auto; }
+}
+
+/* MOBILE POLISH: centered + less bulky */
+@media (max-width: 640px){
+  /* slightly wider content area on mobile */
+  .wrap{ width:min(var(--max), calc(100% - 24px)); }
+
+  /* reduce vertical bulk */
+  section{ padding: 52px 0; }
+  .hero{ padding: 44px 0 16px; }
+  .hero.compact{ padding: 40px 0 12px; }
+
+  /* cards feel “centered” because padding isn’t huge */
+  .hero-inner{ padding: 18px 16px 16px; }
+  .panel{ padding: 16px; }
+  .cta-inner{ padding: 18px; }
+  .card{ padding: 16px; }
+
+  /* fix the “not centered” feeling on stacked headers */
+  .section-head{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .lead{ max-width: 100%; }
+
+  /* make CTAs not awkwardly wrap */
+  .hero-ctas{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .hero-ctas .btn{ width:100%; }
+
+  /* make badges stack clean */
+  .microproof{ gap: 10px; }
+  .microproof .badge{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* form fields: no more side-by-side squeeze */
+  .field{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .input{
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  /* header right side: prevent “bulky” crowding */
+  .nav-right{
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 8px;
+  }
+}
+
+/* TINY screens: optional simplification */
+@media (max-width: 420px){
+  .pill{ display:none; } /* removes the bulky “In development” pill if it crowds */
+  .btn{ padding: 11px 14px; }
+  .menu-btn{ width:42px; height:42px; }
 }
