@@ -13,6 +13,126 @@
 
   <!-- Use site-wide styles -->
   <link rel="stylesheet" href="/assets/style.css" />
+
+  <!-- Page-only mobile polish -->
+  <style>
+    /* Keep everything inside the same max width and visually centered */
+    .hero-grid{ align-items: stretch; }
+
+    /* Prevent pills + buttons from crowding on small screens */
+    @media (max-width: 980px){
+      header .nav{
+        align-items: center;
+      }
+      header .nav-right{
+        gap: 10px;
+      }
+      /* Hide the bulky header pill on mobile (still present on desktop) */
+      header .nav-right .pill{
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px){
+      /* Center hero content and reduce bulk */
+      .hero .hero-inner{
+        padding: 18px !important;
+      }
+      .hero .hero-inner h1{
+        text-align: center;
+      }
+      .hero .subhead{
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Center CTAs and make them full-width, stacked */
+      .hero-ctas{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        justify-items: stretch;
+        margin-top: 14px !important;
+      }
+      .hero-ctas .btn{
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Microproof wraps nicely + centered */
+      .microproof{
+        justify-content: center !important;
+        gap: 8px !important;
+      }
+      .microproof .badge{
+        text-align: center;
+      }
+
+      /* Make the right-side panel feel less bulky */
+      .hero-card.panel{
+        padding: 16px !important;
+      }
+      .panel-top{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .panel-top .pill{
+        align-self: flex-start;
+      }
+
+      /* Section heads: stack and center */
+      .section-head{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .section-head h2{
+        text-align: left;
+      }
+      .section-head .lead{
+        max-width: none;
+      }
+
+      /* Cards + prose padding slightly tighter */
+      .card{
+        padding: 16px !important;
+      }
+
+      /* CTA band: ensure comfortable padding and centered buttons if any */
+      .cta-band .cta-inner{
+        padding: 18px !important;
+      }
+
+      /* Form fields: force clean stacking and full width */
+      #practiceNotifyForm .field{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+      #practiceNotifyForm .input{
+        width: 100%;
+      }
+      #practiceNotifyForm .btn{
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Footer links wrap cleanly */
+      footer .links{
+        justify-content: flex-start !important;
+      }
+    }
+
+    @media (max-width: 420px){
+      /* Slightly reduce pill/badge padding for tiny screens */
+      .pill{ padding: 9px 12px; }
+      .microproof .badge{ padding: 8px 10px; }
+      /* Reduce hero title a touch if it feels too tall */
+      .hero h1{ font-size: clamp(30px, 9vw, 40px); }
+    }
+  </style>
 </head>
 
 <body>
@@ -499,7 +619,6 @@
 
             const res = await fetch(ENDPOINT, {
               method: "POST",
-              // Keep request "simple" to reduce CORS issues:
               headers: {
                 "Content-Type": "text/plain;charset=UTF-8",
                 "Accept": "application/json"
@@ -512,19 +631,15 @@
 
             const { json, text } = await safeReadJsonOrText(res);
 
-            const ok = Boolean((json && (json.ok === true)) || res.ok);
-
             if (!res.ok || (json && json.ok === false)) {
               const serverMsg =
                 (json && (json.error || json.message)) ||
                 (text && text.slice(0, 180)) ||
                 `Request failed (${res.status})`;
-
               setMsg(serverMsg, false);
               return;
             }
 
-            // If server returns structured message, prefer it
             if (json && (json.message || json.msg)) {
               setMsg(String(json.message || json.msg), true);
             } else {
@@ -537,7 +652,6 @@
             if (isAbort) {
               setMsg("Timed out reaching the signup service. Please try again.", false);
             } else {
-              // Most common here is CORS / blocked / offline (browser reports as TypeError / Failed to fetch)
               setMsg("Network/CORS error. If you’re online, the endpoint likely isn’t allowing requests from this site yet.", false);
             }
           } finally {
