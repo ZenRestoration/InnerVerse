@@ -4,15 +4,56 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Map — Experience Points</title>
-  <meta name="description" content="The Map is a set of distinctions that helps you name your inner experience accurately—so self-doubt becomes navigable and truth becomes usable." />
+  <meta name="description" content="The Map is a gentle set of distinctions that helps you name your inner experience accurately—so self-doubt becomes navigable and truth becomes usable." />
   <meta name="theme-color" content="#0b1a16" />
 
   <meta property="og:title" content="The Map — Experience Points" />
-  <meta property="og:description" content="A way to make sense of your inner world: distinctions, language, and clarity without coercion." />
+  <meta property="og:description" content="A gentle way to understand yourself: clear distinctions, calm language, and clarity without coercion." />
   <meta property="og:type" content="website" />
 
   <!-- CRITICAL: root-relative so it works from /pages/* -->
   <link rel="stylesheet" href="/assets/style.css" />
+
+  <style>
+    /* Page-scoped enhancements (kept minimal; follows existing system) */
+    .sample-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.sample-grid{grid-template-columns:1fr 1fr}}
+    details.sample{overflow:hidden}
+    details.sample > summary{
+      cursor:pointer; list-style:none;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+      user-select:none;
+    }
+    details.sample > summary::-webkit-details-marker{display:none}
+    .sum-left{min-width:0}
+    .sum-title{font-weight:800; letter-spacing:-0.02em; color:var(--text); margin:0}
+    .sum-sub{margin-top:6px; color:var(--muted); font-size:13.5px; line-height:1.6}
+    .chev{
+      flex:0 0 auto;
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      transition:transform .18s ease;
+    }
+    details.sample[open] .chev{transform:rotate(180deg)}
+    .sample-body{padding-top:12px}
+    .sample-body p{margin:10px 0}
+    .return-q{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      line-height:1.6;
+      font-size:13.5px;
+    }
+    .return-q b{color:var(--text)}
+    .legend-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.legend-grid{grid-template-columns:1.1fr .9fr}}
+  </style>
 </head>
 
 <body>
@@ -85,14 +126,14 @@
             <div class="hero-inner">
               <span class="pill">
                 <span class="dot" aria-hidden="true"></span>
-                A way to make sense of your inner world
+                A gentle way to understand yourself
               </span>
 
               <h1>The Map.</h1>
 
               <p class="subhead">
-                The Map exists because many people feel lost — not because they lack direction,
-                but because they lack shared language for what they’re experiencing.
+                Most people don’t struggle because they’re broken —
+                they struggle because they don’t have language for what’s actually happening inside them.
               </p>
 
               <p class="subhead" style="margin-bottom:0;">
@@ -102,18 +143,17 @@
               </p>
 
               <div class="hero-ctas">
-                <a class="btn primary" href="#distinctions">
-                  <span>Start with the distinctions</span>
+                <a class="btn primary" href="#legend">
+                  <span>Start with the legend</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
 
-                <a class="btn ghost" href="/pages/path.html">
-                  <span>Return to The Path</span>
+                <a class="btn ghost" href="#distinctions">
+                  <span>See the distinctions</span>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M10 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
               </div>
@@ -142,8 +182,8 @@
                   <b>Distinctions, not rules</b>
                 </div>
                 <ul>
-                  <li>Language for internal signals and patterns</li>
-                  <li>Clarity for decision points and misalignment</li>
+                  <li>Street-sign language for inner experience</li>
+                  <li>Clarity at decision points and misalignment</li>
                   <li>A way to reduce shame by naming accurately</li>
                 </ul>
               </div>
@@ -166,11 +206,63 @@
                   <b>You feel stuck or self-doubting</b>
                 </div>
                 <ul>
-                  <li>When something feels urgent or absolute</li>
-                  <li>When you’re questioning your perception</li>
+                  <li>When something feels off but hard to name</li>
+                  <li>When you feel urgent, guilty, or conflicted</li>
                   <li>When insight is present but change stalls</li>
                 </ul>
               </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE LEGEND (PUBLIC MAP PAGE ORIENTATION) -->
+    <section id="legend">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">The Living Map</div>
+            <h2>Think of this page as the legend — not the terrain.</h2>
+          </div>
+          <p class="lead">
+            This is an orientation. It’s designed to be light, inviting, and non-overwhelming —
+            so you can recognize what this is, and decide whether you want deeper access.
+          </p>
+        </div>
+
+        <div class="legend-grid">
+          <article class="card">
+            <h4>A gentle way to understand yourself (so you stop turning against you).</h4>
+            <p>
+              Most people don’t struggle because they’re broken. They struggle because nobody ever taught them how to
+              recognize what’s happening inside them — so they guess, push harder, override signals, and follow advice
+              that wasn’t built for their nervous system.
+            </p>
+            <p style="color:var(--muted); font-size:13.5px; line-height:1.6;">
+              The Map exists so that doesn’t have to keep happening. Not because life becomes easy —
+              but because you stop fighting yourself while living it.
+            </p>
+          </article>
+
+          <aside class="card">
+            <h4>Street signs for the inner world.</h4>
+            <p style="margin-top:8px;">
+              Imagine growing up in a city without street signs. You can get around by memorizing turns —
+              until something changes and suddenly you feel lost in a place you’ve been before.
+            </p>
+            <p style="margin-top:10px; color:var(--muted); font-size:13.5px; line-height:1.6;">
+              The Map doesn’t tell you where to go. It gives you a way to say:
+              <b style="color:var(--text);">“Oh. That’s where I am.”</b>
+              And that alone changes everything.
+            </p>
+
+            <div class="return-q" style="margin-top:12px;">
+              <b>How to be with this:</b><br/>
+              You don’t need to understand everything right away. You don’t need to agree with everything.
+              Come here when something feels off, when you feel tense about a decision, when guilt gets loud,
+              when you’re calm but oddly empty, or when you’re angry and don’t know what to do with it.
+              Instead of “What should I do?” try: <b>“What’s actually happening here?”</b>
             </div>
           </aside>
         </div>
@@ -186,8 +278,7 @@
             <h2>Language that turns experience into something navigable.</h2>
           </div>
           <p class="lead">
-            Language matters. When something is named accurately, it stops feeling personal
-            and starts becoming workable.
+            When something is named accurately, it stops feeling personal — and starts becoming workable.
           </p>
         </div>
 
@@ -219,6 +310,21 @@
               </p>
             </div>
           </div>
+
+          <div class="step">
+            <div class="num">03</div>
+            <div>
+              <h4>It’s built for real moments.</h4>
+              <p>
+                The Map is most useful when you feel pulled in two directions — when something feels urgent,
+                absolute, confusing, or emotionally loud. These distinctions help you locate what’s driving you,
+                so you can respond from coherence instead of pressure.
+              </p>
+              <p style="margin-top:10px; color:var(--muted); font-size:13.5px; line-height:1.6;">
+                Not a test. Not a doctrine. A conversation.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -244,8 +350,8 @@
               Truth is what remains when you’re not bracing, performing, or self-monitoring.
             </p>
             <ul>
-              <li><b style="color:var(--text);">Conditioning</b> often feels urgent and defensive.</li>
-              <li><b style="color:var(--text);">Truth</b> tends to feel quieter, steadier, less performative.</li>
+              <li><b style="color:var(--text);">Conditioning</b> often feels urgent and pressuring.</li>
+              <li><b style="color:var(--text);">Truth</b> tends to feel quieter, steadier, less charged.</li>
             </ul>
           </article>
 
@@ -256,8 +362,8 @@
               Without integration, insight becomes weight.
             </p>
             <ul>
-              <li>Awareness without change becomes frustration.</li>
-              <li>Integration turns “I know” into “I choose differently.”</li>
+              <li>Insight can be instant.</li>
+              <li>Integration is repetition, safety, and “choose again.”</li>
             </ul>
           </article>
 
@@ -278,14 +384,14 @@
 
         <div class="grid3">
           <article class="card">
-            <h4>Safety vs. Familiarity</h4>
+            <h4>Familiarity vs. Safety</h4>
             <p>
-              Many people mistake familiarity for safety. Familiar can be painful — but predictable.
-              Safety can feel spacious — and unfamiliar at first.
+              Familiar can be painful — but predictable. Safety can feel spacious —
+              and unfamiliar at first.
             </p>
             <ul>
               <li>The nervous system may resist safety initially.</li>
-              <li>The Map helps you move slowly enough that safety doesn’t feel threatening.</li>
+              <li>With time, safety becomes the new “normal.”</li>
             </ul>
           </article>
 
@@ -302,17 +408,194 @@
           </article>
 
           <article class="card">
-            <h4>Authority reminder</h4>
+            <h4>Authority vs. Abdication</h4>
             <p>
-              If something resonates, trust that. If something doesn’t, don’t force it.
-              The Map supports your relationship with yourself — it does not replace it.
+              Authority is internal agreement. Abdication is when you feel something clearly —
+              then immediately look outside yourself for permission.
             </p>
             <ul>
-              <li>You are the one living your life.</li>
-              <li>You are the one making the choices.</li>
+              <li>Authority doesn’t need consensus.</li>
+              <li>It needs coherence.</li>
             </ul>
           </article>
         </div>
+
+        <div style="height:14px;"></div>
+
+        <div class="grid3">
+          <article class="card">
+            <h4>Boundaries</h4>
+            <p>
+              A boundary isn’t a punishment or a threat. It’s information about where you end and someone else begins.
+              Clean boundaries are often simple — and boring.
+            </p>
+            <ul>
+              <li>One sentence. Then stop.</li>
+              <li>Respect matters more than understanding.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h4>Clarity vs. Ambiguity</h4>
+            <p>
+              Your nervous system rests in clarity and stays awake in ambiguity.
+              If you’re always interpreting tone, the relationship is costing you energy.
+            </p>
+            <ul>
+              <li>Clarity ends the scanning.</li>
+              <li>Knowing is easier than wondering.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h4>Guilt vs. Values</h4>
+            <p>
+              Guilt speaks in “should.” Values speak in integrity.
+              Not all discomfort is wrongdoing — sometimes it’s growth.
+            </p>
+            <ul>
+              <li>Guilt pressures.</li>
+              <li>Values feel weighty, but clean.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPANDED SAMPLES (1–2 ONLY, PUBLIC PAGE) -->
+    <section id="samples">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Expanded samples</div>
+            <h2>A small taste of the terrain.</h2>
+          </div>
+          <p class="lead">
+            This is intentionally limited — just enough to feel how the Map teaches.
+            If you want the full expanded edition, you’ll access it as a calm, section-based experience.
+          </p>
+        </div>
+
+        <div class="sample-grid">
+          <details class="card sample">
+            <summary>
+              <div class="sum-left">
+                <div class="sum-title">Conditioning vs. Truth</div>
+                <div class="sum-sub">
+                  Why you do things you don’t actually want to do — and how to tell what’s real.
+                </div>
+              </div>
+              <div class="chev" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </summary>
+
+            <div class="sample-body">
+              <p>
+                Conditioning is not weakness. It’s intelligence under pressure.
+                It’s the set of rules your nervous system wrote when it was trying to keep connection intact:
+                stay quiet, stay agreeable, don’t ask for much, explain yourself perfectly.
+              </p>
+
+              <p>
+                Truth is quieter than most people expect. Truth doesn’t argue. It doesn’t rush.
+                Truth is what’s left when you’re not bracing, scanning, performing, or managing reactions.
+                Sometimes it’s almost disappointing in how simple it is:
+                <b style="color:var(--text);">“I don’t want to.”</b> / <b style="color:var(--text);">“This doesn’t feel right.”</b>
+              </p>
+
+              <p style="color:var(--muted); font-size:13.5px; line-height:1.6;">
+                Conditioning usually comes with tension, urgency, and a sense of “I have to.”
+                Truth tends to feel steadier, less charged, less convincing — because truth doesn’t need to shout.
+              </p>
+
+              <div class="return-q">
+                <b>Return question:</b><br/>
+                If nobody was watching — no consequences, no reactions to manage — what would feel true?
+              </div>
+            </div>
+          </details>
+
+          <details class="card sample">
+            <summary>
+              <div class="sum-left">
+                <div class="sum-title">Insight vs. Integration</div>
+                <div class="sum-sub">
+                  Why “knowing” doesn’t automatically change anything — and why that’s not a failure.
+                </div>
+              </div>
+              <div class="chev" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </summary>
+
+            <div class="sample-body">
+              <p>
+                Insight is the light turning on: <i>“Oh. That’s why I do that.”</i>
+                It lives in understanding, language, recognition — and it can feel like healing.
+              </p>
+
+              <p>
+                Integration is what happens after the realization — slowly, quietly, often invisibly.
+                It’s your body learning new options in real life: pausing, hesitating before the old pattern,
+                choosing differently once… forgetting… returning… choosing again.
+              </p>
+
+              <p style="color:var(--muted); font-size:13.5px; line-height:1.6;">
+                Integration usually looks messier than insight. Insight is clean. Integration is clumsy.
+                Healing isn’t erased behavior — it’s new options becoming available.
+              </p>
+
+              <div class="return-q">
+                <b>Return question:</b><br/>
+                What would honoring this insight look like in one small, kind way today?
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div style="height:12px;"></div>
+
+        <!-- Gentle CTA to expanded edition -->
+        <div class="cta-band">
+          <div class="cta-inner">
+            <div>
+              <div class="kicker">Explore the full Map</div>
+              <h3>The Expanded Edition is where this becomes usable.</h3>
+              <p>
+                One distinction per section. Click to expand / collapse. Full conversational teaching.
+                Built for re-reading, regulation, and in-the-moment clarity — like a calm digital book that opens where you need it.
+              </p>
+              <p style="color:var(--muted); font-size:13.5px; line-height:1.6; margin-top:10px;">
+                If you’re ready for the full terrain, not just the legend — this is where you go next.
+              </p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <!-- You can change this URL to wherever your premium experience lives -->
+              <a class="btn primary" href="/pages/map-expanded.html">
+                <span>Explore the full Map</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+
+              <a class="btn ghost" href="/pages/path.html">
+                <span>Return to The Path</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M10 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -333,13 +616,14 @@
           <div class="step">
             <div class="num">01</div>
             <div>
-              <h4>Use it when:</h4>
+              <h4>Come here when:</h4>
               <p style="margin:0; color:var(--muted); font-size:13.5px; line-height:1.6;">
-                You feel stuck in a pattern. You’re unsure whether to act or wait. You feel conflicted about a decision.
-                You’re questioning your own perception.
+                Something feels off but you can’t explain why. You’re tense about a decision. You feel guilty but don’t know if you should.
+                You’re calm but oddly empty. You’re angry and don’t know what to do with it.
               </p>
               <p style="margin-top:10px; color:var(--muted); font-size:13.5px; line-height:1.6;">
-                Read one section. See if something names your experience cleanly. If it doesn’t — move on. No forcing.
+                When that happens, don’t start with “What should I do?” Start with:
+                <b style="color:var(--text);">“What’s actually happening here?”</b>
               </p>
             </div>
           </div>
@@ -347,9 +631,24 @@
           <div class="step">
             <div class="num">02</div>
             <div>
-              <h4>How it connects to everything else</h4>
+              <h4>One small rule that isn’t a rule</h4>
               <p style="margin:0; color:var(--muted); font-size:13.5px; line-height:1.6;">
-                <b style="color:var(--text);">The Path</b> helps you orient yourself.
+                If something resonates, trust that. If something doesn’t, don’t force it.
+                This is not a test. It’s a conversation.
+              </p>
+              <p style="margin-top:10px; color:var(--muted); font-size:13.5px; line-height:1.6;">
+                The goal is not “becoming better.” The goal is becoming <b style="color:var(--text);">aligned</b> —
+                with what your body has been trying to tell you, and what no longer fits.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">03</div>
+            <div>
+              <h4>How it connects to the rest of the site</h4>
+              <p style="margin:0; color:var(--muted); font-size:13.5px; line-height:1.6;">
+                <b style="color:var(--text);">The Path</b> helps you orient.
                 <b style="color:var(--text);">The Map</b> gives language to what you’re noticing.
                 <b style="color:var(--text);">Side Quests</b> help you test insights in real life.
                 <b style="color:var(--text);">Practice</b> supports long-term integration.
@@ -445,3 +744,4 @@
   <script src="/assets/app.js"></script>
 </body>
 </html>
+
