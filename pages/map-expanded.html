@@ -353,6 +353,24 @@
   .lesson .chev { transition: none !important; }
 }
 
+.lesson{
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+.lesson::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  box-shadow: 0 0 0 1px var(--accent), 0 0 38px rgba(0,0,0,.0);
+  opacity:.55;
+}
+.lesson{
+  position: relative;
+}
+
+    
   </style>
 </head>
 
@@ -4172,6 +4190,47 @@
   // Refresh list after restructuring
   const accordionLessons = Array.from(article.querySelectorAll(".lesson"));
 
+  // ---------- Ensure every lesson has an accent color (auto-assign if missing)
+  (function ensureLessonAccents() {
+    // Palette (tuned for your dark theme; cycles automatically)
+    const palette = [
+      "rgba(120, 255, 220, .28)", // mint
+      "rgba(120, 210, 255, .28)", // sky
+      "rgba(190, 150, 255, .28)", // violet
+      "rgba(255, 180, 120, .28)", // amber
+      "rgba(255, 120, 190, .28)", // pink
+      "rgba(160, 255, 140, .28)", // green
+      "rgba(255, 120, 120, .26)", // red-soft
+      "rgba(255, 230, 140, .24)"  // gold-soft
+    ];
+
+    const paletteSolid = [
+      "rgba(120, 255, 220, .75)",
+      "rgba(120, 210, 255, .75)",
+      "rgba(190, 150, 255, .75)",
+      "rgba(255, 180, 120, .75)",
+      "rgba(255, 120, 190, .75)",
+      "rgba(160, 255, 140, .75)",
+      "rgba(255, 120, 120, .70)",
+      "rgba(255, 230, 140, .70)"
+    ];
+
+    accordionLessons.forEach((lesson, idx) => {
+      const cs = getComputedStyle(lesson);
+      const hasAccent =
+        cs.getPropertyValue("--accent-solid").trim() ||
+        cs.getPropertyValue("--accent").trim();
+
+      // If missing, assign one (stable per order)
+      if (!hasAccent) {
+        const i = idx % palette.length;
+        lesson.style.setProperty("--accent", palette[i]);
+        lesson.style.setProperty("--accent-solid", paletteSolid[i]);
+      }
+    });
+  })();
+
+  
   // ---------- Build Lesson Index + Desktop TOC
   function getAccentColor(el) {
     // Prefer --accent-solid; fall back to --accent
