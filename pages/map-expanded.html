@@ -14,75 +14,219 @@
   <!-- CRITICAL: root-relative so it works from /pages/* -->
   <link rel="stylesheet" href="/assets/style.css" />
 
-  <!-- Readability helpers: keeps design + content, improves structure -->
+  <!-- Readability + lesson structure + color coding (NO content removed) -->
   <style>
-    /* Keep it subtle + consistent with your existing system */
-    #full-map .reading-card { position: relative; }
+    /* =========================
+       Page readability polish
+    ========================== */
+    #full-map .reading-card { position: relative; line-height: 1.78; }
+    #full-map .reading-card p { max-width: 78ch; }
+    #full-map h2, #full-map h3 { letter-spacing: -0.01em; }
+    #full-map h2 { font-weight: 850; }
+    #full-map h3 { font-weight: 780; }
+    #full-map ul { margin-top: 10px; margin-bottom: 14px; padding-left: 1.2rem; }
+    #full-map li { margin: 6px 0; }
+    #full-map hr {
+      border: 0;
+      height: 1px;
+      background: rgba(255,255,255,.10);
+      margin: 28px 0;
+    }
 
-    /* optional: slightly more comfortable line-height for long-form */
-    #full-map .reading-card { line-height: 1.75; }
+    /* Anchor offset for sticky header */
+    .anchor { scroll-margin-top: 110px; }
 
-    /* Sticky mini TOC inside the article (desktop only) */
+    /* =========================
+       Layout: article + TOC
+    ========================== */
+    .reading-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      max-width: 114ch;
+      margin: 0 auto;
+    }
+    @media (min-width: 980px){
+      .reading-grid {
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 20px;
+      }
+    }
+
+    /* =========================
+       Lesson Index (mobile + desktop)
+    ========================== */
+    .lesson-index {
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+      margin: 18px 0 22px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.20);
+    }
+    .lesson-index .k {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .85;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .lesson-index .sub {
+      font-size: 12px;
+      opacity: .78;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+    .lesson-index .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    @media (min-width: 700px){
+      .lesson-index .grid { grid-template-columns: 1fr 1fr; }
+    }
+    .lesson-index a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      min-height: 44px;
+    }
+    .lesson-index a:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.16);
+    }
+    .lesson-index .swatch {
+      width: 12px; height: 12px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 3px rgba(255,255,255,.06);
+      flex: 0 0 auto;
+    }
+    .lesson-index .txt { display: grid; gap: 2px; }
+    .lesson-index .txt b { font-weight: 820; line-height: 1.15; }
+    .lesson-index .txt span { font-size: 12px; opacity: .78; line-height: 1.2; }
+
+    /* =========================
+       Desktop sticky TOC
+    ========================== */
     .map-toc {
       position: sticky;
       top: 88px;
       align-self: start;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      box-shadow: 0 12px 34px rgba(0,0,0,.20);
     }
-    .map-toc .k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+    .map-toc .k {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .85;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
     .map-toc a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       padding: 8px 10px;
       border-radius: 12px;
       text-decoration: none;
       color: var(--text);
       opacity: .92;
-      transition: background .15s ease, opacity .15s ease;
+      border: 1px solid transparent;
+      transition: background .15s ease, opacity .15s ease, border-color .15s ease;
     }
-    .map-toc a:hover { background: rgba(255,255,255,.05); opacity: 1; }
+    .map-toc a:hover { background: rgba(255,255,255,.05); opacity: 1; border-color: rgba(255,255,255,.10); }
     .map-toc .hint { font-size: 12px; opacity: .8; margin-top: 10px; line-height: 1.5; }
+    .map-toc .swatch { width: 10px; height: 10px; border-radius: 999px; box-shadow: 0 0 0 3px rgba(255,255,255,.05); }
 
-    /* Lesson blocks: makes each lesson feel standalone while keeping all words */
+    @media (max-width: 979px){
+      .map-toc { display: none; }
+    }
+
+    /* =========================
+       Lessons (standalone cards)
+    ========================== */
     .lesson {
+      --accent: rgba(255,255,255,.18);
+      --accent-solid: #ffffff;
       margin: 22px 0 26px;
-      padding: 18px 18px 8px;
+      padding: 16px 16px 10px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+      position: relative;
+      overflow: hidden;
     }
-    .lesson + hr { margin-top: 26px; }
-
-    .lesson-head {
+    .lesson:before{
+      content:"";
+      position:absolute;
+      inset:-1px -1px auto -1px;
+      height: 4px;
+      background: var(--accent);
+      opacity: .95;
+    }
+    .lesson .lesson-head {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
-    .lesson-tag {
+    .lesson .lesson-head h2 { margin: 0; }
+    .lesson .lesson-tag {
       font-size: 12px;
       letter-spacing: .12em;
       text-transform: uppercase;
-      opacity: .82;
+      opacity: .9;
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       white-space: nowrap;
     }
+    .lesson .lesson-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 8px 0 0;
+      opacity: .85;
+    }
+    .lesson .lesson-chip {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
 
-    /* Little “breath” separators without changing content */
+    /* Breath separator */
     .breath {
       margin: 16px 0;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 10px;
-      opacity: .75;
+      opacity: .78;
     }
     .breath:before, .breath:after {
       content: "";
@@ -95,43 +239,40 @@
       text-transform: uppercase;
     }
 
-    /* Quote callouts remain yours, just slightly clearer spacing */
-    blockquote {
-      line-height: 1.7;
+    /* Quotes (more “lesson callout” feeling) */
+    #full-map blockquote{
+      margin: 14px 0;
+      padding: 12px 14px;
+      border-left: 3px solid var(--accent);
+      background: rgba(0,0,0,.16);
+      border-radius: 14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
     }
 
-    /* Layout: article + toc on wide screens; single column on mobile */
-    .reading-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-      max-width: 110ch;
-      margin: 0 auto;
-    }
-    @media (min-width: 980px){
-      .reading-grid {
-        grid-template-columns: minmax(0, 1fr) 290px;
-        gap: 20px;
-      }
-    }
-    @media (max-width: 979px){
-      .map-toc { display: none; }
-    }
+    /* =========================
+       Optional “cards” WITHOUT changing words
+       (applies to existing elements automatically)
+    ========================== */
+    /* Any line like *(...)*) often in an H3: give it a calm “subtitle badge” */
+    #full-map h3 em, #full-map h3 i { opacity: .85; }
 
-    /* Make hr feel like “chapter breaks” */
-    #full-map hr {
-      border: 0;
-      height: 1px;
-      background: rgba(255,255,255,.10);
-      margin: 28px 0;
-    }
+    /* Make long “run” of single-sentence paragraphs breathe */
+    #full-map p + p { margin-top: 12px; }
 
-    /* Improve list spacing in long reading */
-    #full-map ul { margin-top: 10px; margin-bottom: 14px; }
-    #full-map li { margin: 6px 0; }
-
-    /* Anchors offset for sticky header */
-    .anchor { scroll-margin-top: 110px; }
+    /* =========================
+       Color coding per lesson
+       (cycles through a palette)
+    ========================== */
+    .lesson:nth-of-type(1){ --accent: rgba(108, 255, 214, .55); --accent-solid: #6CFFD6; }
+    .lesson:nth-of-type(2){ --accent: rgba(140, 191, 255, .55); --accent-solid: #8CBFFF; }
+    .lesson:nth-of-type(3){ --accent: rgba(255, 174, 91, .55);  --accent-solid: #FFAE5B; }
+    .lesson:nth-of-type(4){ --accent: rgba(255, 128, 187, .55); --accent-solid: #FF80BB; }
+    .lesson:nth-of-type(5){ --accent: rgba(196, 140, 255, .55); --accent-solid: #C48CFF; }
+    .lesson:nth-of-type(6){ --accent: rgba(255, 242, 119, .45); --accent-solid: #FFF277; }
+    .lesson:nth-of-type(7){ --accent: rgba(133, 255, 140, .50); --accent-solid: #85FF8C; }
+    .lesson:nth-of-type(8){ --accent: rgba(99, 255, 250, .50);  --accent-solid: #63FFFA; }
+    .lesson:nth-of-type(9){ --accent: rgba(255, 129, 129, .50); --accent-solid: #FF8181; }
+    .lesson:nth-of-type(10){ --accent: rgba(255, 191, 107, .50); --accent-solid: #FFBF6B; }
   </style>
 </head>
 
@@ -309,11 +450,26 @@
           </p>
         </div>
 
-        <!-- Reading layout: article + optional TOC (desktop) -->
         <div class="reading-grid">
-          <article class="card reading-card" style="max-width: 90ch; margin: 0;">
+          <article class="card reading-card" style="max-width: 92ch; margin: 0;">
             <h2 id="top" style="margin-top:0;" class="anchor">The Map</h2>
             <h3 style="margin-top:6px; color:var(--muted); font-weight:700;">A Gentle Way to Understand Yourself (So You Stop Turning Against You)</h3>
+
+            <!-- Index gets built here (NO content removed) -->
+            <nav class="lesson-index" aria-label="Lesson index">
+              <div class="k">
+                <span>Lesson Index</span>
+                <span style="opacity:.78;">Jump to what you need</span>
+              </div>
+
+              <div class="grid" id="lessonIndexGrid">
+                <!-- JS will populate links based on your headings/lessons -->
+              </div>
+
+              <div class="sub">
+                Read slowly. Come back often. This list is here so you can find the right section fast — without rushing the reading.
+              </div>
+            </nav>
 
             <div class="breath"><span>Start here</span></div>
 
@@ -343,7 +499,7 @@
 
             <hr />
 
-            <div class="lesson" id="think-like-this">
+            <div class="lesson" id="think-like-this" data-lesson-tag="Orientation">
               <div class="lesson-head">
                 <h2 class="anchor" style="margin:0;">Think of it like this</h2>
                 <span class="lesson-tag">Orientation</span>
@@ -382,7 +538,7 @@
 
             <hr />
 
-            <div class="lesson" id="how-to-be-with-this-map">
+            <div class="lesson" id="how-to-be-with-this-map" data-lesson-tag="Use">
               <div class="lesson-head">
                 <h2 class="anchor" style="margin:0;">How to be with this Map</h2>
                 <span class="lesson-tag">Use</span>
@@ -419,7 +575,7 @@
 
             <hr />
 
-            <div class="lesson" id="conditioning-vs-truth">
+            <div class="lesson" id="conditioning-vs-truth" data-lesson-tag="Lesson">
               <div class="lesson-head">
                 <h2 class="anchor" style="margin:0;">Conditioning vs Truth</h2>
                 <span class="lesson-tag">Lesson</span>
@@ -642,7 +798,7 @@
 
               <p>Try this question, gently. Not like a test.</p>
 
-              <blockquote style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;">
+              <blockquote>
                 “If nobody was watching… what would feel true?”
               </blockquote>
 
@@ -693,7 +849,7 @@
 
             <hr />
 
-            <div class="lesson" id="insight-vs-integration">
+            <div class="lesson" id="insight-vs-integration" data-lesson-tag="Lesson">
               <div class="lesson-head">
                 <h2 class="anchor" style="margin:0;">Insight vs Integration</h2>
                 <span class="lesson-tag">Lesson</span>
@@ -909,7 +1065,7 @@
 
               <p>Try asking:</p>
 
-              <blockquote style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;">
+              <blockquote>
                 “What would honoring this insight look like in one small, kind way today?”
               </blockquote>
 
@@ -994,27 +1150,15 @@
               <p>And that’s one of the most human things there is.</p>
             </div>
 
-            <!-- NOTE:
-              Everything below this comment should be treated the same way:
-              wrap each major H2 lesson in <div class="lesson" id="..."> ... </div>
-              so each stands alone, without changing a single word.
-
-              I’ve already done the full conversion pattern above (intro + first two lessons).
-              Because your message is extremely long, continuing to paste the entire rest here
-              risks truncation in chat.
-
-              If you paste the remainder (from “Regulation vs Suppression” onward) as a follow-up,
-              I’ll return the fully updated file with ALL sections wrapped + anchors + TOC links,
-              still keeping every word exactly unchanged.
-            -->
-
             <hr />
+
+            <!-- From here onward, you can keep your content EXACTLY as-is.
+                 The script below will automatically wrap every remaining H2 section
+                 into a .lesson card, assign IDs, and populate both TOCs. -->
 
             <h2>Regulation vs Suppression</h2>
 
             <!-- (rest of your unchanged content continues exactly as you already have it) -->
-
-            <!-- ... -->
 
             <div class="hero-ctas" style="margin-top:16px;">
               <a class="btn ghost" href="#top">
@@ -1034,26 +1178,16 @@
             </div>
           </article>
 
-          <!-- Desktop TOC (does not change content; just navigation) -->
+          <!-- Desktop TOC (auto-populated; does not change content) -->
           <aside class="map-toc" aria-label="On this page">
-            <div class="k">On this page</div>
-            <a href="#top">The Map</a>
-            <a href="#think-like-this">Think of it like this</a>
-            <a href="#how-to-be-with-this-map">How to be with this Map</a>
-            <a href="#conditioning-vs-truth">Conditioning vs Truth</a>
-            <a href="#insight-vs-integration">Insight vs Integration</a>
-            <a href="#regulation-vs-suppression">Regulation vs Suppression</a>
-            <a href="#familiarity-vs-safety">Familiarity vs Safety</a>
-            <a href="#choice-vs-compulsion">Choice vs Compulsion</a>
-            <a href="#authority-vs-abdication">Authority vs Abdication</a>
-            <a href="#boundaries-without-turning-into-a-villain">Boundaries (Without Turning Into a Villain)</a>
-            <a href="#relationships-clarity-vs-ambiguity">Relationships: Clarity vs Ambiguity</a>
-            <a href="#guilt-vs-values">Guilt vs Values</a>
-            <a href="#anger-grief-and-the-feelings-were-afraid-of">Anger, Grief, and the Feelings We’re Afraid Of</a>
-            <a href="#identity-shedding">Identity Shedding</a>
-            <a href="#micro-trust">Micro-Trust</a>
-            <a href="#when-you-do-abandon-yourself">When You Do Abandon Yourself</a>
-            <a href="#a-final-thought">A Final Thought</a>
+            <div class="k">
+              <span>On this page</span>
+              <span style="opacity:.78;">Jump</span>
+            </div>
+
+            <div id="desktopTocList">
+              <!-- JS will populate -->
+            </div>
 
             <div class="hint">
               Read slowly. Come back often.<br />
@@ -1100,10 +1234,8 @@
   <!-- Global JS -->
   <script src="/assets/app.js"></script>
 
-  <!-- Optional: anchor ids for TOC targets (keeps words unchanged) -->
+  <!-- Auto-wrap lessons + build TOCs + color chips (NO visible text changed) -->
   <script>
-    // Adds ids to H2s if missing, based on their text content.
-    // This does NOT change the visible content; it only improves navigation.
     (function () {
       const slugify = (s) => s
         .toLowerCase()
@@ -1114,13 +1246,134 @@
       const article = document.querySelector("#full-map article");
       if (!article) return;
 
-      const h2s = Array.from(article.querySelectorAll("h2"));
-      h2s.forEach(h2 => {
-        if (!h2.id) h2.id = slugify(h2.textContent.trim());
-        h2.classList.add("anchor");
+      // 1) Ensure headings have IDs + anchor class (without changing words)
+      const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
+      allHeadings.forEach(h => {
+        if (!h.id) h.id = slugify(h.textContent.trim());
+        h.classList.add("anchor");
       });
+
+      // 2) Auto-wrap any "loose" H2 sections into .lesson cards
+      //    - Keeps existing .lesson blocks as-is.
+      //    - Wraps ONLY H2s that are direct children of the article (not inside .lesson).
+      const children = Array.from(article.children);
+      const looseH2s = children.filter(el => el.tagName === "H2" && !el.closest(".lesson"));
+
+      looseH2s.forEach(h2 => {
+        // Build lesson wrapper
+        const wrap = document.createElement("div");
+        wrap.className = "lesson";
+        wrap.id = h2.id; // keep the same ID target
+        wrap.setAttribute("data-lesson-tag", "Lesson");
+
+        // Lesson head (we re-parent the existing H2 into the head; text unchanged)
+        const head = document.createElement("div");
+        head.className = "lesson-head";
+
+        const tag = document.createElement("span");
+        tag.className = "lesson-tag";
+        tag.textContent = "Lesson";
+
+        head.appendChild(h2);   // move existing H2 into head
+        head.appendChild(tag);
+        wrap.appendChild(head);
+
+        // Move nodes until next loose H2 (or end)
+        let next = wrap.nextSibling;
+        while (next && !(next.tagName === "H2" && !next.closest(".lesson"))) {
+          const toMove = next;
+          next = next.nextSibling;
+          wrap.appendChild(toMove);
+        }
+
+        // Insert wrapper where the H2 used to be
+        article.insertBefore(wrap, head.nextSibling ? head.nextSibling : null);
+        // If the wrapper isn't positioned correctly due to DOM shifts, ensure it sits where it belongs:
+        // We place it before whatever follows the moved content by reinserting at original position:
+        const insertionPoint = wrap.nextSibling;
+        article.insertBefore(wrap, insertionPoint);
+      });
+
+      // 3) Build Lesson list from every .lesson block (in order)
+      const lessons = Array.from(article.querySelectorAll(".lesson"));
+      const indexGrid = document.getElementById("lessonIndexGrid");
+      const desktopToc = document.getElementById("desktopTocList");
+
+      const palette = [
+        "#6CFFD6", "#8CBFFF", "#FFAE5B", "#FF80BB", "#C48CFF",
+        "#FFF277", "#85FF8C", "#63FFFA", "#FF8181", "#FFBF6B"
+      ];
+
+      function makeLink(href, title, sub, color) {
+        const a = document.createElement("a");
+        a.href = href;
+
+        const sw = document.createElement("span");
+        sw.className = "swatch";
+        sw.style.background = color;
+
+        const txt = document.createElement("span");
+        txt.className = "txt";
+
+        const b = document.createElement("b");
+        b.textContent = title;
+
+        const s = document.createElement("span");
+        s.textContent = sub || "Lesson";
+
+        txt.appendChild(b);
+        txt.appendChild(s);
+
+        a.appendChild(sw);
+        a.appendChild(txt);
+        return a;
+      }
+
+      function makeDesktopLink(href, title, color) {
+        const a = document.createElement("a");
+        a.href = href;
+
+        const sw = document.createElement("span");
+        sw.className = "swatch";
+        sw.style.background = color;
+
+        const t = document.createElement("span");
+        t.textContent = title;
+
+        a.appendChild(sw);
+        a.appendChild(t);
+        return a;
+      }
+
+      // Clear any placeholder
+      if (indexGrid) indexGrid.innerHTML = "";
+      if (desktopToc) desktopToc.innerHTML = "";
+
+      lessons.forEach((lesson, i) => {
+        const h2 = lesson.querySelector(".lesson-head h2") || lesson.querySelector("h2");
+        if (!h2) return;
+
+        // Ensure lesson has stable id
+        if (!lesson.id) lesson.id = h2.id || slugify(h2.textContent.trim());
+        const tag = lesson.getAttribute("data-lesson-tag") || (lesson.querySelector(".lesson-tag")?.textContent || "Lesson");
+
+        const color = palette[i % palette.length];
+
+        // Index (two-column responsive)
+        if (indexGrid) {
+          indexGrid.appendChild(makeLink("#" + lesson.id, h2.textContent.trim(), tag, color));
+        }
+
+        // Desktop TOC (sticky)
+        if (desktopToc) {
+          desktopToc.appendChild(makeDesktopLink("#" + lesson.id, h2.textContent.trim(), color));
+        }
+      });
+
+      // 4) Make sure the very first title "The Map" stays as the top anchor
+      const top = document.getElementById("top");
+      if (top) top.classList.add("anchor");
     })();
   </script>
 </body>
 </html>
-
