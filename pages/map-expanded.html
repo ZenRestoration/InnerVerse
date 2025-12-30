@@ -273,6 +273,86 @@
     .lesson:nth-of-type(8){ --accent: rgba(99, 255, 250, .50);  --accent-solid: #63FFFA; }
     .lesson:nth-of-type(9){ --accent: rgba(255, 129, 129, .50); --accent-solid: #FF8181; }
     .lesson:nth-of-type(10){ --accent: rgba(255, 191, 107, .50); --accent-solid: #FFBF6B; }
+
+    /* =========================
+   Accordion behavior for lessons
+========================= */
+.lesson {
+  cursor: pointer;
+}
+
+.lesson .lesson-head {
+  cursor: pointer;
+  user-select: none;
+}
+
+.lesson .lesson-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.lesson .lesson-toggle:focus-visible {
+  outline: 2px solid rgba(255,255,255,.22);
+  outline-offset: 6px;
+  border-radius: 14px;
+}
+
+.lesson .chev {
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.12);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  transition: transform .18s ease;
+}
+
+.lesson .chev svg {
+  width: 18px;
+  height: 18px;
+  opacity: .9;
+}
+
+.lesson.is-open .chev {
+  transform: rotate(180deg);
+}
+
+/* Content wrapper we’ll inject via JS */
+.lesson .lesson-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+  will-change: max-height;
+}
+
+.lesson.is-open .lesson-body {
+  max-height: 9999px; /* JS will set an exact height for smoother animation */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keep the top accent bar looking nice when closed/open */
+.lesson:before { opacity: .95; }
+.lesson.is-open { box-shadow: 0 18px 46px rgba(0,0,0,.22); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .lesson .lesson-body,
+  .lesson .chev { transition: none !important; }
+}
+
   </style>
 </head>
 
@@ -4021,146 +4101,272 @@
   <!-- Global JS -->
   <script src="/assets/app.js"></script>
 
-  <!-- Auto-wrap lessons + build TOCs + color chips (NO visible text changed) -->
-  <script>
-    (function () {
-      const slugify = (s) => s
-        .toLowerCase()
-        .replace(/&/g, "and")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
+  <!-- Auto-wrap lessons + build TOCs + accordion behavior (NO visible text changed) -->
+<script>
+(function () {
+  const slugify = (s) => s
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-      const article = document.querySelector("#full-map article");
-      if (!article) return;
+  const article = document.querySelector("#full-map article");
+  const indexGrid = document.getElementById("lessonIndexGrid");
+  const desktopToc = document.getElementById("desktopTocList");
+  if (!article) return;
 
-      // 1) Ensure headings have IDs + anchor class (without changing words)
-      const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
-      allHeadings.forEach(h => {
-        if (!h.id) h.id = slugify(h.textContent.trim());
-        h.classList.add("anchor");
+  // Ensure headings have IDs + anchor class (without changing words)
+  const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
+  allHeadings.forEach(h => {
+    if (!h.id) h.id = slugify(h.textContent.trim());
+    h.classList.add("anchor");
+  });
+
+  // ---------- Accordion prep: wrap each .lesson’s content into .lesson-body
+  const lessons = Array.from(article.querySelectorAll(".lesson"));
+
+  lessons.forEach((lesson, i) => {
+    // If it already has a body wrapper, skip
+    if (lesson.querySelector(".lesson-body")) return;
+
+    const head = lesson.querySelector(".lesson-head");
+    if (!head) return;
+
+    // Build a clickable button inside lesson-head without changing text
+    // We'll move the existing H2 into the button, and keep the tag on the right.
+    const h2 = head.querySelector("h2");
+    const tag = head.querySelector(".lesson-tag");
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "lesson-toggle";
+    btn.setAttribute("aria-expanded", "false");
+
+    // Create chevron
+    const chev = document.createElement("span");
+    chev.className = "chev";
+    chev.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+
+    // Move existing H2 into the button (text unchanged)
+    if (h2) btn.appendChild(h2);
+
+    // Rebuild head: button + tag + chevron (tag and chevron remain visible)
+    // Keep tag where it is visually (right side)
+    head.innerHTML = "";
+    head.appendChild(btn);
+
+    // If a tag exists, re-append it (unchanged)
+    if (tag) head.appendChild(tag);
+
+    head.appendChild(chev);
+
+    // Create the collapsible body and move everything except head into it
+    const body = document.createElement("div");
+    body.className = "lesson-body";
+
+    // Move all nodes after head into body
+    const kids = Array.from(lesson.childNodes);
+    kids.forEach(node => {
+      if (node === head) return;
+      body.appendChild(node);
+    });
+    lesson.appendChild(head);
+    lesson.appendChild(body);
+
+    // Give each lesson a stable id if missing (should already exist)
+    if (!lesson.id) {
+      const titleText = (h2 ? h2.textContent : `Lesson ${i + 1}`).trim();
+      lesson.id = slugify(titleText) || `lesson-${i + 1}`;
+    }
+
+    // Store tag label for index subtitle
+    const tagText = lesson.getAttribute("data-lesson-tag") || (tag ? tag.textContent.trim() : "Lesson");
+    lesson.dataset.lessonTag = tagText;
+  });
+
+  // Refresh list after restructuring
+  const accordionLessons = Array.from(article.querySelectorAll(".lesson"));
+
+  // ---------- Build Lesson Index + Desktop TOC
+  function getAccentColor(el) {
+    // Prefer --accent-solid; fall back to --accent
+    const styles = getComputedStyle(el);
+    const solid = styles.getPropertyValue("--accent-solid").trim();
+    const accent = styles.getPropertyValue("--accent").trim();
+    return solid || accent || "rgba(255,255,255,.18)";
+  }
+
+  function buildNavLink(lesson) {
+    const h2 = lesson.querySelector(".lesson-toggle h2");
+    const title = h2 ? h2.textContent.trim() : "Lesson";
+    const tag = (lesson.dataset.lessonTag || "Lesson").trim();
+    const color = getAccentColor(lesson);
+
+    const a = document.createElement("a");
+    a.href = `#${lesson.id}`;
+    a.setAttribute("data-target", lesson.id);
+
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.background = color;
+
+    const txt = document.createElement("span");
+    txt.className = "txt";
+    txt.innerHTML = `<b>${title}</b><span>${tag}</span>`;
+
+    a.appendChild(sw);
+    a.appendChild(txt);
+
+    return a;
+  }
+
+  function buildTocLink(lesson) {
+    const h2 = lesson.querySelector(".lesson-toggle h2");
+    const title = h2 ? h2.textContent.trim() : "Lesson";
+    const color = getAccentColor(lesson);
+
+    const a = document.createElement("a");
+    a.href = `#${lesson.id}`;
+    a.setAttribute("data-target", lesson.id);
+
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.background = color;
+
+    const label = document.createElement("span");
+    label.textContent = title;
+
+    a.appendChild(sw);
+    a.appendChild(label);
+
+    return a;
+  }
+
+  if (indexGrid) {
+    indexGrid.innerHTML = "";
+    accordionLessons.forEach(lesson => indexGrid.appendChild(buildNavLink(lesson)));
+  }
+
+  if (desktopToc) {
+    desktopToc.innerHTML = "";
+    accordionLessons.forEach(lesson => desktopToc.appendChild(buildTocLink(lesson)));
+  }
+
+  // ---------- Accordion behavior (only one open)
+  function closeLesson(lesson) {
+    lesson.classList.remove("is-open");
+    const btn = lesson.querySelector(".lesson-toggle");
+    const body = lesson.querySelector(".lesson-body");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+    if (body) {
+      body.style.maxHeight = "0px";
+    }
+  }
+
+  function openLesson(lesson) {
+    // Close others
+    accordionLessons.forEach(l => { if (l !== lesson) closeLesson(l); });
+
+    lesson.classList.add("is-open");
+    const btn = lesson.querySelector(".lesson-toggle");
+    const body = lesson.querySelector(".lesson-body");
+    if (btn) btn.setAttribute("aria-expanded", "true");
+
+    if (body) {
+      // Set exact height for smooth animation
+      body.style.maxHeight = body.scrollHeight + "px";
+      // After transition, allow future content changes to recalc
+      setTimeout(() => {
+        if (lesson.classList.contains("is-open")) body.style.maxHeight = body.scrollHeight + "px";
+      }, 350);
+    }
+  }
+
+  function toggleLesson(lesson) {
+    if (lesson.classList.contains("is-open")) {
+      closeLesson(lesson);
+    } else {
+      openLesson(lesson);
+    }
+  }
+
+  // Click handling on the header button
+  accordionLessons.forEach(lesson => {
+    const btn = lesson.querySelector(".lesson-toggle");
+    if (!btn) return;
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleLesson(lesson);
+    });
+
+    // Make the chevron area clickable too
+    const head = lesson.querySelector(".lesson-head");
+    if (head) {
+      head.addEventListener("click", (e) => {
+        // avoid double-trigger when clicking the actual button
+        if (e.target.closest(".lesson-toggle")) return;
+        e.preventDefault();
+        toggleLesson(lesson);
       });
+    }
+  });
 
-      // 2) Auto-wrap any "loose" H2 sections into .lesson cards
-      //    - Keeps existing .lesson blocks as-is.
-      //    - Wraps ONLY H2s that are direct children of the article (not inside .lesson).
-      const children = Array.from(article.children);
-      const looseH2s = children.filter(el => el.tagName === "H2" && !el.closest(".lesson"));
+  // Open a lesson when clicking Lesson Index / TOC links
+  function handleNavClick(e) {
+    const a = e.target.closest("a[data-target]");
+    if (!a) return;
+    const id = a.getAttribute("data-target");
+    const target = document.getElementById(id);
+    if (!target) return;
 
-      looseH2s.forEach(h2 => {
-        // Build lesson wrapper
-        const wrap = document.createElement("div");
-        wrap.className = "lesson";
-        wrap.id = h2.id; // keep the same ID target
-        wrap.setAttribute("data-lesson-tag", "Lesson");
+    e.preventDefault();
+    openLesson(target);
 
-        // Lesson head (we re-parent the existing H2 into the head; text unchanged)
-        const head = document.createElement("div");
-        head.className = "lesson-head";
+    // Scroll to the lesson top
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
 
-        const tag = document.createElement("span");
-        tag.className = "lesson-tag";
-        tag.textContent = "Lesson";
+    // Update URL hash without jumping again
+    history.replaceState(null, "", `#${id}`);
+  }
 
-        head.appendChild(h2);   // move existing H2 into head
-        head.appendChild(tag);
-        wrap.appendChild(head);
+  if (indexGrid) indexGrid.addEventListener("click", handleNavClick);
+  if (desktopToc) desktopToc.addEventListener("click", handleNavClick);
 
-        // Move nodes until next loose H2 (or end)
-        let next = wrap.nextSibling;
-        while (next && !(next.tagName === "H2" && !next.closest(".lesson"))) {
-          const toMove = next;
-          next = next.nextSibling;
-          wrap.appendChild(toMove);
-        }
+  // Handle direct hash load (open that lesson)
+  function openFromHash() {
+    const hash = (location.hash || "").replace("#", "").trim();
+    if (!hash) return;
 
-        // Insert wrapper where the H2 used to be
-        article.insertBefore(wrap, head.nextSibling ? head.nextSibling : null);
-        // If the wrapper isn't positioned correctly due to DOM shifts, ensure it sits where it belongs:
-        // We place it before whatever follows the moved content by reinserting at original position:
-        const insertionPoint = wrap.nextSibling;
-        article.insertBefore(wrap, insertionPoint);
-      });
+    const target = document.getElementById(hash);
+    if (target && target.classList.contains("lesson")) {
+      openLesson(target);
+    }
+  }
 
-      // 3) Build Lesson list from every .lesson block (in order)
-      const lessons = Array.from(article.querySelectorAll(".lesson"));
-      const indexGrid = document.getElementById("lessonIndexGrid");
-      const desktopToc = document.getElementById("desktopTocList");
+  // Default: open the first lesson so the page doesn’t feel “empty”
+  // (unless there’s a hash)
+  if (location.hash) {
+    openFromHash();
+  } else if (accordionLessons[0]) {
+    openLesson(accordionLessons[0]);
+  }
 
-      const palette = [
-        "#6CFFD6", "#8CBFFF", "#FFAE5B", "#FF80BB", "#C48CFF",
-        "#FFF277", "#85FF8C", "#63FFFA", "#FF8181", "#FFBF6B"
-      ];
+  window.addEventListener("hashchange", openFromHash);
 
-      function makeLink(href, title, sub, color) {
-        const a = document.createElement("a");
-        a.href = href;
+  // Recalculate open panel height on resize (keeps animation stable)
+  window.addEventListener("resize", () => {
+    const open = article.querySelector(".lesson.is-open .lesson-body");
+    if (open) open.style.maxHeight = open.scrollHeight + "px";
+  });
+})();
+</script>
 
-        const sw = document.createElement("span");
-        sw.className = "swatch";
-        sw.style.background = color;
 
-        const txt = document.createElement("span");
-        txt.className = "txt";
 
-        const b = document.createElement("b");
-        b.textContent = title;
-
-        const s = document.createElement("span");
-        s.textContent = sub || "Lesson";
-
-        txt.appendChild(b);
-        txt.appendChild(s);
-
-        a.appendChild(sw);
-        a.appendChild(txt);
-        return a;
-      }
-
-      function makeDesktopLink(href, title, color) {
-        const a = document.createElement("a");
-        a.href = href;
-
-        const sw = document.createElement("span");
-        sw.className = "swatch";
-        sw.style.background = color;
-
-        const t = document.createElement("span");
-        t.textContent = title;
-
-        a.appendChild(sw);
-        a.appendChild(t);
-        return a;
-      }
-
-      // Clear any placeholder
-      if (indexGrid) indexGrid.innerHTML = "";
-      if (desktopToc) desktopToc.innerHTML = "";
-
-      lessons.forEach((lesson, i) => {
-        const h2 = lesson.querySelector(".lesson-head h2") || lesson.querySelector("h2");
-        if (!h2) return;
-
-        // Ensure lesson has stable id
-        if (!lesson.id) lesson.id = h2.id || slugify(h2.textContent.trim());
-        const tag = lesson.getAttribute("data-lesson-tag") || (lesson.querySelector(".lesson-tag")?.textContent || "Lesson");
-
-        const color = palette[i % palette.length];
-
-        // Index (two-column responsive)
-        if (indexGrid) {
-          indexGrid.appendChild(makeLink("#" + lesson.id, h2.textContent.trim(), tag, color));
-        }
-
-        // Desktop TOC (sticky)
-        if (desktopToc) {
-          desktopToc.appendChild(makeDesktopLink("#" + lesson.id, h2.textContent.trim(), color));
-        }
-      });
-
-      // 4) Make sure the very first title "The Map" stays as the top anchor
-      const top = document.getElementById("top");
-      if (top) top.classList.add("anchor");
-    })();
-  </script>
 </body>
 </html>
