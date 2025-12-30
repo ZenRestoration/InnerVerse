@@ -113,6 +113,7 @@
       border-radius: 999px;
       box-shadow: 0 0 0 3px rgba(255,255,255,.06);
       flex: 0 0 auto;
+      background: var(--accent-solid);
     }
     .lesson-index .txt { display: grid; gap: 2px; }
     .lesson-index .txt b { font-weight: 820; line-height: 1.15; }
@@ -156,7 +157,7 @@
     }
     .map-toc a:hover { background: rgba(255,255,255,.05); opacity: 1; border-color: rgba(255,255,255,.10); }
     .map-toc .hint { font-size: 12px; opacity: .8; margin-top: 10px; line-height: 1.5; }
-    .map-toc .swatch { width: 10px; height: 10px; border-radius: 999px; box-shadow: 0 0 0 3px rgba(255,255,255,.05); }
+    .map-toc .swatch { width: 10px; height: 10px; border-radius: 999px; box-shadow: 0 0 0 3px rgba(255,255,255,.05); background: var(--accent-solid); }
 
     @media (max-width: 979px){
       .map-toc { display: none; }
@@ -173,18 +174,33 @@
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
-      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
       position: relative;
       overflow: hidden;
     }
-    .lesson:before{
+
+    /* TOP accent bar (keep this as ::before) */
+    .lesson::before{
       content:"";
       position:absolute;
       inset:-1px -1px auto -1px;
       height: 4px;
       background: var(--accent);
       opacity: .95;
+      pointer-events: none;
     }
+
+    /* Soft border glow (use ::after so it doesn't overwrite the bar) */
+    .lesson::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: inherit;
+      pointer-events:none;
+      box-shadow: 0 0 0 1px var(--accent);
+      opacity:.40;
+    }
+
     .lesson .lesson-head {
       display: flex;
       align-items: baseline;
@@ -193,6 +209,7 @@
       margin-bottom: 8px;
     }
     .lesson .lesson-head h2 { margin: 0; }
+
     .lesson .lesson-tag {
       font-size: 12px;
       letter-spacing: .12em;
@@ -203,20 +220,6 @@
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       white-space: nowrap;
-    }
-    .lesson .lesson-meta {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 8px 0 0;
-      opacity: .85;
-    }
-    .lesson .lesson-chip {
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
     }
 
     /* Breath separator */
@@ -249,10 +252,6 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
     }
 
-    /* =========================
-       Optional “cards” WITHOUT changing words
-       (applies to existing elements automatically)
-    ========================== */
     /* Any line like *(...)*) often in an H3: give it a calm “subtitle badge” */
     #full-map h3 em, #full-map h3 i { opacity: .85; }
 
@@ -261,116 +260,84 @@
 
     /* =========================
        Color coding per lesson
-       (cycles through a palette)
+       IMPORTANT: We do NOT use :nth-of-type because other <div>s break the count.
+       We set data-accent="1..10" on each .lesson via JS and style using attribute selectors.
     ========================== */
-    .lesson:nth-of-type(1){ --accent: rgba(108, 255, 214, .55); --accent-solid: #6CFFD6; }
-    .lesson:nth-of-type(2){ --accent: rgba(140, 191, 255, .55); --accent-solid: #8CBFFF; }
-    .lesson:nth-of-type(3){ --accent: rgba(255, 174, 91, .55);  --accent-solid: #FFAE5B; }
-    .lesson:nth-of-type(4){ --accent: rgba(255, 128, 187, .55); --accent-solid: #FF80BB; }
-    .lesson:nth-of-type(5){ --accent: rgba(196, 140, 255, .55); --accent-solid: #C48CFF; }
-    .lesson:nth-of-type(6){ --accent: rgba(255, 242, 119, .45); --accent-solid: #FFF277; }
-    .lesson:nth-of-type(7){ --accent: rgba(133, 255, 140, .50); --accent-solid: #85FF8C; }
-    .lesson:nth-of-type(8){ --accent: rgba(99, 255, 250, .50);  --accent-solid: #63FFFA; }
-    .lesson:nth-of-type(9){ --accent: rgba(255, 129, 129, .50); --accent-solid: #FF8181; }
-    .lesson:nth-of-type(10){ --accent: rgba(255, 191, 107, .50); --accent-solid: #FFBF6B; }
+    .lesson[data-accent="1"]{  --accent: rgba(108, 255, 214, .55); --accent-solid: #6CFFD6; }
+    .lesson[data-accent="2"]{  --accent: rgba(140, 191, 255, .55); --accent-solid: #8CBFFF; }
+    .lesson[data-accent="3"]{  --accent: rgba(255, 174, 91, .55);  --accent-solid: #FFAE5B; }
+    .lesson[data-accent="4"]{  --accent: rgba(255, 128, 187, .55); --accent-solid: #FF80BB; }
+    .lesson[data-accent="5"]{  --accent: rgba(196, 140, 255, .55); --accent-solid: #C48CFF; }
+    .lesson[data-accent="6"]{  --accent: rgba(255, 242, 119, .45); --accent-solid: #FFF277; }
+    .lesson[data-accent="7"]{  --accent: rgba(133, 255, 140, .50); --accent-solid: #85FF8C; }
+    .lesson[data-accent="8"]{  --accent: rgba(99, 255, 250, .50);  --accent-solid: #63FFFA; }
+    .lesson[data-accent="9"]{  --accent: rgba(255, 129, 129, .50); --accent-solid: #FF8181; }
+    .lesson[data-accent="10"]{ --accent: rgba(255, 191, 107, .50); --accent-solid: #FFBF6B; }
 
     /* =========================
-   Accordion behavior for lessons
-========================= */
-.lesson {
-  cursor: pointer;
-}
+       Accordion behavior for lessons
+    ========================== */
+    .lesson { cursor: pointer; }
+    .lesson .lesson-head { cursor: pointer; user-select: none; }
 
-.lesson .lesson-head {
-  cursor: pointer;
-  user-select: none;
-}
+    .lesson .lesson-toggle {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      width: 100%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .lesson .lesson-toggle:focus-visible {
+      outline: 2px solid rgba(255,255,255,.22);
+      outline-offset: 6px;
+      border-radius: 14px;
+    }
 
-.lesson .lesson-toggle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-}
+    .lesson .chev {
+      margin-left: auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      transition: transform .18s ease;
+    }
+    .lesson .chev svg {
+      width: 18px;
+      height: 18px;
+      opacity: .9;
+    }
+    .lesson.is-open .chev { transform: rotate(180deg); }
 
-.lesson .lesson-toggle:focus-visible {
-  outline: 2px solid rgba(255,255,255,.22);
-  outline-offset: 6px;
-  border-radius: 14px;
-}
+    /* Content wrapper */
+    .lesson .lesson-body {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+      will-change: max-height;
+    }
+    .lesson.is-open .lesson-body {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.lesson .chev {
-  margin-left: auto;
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.12);
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  transition: transform .18s ease;
-}
+    .lesson.is-open { box-shadow: 0 18px 46px rgba(0,0,0,.22); }
 
-.lesson .chev svg {
-  width: 18px;
-  height: 18px;
-  opacity: .9;
-}
-
-.lesson.is-open .chev {
-  transform: rotate(180deg);
-}
-
-/* Content wrapper we’ll inject via JS */
-.lesson .lesson-body {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-2px);
-  transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
-  will-change: max-height;
-}
-
-.lesson.is-open .lesson-body {
-  max-height: 9999px; /* JS will set an exact height for smoother animation */
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Keep the top accent bar looking nice when closed/open */
-.lesson:before { opacity: .95; }
-.lesson.is-open { box-shadow: 0 18px 46px rgba(0,0,0,.22); }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .lesson .lesson-body,
-  .lesson .chev { transition: none !important; }
-}
-
-.lesson{
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 10px 30px rgba(0,0,0,.22);
-}
-.lesson::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius: inherit;
-  pointer-events:none;
-  box-shadow: 0 0 0 1px var(--accent), 0 0 38px rgba(0,0,0,.0);
-  opacity:.55;
-}
-.lesson{
-  position: relative;
-}
-
-    
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .lesson .lesson-body,
+      .lesson .chev { transition: none !important; }
+    }
   </style>
 </head>
 
@@ -1251,2173 +1218,2154 @@
             <hr />
 
             <div class="lesson" id="regulation-vs-suppression">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Regulation vs Suppression</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Regulation vs Suppression</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(Feeling without falling apart)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(Feeling without falling apart)*</h3>
 
-  <p>A lot of people were praised for being “so calm” growing up.</p>
+              <p>A lot of people were praised for being “so calm” growing up.</p>
 
-  <p>Adults said things like:</p>
+              <p>Adults said things like:</p>
 
-  <ul>
-    <li><i>You’re so mature for your age.</i></li>
-    <li><i>You handle things so well.</i></li>
-    <li><i>You don’t make a fuss.</i></li>
-  </ul>
+              <ul>
+                <li><i>You’re so mature for your age.</i></li>
+                <li><i>You handle things so well.</i></li>
+                <li><i>You don’t make a fuss.</i></li>
+              </ul>
 
-  <p>And from the outside, it probably looked true.</p>
-  <p>You stayed composed.</p>
-  <p>You didn’t melt down.</p>
-  <p>You kept going when things were hard.</p>
+              <p>And from the outside, it probably looked true.</p>
+              <p>You stayed composed.</p>
+              <p>You didn’t melt down.</p>
+              <p>You kept going when things were hard.</p>
 
-  <p>But what was often happening underneath wasn’t calm.</p>
+              <p>But what was often happening underneath wasn’t calm.</p>
 
-  <p>It was <b>containment</b>.</p>
-  <p>It was your body learning how to hold everything in so life could keep moving.</p>
+              <p>It was <b>containment</b>.</p>
+              <p>It was your body learning how to hold everything in so life could keep moving.</p>
 
-  <p>And again — this matters —</p>
-  <p>that wasn’t a failure.</p>
-  <p>That was intelligence.</p>
+              <p>And again — this matters —</p>
+              <p>that wasn’t a failure.</p>
+              <p>That was intelligence.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Let’s name what suppression actually is</h3>
+              <h3>Let’s name what suppression actually is</h3>
 
-  <p><b>Suppression</b> is not feeling nothing.</p>
+              <p><b>Suppression</b> is not feeling nothing.</p>
 
-  <p>
-    Suppression is feeling <i>something</i> — and deciding it’s not safe, allowed, or convenient
-    to let it move.
-  </p>
+              <p>
+                Suppression is feeling <i>something</i> — and deciding it’s not safe, allowed, or convenient
+                to let it move.
+              </p>
 
-  <p>So you push it down.</p>
-  <p>You tighten.</p>
-  <p>You distract.</p>
-  <p>You stay busy.</p>
-  <p>You explain things instead of feeling them.</p>
+              <p>So you push it down.</p>
+              <p>You tighten.</p>
+              <p>You distract.</p>
+              <p>You stay busy.</p>
+              <p>You explain things instead of feeling them.</p>
 
-  <p>Suppression is how a nervous system says:</p>
-  <p><i>“There’s no room for this right now.”</i></p>
+              <p>Suppression is how a nervous system says:</p>
+              <p><i>“There’s no room for this right now.”</i></p>
 
-  <p>And sometimes, that was true.</p>
+              <p>And sometimes, that was true.</p>
 
-  <p>Maybe you didn’t have space to fall apart.</p>
-  <p>Maybe no one knew how to hold big feelings.</p>
-  <p>Maybe you had to stay functional to survive.</p>
+              <p>Maybe you didn’t have space to fall apart.</p>
+              <p>Maybe no one knew how to hold big feelings.</p>
+              <p>Maybe you had to stay functional to survive.</p>
 
-  <p>So your system learned:</p>
-  <p><i>Feel later.</i></p>
+              <p>So your system learned:</p>
+              <p><i>Feel later.</i></p>
 
-  <p>That strategy worked.</p>
-  <p>Until it didn’t.</p>
+              <p>That strategy worked.</p>
+              <p>Until it didn’t.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What suppression looks like in real life</h3>
+              <h3>What suppression looks like in real life</h3>
 
-  <p>Suppression often masquerades as:</p>
+              <p>Suppression often masquerades as:</p>
 
-  <ul>
-    <li>being “fine” quickly</li>
-    <li>intellectualizing emotions</li>
-    <li>staying productive no matter what</li>
-    <li>feeling numb or flat</li>
-    <li>needing constant distraction</li>
-    <li>getting sick when you finally slow down</li>
-  </ul>
+              <ul>
+                <li>being “fine” quickly</li>
+                <li>intellectualizing emotions</li>
+                <li>staying productive no matter what</li>
+                <li>feeling numb or flat</li>
+                <li>needing constant distraction</li>
+                <li>getting sick when you finally slow down</li>
+              </ul>
 
-  <p>People who suppress well often don’t look emotional.</p>
-  <p>They look responsible.</p>
-  <p>Capable.</p>
-  <p>Together.</p>
-  <p>Strong.</p>
+              <p>People who suppress well often don’t look emotional.</p>
+              <p>They look responsible.</p>
+              <p>Capable.</p>
+              <p>Together.</p>
+              <p>Strong.</p>
 
-  <p>And inside, there’s usually a quiet, ongoing effort to <b>hold it all together</b>.</p>
+              <p>And inside, there’s usually a quiet, ongoing effort to <b>hold it all together</b>.</p>
 
-  <p>That effort takes energy.</p>
-  <p>A lot of it.</p>
+              <p>That effort takes energy.</p>
+              <p>A lot of it.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Regulation is something else entirely</h3>
+              <h3>Regulation is something else entirely</h3>
 
-  <p><b>Regulation</b> doesn’t mean being calm all the time.</p>
-  <p>It doesn’t mean you don’t feel deeply.</p>
+              <p><b>Regulation</b> doesn’t mean being calm all the time.</p>
+              <p>It doesn’t mean you don’t feel deeply.</p>
 
-  <p>
-    Regulation means your system can <i>feel</i> without becoming overwhelmed or shutting down.
-  </p>
+              <p>
+                Regulation means your system can <i>feel</i> without becoming overwhelmed or shutting down.
+              </p>
 
-  <p>Think of regulation like letting water flow through a riverbed.</p>
+              <p>Think of regulation like letting water flow through a riverbed.</p>
 
-  <p>The river moves.</p>
-  <p>Sometimes it’s fast.</p>
-  <p>Sometimes it’s slow.</p>
+              <p>The river moves.</p>
+              <p>Sometimes it’s fast.</p>
+              <p>Sometimes it’s slow.</p>
 
-  <p>But it doesn’t flood the town — and it doesn’t get dammed up either.</p>
+              <p>But it doesn’t flood the town — and it doesn’t get dammed up either.</p>
 
-  <p>
-    Regulation is allowing sensation to pass through you without panicking about it.
-  </p>
+              <p>
+                Regulation is allowing sensation to pass through you without panicking about it.
+              </p>
 
-  <p>That might look like:</p>
+              <p>That might look like:</p>
 
-  <ul>
-    <li>noticing tightness in your chest</li>
-    <li>feeling a lump in your throat</li>
-    <li>sensing heaviness in your stomach</li>
-  </ul>
+              <ul>
+                <li>noticing tightness in your chest</li>
+                <li>feeling a lump in your throat</li>
+                <li>sensing heaviness in your stomach</li>
+              </ul>
 
-  <p>…and staying with it long enough for it to shift on its own.</p>
+              <p>…and staying with it long enough for it to shift on its own.</p>
 
-  <p>Not analyzing it.</p>
-  <p>Not fixing it.</p>
-  <p>Not explaining it away.</p>
-  <p>Just noticing.</p>
+              <p>Not analyzing it.</p>
+              <p>Not fixing it.</p>
+              <p>Not explaining it away.</p>
+              <p>Just noticing.</p>
 
-  <hr />
+              <hr />
 
-  <h3>This is where people get confused</h3>
+              <h3>This is where people get confused</h3>
 
-  <p>A lot of people think regulation means:</p>
+              <p>A lot of people think regulation means:</p>
 
-  <ul>
-    <li><i>I should calm down.</i></li>
-    <li><i>I should be okay by now.</i></li>
-    <li><i>I shouldn’t feel this much.</i></li>
-  </ul>
+              <ul>
+                <li><i>I should calm down.</i></li>
+                <li><i>I should be okay by now.</i></li>
+                <li><i>I shouldn’t feel this much.</i></li>
+              </ul>
 
-  <p>But that’s actually suppression trying to sound mature.</p>
+              <p>But that’s actually suppression trying to sound mature.</p>
 
-  <p>Regulation doesn’t rush feelings.</p>
+              <p>Regulation doesn’t rush feelings.</p>
 
-  <p>Regulation says:</p>
-  <p><i>Something is here. I can let it be here.</i></p>
+              <p>Regulation says:</p>
+              <p><i>Something is here. I can let it be here.</i></p>
 
-  <p>And that’s a very different message to your nervous system.</p>
+              <p>And that’s a very different message to your nervous system.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine you’re carrying a heavy backpack.</p>
+              <p>Imagine you’re carrying a heavy backpack.</p>
 
-  <p>Suppression is tightening the straps and saying:</p>
-  <p><i>I can handle this.</i></p>
+              <p>Suppression is tightening the straps and saying:</p>
+              <p><i>I can handle this.</i></p>
 
-  <p>Regulation is setting the backpack down for a moment and saying:</p>
-  <p><i>I don’t have to carry this nonstop.</i></p>
+              <p>Regulation is setting the backpack down for a moment and saying:</p>
+              <p><i>I don’t have to carry this nonstop.</i></p>
 
-  <p>Nothing dramatic happens.</p>
-  <p>You don’t throw the backpack away.</p>
-  <p>You just give your body a break.</p>
+              <p>Nothing dramatic happens.</p>
+              <p>You don’t throw the backpack away.</p>
+              <p>You just give your body a break.</p>
 
-  <p>And when you pick it up again, it’s lighter.</p>
-  <p>Not because the load changed —</p>
-  <p>but because your system had space.</p>
+              <p>And when you pick it up again, it’s lighter.</p>
+              <p>Not because the load changed —</p>
+              <p>but because your system had space.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Why regulation can feel scary at first</h3>
+              <h3>Why regulation can feel scary at first</h3>
 
-  <p>If you grew up needing to stay in control, regulation can feel risky.</p>
+              <p>If you grew up needing to stay in control, regulation can feel risky.</p>
 
-  <p>Because when you stop holding everything in, there’s often a fear:</p>
-  <p><i>What if it all comes out at once?</i></p>
+              <p>Because when you stop holding everything in, there’s often a fear:</p>
+              <p><i>What if it all comes out at once?</i></p>
 
-  <p>That fear makes sense.</p>
+              <p>That fear makes sense.</p>
 
-  <p>But regulation isn’t dumping everything.</p>
+              <p>But regulation isn’t dumping everything.</p>
 
-  <p>
-    It’s <b>allowing small amounts of feeling at a time</b>, in a way your system can tolerate.
-  </p>
+              <p>
+                It’s <b>allowing small amounts of feeling at a time</b>, in a way your system can tolerate.
+              </p>
 
-  <p>You don’t open the floodgates.</p>
-  <p>You crack the door.</p>
-  <p>And you can close it again if you need to.</p>
-  <p>That’s important.</p>
+              <p>You don’t open the floodgates.</p>
+              <p>You crack the door.</p>
+              <p>And you can close it again if you need to.</p>
+              <p>That’s important.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What regulation looks like moment-to-moment</h3>
+              <h3>What regulation looks like moment-to-moment</h3>
 
-  <p>Regulation might look like:</p>
+              <p>Regulation might look like:</p>
 
-  <ul>
-    <li>pausing mid-thought and taking one breath</li>
-    <li>noticing your jaw is clenched and softening it</li>
-    <li>letting tears come without needing a story</li>
-    <li>feeling anger rise and not acting on it immediately</li>
-    <li>allowing discomfort without turning it into a problem</li>
-  </ul>
+              <ul>
+                <li>pausing mid-thought and taking one breath</li>
+                <li>noticing your jaw is clenched and softening it</li>
+                <li>letting tears come without needing a story</li>
+                <li>feeling anger rise and not acting on it immediately</li>
+                <li>allowing discomfort without turning it into a problem</li>
+              </ul>
 
-  <p>These moments don’t look impressive.</p>
-  <p>No one applauds them.</p>
+              <p>These moments don’t look impressive.</p>
+              <p>No one applauds them.</p>
 
-  <p>But they’re where your nervous system learns:</p>
-  <p><i>I can feel without danger.</i></p>
+              <p>But they’re where your nervous system learns:</p>
+              <p><i>I can feel without danger.</i></p>
 
-  <p>And that’s everything.</p>
+              <p>And that’s everything.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A question that changes the relationship you have with your feelings</h3>
+              <h3>A question that changes the relationship you have with your feelings</h3>
 
-  <p>Instead of asking:</p>
-  <p><i>“How do I make this stop?”</i></p>
+              <p>Instead of asking:</p>
+              <p><i>“How do I make this stop?”</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Am I calming myself… or am I silencing myself?”
-  </blockquote>
+              <blockquote>
+                “Am I calming myself… or am I silencing myself?”
+              </blockquote>
 
-  <p>Calming yourself creates space.</p>
-  <p>Silencing yourself creates pressure.</p>
-  <p>Your body knows the difference, even if your mind doesn’t yet.</p>
+              <p>Calming yourself creates space.</p>
+              <p>Silencing yourself creates pressure.</p>
+              <p>Your body knows the difference, even if your mind doesn’t yet.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing I want you to hear</h3>
+              <h3>One last thing I want you to hear</h3>
 
-  <p>If you’ve spent years suppressing emotions, learning regulation takes time.</p>
+              <p>If you’ve spent years suppressing emotions, learning regulation takes time.</p>
 
-  <p>Your system has to trust that:</p>
+              <p>Your system has to trust that:</p>
 
-  <ul>
-    <li>feelings won’t destroy you</li>
-    <li>expression won’t cost you connection</li>
-    <li>pausing won’t make things fall apart</li>
-  </ul>
+              <ul>
+                <li>feelings won’t destroy you</li>
+                <li>expression won’t cost you connection</li>
+                <li>pausing won’t make things fall apart</li>
+              </ul>
 
-  <p>
-    So if regulation feels awkward, slow, or uncomfortable at first — that’s normal.
-  </p>
+              <p>
+                So if regulation feels awkward, slow, or uncomfortable at first — that’s normal.
+              </p>
 
-  <p>You’re not doing it wrong.</p>
+              <p>You’re not doing it wrong.</p>
 
-  <p>You’re teaching your body something it was never taught before:</p>
-  <p><i>It’s safe to feel and stay present.</i></p>
+              <p>You’re teaching your body something it was never taught before:</p>
+              <p><i>It’s safe to feel and stay present.</i></p>
 
-  <p>That’s not weakness.</p>
-  <p>That’s resilience evolving.</p>
-  <p>And it’s one of the most important skills this Map helps you rebuild.</p>
-</div>
+              <p>That’s not weakness.</p>
+              <p>That’s resilience evolving.</p>
+              <p>And it’s one of the most important skills this Map helps you rebuild.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="familiarity-vs-safety">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Familiarity vs Safety</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="familiarity-vs-safety">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Familiarity vs Safety</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(Why you keep choosing what hurts)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(Why you keep choosing what hurts)*</h3>
 
-  <p>This one can be uncomfortable — so let’s slow down and be gentle here.</p>
-  <p>Not because it’s dangerous,</p>
-  <p>but because it touches something very old.</p>
+              <p>This one can be uncomfortable — so let’s slow down and be gentle here.</p>
+              <p>Not because it’s dangerous,</p>
+              <p>but because it touches something very old.</p>
 
-  <p>Your nervous system has a memory.</p>
+              <p>Your nervous system has a memory.</p>
 
-  <p>
-    Not a memory you can always recall in pictures or stories —
-  </p>
+              <p>
+                Not a memory you can always recall in pictures or stories —
+              </p>
 
-  <p>but a memory of <i>what it learned to expect from life</i>.</p>
+              <p>but a memory of <i>what it learned to expect from life</i>.</p>
 
-  <p>It remembers:</p>
+              <p>It remembers:</p>
 
-  <ul>
-    <li>what love felt like</li>
-    <li>what attention sounded like</li>
-    <li>what connection cost</li>
-    <li>what danger looked like</li>
-    <li>what relief came <i>after</i></li>
-  </ul>
+              <ul>
+                <li>what love felt like</li>
+                <li>what attention sounded like</li>
+                <li>what connection cost</li>
+                <li>what danger looked like</li>
+                <li>what relief came <i>after</i></li>
+              </ul>
 
-  <p>And over time, it began to recognize certain patterns as “normal.”</p>
+              <p>And over time, it began to recognize certain patterns as “normal.”</p>
 
-  <p>Not good.</p>
-  <p>Not healthy.</p>
-  <p>Just… known.</p>
+              <p>Not good.</p>
+              <p>Not healthy.</p>
+              <p>Just… known.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Here’s the part people rarely hear</h3>
+              <h3>Here’s the part people rarely hear</h3>
 
-  <p>Your nervous system doesn’t choose what feels <i>best</i>.</p>
-  <p>It chooses what feels <b>recognizable</b>.</p>
+              <p>Your nervous system doesn’t choose what feels <i>best</i>.</p>
+              <p>It chooses what feels <b>recognizable</b>.</p>
 
-  <p>That’s why you can feel pulled toward:</p>
+              <p>That’s why you can feel pulled toward:</p>
 
-  <ul>
-    <li>emotional intensity</li>
-    <li>unpredictability</li>
-    <li>people who are hard to reach</li>
-    <li>situations where you have to explain yourself</li>
-    <li>environments where you’re always alert, adjusting, performing</li>
-  </ul>
+              <ul>
+                <li>emotional intensity</li>
+                <li>unpredictability</li>
+                <li>people who are hard to reach</li>
+                <li>situations where you have to explain yourself</li>
+                <li>environments where you’re always alert, adjusting, performing</li>
+              </ul>
 
-  <p>Not because you like pain.</p>
-  <p>Not because you don’t know better.</p>
-  <p>But because your body knows how to <b>function</b> there.</p>
+              <p>Not because you like pain.</p>
+              <p>Not because you don’t know better.</p>
+              <p>But because your body knows how to <b>function</b> there.</p>
 
-  <p>It knows:</p>
+              <p>It knows:</p>
 
-  <ul>
-    <li>how to scan</li>
-    <li>how to adapt</li>
-    <li>how to brace</li>
-    <li>how to recover afterward</li>
-  </ul>
+              <ul>
+                <li>how to scan</li>
+                <li>how to adapt</li>
+                <li>how to brace</li>
+                <li>how to recover afterward</li>
+              </ul>
 
-  <p>That is <b>familiarity</b>.</p>
-  <p>And familiarity can feel oddly comforting — even when it hurts.</p>
+              <p>That is <b>familiarity</b>.</p>
+              <p>And familiarity can feel oddly comforting — even when it hurts.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Familiarity has a feeling tone</h3>
+              <h3>Familiarity has a feeling tone</h3>
 
-  <p>Familiarity often feels:</p>
+              <p>Familiarity often feels:</p>
 
-  <ul>
-    <li>activating</li>
-    <li>charged</li>
-    <li>dramatic</li>
-    <li>urgent</li>
-    <li>meaningful</li>
-  </ul>
+              <ul>
+                <li>activating</li>
+                <li>charged</li>
+                <li>dramatic</li>
+                <li>urgent</li>
+                <li>meaningful</li>
+              </ul>
 
-  <p>There’s movement.</p>
-  <p>There’s stimulation.</p>
-  <p>There’s a sense of <i>something happening</i>.</p>
+              <p>There’s movement.</p>
+              <p>There’s stimulation.</p>
+              <p>There’s a sense of <i>something happening</i>.</p>
 
-  <p>
-    And if your system learned connection through intensity, calm can feel empty by comparison.
-  </p>
+              <p>
+                And if your system learned connection through intensity, calm can feel empty by comparison.
+              </p>
 
-  <p>This is where people get confused.</p>
+              <p>This is where people get confused.</p>
 
-  <p>They think:</p>
-  <p><i>“If this feels strong, it must matter.”</i></p>
-  <p><i>“If it feels dull, something must be wrong.”</i></p>
+              <p>They think:</p>
+              <p><i>“If this feels strong, it must matter.”</i></p>
+              <p><i>“If it feels dull, something must be wrong.”</i></p>
 
-  <p>But intensity is not intimacy.</p>
-  <p>And chaos is not connection.</p>
+              <p>But intensity is not intimacy.</p>
+              <p>And chaos is not connection.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Safety is quieter — and that can be unsettling</h3>
+              <h3>Safety is quieter — and that can be unsettling</h3>
 
-  <p>Safety feels different.</p>
+              <p>Safety feels different.</p>
 
-  <p>Safety feels like:</p>
+              <p>Safety feels like:</p>
 
-  <ul>
-    <li>steadiness</li>
-    <li>predictability</li>
-    <li>respect</li>
-    <li>room to breathe</li>
-    <li>not having to prove, chase, or perform</li>
-  </ul>
+              <ul>
+                <li>steadiness</li>
+                <li>predictability</li>
+                <li>respect</li>
+                <li>room to breathe</li>
+                <li>not having to prove, chase, or perform</li>
+              </ul>
 
-  <p>Safety doesn’t spike your adrenaline.</p>
-  <p>It doesn’t keep you guessing.</p>
-  <p>It doesn’t require constant interpretation.</p>
+              <p>Safety doesn’t spike your adrenaline.</p>
+              <p>It doesn’t keep you guessing.</p>
+              <p>It doesn’t require constant interpretation.</p>
 
-  <p>And if your body didn’t grow up with that?</p>
+              <p>And if your body didn’t grow up with that?</p>
 
-  <p>Safety can feel strange.</p>
-  <p>Sometimes even wrong.</p>
+              <p>Safety can feel strange.</p>
+              <p>Sometimes even wrong.</p>
 
-  <p>People describe it as:</p>
+              <p>People describe it as:</p>
 
-  <ul>
-    <li>boring</li>
-    <li>flat</li>
-    <li>awkward</li>
-    <li>“too easy”</li>
-    <li>“not exciting enough”</li>
-  </ul>
+              <ul>
+                <li>boring</li>
+                <li>flat</li>
+                <li>awkward</li>
+                <li>“too easy”</li>
+                <li>“not exciting enough”</li>
+              </ul>
 
-  <p>But what they’re often feeling isn’t boredom.</p>
-  <p>It’s <b>the absence of vigilance</b>.</p>
+              <p>But what they’re often feeling isn’t boredom.</p>
+              <p>It’s <b>the absence of vigilance</b>.</p>
 
-  <p>
-    And that absence can feel unfamiliar — even threatening — to a system trained to stay alert.
-  </p>
+              <p>
+                And that absence can feel unfamiliar — even threatening — to a system trained to stay alert.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine you’ve lived next to a busy highway your whole life.</p>
+              <p>Imagine you’ve lived next to a busy highway your whole life.</p>
 
-  <p>At first, the noise is loud.</p>
-  <p>Cars rushing.</p>
-  <p>Horns.</p>
-  <p>Engines.</p>
+              <p>At first, the noise is loud.</p>
+              <p>Cars rushing.</p>
+              <p>Horns.</p>
+              <p>Engines.</p>
 
-  <p>But over time, your body adapts.</p>
-  <p>The noise becomes background.</p>
-  <p>Silence would feel strange.</p>
+              <p>But over time, your body adapts.</p>
+              <p>The noise becomes background.</p>
+              <p>Silence would feel strange.</p>
 
-  <p>Then one day, you spend the night somewhere quiet.</p>
+              <p>Then one day, you spend the night somewhere quiet.</p>
 
-  <p>At first, you can’t sleep.</p>
-  <p>It’s too still.</p>
-  <p>Too empty.</p>
-  <p>Too quiet.</p>
+              <p>At first, you can’t sleep.</p>
+              <p>It’s too still.</p>
+              <p>Too empty.</p>
+              <p>Too quiet.</p>
 
-  <p>Nothing is wrong with the quiet.</p>
-  <p>Your nervous system just hasn’t learned how to rest there yet.</p>
+              <p>Nothing is wrong with the quiet.</p>
+              <p>Your nervous system just hasn’t learned how to rest there yet.</p>
 
-  <p>That’s what safety can feel like at first.</p>
+              <p>That’s what safety can feel like at first.</p>
 
-  <hr />
+              <hr />
 
-  <h3>This is where self-judgment sneaks in</h3>
+              <h3>This is where self-judgment sneaks in</h3>
 
-  <p>People notice they’re drawn to familiar chaos and think:</p>
+              <p>People notice they’re drawn to familiar chaos and think:</p>
 
-  <ul>
-    <li><i>What’s wrong with me?</i></li>
-    <li><i>Why do I always choose this?</i></li>
-    <li><i>Why can’t I want something healthier?</i></li>
-  </ul>
+              <ul>
+                <li><i>What’s wrong with me?</i></li>
+                <li><i>Why do I always choose this?</i></li>
+                <li><i>Why can’t I want something healthier?</i></li>
+              </ul>
 
-  <p>But nothing is wrong with you.</p>
+              <p>But nothing is wrong with you.</p>
 
-  <p>Your body is doing what it learned to do:</p>
-  <p><b>move toward what it knows how to survive</b>.</p>
+              <p>Your body is doing what it learned to do:</p>
+              <p><b>move toward what it knows how to survive</b>.</p>
 
-  <p>The work here isn’t forcing yourself into safety.</p>
+              <p>The work here isn’t forcing yourself into safety.</p>
 
-  <p>
-    It’s helping your nervous system <b>learn that safety won’t cost you connection, identity, or belonging</b>.
-  </p>
+              <p>
+                It’s helping your nervous system <b>learn that safety won’t cost you connection, identity, or belonging</b>.
+              </p>
 
-  <p>That learning takes time.</p>
+              <p>That learning takes time.</p>
 
-  <hr />
+              <hr />
 
-  <h3>How to work with this — gently</h3>
+              <h3>How to work with this — gently</h3>
 
-  <p>Instead of asking:</p>
-  <p><i>“Why do I keep choosing this?”</i></p>
+              <p>Instead of asking:</p>
+              <p><i>“Why do I keep choosing this?”</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Does this feel safe… or just familiar?”
-  </blockquote>
+              <blockquote>
+                “Does this feel safe… or just familiar?”
+              </blockquote>
 
-  <p>That question does something important.</p>
+              <p>That question does something important.</p>
 
-  <p>It separates:</p>
+              <p>It separates:</p>
 
-  <ul>
-    <li>what your body recognizes</li>
-    <li>from</li>
-    <li>what your body actually needs</li>
-  </ul>
+              <ul>
+                <li>what your body recognizes</li>
+                <li>from</li>
+                <li>what your body actually needs</li>
+              </ul>
 
-  <p>You don’t have to change your choice immediately.</p>
-  <p>Just noticing the difference is enough to start rewiring the pattern.</p>
+              <p>You don’t have to change your choice immediately.</p>
+              <p>Just noticing the difference is enough to start rewiring the pattern.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Safety doesn’t need to be dramatic</h3>
+              <h3>Safety doesn’t need to be dramatic</h3>
 
-  <p>One of the most important things to understand is this:</p>
+              <p>One of the most important things to understand is this:</p>
 
-  <p>Safety doesn’t announce itself.</p>
-  <p>It doesn’t rush you.</p>
-  <p>It doesn’t demand.</p>
-  <p>It doesn’t hook you with intensity.</p>
+              <p>Safety doesn’t announce itself.</p>
+              <p>It doesn’t rush you.</p>
+              <p>It doesn’t demand.</p>
+              <p>It doesn’t hook you with intensity.</p>
 
-  <p>Safety often feels neutral before it feels nourishing.</p>
+              <p>Safety often feels neutral before it feels nourishing.</p>
 
-  <p>That neutrality is not emptiness.</p>
-  <p>It’s space.</p>
+              <p>That neutrality is not emptiness.</p>
+              <p>It’s space.</p>
 
-  <p>
-    And space is where your nervous system finally gets to rest —
-  </p>
+              <p>
+                And space is where your nervous system finally gets to rest —
+              </p>
 
-  <p>and eventually, to choose.</p>
+              <p>and eventually, to choose.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A quiet truth to carry with you</h3>
+              <h3>A quiet truth to carry with you</h3>
 
-  <p>You don’t need to shame yourself out of familiarity.</p>
-  <p>You don’t need to force yourself into safety.</p>
+              <p>You don’t need to shame yourself out of familiarity.</p>
+              <p>You don’t need to force yourself into safety.</p>
 
-  <p>
-    You just need to let your system experience safety <b>long enough</b> to learn:
-  </p>
+              <p>
+                You just need to let your system experience safety <b>long enough</b> to learn:
+              </p>
 
-  <p><i>I don’t disappear here.</i></p>
-  <p><i>I don’t have to perform here.</i></p>
-  <p><i>Nothing bad happens when things are calm.</i></p>
+              <p><i>I don’t disappear here.</i></p>
+              <p><i>I don’t have to perform here.</i></p>
+              <p><i>Nothing bad happens when things are calm.</i></p>
 
-  <p>That learning happens slowly.</p>
-  <p>Through repeated, small experiences.</p>
-  <p>Through patience.</p>
-  <p>Through compassion.</p>
+              <p>That learning happens slowly.</p>
+              <p>Through repeated, small experiences.</p>
+              <p>Through patience.</p>
+              <p>Through compassion.</p>
 
-  <p>And every time you ask,</p>
-  <p><i>“Is this safe… or just familiar?”</i></p>
+              <p>And every time you ask,</p>
+              <p><i>“Is this safe… or just familiar?”</i></p>
 
-  <p>You interrupt a pattern that may have been running your life for years.</p>
+              <p>You interrupt a pattern that may have been running your life for years.</p>
 
-  <p>That’s not small work.</p>
-  <p>That’s profound.</p>
-</div>
+              <p>That’s not small work.</p>
+              <p>That’s profound.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="choice-vs-compulsion">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Choice vs Compulsion</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="choice-vs-compulsion">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Choice vs Compulsion</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(When decisions feel panicky)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(When decisions feel panicky)*</h3>
 
-  <p>Let’s talk about that feeling.</p>
+              <p>Let’s talk about that feeling.</p>
 
-  <p>The one where a decision suddenly feels enormous.</p>
-  <p>Heavy.</p>
-  <p>Urgent.</p>
+              <p>The one where a decision suddenly feels enormous.</p>
+              <p>Heavy.</p>
+              <p>Urgent.</p>
 
-  <p>Your thoughts start racing.</p>
-  <p>Your body tightens.</p>
+              <p>Your thoughts start racing.</p>
+              <p>Your body tightens.</p>
 
-  <p>You feel like if you don’t decide <i>right now</i>, something bad will happen.</p>
+              <p>You feel like if you don’t decide <i>right now</i>, something bad will happen.</p>
 
-  <p>Most people think that feeling means:</p>
-  <p><i>“This must be important.”</i></p>
+              <p>Most people think that feeling means:</p>
+              <p><i>“This must be important.”</i></p>
 
-  <p>But often, it means something else entirely.</p>
-  <p>It means fear just grabbed the steering wheel.</p>
+              <p>But often, it means something else entirely.</p>
+              <p>It means fear just grabbed the steering wheel.</p>
 
-  <hr />
+              <hr />
 
-  <h3>There are two very different forces that can drive a decision</h3>
+              <h3>There are two very different forces that can drive a decision</h3>
 
-  <p>One is <b>choice</b>.</p>
-  <p>The other is <b>compulsion</b>.</p>
+              <p>One is <b>choice</b>.</p>
+              <p>The other is <b>compulsion</b>.</p>
 
-  <p>
-    They feel nothing alike in the body — even if the decision looks the same on the outside.
-  </p>
+              <p>
+                They feel nothing alike in the body — even if the decision looks the same on the outside.
+              </p>
 
-  <p>Compulsion sounds like:</p>
+              <p>Compulsion sounds like:</p>
 
-  <ul>
-    <li><i>“I have to do this now.”</i></li>
-    <li><i>“If I wait, I’ll lose my chance.”</i></li>
-    <li><i>“I can’t sit with this feeling.”</i></li>
-    <li><i>“I need relief.”</i></li>
-  </ul>
+              <ul>
+                <li><i>“I have to do this now.”</i></li>
+                <li><i>“If I wait, I’ll lose my chance.”</i></li>
+                <li><i>“I can’t sit with this feeling.”</i></li>
+                <li><i>“I need relief.”</i></li>
+              </ul>
 
-  <p>Notice what’s underneath those thoughts.</p>
-  <p>There’s pressure.</p>
-  <p>There’s threat.</p>
-  <p>There’s a sense of collapse if you don’t act.</p>
+              <p>Notice what’s underneath those thoughts.</p>
+              <p>There’s pressure.</p>
+              <p>There’s threat.</p>
+              <p>There’s a sense of collapse if you don’t act.</p>
 
-  <p>Compulsion isn’t about what you want.</p>
-  <p>It’s about escaping discomfort.</p>
+              <p>Compulsion isn’t about what you want.</p>
+              <p>It’s about escaping discomfort.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Where compulsion comes from</h3>
+              <h3>Where compulsion comes from</h3>
 
-  <p>Compulsion usually shows up when:</p>
+              <p>Compulsion usually shows up when:</p>
 
-  <ul>
-    <li>you learned that delay equals danger</li>
-    <li>you weren’t allowed time to decide</li>
-    <li>uncertainty felt unsafe</li>
-    <li>waiting meant losing control or connection</li>
-  </ul>
+              <ul>
+                <li>you learned that delay equals danger</li>
+                <li>you weren’t allowed time to decide</li>
+                <li>uncertainty felt unsafe</li>
+                <li>waiting meant losing control or connection</li>
+              </ul>
 
-  <p>So your nervous system learned:</p>
-  <p><i>Move fast. Decide now. Fix it.</i></p>
+              <p>So your nervous system learned:</p>
+              <p><i>Move fast. Decide now. Fix it.</i></p>
 
-  <p>That response made sense once.</p>
+              <p>That response made sense once.</p>
 
-  <p>But when compulsion is driving, you’re not choosing —</p>
-  <p>you’re reacting.</p>
+              <p>But when compulsion is driving, you’re not choosing —</p>
+              <p>you’re reacting.</p>
 
-  <p>
-    And reactions often lead you right back into patterns you were trying to leave.
-  </p>
+              <p>
+                And reactions often lead you right back into patterns you were trying to leave.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Choice feels very different</h3>
+              <h3>Choice feels very different</h3>
 
-  <p>Choice doesn’t shout.</p>
-  <p>Choice doesn’t demand.</p>
+              <p>Choice doesn’t shout.</p>
+              <p>Choice doesn’t demand.</p>
 
-  <p>Choice feels like:</p>
+              <p>Choice feels like:</p>
 
-  <ul>
-    <li>space</li>
-    <li>steadiness</li>
-    <li>the ability to pause</li>
-    <li>the option to revisit</li>
-  </ul>
+              <ul>
+                <li>space</li>
+                <li>steadiness</li>
+                <li>the ability to pause</li>
+                <li>the option to revisit</li>
+              </ul>
 
-  <p>Choice sounds like:</p>
+              <p>Choice sounds like:</p>
 
-  <ul>
-    <li><i>“I can wait.”</i></li>
-    <li><i>“I don’t have to know yet.”</i></li>
-    <li><i>“I can come back to this.”</i></li>
-  </ul>
+              <ul>
+                <li><i>“I can wait.”</i></li>
+                <li><i>“I don’t have to know yet.”</i></li>
+                <li><i>“I can come back to this.”</i></li>
+              </ul>
 
-  <p>
-    Even big, meaningful choices carry a sense of <i>ground</i> when they’re real choices.
-  </p>
+              <p>
+                Even big, meaningful choices carry a sense of <i>ground</i> when they’re real choices.
+              </p>
 
-  <p>They don’t require panic to be valid.</p>
+              <p>They don’t require panic to be valid.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A moment most people recognize</h3>
+              <h3>A moment most people recognize</h3>
 
-  <p>Have you ever made a decision in a rush —</p>
+              <p>Have you ever made a decision in a rush —</p>
 
-  <p>sent the text, said yes, ended something, jumped into something —</p>
+              <p>sent the text, said yes, ended something, jumped into something —</p>
 
-  <p>and felt immediate relief?</p>
+              <p>and felt immediate relief?</p>
 
-  <p>And then later thought:</p>
-  <p><i>“Why did I do that?”</i></p>
+              <p>And then later thought:</p>
+              <p><i>“Why did I do that?”</i></p>
 
-  <p>That relief wasn’t clarity.</p>
-  <p>It was pressure releasing.</p>
+              <p>That relief wasn’t clarity.</p>
+              <p>It was pressure releasing.</p>
 
-  <p>
-    Compulsion often feels relieving <b>after</b>, and destabilizing <b>later</b>.
-  </p>
+              <p>
+                Compulsion often feels relieving <b>after</b>, and destabilizing <b>later</b>.
+              </p>
 
-  <p>
-    Choice tends to feel steady <b>during</b>, even if it’s uncomfortable.
-  </p>
+              <p>
+                Choice tends to feel steady <b>during</b>, even if it’s uncomfortable.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine standing at a crossroads.</p>
+              <p>Imagine standing at a crossroads.</p>
 
-  <p>Compulsion is someone behind you yelling:</p>
-  <p><i>“Hurry up! Decide! You’re running out of time!”</i></p>
+              <p>Compulsion is someone behind you yelling:</p>
+              <p><i>“Hurry up! Decide! You’re running out of time!”</i></p>
 
-  <p>Choice is standing still long enough to look around.</p>
+              <p>Choice is standing still long enough to look around.</p>
 
-  <p>You notice the paths.</p>
-  <p>You notice your body.</p>
-  <p>You notice what each direction costs.</p>
+              <p>You notice the paths.</p>
+              <p>You notice your body.</p>
+              <p>You notice what each direction costs.</p>
 
-  <p>Choice doesn’t promise comfort.</p>
-  <p>It promises agency.</p>
+              <p>Choice doesn’t promise comfort.</p>
+              <p>It promises agency.</p>
 
-  <hr />
+              <hr />
 
-  <h3>The most important question you can ask</h3>
+              <h3>The most important question you can ask</h3>
 
-  <p>When everything inside you is screaming <i>now now now</i>, ask this:</p>
+              <p>When everything inside you is screaming <i>now now now</i>, ask this:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “What happens if I don’t decide today?”
-  </blockquote>
+              <blockquote>
+                “What happens if I don’t decide today?”
+              </blockquote>
 
-  <p>Don’t answer it with logic.</p>
-  <p>Notice what happens in your body.</p>
+              <p>Don’t answer it with logic.</p>
+              <p>Notice what happens in your body.</p>
 
-  <ul>
-    <li>Does your chest tighten?</li>
-    <li>Does your stomach drop?</li>
-    <li>Does fear spike?</li>
-  </ul>
+              <ul>
+                <li>Does your chest tighten?</li>
+                <li>Does your stomach drop?</li>
+                <li>Does fear spike?</li>
+              </ul>
 
-  <p>If so, that’s information.</p>
+              <p>If so, that’s information.</p>
 
-  <p>It doesn’t mean you shouldn’t decide.</p>
+              <p>It doesn’t mean you shouldn’t decide.</p>
 
-  <p>It means <b>fear is currently in the room</b>.</p>
+              <p>It means <b>fear is currently in the room</b>.</p>
 
-  <p>And fear is a terrible decision-maker.</p>
+              <p>And fear is a terrible decision-maker.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Clarity has a very specific quality</h3>
+              <h3>Clarity has a very specific quality</h3>
 
-  <p>Clarity doesn’t rush you.</p>
-  <p>Clarity doesn’t threaten you.</p>
+              <p>Clarity doesn’t rush you.</p>
+              <p>Clarity doesn’t threaten you.</p>
 
-  <p>
-    Clarity doesn’t say, <i>“If you don’t act now, everything will fall apart.”</i>
-  </p>
+              <p>
+                Clarity doesn’t say, <i>“If you don’t act now, everything will fall apart.”</i>
+              </p>
 
-  <p>That’s fear talking.</p>
+              <p>That’s fear talking.</p>
 
-  <p>Clarity is patient.</p>
-  <p>Even when the decision is hard.</p>
-  <p>Even when the outcome is uncertain.</p>
+              <p>Clarity is patient.</p>
+              <p>Even when the decision is hard.</p>
+              <p>Even when the outcome is uncertain.</p>
 
-  <p>So if you can, give yourself this permission:</p>
+              <p>So if you can, give yourself this permission:</p>
 
-  <p>You don’t have to decide from panic.</p>
-  <p>You’re allowed to pause.</p>
-  <p>You’re allowed to wait.</p>
-  <p>You’re allowed to let your body settle before choosing.</p>
+              <p>You don’t have to decide from panic.</p>
+              <p>You’re allowed to pause.</p>
+              <p>You’re allowed to wait.</p>
+              <p>You’re allowed to let your body settle before choosing.</p>
 
-  <p>That pause alone often changes the answer.</p>
+              <p>That pause alone often changes the answer.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing I want you to know</h3>
+              <h3>One last thing I want you to know</h3>
 
-  <p>Choosing slowly doesn’t mean you’re indecisive.</p>
-  <p>It means you’re listening.</p>
+              <p>Choosing slowly doesn’t mean you’re indecisive.</p>
+              <p>It means you’re listening.</p>
 
-  <p>And listening — especially when fear is loud —</p>
-  <p>is one of the strongest forms of self-trust there is.</p>
+              <p>And listening — especially when fear is loud —</p>
+              <p>is one of the strongest forms of self-trust there is.</p>
 
-  <p>So the next time urgency shows up, don’t argue with it.</p>
+              <p>So the next time urgency shows up, don’t argue with it.</p>
 
-  <p>Just ask:</p>
-  <p><i>Is this choice… or is this compulsion?</i></p>
+              <p>Just ask:</p>
+              <p><i>Is this choice… or is this compulsion?</i></p>
 
-  <p>And let your body answer.</p>
+              <p>And let your body answer.</p>
 
-  <p>That’s how decisions stop running you —</p>
-  <p>and start belonging to you again.</p>
-</div>
+              <p>That’s how decisions stop running you —</p>
+              <p>and start belonging to you again.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="authority-vs-abdication">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Authority vs Abdication</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="authority-vs-abdication">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Authority vs Abdication</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(Who’s actually running your life)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(Who’s actually running your life)*</h3>
 
-  <p>Most people don’t realize how often they give their authority away.</p>
-  <p>Not because they’re weak.</p>
-  <p>Not because they don’t care.</p>
-  <p>But because they learned — very early — that it was safer not to hold it.</p>
+              <p>Most people don’t realize how often they give their authority away.</p>
+              <p>Not because they’re weak.</p>
+              <p>Not because they don’t care.</p>
+              <p>But because they learned — very early — that it was safer not to hold it.</p>
 
-  <p>Authority is one of those words that sounds big and abstract.</p>
-  <p>It can even sound harsh.</p>
-  <p>But what we’re talking about here is very simple.</p>
+              <p>Authority is one of those words that sounds big and abstract.</p>
+              <p>It can even sound harsh.</p>
+              <p>But what we’re talking about here is very simple.</p>
 
-  <p>Authority is just this:</p>
-  <p><b>the ability to trust yourself enough to stay with your own knowing.</b></p>
+              <p>Authority is just this:</p>
+              <p><b>the ability to trust yourself enough to stay with your own knowing.</b></p>
 
-  <p>And abdication is what happens when that trust quietly slips out of your hands.</p>
+              <p>And abdication is what happens when that trust quietly slips out of your hands.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Abdication doesn’t look dramatic</h3>
+              <h3>Abdication doesn’t look dramatic</h3>
 
-  <p>It doesn’t announce itself.</p>
-  <p>It happens in small, reasonable moments.</p>
+              <p>It doesn’t announce itself.</p>
+              <p>It happens in small, reasonable moments.</p>
 
-  <p>It sounds like:</p>
+              <p>It sounds like:</p>
 
-  <ul>
-    <li><i>“What do you think I should do?”</i></li>
-    <li><i>“Am I overreacting?”</i></li>
-    <li><i>“Is this reasonable?”</i></li>
-    <li><i>“I was sure… until they disagreed.”</i></li>
-  </ul>
+              <ul>
+                <li><i>“What do you think I should do?”</i></li>
+                <li><i>“Am I overreacting?”</i></li>
+                <li><i>“Is this reasonable?”</i></li>
+                <li><i>“I was sure… until they disagreed.”</i></li>
+              </ul>
 
-  <p>
-    It happens when you feel something clearly —
-  </p>
+              <p>
+                It happens when you feel something clearly —
+              </p>
 
-  <p>
-    and then immediately look outside yourself to confirm whether you’re allowed to feel it.
-  </p>
+              <p>
+                and then immediately look outside yourself to confirm whether you’re allowed to feel it.
+              </p>
 
-  <p>You might not even notice it as it’s happening.</p>
+              <p>You might not even notice it as it’s happening.</p>
 
-  <p>It feels like being careful.</p>
-  <p>Thoughtful.</p>
-  <p>Open-minded.</p>
-  <p>Responsible.</p>
+              <p>It feels like being careful.</p>
+              <p>Thoughtful.</p>
+              <p>Open-minded.</p>
+              <p>Responsible.</p>
 
-  <p>And sometimes, it was those things once.</p>
+              <p>And sometimes, it was those things once.</p>
 
-  <p>But over time, abdication has a cost.</p>
+              <p>But over time, abdication has a cost.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Where abdication usually begins</h3>
+              <h3>Where abdication usually begins</h3>
 
-  <p>Most people didn’t grow up in environments where their inner knowing was trusted.</p>
+              <p>Most people didn’t grow up in environments where their inner knowing was trusted.</p>
 
-  <p>They were taught, implicitly or explicitly:</p>
+              <p>They were taught, implicitly or explicitly:</p>
 
-  <ul>
-    <li>that their feelings were too much</li>
-    <li>that their reactions needed adjusting</li>
-    <li>that someone else knew better</li>
-    <li>that harmony mattered more than honesty</li>
-  </ul>
+              <ul>
+                <li>that their feelings were too much</li>
+                <li>that their reactions needed adjusting</li>
+                <li>that someone else knew better</li>
+                <li>that harmony mattered more than honesty</li>
+              </ul>
 
-  <p>So the nervous system learned:</p>
-  <p><i>Don’t decide alone.</i></p>
+              <p>So the nervous system learned:</p>
+              <p><i>Don’t decide alone.</i></p>
 
-  <p>It learned to:</p>
+              <p>It learned to:</p>
 
-  <ul>
-    <li>check in with others first</li>
-    <li>soften truth to keep connection</li>
-    <li>translate intuition into logic so it could be accepted</li>
-    <li>doubt clarity the moment it was challenged</li>
-  </ul>
+              <ul>
+                <li>check in with others first</li>
+                <li>soften truth to keep connection</li>
+                <li>translate intuition into logic so it could be accepted</li>
+                <li>doubt clarity the moment it was challenged</li>
+              </ul>
 
-  <p>Again — this was intelligent.</p>
-  <p>It kept you connected.</p>
+              <p>Again — this was intelligent.</p>
+              <p>It kept you connected.</p>
 
-  <p>But connection built on self-doubt slowly erodes something essential.</p>
+              <p>But connection built on self-doubt slowly erodes something essential.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Authority is quieter than people expect</h3>
+              <h3>Authority is quieter than people expect</h3>
 
-  <p>Authority isn’t loud.</p>
-  <p>It doesn’t argue.</p>
-  <p>It doesn’t explain itself into circles.</p>
+              <p>Authority isn’t loud.</p>
+              <p>It doesn’t argue.</p>
+              <p>It doesn’t explain itself into circles.</p>
 
-  <p>Authority is <b>internal agreement</b>.</p>
+              <p>Authority is <b>internal agreement</b>.</p>
 
-  <p>It’s the moment when:</p>
+              <p>It’s the moment when:</p>
 
-  <ul>
-    <li>your body says yes or no</li>
-    <li>your thoughts align with that signal</li>
-    <li>your values support the choice</li>
-  </ul>
+              <ul>
+                <li>your body says yes or no</li>
+                <li>your thoughts align with that signal</li>
+                <li>your values support the choice</li>
+              </ul>
 
-  <p>Even if:</p>
+              <p>Even if:</p>
 
-  <ul>
-    <li>someone disagrees</li>
-    <li>someone is disappointed</li>
-    <li>someone doesn’t understand</li>
-  </ul>
+              <ul>
+                <li>someone disagrees</li>
+                <li>someone is disappointed</li>
+                <li>someone doesn’t understand</li>
+              </ul>
 
-  <p>Authority doesn’t require consensus.</p>
-  <p>It requires coherence.</p>
-  <p>And coherence feels steady — not forceful.</p>
+              <p>Authority doesn’t require consensus.</p>
+              <p>It requires coherence.</p>
+              <p>And coherence feels steady — not forceful.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine you’re holding a compass.</p>
+              <p>Imagine you’re holding a compass.</p>
 
-  <p>Every time you feel uncertain, you hand it to someone else and ask:</p>
-  <p><i>“Can you check this for me?”</i></p>
+              <p>Every time you feel uncertain, you hand it to someone else and ask:</p>
+              <p><i>“Can you check this for me?”</i></p>
 
-  <p>At first, that feels reassuring.</p>
+              <p>At first, that feels reassuring.</p>
 
-  <p>But after a while, you forget how to read the compass yourself.</p>
+              <p>But after a while, you forget how to read the compass yourself.</p>
 
-  <p>Authority is remembering:</p>
-  <p><i>Oh. I can hold this.</i></p>
+              <p>Authority is remembering:</p>
+              <p><i>Oh. I can hold this.</i></p>
 
-  <p>Abdication is forgetting that you ever could.</p>
+              <p>Abdication is forgetting that you ever could.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What authority feels like in the body</h3>
+              <h3>What authority feels like in the body</h3>
 
-  <p>Authority often feels:</p>
+              <p>Authority often feels:</p>
 
-  <ul>
-    <li>grounded</li>
-    <li>settled</li>
-    <li>simple</li>
-    <li>slightly uncomfortable, but clean</li>
-  </ul>
+              <ul>
+                <li>grounded</li>
+                <li>settled</li>
+                <li>simple</li>
+                <li>slightly uncomfortable, but clean</li>
+              </ul>
 
-  <p>It doesn’t come with adrenaline.</p>
-  <p>It doesn’t need to rush.</p>
-  <p>It doesn’t escalate.</p>
+              <p>It doesn’t come with adrenaline.</p>
+              <p>It doesn’t need to rush.</p>
+              <p>It doesn’t escalate.</p>
 
-  <p>Sometimes authority even feels anticlimactic.</p>
-  <p>That’s how you know it’s real.</p>
+              <p>Sometimes authority even feels anticlimactic.</p>
+              <p>That’s how you know it’s real.</p>
 
-  <p>Abdication, on the other hand, often feels:</p>
+              <p>Abdication, on the other hand, often feels:</p>
 
-  <ul>
-    <li>anxious</li>
-    <li>restless</li>
-    <li>looping</li>
-    <li>dependent on reassurance</li>
-  </ul>
+              <ul>
+                <li>anxious</li>
+                <li>restless</li>
+                <li>looping</li>
+                <li>dependent on reassurance</li>
+              </ul>
 
-  <p>
-    If you feel temporary relief after someone agrees with you — and immediate doubt when they don’t — that’s information.
-  </p>
+              <p>
+                If you feel temporary relief after someone agrees with you — and immediate doubt when they don’t — that’s information.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>A common misunderstanding</h3>
+              <h3>A common misunderstanding</h3>
 
-  <p>People think authority means:</p>
+              <p>People think authority means:</p>
 
-  <ul>
-    <li>being stubborn</li>
-    <li>never listening</li>
-    <li>always being certain</li>
-  </ul>
+              <ul>
+                <li>being stubborn</li>
+                <li>never listening</li>
+                <li>always being certain</li>
+              </ul>
 
-  <p>That’s not authority.</p>
-  <p>That’s rigidity.</p>
+              <p>That’s not authority.</p>
+              <p>That’s rigidity.</p>
 
-  <p>Authority can listen.</p>
-  <p>Authority can consider feedback.</p>
-  <p>Authority can change its mind.</p>
+              <p>Authority can listen.</p>
+              <p>Authority can consider feedback.</p>
+              <p>Authority can change its mind.</p>
 
-  <p>
-    But when authority changes its mind, it does so <b>from inside</b>, not from pressure.
-  </p>
+              <p>
+                But when authority changes its mind, it does so <b>from inside</b>, not from pressure.
+              </p>
 
-  <p>The difference is subtle — and everything.</p>
+              <p>The difference is subtle — and everything.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A gentle question that brings authority back</h3>
+              <h3>A gentle question that brings authority back</h3>
 
-  <p>Instead of asking:</p>
-  <p><i>“Is this okay?”</i></p>
+              <p>Instead of asking:</p>
+              <p><i>“Is this okay?”</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Do I trust myself here?”
-  </blockquote>
+              <blockquote>
+                “Do I trust myself here?”
+              </blockquote>
 
-  <p>And if the answer is no, don’t shame that.</p>
+              <p>And if the answer is no, don’t shame that.</p>
 
-  <p>Ask instead:</p>
-  <p><i>What would help me trust myself just a little more?</i></p>
+              <p>Ask instead:</p>
+              <p><i>What would help me trust myself just a little more?</i></p>
 
-  <p>Sometimes authority returns in tiny ways:</p>
+              <p>Sometimes authority returns in tiny ways:</p>
 
-  <ul>
-    <li>not explaining</li>
-    <li>not justifying</li>
-    <li>pausing before answering</li>
-    <li>staying quiet when you’d normally seek reassurance</li>
-  </ul>
+              <ul>
+                <li>not explaining</li>
+                <li>not justifying</li>
+                <li>pausing before answering</li>
+                <li>staying quiet when you’d normally seek reassurance</li>
+              </ul>
 
-  <p>Those moments matter.</p>
+              <p>Those moments matter.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing I want you to hear</h3>
+              <h3>One last thing I want you to hear</h3>
 
-  <p>You don’t have to seize authority.</p>
-  <p>You don’t have to prove it.</p>
-  <p>You don’t have to perform confidence.</p>
+              <p>You don’t have to seize authority.</p>
+              <p>You don’t have to prove it.</p>
+              <p>You don’t have to perform confidence.</p>
 
-  <p>Authority isn’t something you take.</p>
-  <p>It’s something you <b>stop giving away</b>.</p>
+              <p>Authority isn’t something you take.</p>
+              <p>It’s something you <b>stop giving away</b>.</p>
 
-  <p>And the places where you notice yourself asking for permission —</p>
-  <p>those aren’t failures.</p>
-  <p>They’re doorways.</p>
+              <p>And the places where you notice yourself asking for permission —</p>
+              <p>those aren’t failures.</p>
+              <p>They’re doorways.</p>
 
-  <p>
-    Because that’s exactly where your authority has been waiting for you to come back.
-  </p>
+              <p>
+                Because that’s exactly where your authority has been waiting for you to come back.
+              </p>
 
-  <p>Not loudly.</p>
-  <p>Not urgently.</p>
-  <p>Just patiently.</p>
-  <p>Ready when you are.</p>
-</div>
+              <p>Not loudly.</p>
+              <p>Not urgently.</p>
+              <p>Just patiently.</p>
+              <p>Ready when you are.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="boundaries-without-turning-into-a-villain">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Boundaries (Without Turning Into a Villain)</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="boundaries-without-turning-into-a-villain">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Boundaries (Without Turning Into a Villain)</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <p>A boundary isn’t a punishment.</p>
-  <p>It’s not a threat.</p>
-  <p>It’s not an ultimatum.</p>
-  <p>It’s not something you do <i>to</i> someone.</p>
+              <p>A boundary isn’t a punishment.</p>
+              <p>It’s not a threat.</p>
+              <p>It’s not an ultimatum.</p>
+              <p>It’s not something you do <i>to</i> someone.</p>
 
-  <p>
-    A boundary is simply <b>information about where you end and someone else begins</b>.
-  </p>
+              <p>
+                A boundary is simply <b>information about where you end and someone else begins</b>.
+              </p>
 
-  <p>
-    And the reason this gets so tangled for people is because most of us learned boundaries in environments where they were anything but simple.
-  </p>
+              <p>
+                And the reason this gets so tangled for people is because most of us learned boundaries in environments where they were anything but simple.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Where the fear comes from</h3>
+              <h3>Where the fear comes from</h3>
 
-  <p>A lot of people grew up watching boundaries used as weapons.</p>
-  <p>Silence.</p>
-  <p>Withdrawal.</p>
-  <p>Coldness.</p>
-  <p>Control.</p>
+              <p>A lot of people grew up watching boundaries used as weapons.</p>
+              <p>Silence.</p>
+              <p>Withdrawal.</p>
+              <p>Coldness.</p>
+              <p>Control.</p>
 
-  <p>So when you even think about setting a boundary, your body remembers:</p>
+              <p>So when you even think about setting a boundary, your body remembers:</p>
 
-  <ul>
-    <li>conflict</li>
-    <li>rejection</li>
-    <li>being labeled “difficult”</li>
-    <li>being punished for having needs</li>
-  </ul>
+              <ul>
+                <li>conflict</li>
+                <li>rejection</li>
+                <li>being labeled “difficult”</li>
+                <li>being punished for having needs</li>
+              </ul>
 
-  <p>And suddenly a very basic human act feels loaded.</p>
-  <p>You’re not just saying no.</p>
-  <p>You’re bracing for consequences.</p>
+              <p>And suddenly a very basic human act feels loaded.</p>
+              <p>You’re not just saying no.</p>
+              <p>You’re bracing for consequences.</p>
 
-  <p>
-    That’s why boundaries feel scary — not because they’re wrong, but because your system associates them with loss.
-  </p>
+              <p>
+                That’s why boundaries feel scary — not because they’re wrong, but because your system associates them with loss.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Let’s simplify what a boundary actually is</h3>
+              <h3>Let’s simplify what a boundary actually is</h3>
 
-  <p>Think of a boundary like a fence around your yard.</p>
-  <p>Not a wall.</p>
-  <p>Not barbed wire.</p>
-  <p>Not a warning sign.</p>
-  <p>Just a fence.</p>
+              <p>Think of a boundary like a fence around your yard.</p>
+              <p>Not a wall.</p>
+              <p>Not barbed wire.</p>
+              <p>Not a warning sign.</p>
+              <p>Just a fence.</p>
 
-  <p>You don’t argue with a fence.</p>
-  <p>You don’t explain it.</p>
-  <p>You don’t apologize for it.</p>
+              <p>You don’t argue with a fence.</p>
+              <p>You don’t explain it.</p>
+              <p>You don’t apologize for it.</p>
 
-  <p>The fence isn’t saying:</p>
-  <p><i>“You’re bad.”</i></p>
+              <p>The fence isn’t saying:</p>
+              <p><i>“You’re bad.”</i></p>
 
-  <p>It’s saying:</p>
-  <p><i>“This is where my space ends.”</i></p>
+              <p>It’s saying:</p>
+              <p><i>“This is where my space ends.”</i></p>
 
-  <p>That’s it.</p>
+              <p>That’s it.</p>
 
-  <p>A boundary doesn’t require agreement.</p>
-  <p>It doesn’t require understanding.</p>
-  <p>It doesn’t require permission.</p>
-  <p>It just needs to be clear.</p>
+              <p>A boundary doesn’t require agreement.</p>
+              <p>It doesn’t require understanding.</p>
+              <p>It doesn’t require permission.</p>
+              <p>It just needs to be clear.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Clean boundaries are usually very boring</h3>
+              <h3>Clean boundaries are usually very boring</h3>
 
-  <p>This is where people get surprised.</p>
+              <p>This is where people get surprised.</p>
 
-  <p>
-    They think boundaries need to sound strong, confident, perfectly worded.
-  </p>
+              <p>
+                They think boundaries need to sound strong, confident, perfectly worded.
+              </p>
 
-  <p>They don’t.</p>
+              <p>They don’t.</p>
 
-  <p>Clean boundaries often sound almost… plain.</p>
+              <p>Clean boundaries often sound almost… plain.</p>
 
-  <p>Like:</p>
+              <p>Like:</p>
 
-  <ul>
-    <li>“No.”</li>
-    <li>“That doesn’t work for me.”</li>
-    <li>“I’m not available for that.”</li>
-    <li>“I’m going to go now.”</li>
-  </ul>
+              <ul>
+                <li>“No.”</li>
+                <li>“That doesn’t work for me.”</li>
+                <li>“I’m not available for that.”</li>
+                <li>“I’m going to go now.”</li>
+              </ul>
 
-  <p>No explanation.</p>
-  <p>No justification.</p>
-  <p>No emotional charge.</p>
+              <p>No explanation.</p>
+              <p>No justification.</p>
+              <p>No emotional charge.</p>
 
-  <p>And because they’re so simple, people often don’t trust them.</p>
+              <p>And because they’re so simple, people often don’t trust them.</p>
 
-  <p>They think:</p>
-  <p><i>That can’t be enough.</i></p>
-  <p><i>I need to explain so they don’t misunderstand.</i></p>
-  <p><i>I need to soften this so they don’t get upset.</i></p>
+              <p>They think:</p>
+              <p><i>That can’t be enough.</i></p>
+              <p><i>I need to explain so they don’t misunderstand.</i></p>
+              <p><i>I need to soften this so they don’t get upset.</i></p>
 
-  <p>That’s where boundaries turn into negotiations.</p>
+              <p>That’s where boundaries turn into negotiations.</p>
 
-  <hr />
+              <hr />
 
-  <h3>When explanation replaces boundaries</h3>
+              <h3>When explanation replaces boundaries</h3>
 
-  <p>If you notice yourself:</p>
+              <p>If you notice yourself:</p>
 
-  <ul>
-    <li>adding backstory</li>
-    <li>giving reasons</li>
-    <li>over-clarifying</li>
-    <li>trying to make the other person comfortable</li>
-  </ul>
+              <ul>
+                <li>adding backstory</li>
+                <li>giving reasons</li>
+                <li>over-clarifying</li>
+                <li>trying to make the other person comfortable</li>
+              </ul>
 
-  <p>Pause.</p>
+              <p>Pause.</p>
 
-  <p>Not because you’re doing something wrong —</p>
-  <p>but because something important is happening.</p>
+              <p>Not because you’re doing something wrong —</p>
+              <p>but because something important is happening.</p>
 
-  <p>Usually, explanation shows up when:</p>
+              <p>Usually, explanation shows up when:</p>
 
-  <ul>
-    <li>you’re afraid of being misunderstood</li>
-    <li>you’re managing someone else’s feelings</li>
-    <li>you’re trying to stay “good”</li>
-    <li>you’re hoping they’ll agree so it feels safer</li>
-  </ul>
+              <ul>
+                <li>you’re afraid of being misunderstood</li>
+                <li>you’re managing someone else’s feelings</li>
+                <li>you’re trying to stay “good”</li>
+                <li>you’re hoping they’ll agree so it feels safer</li>
+              </ul>
 
-  <p>That’s not boundary-setting.</p>
-  <p>That’s asking for permission to have one.</p>
+              <p>That’s not boundary-setting.</p>
+              <p>That’s asking for permission to have one.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Boundaries don’t need to convince anyone</h3>
+              <h3>Boundaries don’t need to convince anyone</h3>
 
-  <p>This can be hard to accept.</p>
+              <p>This can be hard to accept.</p>
 
-  <p>Especially if you were taught that being understood is the same as being safe.</p>
+              <p>Especially if you were taught that being understood is the same as being safe.</p>
 
-  <p>But here’s the truth:</p>
+              <p>But here’s the truth:</p>
 
-  <p>Someone can fully understand your boundary and still not like it.</p>
-  <p>Someone can misunderstand your boundary and still be required to respect it.</p>
+              <p>Someone can fully understand your boundary and still not like it.</p>
+              <p>Someone can misunderstand your boundary and still be required to respect it.</p>
 
-  <p>Understanding is not a prerequisite for boundaries.</p>
-  <p>Respect is.</p>
+              <p>Understanding is not a prerequisite for boundaries.</p>
+              <p>Respect is.</p>
 
-  <p>
-    And if someone only respects your limits when they agree with them —
-  </p>
+              <p>
+                And if someone only respects your limits when they agree with them —
+              </p>
 
-  <p>that’s not mutuality.</p>
-  <p>That’s compliance.</p>
+              <p>that’s not mutuality.</p>
+              <p>That’s compliance.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it this way</h3>
+              <h3>Think of it this way</h3>
 
-  <p>Imagine you’re tired.</p>
-  <p>Not dramatic tired.</p>
-  <p>Just done for the day.</p>
+              <p>Imagine you’re tired.</p>
+              <p>Not dramatic tired.</p>
+              <p>Just done for the day.</p>
 
-  <p>A boundary would sound like:</p>
-  <p><i>“I’m heading out now.”</i></p>
+              <p>A boundary would sound like:</p>
+              <p><i>“I’m heading out now.”</i></p>
 
-  <p>A negotiation would sound like:</p>
-  <p>
-    <i>
-      “I’ve had such a long day, and I know you were hoping I’d stay, and I feel bad leaving, but I’m really exhausted, and I don’t want you to think I don’t care…”
-    </i>
-  </p>
+              <p>A negotiation would sound like:</p>
+              <p>
+                <i>
+                  “I’ve had such a long day, and I know you were hoping I’d stay, and I feel bad leaving, but I’m really exhausted, and I don’t want you to think I don’t care…”
+                </i>
+              </p>
 
-  <p>See the difference?</p>
-  <p>One is information.</p>
-  <p>The other is self-erasure disguised as kindness.</p>
+              <p>See the difference?</p>
+              <p>One is information.</p>
+              <p>The other is self-erasure disguised as kindness.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A gentle test you can use in real time</h3>
+              <h3>A gentle test you can use in real time</h3>
 
-  <p>Before you speak, ask yourself:</p>
+              <p>Before you speak, ask yourself:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Can I say this in one sentence and stop?”
-  </blockquote>
+              <blockquote>
+                “Can I say this in one sentence and stop?”
+              </blockquote>
 
-  <p>If the answer is yes — that’s probably a boundary.</p>
-  <p>If the answer is no — you’re probably trying to manage someone else’s reaction.</p>
+              <p>If the answer is yes — that’s probably a boundary.</p>
+              <p>If the answer is no — you’re probably trying to manage someone else’s reaction.</p>
 
-  <p>That doesn’t make you weak.</p>
-  <p>It makes you human.</p>
-  <p>It just means this is an edge you’re learning.</p>
+              <p>That doesn’t make you weak.</p>
+              <p>It makes you human.</p>
+              <p>It just means this is an edge you’re learning.</p>
 
-  <hr />
+              <hr />
 
-  <h3>You are not a villain for having limits</h3>
+              <h3>You are not a villain for having limits</h3>
 
-  <p>This might be the most important part.</p>
+              <p>This might be the most important part.</p>
 
-  <p>You are not cruel for saying no.</p>
-  <p>You are not selfish for choosing yourself.</p>
-  <p>You are not unkind for stopping a conversation.</p>
-  <p>You are not wrong for leaving.</p>
+              <p>You are not cruel for saying no.</p>
+              <p>You are not selfish for choosing yourself.</p>
+              <p>You are not unkind for stopping a conversation.</p>
+              <p>You are not wrong for leaving.</p>
 
-  <p>Boundaries don’t make you harsh.</p>
-  <p>They make relationships <b>honest</b>.</p>
+              <p>Boundaries don’t make you harsh.</p>
+              <p>They make relationships <b>honest</b>.</p>
 
-  <p>
-    And if a relationship can’t survive honesty —
-  </p>
+              <p>
+                And if a relationship can’t survive honesty —
+              </p>
 
-  <p>it was already asking you to disappear a little to keep it alive.</p>
+              <p>it was already asking you to disappear a little to keep it alive.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing to hold onto</h3>
+              <h3>One last thing to hold onto</h3>
 
-  <p>Boundaries don’t have to be perfect.</p>
-  <p>You don’t have to get them right every time.</p>
-  <p>You don’t have to say them confidently.</p>
-  <p>You don’t have to say them kindly enough to be approved.</p>
+              <p>Boundaries don’t have to be perfect.</p>
+              <p>You don’t have to get them right every time.</p>
+              <p>You don’t have to say them confidently.</p>
+              <p>You don’t have to say them kindly enough to be approved.</p>
 
-  <p>A boundary can shake.</p>
-  <p>A boundary can be awkward.</p>
-  <p>A boundary can come out clumsy.</p>
-  <p>It still counts.</p>
+              <p>A boundary can shake.</p>
+              <p>A boundary can be awkward.</p>
+              <p>A boundary can come out clumsy.</p>
+              <p>It still counts.</p>
 
-  <p>
-    Because the moment you stop explaining yourself into exhaustion,
-  </p>
+              <p>
+                Because the moment you stop explaining yourself into exhaustion,
+              </p>
 
-  <p>something inside you gets to rest.</p>
+              <p>something inside you gets to rest.</p>
 
-  <p>And that rest?</p>
-  <p>That’s not selfish.</p>
-  <p>That’s self-respect finally being allowed to exist.</p>
-</div>
+              <p>And that rest?</p>
+              <p>That’s not selfish.</p>
+              <p>That’s self-respect finally being allowed to exist.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="relationships-clarity-vs-ambiguity">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Relationships: Clarity vs Ambiguity</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="relationships-clarity-vs-ambiguity">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Relationships: Clarity vs Ambiguity</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(Why some connections exhaust you)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(Why some connections exhaust you)*</h3>
 
-  <p>Your nervous system loves clarity.</p>
-  <p>Not because clarity is exciting.</p>
-  <p>Not because it guarantees happiness.</p>
-  <p>But because clarity allows your body to <b>rest</b>.</p>
+              <p>Your nervous system loves clarity.</p>
+              <p>Not because clarity is exciting.</p>
+              <p>Not because it guarantees happiness.</p>
+              <p>But because clarity allows your body to <b>rest</b>.</p>
 
-  <p>Ambiguity does the opposite.</p>
+              <p>Ambiguity does the opposite.</p>
 
-  <p>
-    Ambiguity keeps your system awake, alert, and scanning — even when you don’t realize it.
-  </p>
+              <p>
+                Ambiguity keeps your system awake, alert, and scanning — even when you don’t realize it.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>What ambiguity actually feels like</h3>
+              <h3>What ambiguity actually feels like</h3>
 
-  <p>Ambiguity isn’t always obvious.</p>
-  <p>It doesn’t always look like chaos or conflict.</p>
+              <p>Ambiguity isn’t always obvious.</p>
+              <p>It doesn’t always look like chaos or conflict.</p>
 
-  <p>Often, it looks like <i>almost</i>.</p>
-  <p>Almost consistent.</p>
-  <p>Almost honest.</p>
-  <p>Almost available.</p>
+              <p>Often, it looks like <i>almost</i>.</p>
+              <p>Almost consistent.</p>
+              <p>Almost honest.</p>
+              <p>Almost available.</p>
 
-  <p>And because it’s not overtly bad, people stay longer than they should.</p>
+              <p>And because it’s not overtly bad, people stay longer than they should.</p>
 
-  <p>But underneath, your nervous system is busy.</p>
+              <p>But underneath, your nervous system is busy.</p>
 
-  <p>It’s quietly asking questions like:</p>
+              <p>It’s quietly asking questions like:</p>
 
-  <ul>
-    <li><i>Do they like me… or am I imagining it?</i></li>
-    <li><i>What did that text mean?</i></li>
-    <li><i>Are we okay?</i></li>
-    <li><i>Did I say something wrong?</i></li>
-  </ul>
+              <ul>
+                <li><i>Do they like me… or am I imagining it?</i></li>
+                <li><i>What did that text mean?</i></li>
+                <li><i>Are we okay?</i></li>
+                <li><i>Did I say something wrong?</i></li>
+              </ul>
 
-  <p>You might not consciously think these thoughts all the time.</p>
-  <p>But your body feels them.</p>
-  <p>And that feeling is exhausting.</p>
+              <p>You might not consciously think these thoughts all the time.</p>
+              <p>But your body feels them.</p>
+              <p>And that feeling is exhausting.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Why ambiguity is so draining</h3>
+              <h3>Why ambiguity is so draining</h3>
 
-  <p>When a relationship is ambiguous, your system never gets to stand down.</p>
+              <p>When a relationship is ambiguous, your system never gets to stand down.</p>
 
-  <p>It stays:</p>
+              <p>It stays:</p>
 
-  <ul>
-    <li>alert</li>
-    <li>attuned</li>
-    <li>ready to adjust</li>
-    <li>prepared to explain</li>
-  </ul>
+              <ul>
+                <li>alert</li>
+                <li>attuned</li>
+                <li>ready to adjust</li>
+                <li>prepared to explain</li>
+              </ul>
 
-  <p>You’re always interpreting tone.</p>
-  <p>Reading between lines.</p>
-  <p>Watching for shifts.</p>
+              <p>You’re always interpreting tone.</p>
+              <p>Reading between lines.</p>
+              <p>Watching for shifts.</p>
 
-  <p>That level of attention takes energy.</p>
+              <p>That level of attention takes energy.</p>
 
-  <p>Over time, it can look like:</p>
+              <p>Over time, it can look like:</p>
 
-  <ul>
-    <li>emotional fatigue</li>
-    <li>anxiety that doesn’t seem to have a clear cause</li>
-    <li>overthinking conversations</li>
-    <li>feeling “on edge” around certain people</li>
-    <li>needing more recovery time after interactions</li>
-  </ul>
+              <ul>
+                <li>emotional fatigue</li>
+                <li>anxiety that doesn’t seem to have a clear cause</li>
+                <li>overthinking conversations</li>
+                <li>feeling “on edge” around certain people</li>
+                <li>needing more recovery time after interactions</li>
+              </ul>
 
-  <p>People often think they’re sensitive or insecure.</p>
-  <p>But what they’re actually responding to is <b>uncertainty</b>.</p>
+              <p>People often think they’re sensitive or insecure.</p>
+              <p>But what they’re actually responding to is <b>uncertainty</b>.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Clarity feels very different</h3>
+              <h3>Clarity feels very different</h3>
 
-  <p>Clarity doesn’t mean everything is perfect.</p>
-  <p>It doesn’t mean there’s no conflict.</p>
-  <p>It doesn’t mean there’s no disappointment.</p>
+              <p>Clarity doesn’t mean everything is perfect.</p>
+              <p>It doesn’t mean there’s no conflict.</p>
+              <p>It doesn’t mean there’s no disappointment.</p>
 
-  <p>Clarity just means you know where you stand.</p>
+              <p>Clarity just means you know where you stand.</p>
 
-  <p>With clarity:</p>
+              <p>With clarity:</p>
 
-  <ul>
-    <li>words match actions</li>
-    <li>expectations are visible</li>
-    <li>communication is direct</li>
-    <li>you don’t have to guess</li>
-  </ul>
+              <ul>
+                <li>words match actions</li>
+                <li>expectations are visible</li>
+                <li>communication is direct</li>
+                <li>you don’t have to guess</li>
+              </ul>
 
-  <p>
-    Clarity allows your nervous system to relax — even when the answer isn’t what you hoped for.
-  </p>
+              <p>
+                Clarity allows your nervous system to relax — even when the answer isn’t what you hoped for.
+              </p>
 
-  <p>
-    Because knowing is easier on the body than wondering.
-  </p>
+              <p>
+                Because knowing is easier on the body than wondering.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>A story many people recognize</h3>
+              <h3>A story many people recognize</h3>
 
-  <p>Think about a time you were waiting for a response.</p>
+              <p>Think about a time you were waiting for a response.</p>
 
-  <p>A message sent.</p>
-  <p>No reply yet.</p>
+              <p>A message sent.</p>
+              <p>No reply yet.</p>
 
-  <p>At first, it’s fine.</p>
+              <p>At first, it’s fine.</p>
 
-  <p>But as time passes, your body starts to react.</p>
+              <p>But as time passes, your body starts to react.</p>
 
-  <p>Your stomach tightens.</p>
-  <p>Your thoughts race.</p>
-  <p>You replay the conversation.</p>
+              <p>Your stomach tightens.</p>
+              <p>Your thoughts race.</p>
+              <p>You replay the conversation.</p>
 
-  <p>That’s ambiguity at work.</p>
+              <p>That’s ambiguity at work.</p>
 
-  <p>
-    Now imagine receiving a clear response — even a disappointing one.
-  </p>
+              <p>
+                Now imagine receiving a clear response — even a disappointing one.
+              </p>
 
-  <p>Something like:</p>
-  <p><i>“I don’t think I can do this.”</i></p>
+              <p>Something like:</p>
+              <p><i>“I don’t think I can do this.”</i></p>
 
-  <p>It might hurt.</p>
+              <p>It might hurt.</p>
 
-  <p>But notice what else happens.</p>
+              <p>But notice what else happens.</p>
 
-  <p>Your body settles.</p>
+              <p>Your body settles.</p>
 
-  <p>
-    Because clarity — even painful clarity — ends the scanning.
-  </p>
+              <p>
+                Because clarity — even painful clarity — ends the scanning.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Why people tolerate ambiguity</h3>
+              <h3>Why people tolerate ambiguity</h3>
 
-  <p>Most people don’t stay in ambiguous relationships because they enjoy uncertainty.</p>
+              <p>Most people don’t stay in ambiguous relationships because they enjoy uncertainty.</p>
 
-  <p>They stay because:</p>
+              <p>They stay because:</p>
 
-  <ul>
-    <li>clarity once cost them connection</li>
-    <li>speaking up led to conflict</li>
-    <li>naming needs felt dangerous</li>
-    <li>being direct felt “too much”</li>
-  </ul>
+              <ul>
+                <li>clarity once cost them connection</li>
+                <li>speaking up led to conflict</li>
+                <li>naming needs felt dangerous</li>
+                <li>being direct felt “too much”</li>
+              </ul>
 
-  <p>So their nervous system learned:</p>
-  <p><i>Better to wonder than to lose.</i></p>
+              <p>So their nervous system learned:</p>
+              <p><i>Better to wonder than to lose.</i></p>
 
-  <p>That adaptation makes sense.</p>
-  <p>But it comes at a price.</p>
+              <p>That adaptation makes sense.</p>
+              <p>But it comes at a price.</p>
 
-  <hr />
+              <hr />
 
-  <h3>The question that changes everything</h3>
+              <h3>The question that changes everything</h3>
 
-  <p>Instead of asking:</p>
-  <p><i>“Why am I so tired after being with them?”</i></p>
+              <p>Instead of asking:</p>
+              <p><i>“Why am I so tired after being with them?”</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Do I feel relaxed with this person… or am I always trying to figure things out?”
-  </blockquote>
+              <blockquote>
+                “Do I feel relaxed with this person… or am I always trying to figure things out?”
+              </blockquote>
 
-  <p>That question bypasses the stories.</p>
-  <p>Your body answers immediately.</p>
-  <p>And the answer is usually very clear.</p>
+              <p>That question bypasses the stories.</p>
+              <p>Your body answers immediately.</p>
+              <p>And the answer is usually very clear.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Important nuance</h3>
+              <h3>Important nuance</h3>
 
-  <p>Clarity doesn’t mean certainty forever.</p>
-  <p>It means <b>enough information for your system to rest right now</b>.</p>
+              <p>Clarity doesn’t mean certainty forever.</p>
+              <p>It means <b>enough information for your system to rest right now</b>.</p>
 
-  <p>And you are allowed to need that.</p>
+              <p>And you are allowed to need that.</p>
 
-  <p>You’re not needy for wanting clarity.</p>
-  <p>You’re not insecure for wanting consistency.</p>
-  <p>You’re not demanding for wanting to know where you stand.</p>
+              <p>You’re not needy for wanting clarity.</p>
+              <p>You’re not insecure for wanting consistency.</p>
+              <p>You’re not demanding for wanting to know where you stand.</p>
 
-  <p>Those are baseline needs for nervous system health.</p>
+              <p>Those are baseline needs for nervous system health.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing to remember</h3>
+              <h3>One last thing to remember</h3>
 
-  <p>You don’t have to accuse anyone of anything to notice ambiguity.</p>
-  <p>You don’t have to label someone as bad.</p>
-  <p>You just have to be honest with yourself about the cost.</p>
+              <p>You don’t have to accuse anyone of anything to notice ambiguity.</p>
+              <p>You don’t have to label someone as bad.</p>
+              <p>You just have to be honest with yourself about the cost.</p>
 
-  <p>
-    If a connection requires constant interpretation,
-  </p>
+              <p>
+                If a connection requires constant interpretation,
+              </p>
 
-  <p>
-    your nervous system is paying for it — whether you admit it or not.
-  </p>
+              <p>
+                your nervous system is paying for it — whether you admit it or not.
+              </p>
 
-  <p>Clarity isn’t about control.</p>
-  <p>It’s about relief.</p>
+              <p>Clarity isn’t about control.</p>
+              <p>It’s about relief.</p>
 
-  <p>
-    And relief is not something you have to earn.
-  </p>
+              <p>
+                And relief is not something you have to earn.
+              </p>
 
-  <p>It’s something your body has been asking for all along.</p>
-</div>
+              <p>It’s something your body has been asking for all along.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="guilt-vs-values">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Guilt vs Values</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="guilt-vs-values">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Guilt vs Values</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(This one untangles so much pain)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(This one untangles so much pain)*</h3>
 
-  <p>Let’s slow this one down.</p>
-  <p>Because guilt has a way of sounding very convincing.</p>
+              <p>Let’s slow this one down.</p>
+              <p>Because guilt has a way of sounding very convincing.</p>
 
-  <p>
-    And because so many people have made life-altering decisions based on guilt — not because it was right, but because they didn’t know how to tell the difference.
-  </p>
+              <p>
+                And because so many people have made life-altering decisions based on guilt — not because it was right, but because they didn’t know how to tell the difference.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>What guilt actually is</h3>
+              <h3>What guilt actually is</h3>
 
-  <p>Guilt often doesn’t come from truth.</p>
-  <p>It comes from <b>old rules</b>.</p>
+              <p>Guilt often doesn’t come from truth.</p>
+              <p>It comes from <b>old rules</b>.</p>
 
-  <p>
-    Rules your nervous system learned about what keeps you acceptable, lovable, or safe.
-  </p>
+              <p>
+                Rules your nervous system learned about what keeps you acceptable, lovable, or safe.
+              </p>
 
-  <p>Rules like:</p>
+              <p>Rules like:</p>
 
-  <ul>
-    <li><i>Good people do this.</i></li>
-    <li><i>Nice people don’t say no.</i></li>
-    <li><i>I shouldn’t disappoint them.</i></li>
-    <li><i>I should be more understanding.</i></li>
-    <li><i>I should just handle it.</i></li>
-  </ul>
+              <ul>
+                <li><i>Good people do this.</i></li>
+                <li><i>Nice people don’t say no.</i></li>
+                <li><i>I shouldn’t disappoint them.</i></li>
+                <li><i>I should be more understanding.</i></li>
+                <li><i>I should just handle it.</i></li>
+              </ul>
 
-  <p>Notice the language.</p>
-  <p><i>Should.</i></p>
-  <p><i>Shouldn’t.</i></p>
+              <p>Notice the language.</p>
+              <p><i>Should.</i></p>
+              <p><i>Shouldn’t.</i></p>
 
-  <p>Guilt speaks in expectations, not wisdom.</p>
-  <p>It doesn’t ask what’s right for you.</p>
-  <p>It asks what will keep things smooth.</p>
+              <p>Guilt speaks in expectations, not wisdom.</p>
+              <p>It doesn’t ask what’s right for you.</p>
+              <p>It asks what will keep things smooth.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Where guilt gets confusing</h3>
+              <h3>Where guilt gets confusing</h3>
 
-  <p>Guilt is often mistaken for conscience.</p>
+              <p>Guilt is often mistaken for conscience.</p>
 
-  <p>People think:</p>
-  <p><i>“If I feel bad, it must be wrong.”</i></p>
+              <p>People think:</p>
+              <p><i>“If I feel bad, it must be wrong.”</i></p>
 
-  <p>
-    But guilt isn’t always a signal that you’ve done harm.
-  </p>
+              <p>
+                But guilt isn’t always a signal that you’ve done harm.
+              </p>
 
-  <p>
-    Very often, guilt is the feeling that comes from <b>breaking a rule you were taught — even when that rule no longer serves you</b>.
-  </p>
+              <p>
+                Very often, guilt is the feeling that comes from <b>breaking a rule you were taught — even when that rule no longer serves you</b>.
+              </p>
 
-  <p>Especially if that rule was:</p>
+              <p>Especially if that rule was:</p>
 
-  <ul>
-    <li>don’t upset people</li>
-    <li>don’t take up space</li>
-    <li>don’t choose yourself</li>
-    <li>don’t make it harder for others</li>
-  </ul>
+              <ul>
+                <li>don’t upset people</li>
+                <li>don’t take up space</li>
+                <li>don’t choose yourself</li>
+                <li>don’t make it harder for others</li>
+              </ul>
 
-  <p>
-    So when you act in alignment with yourself, guilt shows up — not because you’re wrong, but because you’re doing something <i>new</i>.
-  </p>
+              <p>
+                So when you act in alignment with yourself, guilt shows up — not because you’re wrong, but because you’re doing something <i>new</i>.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Values come from a different place</h3>
+              <h3>Values come from a different place</h3>
 
-  <p>Values don’t shout.</p>
-  <p>They don’t threaten.</p>
-  <p>They don’t accuse.</p>
+              <p>Values don’t shout.</p>
+              <p>They don’t threaten.</p>
+              <p>They don’t accuse.</p>
 
-  <p>Values come from truth.</p>
+              <p>Values come from truth.</p>
 
-  <p>They sound like:</p>
+              <p>They sound like:</p>
 
-  <ul>
-    <li><i>This matters to me.</i></li>
-    <li><i>I need to be able to live with myself.</i></li>
-    <li><i>I’m choosing integrity, even if it’s uncomfortable.</i></li>
-    <li><i>I can care about others without abandoning myself.</i></li>
-  </ul>
+              <ul>
+                <li><i>This matters to me.</i></li>
+                <li><i>I need to be able to live with myself.</i></li>
+                <li><i>I’m choosing integrity, even if it’s uncomfortable.</i></li>
+                <li><i>I can care about others without abandoning myself.</i></li>
+              </ul>
 
-  <p>Values don’t promise comfort.</p>
-  <p>They promise <b>self-respect</b>.</p>
+              <p>Values don’t promise comfort.</p>
+              <p>They promise <b>self-respect</b>.</p>
 
-  <p>
-    And self-respect often comes with discomfort — especially at first.
-  </p>
+              <p>
+                And self-respect often comes with discomfort — especially at first.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine you grew up walking on a certain path every day.</p>
-  <p>Everyone around you walked that path.</p>
-  <p>You were praised for staying on it.</p>
+              <p>Imagine you grew up walking on a certain path every day.</p>
+              <p>Everyone around you walked that path.</p>
+              <p>You were praised for staying on it.</p>
 
-  <p>One day, you step off.</p>
-  <p>Nothing bad happens.</p>
-  <p>But your body reacts anyway.</p>
+              <p>One day, you step off.</p>
+              <p>Nothing bad happens.</p>
+              <p>But your body reacts anyway.</p>
 
-  <p>You feel uneasy.</p>
-  <p>Restless.</p>
-  <p>Wrong.</p>
+              <p>You feel uneasy.</p>
+              <p>Restless.</p>
+              <p>Wrong.</p>
 
-  <p>That feeling isn’t danger.</p>
-  <p>It’s conditioning protesting change.</p>
+              <p>That feeling isn’t danger.</p>
+              <p>It’s conditioning protesting change.</p>
 
-  <p>That’s often what guilt is.</p>
+              <p>That’s often what guilt is.</p>
 
-  <p>
-    Not a warning that you’re doing harm —
-  </p>
+              <p>
+                Not a warning that you’re doing harm —
+              </p>
 
-  <p>
-    but a signal that you’re stepping outside an old script.
-  </p>
+              <p>
+                but a signal that you’re stepping outside an old script.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>The question that brings clarity</h3>
+              <h3>The question that brings clarity</h3>
 
-  <p>Instead of asking:</p>
-  <p><i>“Why do I feel so bad about this?”</i></p>
+              <p>Instead of asking:</p>
+              <p><i>“Why do I feel so bad about this?”</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “Is this guilt… or is this actually wrong?”
-  </blockquote>
+              <blockquote>
+                “Is this guilt… or is this actually wrong?”
+              </blockquote>
 
-  <p>Sit with that question.</p>
-  <p>Don’t answer it quickly.</p>
+              <p>Sit with that question.</p>
+              <p>Don’t answer it quickly.</p>
 
-  <p>Notice what happens in your body.</p>
+              <p>Notice what happens in your body.</p>
 
-  <ul>
-    <li>Does the guilt feel sharp, panicky, and urgent?</li>
-    <li>Or does the discomfort feel heavy but clean?</li>
-  </ul>
+              <ul>
+                <li>Does the guilt feel sharp, panicky, and urgent?</li>
+                <li>Or does the discomfort feel heavy but clean?</li>
+              </ul>
 
-  <p>Guilt often feels pressuring.</p>
-  <p>Values often feel weighty but grounded.</p>
+              <p>Guilt often feels pressuring.</p>
+              <p>Values often feel weighty but grounded.</p>
 
-  <p>That distinction matters.</p>
+              <p>That distinction matters.</p>
 
-  <hr />
+              <hr />
 
-  <h3>A common example</h3>
+              <h3>A common example</h3>
 
-  <p>You say no to something you don’t want to do.</p>
-  <p>Immediately, guilt floods in.</p>
+              <p>You say no to something you don’t want to do.</p>
+              <p>Immediately, guilt floods in.</p>
 
-  <p>Your mind says:</p>
-  <p><i>I should have just done it.</i></p>
-  <p><i>It wasn’t that big of a deal.</i></p>
-  <p><i>I’m being selfish.</i></p>
+              <p>Your mind says:</p>
+              <p><i>I should have just done it.</i></p>
+              <p><i>It wasn’t that big of a deal.</i></p>
+              <p><i>I’m being selfish.</i></p>
 
-  <p>But if you pause and check:</p>
+              <p>But if you pause and check:</p>
 
-  <ul>
-    <li>Did I harm anyone?</li>
-    <li>Did I act with integrity?</li>
-    <li>Am I protecting something important to me?</li>
-  </ul>
+              <ul>
+                <li>Did I harm anyone?</li>
+                <li>Did I act with integrity?</li>
+                <li>Am I protecting something important to me?</li>
+              </ul>
 
-  <p>Often, the answer is yes.</p>
+              <p>Often, the answer is yes.</p>
 
-  <p>
-    That guilt isn’t telling you that you’re bad.
-  </p>
+              <p>
+                That guilt isn’t telling you that you’re bad.
+              </p>
 
-  <p>It’s telling you that you didn’t follow an old rule.</p>
+              <p>It’s telling you that you didn’t follow an old rule.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Not all discomfort is wrongdoing</h3>
+              <h3>Not all discomfort is wrongdoing</h3>
 
-  <p>This is one of the most important things to learn.</p>
-  <p>Discomfort does not automatically mean you’ve done something wrong.</p>
+              <p>This is one of the most important things to learn.</p>
+              <p>Discomfort does not automatically mean you’ve done something wrong.</p>
 
-  <p>Sometimes discomfort means:</p>
+              <p>Sometimes discomfort means:</p>
 
-  <ul>
-    <li>you chose yourself</li>
-    <li>you broke a pattern</li>
-    <li>you disappointed someone instead of disappearing</li>
-    <li>you honored your limits</li>
-  </ul>
+              <ul>
+                <li>you chose yourself</li>
+                <li>you broke a pattern</li>
+                <li>you disappointed someone instead of disappearing</li>
+                <li>you honored your limits</li>
+              </ul>
 
-  <p>Those choices often feel uncomfortable <i>because they’re new</i>.</p>
+              <p>Those choices often feel uncomfortable <i>because they’re new</i>.</p>
 
-  <p>
-    And new things feel threatening to a system built on predictability.
-  </p>
+              <p>
+                And new things feel threatening to a system built on predictability.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>What values require</h3>
+              <h3>What values require</h3>
 
-  <p>Values require courage.</p>
-  <p>Not dramatic courage —</p>
-  <p>quiet courage.</p>
+              <p>Values require courage.</p>
+              <p>Not dramatic courage —</p>
+              <p>quiet courage.</p>
 
-  <p>The courage to:</p>
+              <p>The courage to:</p>
 
-  <ul>
-    <li>sit with guilt without obeying it</li>
-    <li>tolerate disappointment without fixing it</li>
-    <li>choose long-term integrity over short-term relief</li>
-  </ul>
+              <ul>
+                <li>sit with guilt without obeying it</li>
+                <li>tolerate disappointment without fixing it</li>
+                <li>choose long-term integrity over short-term relief</li>
+              </ul>
 
-  <p>Values don’t always make you feel good immediately.</p>
-  <p>But they tend to make you feel <b>whole</b> over time.</p>
+              <p>Values don’t always make you feel good immediately.</p>
+              <p>But they tend to make you feel <b>whole</b> over time.</p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing to hold onto</h3>
+              <h3>One last thing to hold onto</h3>
 
-  <p>
-    If you’ve spent years being guided by guilt, choosing values can feel almost wrong at first.
-  </p>
+              <p>
+                If you’ve spent years being guided by guilt, choosing values can feel almost wrong at first.
+              </p>
 
-  <p>That doesn’t mean you’re doing it incorrectly.</p>
-  <p>It means you’re rewiring something deep.</p>
+              <p>That doesn’t mean you’re doing it incorrectly.</p>
+              <p>It means you’re rewiring something deep.</p>
 
-  <p>So be gentle with yourself here.</p>
-  <p>Ask the question.</p>
-  <p>Listen carefully.</p>
+              <p>So be gentle with yourself here.</p>
+              <p>Ask the question.</p>
+              <p>Listen carefully.</p>
 
-  <p>And remember:</p>
+              <p>And remember:</p>
 
-  <p>You are allowed to choose integrity —</p>
-  <p>even when guilt comes along for the ride.</p>
+              <p>You are allowed to choose integrity —</p>
+              <p>even when guilt comes along for the ride.</p>
 
-  <p>Guilt is loud.</p>
-  <p>Values are steady.</p>
+              <p>Guilt is loud.</p>
+              <p>Values are steady.</p>
 
-  <p>And learning to tell the difference</p>
-  <p>changes everything.</p>
-</div>
+              <p>And learning to tell the difference</p>
+              <p>changes everything.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="anger-grief-and-the-feelings-were-afraid-of">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Anger, Grief, and the Feelings We’re Afraid Of</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="anger-grief-and-the-feelings-were-afraid-of">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Anger, Grief, and the Feelings We’re Afraid Of</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">
-    *(The emotions that show up when something real is changing)*
-  </h3>
+              <h3 style="color:var(--muted); font-weight:700;">
+                *(The emotions that show up when something real is changing)*
+              </h3>
 
-  <p>Let’s talk about the feelings people are most afraid of.</p>
-  <p>Not because they’re dangerous —</p>
-  <p>but because they’ve been misunderstood for a very long time.</p>
+              <p>Let’s talk about the feelings people are most afraid of.</p>
+              <p>Not because they’re dangerous —</p>
+              <p>but because they’ve been misunderstood for a very long time.</p>
 
-  <p>Anger.</p>
-  <p>Grief.</p>
+              <p>Anger.</p>
+              <p>Grief.</p>
 
-  <p>
-    These emotions have been labeled as problems, weaknesses, or signs that something has gone wrong.
-  </p>
+              <p>
+                These emotions have been labeled as problems, weaknesses, or signs that something has gone wrong.
+              </p>
 
-  <p>So when they appear, people panic.</p>
+              <p>So when they appear, people panic.</p>
 
-  <p>They think:</p>
+              <p>They think:</p>
 
-  <ul>
-    <li><i>I’m going backward.</i></li>
-    <li><i>I thought I was past this.</i></li>
-    <li><i>Why am I feeling this now?</i></li>
-  </ul>
+              <ul>
+                <li><i>I’m going backward.</i></li>
+                <li><i>I thought I was past this.</i></li>
+                <li><i>Why am I feeling this now?</i></li>
+              </ul>
 
-  <p>But often, the opposite is true.</p>
+              <p>But often, the opposite is true.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Anger is not the problem</h3>
+              <h3>Anger is not the problem</h3>
 
-  <p>Anger is information.</p>
-  <p>It’s one of the clearest signals your system has.</p>
+              <p>Anger is information.</p>
+              <p>It’s one of the clearest signals your system has.</p>
 
-  <p>Anger shows up when:</p>
+              <p>Anger shows up when:</p>
 
-  <ul>
-    <li>a boundary was crossed</li>
-    <li>something wasn’t okay</li>
-    <li>your truth was ignored</li>
-    <li>you overrode yourself for too long</li>
-  </ul>
+              <ul>
+                <li>a boundary was crossed</li>
+                <li>something wasn’t okay</li>
+                <li>your truth was ignored</li>
+                <li>you overrode yourself for too long</li>
+              </ul>
 
-  <p>Anger isn’t random.</p>
-  <p>It doesn’t come out of nowhere.</p>
+              <p>Anger isn’t random.</p>
+              <p>It doesn’t come out of nowhere.</p>
 
-  <p>It’s your system saying:</p>
-  <p><i>Something here matters.</i></p>
+              <p>It’s your system saying:</p>
+              <p><i>Something here matters.</i></p>
 
-  <p>The problem isn’t anger.</p>
-  <p>The problem is what people were taught to do with it.</p>
+              <p>The problem isn’t anger.</p>
+              <p>The problem is what people were taught to do with it.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What most people learned about anger</h3>
+              <h3>What most people learned about anger</h3>
 
-  <p>Many people learned that anger was:</p>
+              <p>Many people learned that anger was:</p>
 
-  <ul>
-    <li>unsafe</li>
-    <li>inappropriate</li>
-    <li>destructive</li>
-    <li>embarrassing</li>
-  </ul>
+              <ul>
+                <li>unsafe</li>
+                <li>inappropriate</li>
+                <li>destructive</li>
+                <li>embarrassing</li>
+              </ul>
 
-  <p>So they learned to:</p>
+              <p>So they learned to:</p>
 
-  <ul>
-    <li>swallow it</li>
-    <li>turn it inward</li>
-    <li>intellectualize it</li>
-    <li>express it only when it exploded</li>
-  </ul>
+              <ul>
+                <li>swallow it</li>
+                <li>turn it inward</li>
+                <li>intellectualize it</li>
+                <li>express it only when it exploded</li>
+              </ul>
 
-  <p>
-    None of those approaches allow anger to do its actual job.
-  </p>
+              <p>
+                None of those approaches allow anger to do its actual job.
+              </p>
 
-  <p>Which is to <b>protect</b>.</p>
+              <p>Which is to <b>protect</b>.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of anger like a guard at the gate</h3>
+              <h3>Think of anger like a guard at the gate</h3>
 
-  <p>Anger is like a guard whose job is to say:</p>
-  <p><i>Stop. This crosses a line.</i></p>
+              <p>Anger is like a guard whose job is to say:</p>
+              <p><i>Stop. This crosses a line.</i></p>
 
-  <p>If the guard is ignored long enough, it gets louder.</p>
+              <p>If the guard is ignored long enough, it gets louder.</p>
 
-  <p>
-    Not because it wants to cause harm —
-  </p>
+              <p>
+                Not because it wants to cause harm —
+              </p>
 
-  <p>but because it’s trying to be heard.</p>
+              <p>but because it’s trying to be heard.</p>
 
-  <p>So instead of asking:</p>
-  <p><i>How do I get rid of my anger?</i></p>
+              <p>So instead of asking:</p>
+              <p><i>How do I get rid of my anger?</i></p>
 
-  <p>Try asking:</p>
+              <p>Try asking:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “What is this anger protecting?”
-  </blockquote>
+              <blockquote>
+                “What is this anger protecting?”
+              </blockquote>
 
-  <p>Often, the answer is something tender:</p>
+              <p>Often, the answer is something tender:</p>
 
-  <ul>
-    <li>your time</li>
-    <li>your dignity</li>
-    <li>your energy</li>
-    <li>your truth</li>
-    <li>your younger self</li>
-  </ul>
+              <ul>
+                <li>your time</li>
+                <li>your dignity</li>
+                <li>your energy</li>
+                <li>your truth</li>
+                <li>your younger self</li>
+              </ul>
 
-  <p>Anger doesn’t need to be acted out to be honored.</p>
-  <p>It needs to be listened to.</p>
+              <p>Anger doesn’t need to be acted out to be honored.</p>
+              <p>It needs to be listened to.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Grief is quieter — and often more confusing</h3>
+              <h3>Grief is quieter — and often more confusing</h3>
 
-  <p>Grief doesn’t always come with tears.</p>
+              <p>Grief doesn’t always come with tears.</p>
 
-  <p>Sometimes it comes with:</p>
+              <p>Sometimes it comes with:</p>
 
-  <ul>
-    <li>heaviness</li>
-    <li>fatigue</li>
-    <li>nostalgia</li>
-    <li>a sense of emptiness</li>
-    <li>a feeling that something is over</li>
-  </ul>
+              <ul>
+                <li>heaviness</li>
+                <li>fatigue</li>
+                <li>nostalgia</li>
+                <li>a sense of emptiness</li>
+                <li>a feeling that something is over</li>
+              </ul>
 
-  <p>Grief is often misunderstood as failure.</p>
+              <p>Grief is often misunderstood as failure.</p>
 
-  <p>People think:</p>
-  <p><i>If I’m grieving, I must not be healed.</i></p>
-  <p><i>If this still hurts, something went wrong.</i></p>
+              <p>People think:</p>
+              <p><i>If I’m grieving, I must not be healed.</i></p>
+              <p><i>If this still hurts, something went wrong.</i></p>
 
-  <p>But grief is not a sign that you’re stuck.</p>
-  <p>Grief is a sign that you’ve <b>grown</b>.</p>
+              <p>But grief is not a sign that you’re stuck.</p>
+              <p>Grief is a sign that you’ve <b>grown</b>.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What grief actually is</h3>
+              <h3>What grief actually is</h3>
 
-  <p>Grief is what happens when:</p>
+              <p>Grief is what happens when:</p>
 
-  <ul>
-    <li>you outgrow a version of yourself</li>
-    <li>a relationship changes permanently</li>
-    <li>a dream no longer fits</li>
-    <li>an old identity dissolves</li>
-    <li>a timeline closes</li>
-  </ul>
+              <ul>
+                <li>you outgrow a version of yourself</li>
+                <li>a relationship changes permanently</li>
+                <li>a dream no longer fits</li>
+                <li>an old identity dissolves</li>
+                <li>a timeline closes</li>
+              </ul>
 
-  <p>Grief integrates what was.</p>
+              <p>Grief integrates what was.</p>
 
-  <p>It’s how your system says:</p>
-  <p><i>This mattered.</i></p>
+              <p>It’s how your system says:</p>
+              <p><i>This mattered.</i></p>
 
-  <p>You don’t grieve things that were meaningless.</p>
+              <p>You don’t grieve things that were meaningless.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of grief like packing away something precious</h3>
+              <h3>Think of grief like packing away something precious</h3>
 
-  <p>Imagine finding a box of old photos.</p>
-  <p>You don’t want to throw them away.</p>
-  <p>They’re part of you.</p>
-  <p>But you also don’t live there anymore.</p>
+              <p>Imagine finding a box of old photos.</p>
+              <p>You don’t want to throw them away.</p>
+              <p>They’re part of you.</p>
+              <p>But you also don’t live there anymore.</p>
 
-  <p>Grief is the act of gently packing those photos away —</p>
-  <p>not to erase them,</p>
-  <p>but to make room for the life you’re actually living now.</p>
+              <p>Grief is the act of gently packing those photos away —</p>
+              <p>not to erase them,</p>
+              <p>but to make room for the life you’re actually living now.</p>
 
-  <p>That process takes time.</p>
-  <p>And it doesn’t follow a straight line.</p>
+              <p>That process takes time.</p>
+              <p>And it doesn’t follow a straight line.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Why anger and grief often show up together</h3>
+              <h3>Why anger and grief often show up together</h3>
 
-  <p>This surprises people.</p>
+              <p>This surprises people.</p>
 
-  <p>They think:</p>
-  <p><i>Why am I angry and sad at the same time?</i></p>
+              <p>They think:</p>
+              <p><i>Why am I angry and sad at the same time?</i></p>
 
-  <p>Because:</p>
+              <p>Because:</p>
 
-  <ul>
-    <li>anger points to what wasn’t okay</li>
-    <li>grief honors what you hoped for</li>
-    <li>both are responses to truth</li>
-  </ul>
+              <ul>
+                <li>anger points to what wasn’t okay</li>
+                <li>grief honors what you hoped for</li>
+                <li>both are responses to truth</li>
+              </ul>
 
-  <p>They often arrive when you stop denying reality.</p>
-  <p>And stopping denial is a sign of strength, not weakness.</p>
+              <p>They often arrive when you stop denying reality.</p>
+              <p>And stopping denial is a sign of strength, not weakness.</p>
 
-  <hr />
+              <hr />
 
-  <h3>The mistake people make here</h3>
+              <h3>The mistake people make here</h3>
 
-  <p>They try to rush these feelings.</p>
+              <p>They try to rush these feelings.</p>
 
-  <p>They try to:</p>
+              <p>They try to:</p>
 
-  <ul>
-    <li>resolve anger quickly</li>
-    <li>“get over” grief</li>
-    <li>intellectualize both</li>
-  </ul>
+              <ul>
+                <li>resolve anger quickly</li>
+                <li>“get over” grief</li>
+                <li>intellectualize both</li>
+              </ul>
 
-  <p>But anger and grief don’t need fixing.</p>
-  <p>They need <b>space</b>.</p>
+              <p>But anger and grief don’t need fixing.</p>
+              <p>They need <b>space</b>.</p>
 
-  <p>
-    They need permission to exist without being judged or managed.
-  </p>
+              <p>
+                They need permission to exist without being judged or managed.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>Two questions that unlock wisdom</h3>
+              <h3>Two questions that unlock wisdom</h3>
 
-  <p>When anger arises, ask:</p>
+              <p>When anger arises, ask:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “What is this anger protecting?”
-  </blockquote>
+              <blockquote>
+                “What is this anger protecting?”
+              </blockquote>
 
-  <p>When grief arises, ask:</p>
+              <p>When grief arises, ask:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
-    “What am I grieving letting go of?”
-  </blockquote>
+              <blockquote>
+                “What am I grieving letting go of?”
+              </blockquote>
 
-  <p>Don’t answer these questions immediately.</p>
-  <p>Let them open something.</p>
+              <p>Don’t answer these questions immediately.</p>
+              <p>Let them open something.</p>
 
-  <p>
-    Often, the answers come quietly — later, when your system feels safe enough to speak.
-  </p>
+              <p>
+                Often, the answers come quietly — later, when your system feels safe enough to speak.
+              </p>
 
-  <hr />
+              <hr />
 
-  <h3>One last thing to remember</h3>
+              <h3>One last thing to remember</h3>
 
-  <p>Feeling anger or grief does not mean you’re regressing.</p>
-  <p>It means you’re no longer numb.</p>
-  <p>It means you’re no longer bypassing.</p>
-  <p>It means something real is happening.</p>
+              <p>Feeling anger or grief does not mean you’re regressing.</p>
+              <p>It means you’re no longer numb.</p>
+              <p>It means you’re no longer bypassing.</p>
+              <p>It means something real is happening.</p>
 
-  <p>Growth is not always uplifting.</p>
-  <p>Sometimes growth is honest.</p>
-  <p>And honesty can be heavy before it’s freeing.</p>
+              <p>Growth is not always uplifting.</p>
+              <p>Sometimes growth is honest.</p>
+              <p>And honesty can be heavy before it’s freeing.</p>
 
-  <p>So if these feelings are present, be gentle with yourself.</p>
+              <p>So if these feelings are present, be gentle with yourself.</p>
 
-  <p>They’re not here to hurt you.</p>
+              <p>They’re not here to hurt you.</p>
 
-  <p>
-    They’re here to help you integrate a truth you’re finally ready to hold.
-  </p>
+              <p>
+                They’re here to help you integrate a truth you’re finally ready to hold.
+              </p>
 
-  <p>That’s not something to rush past.</p>
-  <p>That’s something to respect.</p>
-</div>
+              <p>That’s not something to rush past.</p>
+              <p>That’s something to respect.</p>
+            </div>
 
-<hr />
+            <hr />
 
-<div class="lesson" id="identity-shedding">
-  <div class="lesson-head">
-    <h2 class="anchor" style="margin:0;">Identity Shedding</h2>
-    <span class="lesson-tag">Lesson</span>
-  </div>
+            <div class="lesson" id="identity-shedding">
+              <div class="lesson-head">
+                <h2 class="anchor" style="margin:0;">Identity Shedding</h2>
+                <span class="lesson-tag">Lesson</span>
+              </div>
 
-  <h3 style="color:var(--muted); font-weight:700;">*(Who you are without the roles)*</h3>
+              <h3 style="color:var(--muted); font-weight:700;">*(Who you are without the roles)*</h3>
 
-  <p>There comes a point in growth that very few people warn you about.</p>
+              <p>There comes a point in growth that very few people warn you about.</p>
 
-  <p>
-    It’s the moment when the roles you built your life around start to loosen.
-  </p>
+              <p>
+                It’s the moment when the roles you built your life around start to loosen.
+              </p>
 
-  <p>Not dramatically.</p>
-  <p>Not all at once.</p>
-  <p>Quietly.</p>
+              <p>Not dramatically.</p>
+              <p>Not all at once.</p>
+              <p>Quietly.</p>
 
-  <p>You notice you don’t react the same way anymore.</p>
-  <p>You don’t perform the same version of yourself.</p>
-  <p>Things that once motivated you no longer do.</p>
+              <p>You notice you don’t react the same way anymore.</p>
+              <p>You don’t perform the same version of yourself.</p>
+              <p>Things that once motivated you no longer do.</p>
 
-  <p>And in the space where those roles used to be…</p>
-  <p>there’s silence.</p>
+              <p>And in the space where those roles used to be…</p>
+              <p>there’s silence.</p>
 
-  <p>That silence can feel unsettling.</p>
+              <p>That silence can feel unsettling.</p>
 
-  <p>People often describe it as:</p>
+              <p>People often describe it as:</p>
 
-  <ul>
-    <li>emptiness</li>
-    <li>confusion</li>
-    <li>loss of direction</li>
-    <li>“I don’t know who I am anymore”</li>
-  </ul>
+              <ul>
+                <li>emptiness</li>
+                <li>confusion</li>
+                <li>loss of direction</li>
+                <li>“I don’t know who I am anymore”</li>
+              </ul>
 
-  <p>And they assume something has gone wrong.</p>
+              <p>And they assume something has gone wrong.</p>
 
-  <p>But what’s often happening is something very specific:</p>
+              <p>But what’s often happening is something very specific:</p>
 
-  <p>You are no longer being who you <i>had</i> to be.</p>
+              <p>You are no longer being who you <i>had</i> to be.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Roles are born from necessity</h3>
+              <h3>Roles are born from necessity</h3>
 
-  <p>Most of us didn’t choose our early identities.</p>
-  <p>We adapted into them.</p>
+              <p>Most of us didn’t choose our early identities.</p>
+              <p>We adapted into them.</p>
 
-  <p>We became:</p>
+              <p>We became:</p>
 
-  <ul>
-    <li>the responsible one</li>
-    <li>the easy one</li>
-    <li>the strong one</li>
-    <li>the fixer</li>
-    <li>the achiever</li>
-    <li>the peacemaker</li>
-    <li>the one who doesn’t need much</li>
-  </ul>
+              <ul>
+                <li>the responsible one</li>
+                <li>the easy one</li>
+                <li>the strong one</li>
+                <li>the fixer</li>
+                <li>the achiever</li>
+                <li>the peacemaker</li>
+                <li>the one who doesn’t need much</li>
+              </ul>
 
-  <p>Those roles were intelligent.</p>
-  <p>They helped us belong.</p>
-  <p>They helped us survive.</p>
-  <p>They helped us navigate environments that required something from us.</p>
+              <p>Those roles were intelligent.</p>
+              <p>They helped us belong.</p>
+              <p>They helped us survive.</p>
+              <p>They helped us navigate environments that required something from us.</p>
 
-  <p>And because they worked, they became familiar.</p>
+              <p>And because they worked, they became familiar.</p>
 
-  <p>Over time, we stopped seeing them as roles —</p>
-  <p>and started seeing them as who we <i>are</i>.</p>
+              <p>Over time, we stopped seeing them as roles —</p>
+              <p>and started seeing them as who we <i>are</i>.</p>
 
-  <hr />
+              <hr />
 
-  <h3>What happens when a role is no longer needed</h3>
+              <h3>What happens when a role is no longer needed</h3>
 
-  <p>When your nervous system begins to feel safer, something subtle shifts.</p>
+              <p>When your nervous system begins to feel safer, something subtle shifts.</p>
 
-  <p>The role relaxes.</p>
-  <p>You don’t need it as much.</p>
+              <p>The role relaxes.</p>
+              <p>You don’t need it as much.</p>
 
-  <p>And suddenly, the question arises:</p>
-  <p><i>If I’m not doing that… who am I?</i></p>
+              <p>And suddenly, the question arises:</p>
+              <p><i>If I’m not doing that… who am I?</i></p>
 
-  <p>This is where people panic.</p>
+              <p>This is where people panic.</p>
 
-  <p>They rush to:</p>
+              <p>They rush to:</p>
 
-  <ul>
-    <li>reinvent themselves</li>
-    <li>pick a new identity</li>
-    <li>latch onto a new role</li>
-    <li>define themselves quickly</li>
-  </ul>
+              <ul>
+                <li>reinvent themselves</li>
+                <li>pick a new identity</li>
+                <li>latch onto a new role</li>
+                <li>define themselves quickly</li>
+              </ul>
 
-  <p>Because not knowing feels dangerous.</p>
+              <p>Because not knowing feels dangerous.</p>
 
-  <p>But this space — this not-knowing — is not emptiness.</p>
-  <p>It’s <b>room</b>.</p>
+              <p>But this space — this not-knowing — is not emptiness.</p>
+              <p>It’s <b>room</b>.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Think of it like this</h3>
+              <h3>Think of it like this</h3>
 
-  <p>Imagine carrying a heavy backpack your whole life.</p>
+              <p>Imagine carrying a heavy backpack your whole life.</p>
 
-  <p>Inside it are tools you needed once:</p>
+              <p>Inside it are tools you needed once:</p>
 
-  <ul>
-    <li>armor</li>
-    <li>instructions</li>
-    <li>coping mechanisms</li>
-    <li>expectations</li>
-  </ul>
+              <ul>
+                <li>armor</li>
+                <li>instructions</li>
+                <li>coping mechanisms</li>
+                <li>expectations</li>
+              </ul>
 
-  <p>One day, you set it down.</p>
+              <p>One day, you set it down.</p>
 
-  <p>Not because you’re weak —</p>
-  <p>but because you don’t need it anymore.</p>
+              <p>Not because you’re weak —</p>
+              <p>but because you don’t need it anymore.</p>
 
-  <p>At first, your shoulders feel strange without the weight.</p>
-  <p>You almost miss it.</p>
+              <p>At first, your shoulders feel strange without the weight.</p>
+              <p>You almost miss it.</p>
 
-  <p>Not because it was comfortable —</p>
-  <p>but because it was familiar.</p>
+              <p>Not because it was comfortable —</p>
+              <p>but because it was familiar.</p>
 
-  <p>That strange feeling isn’t loss.</p>
-  <p>It’s your body adjusting to freedom.</p>
+              <p>That strange feeling isn’t loss.</p>
+              <p>It’s your body adjusting to freedom.</p>
 
-  <hr />
+              <hr />
 
-  <h3>Why this space can feel scary</h3>
+              <h3>Why this space can feel scary</h3>
 
-  <p>
+              <p>
+
     If you’ve spent years proving, performing, or holding things together, your identity has likely been <b>task-based</b>.
   </p>
 
@@ -3683,9 +3631,7 @@
 
   <p>Ask:</p>
 
-  <blockquote
-    style="margin: 14px 0; padding: 12px 14px; border-left: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); border-radius: 12px;"
-  >
+  <blockquote>
     “Where can I honor myself today — just a little?”
   </blockquote>
 
@@ -4044,17 +3990,12 @@
             </div>
           </article>
 
-          <!-- Desktop TOC (auto-populated; does not change content) -->
           <aside class="map-toc" aria-label="On this page">
             <div class="k">
               <span>On this page</span>
               <span style="opacity:.78;">Jump</span>
             </div>
-
-            <div id="desktopTocList">
-              <!-- JS will populate -->
-            </div>
-
+            <div id="desktopTocList"></div>
             <div class="hint">
               Read slowly. Come back often.<br />
               Use this list to jump to what you need.
@@ -4071,21 +4012,17 @@
           <div style="display:flex; align-items:center; gap:10px;">
             <div class="logo" style="width:30px;height:30px;border-radius:12px;" aria-hidden="true"></div>
             <div>
-              <div style="font-weight:800; letter-spacing:-0.02em; color: var(--text);">Experience Points</div>
-              <div style="margin-top:3px;">Experience Points is built for inner authority, not dependence.</div>
+              <div style="font-weight:800;">Experience Points</div>
+              <div>Built for inner authority, not dependence.</div>
             </div>
           </div>
 
-          <div style="margin-top:10px; line-height:1.55;">
-            © <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t. Return to yourself.
-          </div>
-
-          <div style="margin-top:8px; max-width: 76ch; line-height:1.55;">
-            <span style="opacity:.92;">Disclaimer:</span> This site is for educational purposes and does not provide medical or mental health treatment.
+          <div style="margin-top:10px;">
+            © <span id="year"></span> Experience Points. Take what resonates. Leave what doesn’t.
           </div>
         </div>
 
-        <div class="links" aria-label="Footer links">
+        <div class="links">
           <a href="/pages/origin.html">Origin</a>
           <a href="/pages/path.html">The Path</a>
           <a href="/pages/map.html">The Map</a>
@@ -4097,316 +4034,8 @@
     </div>
   </footer>
 
-  <!-- Global JS -->
   <script src="/assets/app.js"></script>
-
-  <!-- Auto-wrap lessons + build TOCs + accordion behavior (NO visible text changed) -->
-<script>
-(function () {
-  const slugify = (s) => s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-  const article = document.querySelector("#full-map article");
-  const indexGrid = document.getElementById("lessonIndexGrid");
-  const desktopToc = document.getElementById("desktopTocList");
-  if (!article) return;
-
-  // Ensure headings have IDs + anchor class (without changing words)
-  const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
-  allHeadings.forEach(h => {
-    if (!h.id) h.id = slugify(h.textContent.trim());
-    h.classList.add("anchor");
-  });
-
-  // ---------- Accordion prep: wrap each .lesson’s content into .lesson-body
-  const lessons = Array.from(article.querySelectorAll(".lesson"));
-
-  lessons.forEach((lesson, i) => {
-    // If it already has a body wrapper, skip
-    if (lesson.querySelector(".lesson-body")) return;
-
-    const head = lesson.querySelector(".lesson-head");
-    if (!head) return;
-
-    // Build a clickable button inside lesson-head without changing text
-    // We'll move the existing H2 into the button, and keep the tag on the right.
-    const h2 = head.querySelector("h2");
-    const tag = head.querySelector(".lesson-tag");
-
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "lesson-toggle";
-    btn.setAttribute("aria-expanded", "false");
-
-    // Create chevron
-    const chev = document.createElement("span");
-    chev.className = "chev";
-    chev.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    `;
-
-    // Move existing H2 into the button (text unchanged)
-    if (h2) btn.appendChild(h2);
-
-    // Rebuild head: button + tag + chevron (tag and chevron remain visible)
-    // Keep tag where it is visually (right side)
-    head.innerHTML = "";
-    head.appendChild(btn);
-
-    // If a tag exists, re-append it (unchanged)
-    if (tag) head.appendChild(tag);
-
-    head.appendChild(chev);
-
-    // Create the collapsible body and move everything except head into it
-    const body = document.createElement("div");
-    body.className = "lesson-body";
-
-    // Move all nodes after head into body
-    const kids = Array.from(lesson.childNodes);
-    kids.forEach(node => {
-      if (node === head) return;
-      body.appendChild(node);
-    });
-    lesson.appendChild(head);
-    lesson.appendChild(body);
-
-    // Give each lesson a stable id if missing (should already exist)
-    if (!lesson.id) {
-      const titleText = (h2 ? h2.textContent : `Lesson ${i + 1}`).trim();
-      lesson.id = slugify(titleText) || `lesson-${i + 1}`;
-    }
-
-    // Store tag label for index subtitle
-    const tagText = lesson.getAttribute("data-lesson-tag") || (tag ? tag.textContent.trim() : "Lesson");
-    lesson.dataset.lessonTag = tagText;
-  });
-
-  // Refresh list after restructuring
-  const accordionLessons = Array.from(article.querySelectorAll(".lesson"));
-
-  // ---------- Ensure every lesson has an accent color (auto-assign if missing)
-  (function ensureLessonAccents() {
-    // Palette (tuned for your dark theme; cycles automatically)
-    const palette = [
-      "rgba(120, 255, 220, .28)", // mint
-      "rgba(120, 210, 255, .28)", // sky
-      "rgba(190, 150, 255, .28)", // violet
-      "rgba(255, 180, 120, .28)", // amber
-      "rgba(255, 120, 190, .28)", // pink
-      "rgba(160, 255, 140, .28)", // green
-      "rgba(255, 120, 120, .26)", // red-soft
-      "rgba(255, 230, 140, .24)"  // gold-soft
-    ];
-
-    const paletteSolid = [
-      "rgba(120, 255, 220, .75)",
-      "rgba(120, 210, 255, .75)",
-      "rgba(190, 150, 255, .75)",
-      "rgba(255, 180, 120, .75)",
-      "rgba(255, 120, 190, .75)",
-      "rgba(160, 255, 140, .75)",
-      "rgba(255, 120, 120, .70)",
-      "rgba(255, 230, 140, .70)"
-    ];
-
-    accordionLessons.forEach((lesson, idx) => {
-      const cs = getComputedStyle(lesson);
-      const hasAccent =
-        cs.getPropertyValue("--accent-solid").trim() ||
-        cs.getPropertyValue("--accent").trim();
-
-      // If missing, assign one (stable per order)
-      if (!hasAccent) {
-        const i = idx % palette.length;
-        lesson.style.setProperty("--accent", palette[i]);
-        lesson.style.setProperty("--accent-solid", paletteSolid[i]);
-      }
-    });
-  })();
-
-  
-  // ---------- Build Lesson Index + Desktop TOC
-  function getAccentColor(el) {
-    // Prefer --accent-solid; fall back to --accent
-    const styles = getComputedStyle(el);
-    const solid = styles.getPropertyValue("--accent-solid").trim();
-    const accent = styles.getPropertyValue("--accent").trim();
-    return solid || accent || "rgba(255,255,255,.18)";
-  }
-
-  function buildNavLink(lesson) {
-    const h2 = lesson.querySelector(".lesson-toggle h2");
-    const title = h2 ? h2.textContent.trim() : "Lesson";
-    const tag = (lesson.dataset.lessonTag || "Lesson").trim();
-    const color = getAccentColor(lesson);
-
-    const a = document.createElement("a");
-    a.href = `#${lesson.id}`;
-    a.setAttribute("data-target", lesson.id);
-
-    const sw = document.createElement("span");
-    sw.className = "swatch";
-    sw.style.background = color;
-
-    const txt = document.createElement("span");
-    txt.className = "txt";
-    txt.innerHTML = `<b>${title}</b><span>${tag}</span>`;
-
-    a.appendChild(sw);
-    a.appendChild(txt);
-
-    return a;
-  }
-
-  function buildTocLink(lesson) {
-    const h2 = lesson.querySelector(".lesson-toggle h2");
-    const title = h2 ? h2.textContent.trim() : "Lesson";
-    const color = getAccentColor(lesson);
-
-    const a = document.createElement("a");
-    a.href = `#${lesson.id}`;
-    a.setAttribute("data-target", lesson.id);
-
-    const sw = document.createElement("span");
-    sw.className = "swatch";
-    sw.style.background = color;
-
-    const label = document.createElement("span");
-    label.textContent = title;
-
-    a.appendChild(sw);
-    a.appendChild(label);
-
-    return a;
-  }
-
-  if (indexGrid) {
-    indexGrid.innerHTML = "";
-    accordionLessons.forEach(lesson => indexGrid.appendChild(buildNavLink(lesson)));
-  }
-
-  if (desktopToc) {
-    desktopToc.innerHTML = "";
-    accordionLessons.forEach(lesson => desktopToc.appendChild(buildTocLink(lesson)));
-  }
-
-  // ---------- Accordion behavior (only one open)
-  function closeLesson(lesson) {
-    lesson.classList.remove("is-open");
-    const btn = lesson.querySelector(".lesson-toggle");
-    const body = lesson.querySelector(".lesson-body");
-    if (btn) btn.setAttribute("aria-expanded", "false");
-    if (body) {
-      body.style.maxHeight = "0px";
-    }
-  }
-
-  function openLesson(lesson) {
-    // Close others
-    accordionLessons.forEach(l => { if (l !== lesson) closeLesson(l); });
-
-    lesson.classList.add("is-open");
-    const btn = lesson.querySelector(".lesson-toggle");
-    const body = lesson.querySelector(".lesson-body");
-    if (btn) btn.setAttribute("aria-expanded", "true");
-
-    if (body) {
-      // Set exact height for smooth animation
-      body.style.maxHeight = body.scrollHeight + "px";
-      // After transition, allow future content changes to recalc
-      setTimeout(() => {
-        if (lesson.classList.contains("is-open")) body.style.maxHeight = body.scrollHeight + "px";
-      }, 350);
-    }
-  }
-
-  function toggleLesson(lesson) {
-    if (lesson.classList.contains("is-open")) {
-      closeLesson(lesson);
-    } else {
-      openLesson(lesson);
-    }
-  }
-
-  // Click handling on the header button
-  accordionLessons.forEach(lesson => {
-    const btn = lesson.querySelector(".lesson-toggle");
-    if (!btn) return;
-
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      toggleLesson(lesson);
-    });
-
-    // Make the chevron area clickable too
-    const head = lesson.querySelector(".lesson-head");
-    if (head) {
-      head.addEventListener("click", (e) => {
-        // avoid double-trigger when clicking the actual button
-        if (e.target.closest(".lesson-toggle")) return;
-        e.preventDefault();
-        toggleLesson(lesson);
-      });
-    }
-  });
-
-  // Open a lesson when clicking Lesson Index / TOC links
-  function handleNavClick(e) {
-    const a = e.target.closest("a[data-target]");
-    if (!a) return;
-    const id = a.getAttribute("data-target");
-    const target = document.getElementById(id);
-    if (!target) return;
-
-    e.preventDefault();
-    openLesson(target);
-
-    // Scroll to the lesson top
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-
-    // Update URL hash without jumping again
-    history.replaceState(null, "", `#${id}`);
-  }
-
-  if (indexGrid) indexGrid.addEventListener("click", handleNavClick);
-  if (desktopToc) desktopToc.addEventListener("click", handleNavClick);
-
-  // Handle direct hash load (open that lesson)
-  function openFromHash() {
-    const hash = (location.hash || "").replace("#", "").trim();
-    if (!hash) return;
-
-    const target = document.getElementById(hash);
-    if (target && target.classList.contains("lesson")) {
-      openLesson(target);
-    }
-  }
-
-  // Default: open the first lesson so the page doesn’t feel “empty”
-  // (unless there’s a hash)
-  if (location.hash) {
-    openFromHash();
-  } else if (accordionLessons[0]) {
-    openLesson(accordionLessons[0]);
-  }
-
-  window.addEventListener("hashchange", openFromHash);
-
-  // Recalculate open panel height on resize (keeps animation stable)
-  window.addEventListener("resize", () => {
-    const open = article.querySelector(".lesson.is-open .lesson-body");
-    if (open) open.style.maxHeight = open.scrollHeight + "px";
-  });
-})();
-</script>
-
-
-
 </body>
 </html>
+
+
