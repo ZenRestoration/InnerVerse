@@ -1063,3 +1063,140 @@ footer{
 .lesson-card {
   backdrop-filter: blur(10px);
 }
+
+/* ---- 1) MAKE PAGE WIDER (less "narrow column") ---- */
+:root{
+  /* tweak if you want even wider */
+  --page-max: 1200px;  /* was likely ~980/1040 */
+  --page-pad: 22px;    /* side padding on desktop */
+}
+
+.wrap{
+  max-width: var(--page-max) !important;
+  padding-left: var(--page-pad) !important;
+  padding-right: var(--page-pad) !important;
+}
+
+/* If your hero/card/grid is constraining width, unlock it */
+.hero-grid{
+  grid-template-columns: minmax(0, 1fr) 320px !important; /* content + toc */
+  gap: 22px !important;
+}
+
+@media (max-width: 980px){
+  .wrap{ padding-left: 16px !important; padding-right: 16px !important; }
+  .hero-grid{ grid-template-columns: 1fr !important; }
+  .map-toc{ display:none !important; }
+}
+
+/* ---- 2) FIX "WHITED OUT" LESSON TITLES ---- */
+/* The clickable lesson header */
+.lesson-head{
+  background: rgba(0,0,0,.22) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 18px !important;
+  padding: 14px 14px !important;
+}
+
+/* The button that wraps the H2 */
+.lesson-toggle{
+  background: transparent !important;
+  color: rgba(255,255,255,.92) !important;
+  border: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+}
+
+/* Title itself */
+.lesson-toggle h2,
+.lesson-head h2{
+  color: rgba(255,255,255,.96) !important;
+  margin: 0 !important;
+  line-height: 1.15 !important;
+}
+
+/* Tag pill and “Completed” badge: ensure not turning white bg */
+.lesson-tag,
+.lesson-badge{
+  background: rgba(0,0,0,.22) !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  color: rgba(255,255,255,.90) !important;
+}
+
+/* Chevron color */
+.lesson-head .chev{
+  color: rgba(255,255,255,.82) !important;
+}
+
+/* ---- 3) FIX "WHITED OUT" NEXT/BACK BUTTONS ---- */
+.lesson-controls{
+  display:flex !important;
+  gap: 10px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 14px !important;
+}
+
+/* Force all track buttons to be dark-glass (no white backgrounds) */
+.lesson-controls .btn,
+.lesson-controls button{
+  background: rgba(0,0,0,.26) !important;
+  color: rgba(255,255,255,.94) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  min-height: 42px !important;
+}
+
+/* “Ghost” still readable */
+.lesson-controls .btn.ghost{
+  background: rgba(0,0,0,.18) !important;
+  color: rgba(255,255,255,.92) !important;
+}
+
+/* Disabled buttons should not turn white */
+.lesson-controls .btn:disabled,
+.lesson-controls button:disabled{
+  opacity: .55 !important;
+  background: rgba(0,0,0,.16) !important;
+  color: rgba(255,255,255,.75) !important;
+  border-color: rgba(255,255,255,.10) !important;
+}
+
+/* ---- 4) FIX WHITE BLOCKS IN PROGRESS BAR ---- */
+.lesson-progress{
+  background: rgba(0,0,0,.18) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 16px !important;
+  padding: 12px !important;
+}
+
+.lesson-progress-bar{
+  background: rgba(255,255,255,.08) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important; /* prevents “white blocks” */
+  height: 10px !important;
+}
+
+.lesson-progress-fill{
+  background: var(--accent-solid, rgba(120,210,255,.75)) !important;
+  height: 100% !important;
+  border-radius: 999px !important;
+}
+
+/* Extra: ensure no elements inside track are default-white */
+.lesson-track,
+.lesson-card{
+  background: rgba(0,0,0,.18) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 18px !important;
+}
+
+/* Keep reading content comfortable */
+.lesson-card{
+  padding: 16px 16px !important;
