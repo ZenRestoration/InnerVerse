@@ -860,49 +860,414 @@
 
   <!-- Progressive Lesson Cards JS (per lesson) -->
   <script>
-    document.querySelectorAll('[data-lesson-track]').forEach(track => {
-      const cards = Array.from(track.querySelectorAll('.lesson-card'));
-      const nextBtn = track.querySelector('[data-next]');
-      const prevBtn = track.querySelector('[data-prev]');
-      const stepLabel = track.querySelector('[data-step]');
-      const percentLabel = track.querySelector('[data-percent]');
-      const fill = track.querySelector('.lesson-progress-fill');
-      const bar = track.querySelector('.lesson-progress-bar');
+    <script>
+(function () {
+  const slugify = (s) => s
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-      let index = 0;
+  const article = document.querySelector("#full-map article");
+  const indexGrid = document.getElementById("lessonIndexGrid");
+  const desktopToc = document.getElementById("desktopTocList");
+  if (!article) return;
 
-      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+  // Ensure headings have IDs + anchor class (without changing words)
+  const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
+  allHeadings.forEach(h => {
+    if (!h.id) h.id = slugify(h.textContent.trim());
+    h.classList.add("anchor");
+  });
 
-      function update() {
-        index = clamp(index, 0, cards.length - 1);
+  // ---------- Accordion prep: wrap each .lesson’s content into .lesson-body
+  const lessons = Array.from(article.querySelectorAll(".lesson"));
 
-        cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
+  lessons.forEach((lesson, i) => {
+    if (lesson.querySelector(".lesson-body")) return;
 
-        const atStart = index === 0;
-        const atEnd = index === cards.length - 1;
+    const head = lesson.querySelector(".lesson-head");
+    if (!head) return;
 
-        if (prevBtn) prevBtn.disabled = atStart;
-        if (nextBtn) nextBtn.disabled = atEnd;
+    const h2 = head.querySelector("h2");
+    const tag = head.querySelector(".lesson-tag");
 
-        const percent = cards.length ? Math.round(((index + 1) / cards.length) * 100) : 0;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "lesson-toggle";
+    btn.setAttribute("aria-expanded", "false");
 
-        if (stepLabel) stepLabel.textContent = `${index + 1} / ${cards.length}`;
-        if (percentLabel) percentLabel.textContent = `${percent}%`;
-        if (fill) fill.style.width = percent + '%';
+    const chev = document.createElement("span");
+    chev.className = "chev";
+    chev.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
 
-        if (bar) bar.setAttribute('aria-valuenow', String(percent));
-      }
+    if (h2) btn.appendChild(h2);
 
-      if (nextBtn){
-        nextBtn.addEventListener('click', () => { if(index < cards.length - 1){ index++; update(); }});
-      }
-      if (prevBtn){
-        prevBtn.addEventListener('click', () => { if(index > 0){ index--; update(); }});
-      }
+    head.innerHTML = "";
+    head.appendChild(btn);
+    if (tag) head.appendChild(tag);
+    head.appendChild(chev);
 
-      update();
+    const body = document.createElement("div");
+    body.className = "lesson-body";
+
+    const kids = Array.from(lesson.childNodes);
+    kids.forEach(node => {
+      if (node === head) return;
+      body.appendChild(node);
     });
-  </script>
+
+    lesson.appendChild(head);
+    lesson.appendChild(body);
+
+    if (!lesson.id) {
+      const titleText = (h2 ? h2.textContent : `Lesson ${i + 1}`).trim();
+      lesson.id = slugify(titleText) || `lesson-${i + 1}`;
+    }
+
+    const tagText = lesson.getAttribute("data-lesson-tag") || (tag ? tag.textContent.trim() : "Lesson");
+    lesson.dataset.lessonTag = tagText;
+  });
+
+  const accordionLessons = Array.from(article.querySelectorAll(".lesson"));
+
+  // ---------- Ensure every lesson has an accent color (auto-assign if missing)
+  (function ensureLessonAccents() {
+    const palette = [
+      "rgba(120, 255, 220, .28)",
+      "rgba(120, 210, 255, .28)",
+      "rgba(190, 150, 255, .28)",
+      "rgba(255, 180, 120, .28)",
+      "rgba(255, 120, 190, .28)",
+      "rgba(160, 255, 140, .28)",
+      "rgba(255, 120, 120, .26)",
+      "rgba(255, 230, 140, .24)"
+    ];
+
+    const paletteSolid = [
+      "rgba(120, 255, 220, .75)",
+      "rgba(120, 210, 255, .75)",
+      "rgba(190, 150, 255, .75)",
+      "rgba(255, 180, 120, .75)",
+      "rgba(255, 120, 190, .75)",
+      "rgba(160, 255, 140, .75)",
+      "rgba(255, 120, 120, .70)",
+      "rgba(255, 230, 140, .70)"
+    ];
+
+    accordionLessons.forEach((lesson, idx) => {
+      const cs = getComputedStyle(lesson);
+      const hasAccent =
+        cs.getPropertyValue("--accent-solid").trim() ||
+        cs.getPropertyValue("--accent").trim();
+
+      if (!hasAccent) {
+        const i = idx % palette.length;
+        lesson.style.setProperty("--accent", palette[i]);
+        lesson.style.setProperty("--accent-solid", paletteSolid[i]);
+      }
+    });
+  })();
+
+  // ---------- Build Lesson Index + Desktop TOC
+  function getAccentColor(el) {
+    const styles = getComputedStyle(el);
+    const solid = styles.getPropertyValue("--accent-solid").trim();
+    const accent = styles.getPropertyValue("--accent").trim();
+    return solid || accent || "rgba(255,255,255,.18)";
+  }
+
+  function buildNavLink(lesson) {
+    const h2 = lesson.querySelector(".lesson-toggle h2");
+    const title = h2 ? h2.textContent.trim() : "Lesson";
+    const tag = (lesson.dataset.lessonTag || "Lesson").trim();
+    const color = getAccentColor(lesson);
+
+    const a = document.createElement("a");
+    a.href = `#${lesson.id}`;
+    a.setAttribute("data-target", lesson.id);
+
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.background = color;
+
+    const txt = document.createElement("span");
+    txt.className = "txt";
+    txt.innerHTML = `<b>${title}</b><span>${tag}</span>`;
+
+    a.appendChild(sw);
+    a.appendChild(txt);
+
+    return a;
+  }
+
+  function buildTocLink(lesson) {
+    const h2 = lesson.querySelector(".lesson-toggle h2");
+    const title = h2 ? h2.textContent.trim() : "Lesson";
+    const color = getAccentColor(lesson);
+
+    const a = document.createElement("a");
+    a.href = `#${lesson.id}`;
+    a.setAttribute("data-target", lesson.id);
+
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.background = color;
+
+    const label = document.createElement("span");
+    label.textContent = title;
+
+    a.appendChild(sw);
+    a.appendChild(label);
+
+    return a;
+  }
+
+  if (indexGrid) {
+    indexGrid.innerHTML = "";
+    accordionLessons.forEach(lesson => indexGrid.appendChild(buildNavLink(lesson)));
+  }
+
+  if (desktopToc) {
+    desktopToc.innerHTML = "";
+    accordionLessons.forEach(lesson => desktopToc.appendChild(buildTocLink(lesson)));
+  }
+
+  // ---------- Accordion behavior (only one open)
+  function closeLesson(lesson) {
+    lesson.classList.remove("is-open");
+    const btn = lesson.querySelector(".lesson-toggle");
+    const body = lesson.querySelector(".lesson-body");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+    if (body) body.style.maxHeight = "0px";
+  }
+
+  function openLesson(lesson) {
+    accordionLessons.forEach(l => { if (l !== lesson) closeLesson(l); });
+
+    lesson.classList.add("is-open");
+    const btn = lesson.querySelector(".lesson-toggle");
+    const body = lesson.querySelector(".lesson-body");
+    if (btn) btn.setAttribute("aria-expanded", "true");
+
+    if (body) {
+      body.style.maxHeight = body.scrollHeight + "px";
+      setTimeout(() => {
+        if (lesson.classList.contains("is-open")) body.style.maxHeight = body.scrollHeight + "px";
+      }, 350);
+    }
+  }
+
+  function toggleLesson(lesson) {
+    if (lesson.classList.contains("is-open")) closeLesson(lesson);
+    else openLesson(lesson);
+  }
+
+  accordionLessons.forEach(lesson => {
+    const btn = lesson.querySelector(".lesson-toggle");
+    if (!btn) return;
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleLesson(lesson);
+    });
+
+    const head = lesson.querySelector(".lesson-head");
+    if (head) {
+      head.addEventListener("click", (e) => {
+        if (e.target.closest(".lesson-toggle")) return;
+        e.preventDefault();
+        toggleLesson(lesson);
+      });
+    }
+  });
+
+  function handleNavClick(e) {
+    const a = e.target.closest("a[data-target]");
+    if (!a) return;
+    const id = a.getAttribute("data-target");
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    e.preventDefault();
+    openLesson(target);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+  }
+
+  if (indexGrid) indexGrid.addEventListener("click", handleNavClick);
+  if (desktopToc) desktopToc.addEventListener("click", handleNavClick);
+
+  function openFromHash() {
+    const hash = (location.hash || "").replace("#", "").trim();
+    if (!hash) return;
+    const target = document.getElementById(hash);
+    if (target && target.classList.contains("lesson")) openLesson(target);
+  }
+
+  // ---------- Lesson Track (cards + progress) — auto-transform EVERY lesson
+  function buildTrackFromLesson(lesson) {
+    const body = lesson.querySelector(".lesson-body") || lesson;
+    if (!body) return;
+
+    // If it already has a track, just init later
+    if (body.querySelector("[data-lesson-track]")) return;
+
+    // Split body content into cards on <hr> boundaries
+    const nodes = Array.from(body.childNodes).filter(n => {
+      // ignore empty text nodes
+      if (n.nodeType === 3) return n.textContent.trim().length > 0;
+      return true;
+    });
+
+    // If no content, skip
+    if (!nodes.length) return;
+
+    const chunks = [];
+    let current = [];
+
+    nodes.forEach(n => {
+      if (n.nodeType === 1 && n.tagName === "HR") {
+        if (current.length) chunks.push(current);
+        current = [];
+      } else {
+        current.push(n);
+      }
+    });
+    if (current.length) chunks.push(current);
+
+    // If it’s basically a single chunk, still wrap it so UI is consistent
+    const track = document.createElement("div");
+    track.className = "lesson-track";
+    track.setAttribute("data-lesson-track", "");
+
+    const progress = document.createElement("div");
+    progress.className = "lesson-progress";
+    progress.innerHTML = `
+      <div class="lesson-progress-meta">
+        <span data-step>1 / 1</span>
+        <span data-percent>0%</span>
+      </div>
+      <div class="lesson-progress-bar">
+        <div class="lesson-progress-fill"></div>
+      </div>
+    `;
+
+    const cardsWrap = document.createElement("div");
+    cardsWrap.className = "lesson-cards";
+
+    const cards = document.createElement("div");
+    cards.className = "lesson-cards-inner";
+    cards.style.display = "block";
+
+    // Build card sections
+    const cardEls = chunks.map((chunk, idx) => {
+      const card = document.createElement("section");
+      card.className = "lesson-card" + (idx === 0 ? " is-active" : "");
+      chunk.forEach(node => card.appendChild(node));
+      return card;
+    });
+
+    // Put the cards into the standard container expected by CSS/JS
+    const cardsContainer = document.createElement("div");
+    cardsContainer.className = "lesson-cards";
+    // Replace default card spacing container with the cards
+    // (we just created cardsContainer, so no need for cardsWrap above)
+    cardEls.forEach(c => cardsContainer.appendChild(c));
+
+    const controls = document.createElement("div");
+    controls.className = "lesson-controls";
+    controls.innerHTML = `
+      <button class="btn ghost" type="button" data-prev disabled>Back</button>
+      <button class="btn" type="button" data-next>Next</button>
+    `;
+
+    track.appendChild(progress);
+    track.appendChild(cardsContainer);
+    track.appendChild(controls);
+
+    // Clear body and insert track
+    body.innerHTML = "";
+    body.appendChild(track);
+  }
+
+  // Transform all lessons (so “only first 3” can never happen again)
+  accordionLessons.forEach(buildTrackFromLesson);
+
+  function initLessonTrack(track) {
+    const lesson = track.closest(".lesson");
+    const cards = Array.from(track.querySelectorAll(".lesson-card"));
+    const prev = track.querySelector("[data-prev]");
+    const next = track.querySelector("[data-next]");
+    const stepEl = track.querySelector("[data-step]");
+    const pctEl = track.querySelector("[data-percent]");
+    const fill = track.querySelector(".lesson-progress-fill");
+
+    if (!cards.length) return;
+
+    let idx = cards.findIndex(c => c.classList.contains("is-active"));
+    if (idx < 0) idx = 0;
+
+    function set(i) {
+      idx = Math.max(0, Math.min(cards.length - 1, i));
+      cards.forEach((c, n) => c.classList.toggle("is-active", n === idx));
+
+      const stepText = `${idx + 1} / ${cards.length}`;
+      if (stepEl) stepEl.textContent = stepText;
+
+      const pct = cards.length === 1 ? 100 : Math.round((idx / (cards.length - 1)) * 100);
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (fill) fill.style.width = `${pct}%`;
+
+      if (prev) prev.disabled = idx === 0;
+      if (next) next.disabled = idx === cards.length - 1;
+
+      // Keep accordion panel height correct as cards change
+      if (lesson && lesson.classList.contains("is-open")) {
+        const body = lesson.querySelector(".lesson-body");
+        if (body) body.style.maxHeight = body.scrollHeight + "px";
+      }
+    }
+
+    function go(d) { set(idx + d); }
+
+    if (prev) prev.addEventListener("click", () => go(-1));
+    if (next) next.addEventListener("click", () => go(1));
+
+    // Keyboard support when focused inside the track
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    });
+
+    // Make track focusable for keyboard navigation (no visible change)
+    if (!track.hasAttribute("tabindex")) track.setAttribute("tabindex", "0");
+
+    set(idx);
+  }
+
+  // Initialize all tracks
+  const tracks = Array.from(article.querySelectorAll("[data-lesson-track]"));
+  tracks.forEach(initLessonTrack);
+
+  // Default open first lesson unless hash
+  if (location.hash) openFromHash();
+  else if (accordionLessons[0]) openLesson(accordionLessons[0]);
+
+  window.addEventListener("hashchange", openFromHash);
+
+  // Recalculate open panel height on resize
+  window.addEventListener("resize", () => {
+    const open = article.querySelector(".lesson.is-open .lesson-body");
+    if (open) open.style.maxHeight = open.scrollHeight + "px";
+  });
+})();
+</script>
+
 </body>
 </html>
 
