@@ -962,3 +962,104 @@ footer{
   .lesson-card { padding: 14px 14px; }
   .lesson-controls { padding: 10px 12px 12px 12px; }
 }
+
+/* =========================
+   Premium Motion + Completion
+   ========================= */
+
+/* Subtle reveal animation for cards */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lesson-card.is-active {
+  animation: cardIn 220ms ease both;
+}
+
+/* Progress shimmer */
+.lesson-progress-bar {
+  position: relative;
+}
+
+.lesson-progress-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.10),
+    transparent
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lesson.is-open .lesson-progress-bar::after {
+  opacity: 1;
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-120%); }
+  50%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* “Completed” badge styles */
+.lesson-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.92);
+  white-space: nowrap;
+}
+
+.lesson-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.35);
+}
+
+.lesson.is-complete .lesson-badge {
+  border-color: rgba(255,255,255,.18);
+  background: rgba(0,0,0,.22);
+}
+
+.lesson.is-complete .lesson-badge .dot {
+  background: var(--accent-solid, rgba(120,210,255,.75));
+}
+
+/* Make Lesson Index / TOC reflect completion */
+#lessonIndexGrid a.is-complete,
+#desktopTocList a.is-complete {
+  opacity: 1;
+}
+
+#lessonIndexGrid a.is-complete .swatch,
+#desktopTocList a.is-complete .swatch {
+  box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(0,0,0,.18);
+}
+
+/* Button micro-feedback */
+.lesson-controls .btn {
+  transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+}
+.lesson-controls .btn:active {
+  transform: translateY(1px);
+}
+
+/* Optional: soften any lingering hard edges */
+.lesson-track,
+.lesson-card {
+  backdrop-filter: blur(10px);
+}
