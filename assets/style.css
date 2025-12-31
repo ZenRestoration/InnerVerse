@@ -1,7 +1,11 @@
 /* /assets/style.css
    Experience Points — Premium Multi-Page Theme
-   Matches the user's reference style (aurora/forest/obsidian).
+   Aurora / forest / obsidian — refined
 */
+
+/* =========================
+   TOKENS
+   ========================= */
 
 :root{
   --bg0:#06110e;
@@ -28,7 +32,11 @@
   --radius-lg: 18px;
   --radius-md: 14px;
 
-  --max: 1160px;
+  /* Wider, premium-feeling layout */
+  --max: 1200px;
+
+  /* Desktop side padding */
+  --page-pad: 22px;
 
   --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
@@ -40,10 +48,11 @@ body{
   margin:0;
   font-family: var(--sans);
   color: var(--text);
-  background: radial-gradient(1200px 900px at 15% 10%, rgba(106,247,197,0.14), transparent 60%),
-              radial-gradient(900px 700px at 80% 20%, rgba(114,182,255,0.14), transparent 55%),
-              radial-gradient(900px 900px at 70% 90%, rgba(184,140,255,0.12), transparent 55%),
-              linear-gradient(180deg, var(--bg0), var(--bg1));
+  background:
+    radial-gradient(1200px 900px at 15% 10%, rgba(106,247,197,0.14), transparent 60%),
+    radial-gradient(900px 700px at 80% 20%, rgba(114,182,255,0.14), transparent 55%),
+    radial-gradient(900px 900px at 70% 90%, rgba(184,140,255,0.12), transparent 55%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
   overflow-x:hidden;
 }
 
@@ -51,9 +60,15 @@ a{ color:inherit; text-decoration:none; }
 button,input,textarea{ font:inherit; color:inherit; }
 ::selection{ background: rgba(106,247,197,0.25); }
 
-.wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+.wrap{
+  width: min(var(--max), calc(100% - (var(--page-pad) * 2)));
+  margin:0 auto;
+}
 
-/* Background canvas & glow film */
+/* =========================
+   BACKGROUND LAYERS
+   ========================= */
+
 .bg-wrap{
   position:fixed;
   inset:0;
@@ -85,7 +100,10 @@ canvas.stars{
   100%{ transform: translate3d(3%, 2%, 0) scale(1.12); }
 }
 
-/* Header */
+/* =========================
+   HEADER / NAV
+   ========================= */
+
 header{
   position:sticky;
   top:0;
@@ -94,6 +112,7 @@ header{
   background: linear-gradient(180deg, rgba(6,17,14,0.75), rgba(6,17,14,0.45));
   border-bottom: 1px solid rgba(255,255,255,0.10);
 }
+
 .nav{
   display:flex;
   align-items:center;
@@ -101,6 +120,7 @@ header{
   gap:18px;
   padding: 14px 0;
 }
+
 .brand{
   display:flex;
   align-items:center;
@@ -232,7 +252,10 @@ header{
   color: rgba(255,255,255,0.92);
 }
 
-/* Pills + Buttons */
+/* =========================
+   PILLS + BUTTONS
+   ========================= */
+
 .pill{
   display:inline-flex;
   align-items:center;
@@ -255,31 +278,59 @@ header{
 
 .btn{
   appearance:none;
-  border:0;
+  border:1px solid transparent;
   border-radius: 16px;
   padding: 12px 16px;
   cursor:pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease, filter 180ms ease;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:10px;
   user-select:none;
   letter-spacing: -0.01em;
+  text-decoration:none;
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
 }
+
 .btn:focus-visible{ outline: 2px solid rgba(106,247,197,0.65); outline-offset: 3px; }
+
 .btn.primary{
   background: linear-gradient(135deg, rgba(106,247,197,0.95), rgba(114,182,255,0.88), rgba(184,140,255,0.78));
   color: rgba(6,17,14,0.96);
+  border-color: rgba(255,255,255,0.10);
   box-shadow: 0 18px 45px rgba(0,0,0,0.45);
 }
-.btn.primary:hover{ transform: translateY(-1px); box-shadow: 0 22px 55px rgba(0,0,0,0.52); }
+.btn.primary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 22px 55px rgba(0,0,0,0.52);
+  filter: saturate(1.05);
+}
 .btn.ghost{
-  background: rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.14);
   border: 1px solid rgba(255,255,255,0.14);
   color: var(--text);
 }
-.btn.ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.20); }
+.btn.ghost:hover{
+  transform: translateY(-1px);
+  background: rgba(0,0,0,0.18);
+  border-color: rgba(255,255,255,0.20);
+}
+
+.btn:disabled,
+.btn[disabled]{
+  opacity: .55;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* Hard stop for “white-out” inside buttons (icons/text) */
+.btn, .btn *{
+  color: inherit !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
 
 .icon{
   width:18px; height:18px; display:inline-block;
@@ -287,18 +338,24 @@ header{
   transform: translateY(0.5px);
 }
 
-/* Page / Hero */
+/* =========================
+   PAGE / HERO
+   ========================= */
+
 main{ position:relative; }
+
 .hero{
   padding: 64px 0 28px;
 }
 .hero.compact{
   padding: 54px 0 18px;
 }
+
+/* Wider, more premium grid: content + TOC */
 .hero-grid{
   display:grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 26px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 22px;
   align-items:stretch;
 }
 
@@ -339,6 +396,7 @@ h1{
   margin: 0 0 18px;
   max-width: 70ch;
 }
+
 .hero-ctas{
   display:flex;
   gap:12px;
@@ -346,6 +404,19 @@ h1{
   align-items:center;
   margin-top: 14px;
 }
+
+/* Ensure hero CTAs never invert to white */
+.hero-ctas .btn{
+  background: rgba(0,0,0,0.14);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--text);
+}
+.hero-ctas .btn.primary{
+  background: linear-gradient(135deg, rgba(106,247,197,0.95), rgba(114,182,255,0.88), rgba(184,140,255,0.78));
+  color: rgba(6,17,14,0.96);
+  border-color: rgba(255,255,255,0.10);
+}
+
 .microproof{
   margin-top: 16px;
   display:flex;
@@ -488,8 +559,12 @@ h1{
 }
 .mini li{ margin: 6px 0; }
 
-/* Sections */
+/* =========================
+   SECTIONS / TYPOGRAPHY
+   ========================= */
+
 section{ padding: 64px 0; }
+
 .section-head{
   display:flex;
   align-items:flex-end;
@@ -497,6 +572,7 @@ section{ padding: 64px 0; }
   gap: 18px;
   margin-bottom: 22px;
 }
+
 .kicker{
   font-size: 12px;
   color: var(--muted2);
@@ -524,8 +600,6 @@ h2{
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
-
-/* IMPORTANT: practice.html uses .grid2 — add it */
 .grid2{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -702,7 +776,10 @@ form{
 }
 .fineprint a{ text-decoration: underline; text-underline-offset: 3px; }
 
-/* Footer */
+/* =========================
+   FOOTER
+   ========================= */
+
 footer{
   padding: 34px 0 44px;
   color: var(--muted2);
@@ -737,14 +814,288 @@ footer{
   border-color: rgba(255,255,255,0.16);
 }
 
-/* Motion preference */
+/* =========================
+   MAP EXPANDED — LESSON UX (Accordion + Track)
+   ========================= */
+
+.lesson{
+  --card-bg: rgba(255,255,255,.03);
+  --card-brd: rgba(255,255,255,.10);
+  --soft: rgba(255,255,255,.06);
+  --soft2: rgba(255,255,255,.08);
+
+  border-radius: 18px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+/* Lesson head (clickable bar) */
+.lesson-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 14px 14px;
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+}
+
+/* Toggle button inside lesson-head (JS moves H2 into it) */
+.lesson-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align:left;
+  cursor:pointer;
+  color: rgba(255,255,255,.92);
+}
+
+/* Titles never white-out */
+.lesson-toggle h2,
+.lesson-head h2{
+  color: rgba(255,255,255,.96);
+  margin: 0;
+  line-height: 1.15;
+  font-size: clamp(18px, 2vw, 22px);
+  letter-spacing: -0.02em;
+}
+
+/* Tag badge */
+.lesson-tag,
+.lesson-badge{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.90);
+  white-space:nowrap;
+}
+.lesson-badge .dot{
+  width: 8px; height: 8px; border-radius: 999px;
+  background: rgba(255,255,255,.35);
+}
+.lesson.is-complete .lesson-badge .dot{
+  background: var(--accent2);
+}
+
+/* Chevron */
+.lesson-head .chev{
+  width: 34px;
+  height: 34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 14px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.82);
+}
+.lesson.is-open .chev svg{
+  transform: rotate(180deg);
+}
+.lesson-head .chev svg{
+  width: 18px; height: 18px;
+  transition: transform 220ms ease;
+}
+
+/* Body wrapper (JS creates .lesson-body and animates max-height) */
+.lesson-body{
+  overflow:hidden;
+  max-height: 0px;
+  transition: max-height 320ms ease;
+  padding: 0 14px;
+}
+
+/* The actual reading area inside (your paragraphs/lists/etc) */
+.lesson.is-open .lesson-body{
+  padding-bottom: 14px;
+}
+
+/* Normalize spacing inside the body so “margins” aren’t awful */
+.lesson .lesson-body > *{
+  max-width: 82ch;
+}
+.lesson .lesson-body p,
+.lesson .lesson-body ul,
+.lesson .lesson-body ol,
+.lesson .lesson-body blockquote,
+.lesson .lesson-body hr,
+.lesson .lesson-body h3{
+  margin: 0 0 12px 0;
+}
+.lesson .lesson-body h3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-weight: 800;
+}
+.lesson .lesson-body ul,
+.lesson .lesson-body ol{
+  padding-left: 20px;
+}
+.lesson .lesson-body hr{
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+  margin: 16px 0;
+}
+
+/* ===== Lesson Track wrapper (progress + cards + controls) ===== */
+.lesson-track{
+  margin-top: 12px;
+  border-radius: 18px;
+  border: 1px solid var(--card-brd);
+  background:
+    radial-gradient(1200px 700px at 20% -20%, rgba(255,255,255,.06), transparent 55%),
+    radial-gradient(900px 500px at 120% 0%, rgba(255,255,255,.05), transparent 55%),
+    rgba(0,0,0,.14);
+  overflow:hidden; /* kills “white blocks” bleed */
+  backdrop-filter: blur(10px);
+}
+
+/* Progress */
+.lesson-progress{
+  padding: 14px 14px 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.14);
+}
+.lesson-progress-meta{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,.86);
+  margin-bottom: 10px;
+}
+.lesson-progress-bar{
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  overflow:hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+}
+.lesson-progress-fill{
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--accent2);
+  transition: width 260ms ease;
+}
+
+/* Subtle shimmer (only when open) */
+.lesson-progress-bar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events:none;
+}
+.lesson.is-open .lesson-progress-bar::after{
+  opacity: 1;
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+
+/* Cards */
+.lesson-cards{
+  padding: 16px 14px 12px 14px;
+}
+.lesson-card{
+  display:none;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(255,255,255,.03);
+  padding: 16px 16px;
+  box-shadow: 0 8px 26px rgba(0,0,0,.22);
+}
+.lesson-card.is-active{
+  display:block;
+  animation: cardIn 220ms ease both;
+}
+.lesson-card blockquote{
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-left: 2px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.04);
+  border-radius: 12px;
+}
+
+/* Controls (Next/Back) — never white */
+.lesson-controls{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 10px;
+  padding: 12px 14px 14px 14px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.12);
+}
+.lesson-controls .btn{
+  min-width: 110px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.14);
+  color: var(--text);
+}
+.lesson-controls .btn.primary{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.16);
+  color: rgba(255,255,255,.94);
+}
+.lesson-controls .btn:hover{
+  transform: translateY(-1px);
+  background: rgba(0,0,0,.22);
+  border-color: rgba(255,255,255,.20);
+}
+.lesson-controls .btn:active{ transform: translateY(1px); }
+.lesson-controls .btn:disabled,
+.lesson-controls .btn[disabled]{
+  opacity: .55;
+  cursor: not-allowed;
+  background: rgba(0,0,0,.14);
+  border-color: rgba(255,255,255,.10);
+}
+
+/* Lesson Index / Desktop TOC completion hint */
+#lessonIndexGrid a.is-complete,
+#desktopTocList a.is-complete{
+  opacity: 1;
+}
+#lessonIndexGrid a.is-complete .swatch,
+#desktopTocList a.is-complete .swatch{
+  box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(0,0,0,.18);
+}
+
+/* Animations */
+@keyframes cardIn{
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media (prefers-reduced-motion: reduce){
   .glow-film{ animation:none !important; }
   .xp-bar > span::after{ animation:none !important; }
   .btn, .navlinks a, .foot .links a{ transition:none !important; }
+  .lesson-body{ transition:none !important; }
+  .lesson-progress-bar::after{ animation:none !important; }
 }
 
-/* Responsive (your original breakpoint) */
+/* Your original breakpoint */
 @media (max-width: 980px){
   .hero-grid{ grid-template-columns: 1fr; }
   .grid3{ grid-template-columns: 1fr; }
@@ -755,25 +1106,27 @@ footer{
   .navlinks{ display:none; }
   .menu-btn{ display:inline-flex; }
   .brand{ min-width:auto; }
+
+  .map-toc{ display:none; }
+
+  .wrap{
+    width: min(var(--max), calc(100% - 32px));
+  }
 }
 
-/* MOBILE POLISH: centered + less bulky */
+/* Mobile polish */
 @media (max-width: 640px){
-  /* slightly wider content area on mobile */
-  .wrap{ width:min(var(--max), calc(100% - 24px)); }
+  :root{ --page-pad: 16px; }
 
-  /* reduce vertical bulk */
   section{ padding: 52px 0; }
   .hero{ padding: 44px 0 16px; }
   .hero.compact{ padding: 40px 0 12px; }
 
-  /* cards feel “centered” because padding isn’t huge */
   .hero-inner{ padding: 18px 16px 16px; }
   .panel{ padding: 16px; }
   .cta-inner{ padding: 18px; }
   .card{ padding: 16px; }
 
-  /* fix the “not centered” feeling on stacked headers */
   .section-head{
     flex-direction: column;
     align-items: flex-start;
@@ -781,7 +1134,6 @@ footer{
   }
   .lead{ max-width: 100%; }
 
-  /* make CTAs not awkwardly wrap */
   .hero-ctas{
     flex-direction: column;
     align-items: stretch;
@@ -789,14 +1141,12 @@ footer{
   }
   .hero-ctas .btn{ width:100%; }
 
-  /* make badges stack clean */
   .microproof{ gap: 10px; }
   .microproof .badge{
     width: 100%;
     justify-content: space-between;
   }
 
-  /* form fields: no more side-by-side squeeze */
   .field{
     flex-direction: column;
     gap: 10px;
@@ -806,397 +1156,24 @@ footer{
     flex: 1 1 auto;
   }
 
-  /* header right side: prevent “bulky” crowding */
   .nav-right{
     flex-wrap: wrap;
     justify-content: flex-end;
     row-gap: 8px;
   }
+
+  .lesson-head{ padding: 12px 12px; }
+  .lesson-body{ padding: 0 12px; }
+  .lesson.is-open .lesson-body{ padding-bottom: 12px; }
+  .lesson-progress{ padding: 12px 12px 10px 12px; }
+  .lesson-cards{ padding: 12px 12px 10px 12px; }
+  .lesson-card{ padding: 14px 14px; }
+  .lesson-controls{ padding: 10px 12px 12px 12px; }
 }
 
-/* TINY screens: optional simplification */
+/* Tiny screens: simplify */
 @media (max-width: 420px){
-  .pill{ display:none; } /* removes the bulky “In development” pill if it crowds */
+  .pill{ display:none; }
   .btn{ padding: 11px 14px; }
   .menu-btn{ width:42px; height:42px; }
 }
-
-/* =========================
-   MAP EXPANDED — Lesson UX
-   (Fix margins, remove white blocks, consistent progress UI)
-   ========================= */
-
-.lesson {
-  --card-bg: rgba(255,255,255,.03);
-  --card-brd: rgba(255,255,255,.10);
-  --soft: rgba(255,255,255,.06);
-  --soft2: rgba(255,255,255,.08);
-}
-
-/* tighten + normalize typography spacing inside lesson bodies */
-.lesson .lesson-body {
-  padding-top: 14px;
-}
-
-.lesson .lesson-body p,
-.lesson .lesson-body ul,
-.lesson .lesson-body ol,
-.lesson .lesson-body blockquote,
-.lesson .lesson-body hr,
-.lesson .lesson-body h3 {
-  margin: 0 0 12px 0;
-}
-
-.lesson .lesson-body h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.lesson .lesson-body ul,
-.lesson .lesson-body ol {
-  padding-left: 20px;
-}
-
-.lesson .lesson-body hr {
-  border: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
-  margin: 16px 0;
-}
-
-/* ===== Lesson Track wrapper ===== */
-.lesson-track {
-  margin-top: 12px;
-  border-radius: 18px;
-  border: 1px solid var(--card-brd);
-  background: radial-gradient(1200px 700px at 20% -20%, rgba(255,255,255,.06), transparent 55%),
-              radial-gradient(900px 500px at 120% 0%, rgba(255,255,255,.05), transparent 55%),
-              rgba(255,255,255,.02);
-  overflow: hidden; /* prevents any white “bleed” */
-}
-
-/* ===== Progress area ===== */
-.lesson-progress {
-  padding: 14px 14px 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.12);
-}
-
-.lesson-progress-meta {
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  gap: 10px;
-  font-size: 12px;
-  opacity: .9;
-  margin-bottom: 10px;
-}
-
-.lesson-progress-bar {
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.08); /* no white blocks */
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
-}
-
-.lesson-progress-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 999px;
-  background: var(--accent-solid, rgba(120,210,255,.75));
-  transition: width 260ms ease;
-}
-
-/* ===== Cards area ===== */
-.lesson-cards {
-  padding: 16px 14px 12px 14px;
-}
-
-.lesson-card {
-  display: none;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.09);
-  background: var(--card-bg);
-  padding: 16px 16px;
-  box-shadow: 0 8px 26px rgba(0,0,0,.22);
-}
-
-.lesson-card.is-active {
-  display: block;
-}
-
-/* Make blockquotes look consistent (and never white) */
-.lesson-card blockquote {
-  margin: 14px 0;
-  padding: 12px 14px;
-  border-left: 2px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.04);
-  border-radius: 12px;
-}
-
-/* ===== Controls ===== */
-.lesson-controls {
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  gap: 10px;
-  padding: 12px 14px 14px 14px;
-  border-top: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.10);
-}
-
-.lesson-controls .btn {
-  min-width: 110px;
-}
-
-.lesson-controls .btn[disabled] {
-  opacity: .55;
-  cursor: not-allowed;
-}
-
-/* Mobile: improve spacing */
-@media (max-width: 720px) {
-  .lesson-progress { padding: 12px 12px 10px 12px; }
-  .lesson-cards { padding: 12px 12px 10px 12px; }
-  .lesson-card { padding: 14px 14px; }
-  .lesson-controls { padding: 10px 12px 12px 12px; }
-}
-
-/* =========================
-   Premium Motion + Completion
-   ========================= */
-
-/* Subtle reveal animation for cards */
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.lesson-card.is-active {
-  animation: cardIn 220ms ease both;
-}
-
-/* Progress shimmer */
-.lesson-progress-bar {
-  position: relative;
-}
-
-.lesson-progress-bar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.10),
-    transparent
-  );
-  transform: translateX(-120%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.lesson.is-open .lesson-progress-bar::after {
-  opacity: 1;
-  animation: shimmer 2.2s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%   { transform: translateX(-120%); }
-  50%  { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
-}
-
-/* “Completed” badge styles */
-.lesson-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.18);
-  color: rgba(255,255,255,.92);
-  white-space: nowrap;
-}
-
-.lesson-badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.35);
-}
-
-.lesson.is-complete .lesson-badge {
-  border-color: rgba(255,255,255,.18);
-  background: rgba(0,0,0,.22);
-}
-
-.lesson.is-complete .lesson-badge .dot {
-  background: var(--accent-solid, rgba(120,210,255,.75));
-}
-
-/* Make Lesson Index / TOC reflect completion */
-#lessonIndexGrid a.is-complete,
-#desktopTocList a.is-complete {
-  opacity: 1;
-}
-
-#lessonIndexGrid a.is-complete .swatch,
-#desktopTocList a.is-complete .swatch {
-  box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(0,0,0,.18);
-}
-
-/* Button micro-feedback */
-.lesson-controls .btn {
-  transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
-}
-.lesson-controls .btn:active {
-  transform: translateY(1px);
-}
-
-/* Optional: soften any lingering hard edges */
-.lesson-track,
-.lesson-card {
-  backdrop-filter: blur(10px);
-}
-
-/* ---- 1) MAKE PAGE WIDER (less "narrow column") ---- */
-:root{
-  /* tweak if you want even wider */
-  --page-max: 1200px;  /* was likely ~980/1040 */
-  --page-pad: 22px;    /* side padding on desktop */
-}
-
-.wrap{
-  max-width: var(--page-max) !important;
-  padding-left: var(--page-pad) !important;
-  padding-right: var(--page-pad) !important;
-}
-
-/* If your hero/card/grid is constraining width, unlock it */
-.hero-grid{
-  grid-template-columns: minmax(0, 1fr) 320px !important; /* content + toc */
-  gap: 22px !important;
-}
-
-@media (max-width: 980px){
-  .wrap{ padding-left: 16px !important; padding-right: 16px !important; }
-  .hero-grid{ grid-template-columns: 1fr !important; }
-  .map-toc{ display:none !important; }
-}
-
-/* ---- 2) FIX "WHITED OUT" LESSON TITLES ---- */
-/* The clickable lesson header */
-.lesson-head{
-  background: rgba(0,0,0,.22) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
-  border-radius: 18px !important;
-  padding: 14px 14px !important;
-}
-
-/* The button that wraps the H2 */
-.lesson-toggle{
-  background: transparent !important;
-  color: rgba(255,255,255,.92) !important;
-  border: 0 !important;
-  padding: 0 !important;
-  text-align: left !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  cursor: pointer !important;
-}
-
-/* Title itself */
-.lesson-toggle h2,
-.lesson-head h2{
-  color: rgba(255,255,255,.96) !important;
-  margin: 0 !important;
-  line-height: 1.15 !important;
-}
-
-/* Tag pill and “Completed” badge: ensure not turning white bg */
-.lesson-tag,
-.lesson-badge{
-  background: rgba(0,0,0,.22) !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  color: rgba(255,255,255,.90) !important;
-}
-
-/* Chevron color */
-.lesson-head .chev{
-  color: rgba(255,255,255,.82) !important;
-}
-
-/* ---- 3) FIX "WHITED OUT" NEXT/BACK BUTTONS ---- */
-.lesson-controls{
-  display:flex !important;
-  gap: 10px !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  margin-top: 14px !important;
-}
-
-/* Force all track buttons to be dark-glass (no white backgrounds) */
-.lesson-controls .btn,
-.lesson-controls button{
-  background: rgba(0,0,0,.26) !important;
-  color: rgba(255,255,255,.94) !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-  border-radius: 14px !important;
-  padding: 10px 12px !important;
-  min-height: 42px !important;
-}
-
-/* “Ghost” still readable */
-.lesson-controls .btn.ghost{
-  background: rgba(0,0,0,.18) !important;
-  color: rgba(255,255,255,.92) !important;
-}
-
-/* Disabled buttons should not turn white */
-.lesson-controls .btn:disabled,
-.lesson-controls button:disabled{
-  opacity: .55 !important;
-  background: rgba(0,0,0,.16) !important;
-  color: rgba(255,255,255,.75) !important;
-  border-color: rgba(255,255,255,.10) !important;
-}
-
-/* ---- 4) FIX WHITE BLOCKS IN PROGRESS BAR ---- */
-.lesson-progress{
-  background: rgba(0,0,0,.18) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
-  border-radius: 16px !important;
-  padding: 12px !important;
-}
-
-.lesson-progress-bar{
-  background: rgba(255,255,255,.08) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
-  border-radius: 999px !important;
-  overflow: hidden !important; /* prevents “white blocks” */
-  height: 10px !important;
-}
-
-.lesson-progress-fill{
-  background: var(--accent-solid, rgba(120,210,255,.75)) !important;
-  height: 100% !important;
-  border-radius: 999px !important;
-}
-
-/* Extra: ensure no elements inside track are default-white */
-.lesson-track,
-.lesson-card{
-  background: rgba(0,0,0,.18) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
-  border-radius: 18px !important;
-}
-
-/* Keep reading content comfortable */
-.lesson-card{
-  padding: 16px 16px !important;
