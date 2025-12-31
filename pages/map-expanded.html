@@ -860,7 +860,6 @@
 
   <!-- Progressive Lesson Cards JS (per lesson) -->
   <script>
-    <script>
 (function () {
   const slugify = (s) => s
     .toLowerCase()
@@ -872,6 +871,29 @@
   const indexGrid = document.getElementById("lessonIndexGrid");
   const desktopToc = document.getElementById("desktopTocList");
   if (!article) return;
+
+  // ---- storage helpers (scoped to this page)
+  const STORAGE_KEY = "ep_mapExpanded_progress_v1";
+  function readStore() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+    catch { return {}; }
+  }
+  function writeStore(obj) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+    catch {}
+  }
+
+  function getLessonState(id) {
+    const store = readStore();
+    return store[id] || { step: 0, complete: false };
+  }
+  function setLessonState(id, patch) {
+    const store = readStore();
+    const prev = store[id] || { step: 0, complete: false };
+    store[id] = { ...prev, ...patch };
+    writeStore(store);
+    return store[id];
+  }
 
   // Ensure headings have IDs + anchor class (without changing words)
   const allHeadings = Array.from(article.querySelectorAll("h2, h3"));
@@ -909,7 +931,17 @@
 
     head.innerHTML = "";
     head.appendChild(btn);
+
+    // keep tag (unchanged)
     if (tag) head.appendChild(tag);
+
+    // add completion badge container (will be populated later)
+    const badge = document.createElement("span");
+    badge.className = "lesson-badge";
+    badge.style.display = "none";
+    badge.innerHTML = `<span class="dot" aria-hidden="true"></span><span>Completed</span>`;
+    head.appendChild(badge);
+
     head.appendChild(chev);
 
     const body = document.createElement("div");
@@ -1027,6 +1059,30 @@
     return a;
   }
 
+  function paintCompletionUI() {
+    accordionLessons.forEach(lesson => {
+      const state = getLessonState(lesson.id);
+      const badge = lesson.querySelector(".lesson-badge");
+      const isComplete = !!state.complete;
+
+      lesson.classList.toggle("is-complete", isComplete);
+      if (badge) badge.style.display = isComplete ? "inline-flex" : "none";
+    });
+
+    // apply to nav items too
+    function markList(listEl) {
+      if (!listEl) return;
+      const links = Array.from(listEl.querySelectorAll("a[data-target]"));
+      links.forEach(a => {
+        const id = a.getAttribute("data-target");
+        const state = getLessonState(id);
+        a.classList.toggle("is-complete", !!state.complete);
+      });
+    }
+    markList(indexGrid);
+    markList(desktopToc);
+  }
+
   if (indexGrid) {
     indexGrid.innerHTML = "";
     accordionLessons.forEach(lesson => indexGrid.appendChild(buildNavLink(lesson)));
@@ -1053,6 +1109,13 @@
     const btn = lesson.querySelector(".lesson-toggle");
     const body = lesson.querySelector(".lesson-body");
     if (btn) btn.setAttribute("aria-expanded", "true");
+
+    // when opening, resume saved step if track exists
+    const track = lesson.querySelector("[data-lesson-track]");
+    if (track && track._setStepFromOutside) {
+      const state = getLessonState(lesson.id);
+      track._setStepFromOutside(state.step || 0);
+    }
 
     if (body) {
       body.style.maxHeight = body.scrollHeight + "px";
@@ -1113,18 +1176,12 @@
   function buildTrackFromLesson(lesson) {
     const body = lesson.querySelector(".lesson-body") || lesson;
     if (!body) return;
-
-    // If it already has a track, just init later
     if (body.querySelector("[data-lesson-track]")) return;
 
-    // Split body content into cards on <hr> boundaries
     const nodes = Array.from(body.childNodes).filter(n => {
-      // ignore empty text nodes
       if (n.nodeType === 3) return n.textContent.trim().length > 0;
       return true;
     });
-
-    // If no content, skip
     if (!nodes.length) return;
 
     const chunks = [];
@@ -1140,7 +1197,6 @@
     });
     if (current.length) chunks.push(current);
 
-    // If it’s basically a single chunk, still wrap it so UI is consistent
     const track = document.createElement("div");
     track.className = "lesson-track";
     track.setAttribute("data-lesson-track", "");
@@ -1157,14 +1213,9 @@
       </div>
     `;
 
-    const cardsWrap = document.createElement("div");
-    cardsWrap.className = "lesson-cards";
+    const cardsContainer = document.createElement("div");
+    cardsContainer.className = "lesson-cards";
 
-    const cards = document.createElement("div");
-    cards.className = "lesson-cards-inner";
-    cards.style.display = "block";
-
-    // Build card sections
     const cardEls = chunks.map((chunk, idx) => {
       const card = document.createElement("section");
       card.className = "lesson-card" + (idx === 0 ? " is-active" : "");
@@ -1172,11 +1223,6 @@
       return card;
     });
 
-    // Put the cards into the standard container expected by CSS/JS
-    const cardsContainer = document.createElement("div");
-    cardsContainer.className = "lesson-cards";
-    // Replace default card spacing container with the cards
-    // (we just created cardsContainer, so no need for cardsWrap above)
     cardEls.forEach(c => cardsContainer.appendChild(c));
 
     const controls = document.createElement("div");
@@ -1190,16 +1236,16 @@
     track.appendChild(cardsContainer);
     track.appendChild(controls);
 
-    // Clear body and insert track
     body.innerHTML = "";
     body.appendChild(track);
   }
 
-  // Transform all lessons (so “only first 3” can never happen again)
   accordionLessons.forEach(buildTrackFromLesson);
 
   function initLessonTrack(track) {
     const lesson = track.closest(".lesson");
+    const lessonId = lesson ? lesson.id : null;
+
     const cards = Array.from(track.querySelectorAll(".lesson-card"));
     const prev = track.querySelector("[data-prev]");
     const next = track.querySelector("[data-next]");
@@ -1207,12 +1253,13 @@
     const pctEl = track.querySelector("[data-percent]");
     const fill = track.querySelector(".lesson-progress-fill");
 
-    if (!cards.length) return;
+    if (!cards.length || !lessonId) return;
 
-    let idx = cards.findIndex(c => c.classList.contains("is-active"));
-    if (idx < 0) idx = 0;
+    // restore saved step
+    const saved = getLessonState(lessonId);
+    let idx = Math.max(0, Math.min(cards.length - 1, saved.step || 0));
 
-    function set(i) {
+    function set(i, opts = { write: true }) {
       idx = Math.max(0, Math.min(cards.length - 1, i));
       cards.forEach((c, n) => c.classList.toggle("is-active", n === idx));
 
@@ -1224,9 +1271,22 @@
       if (fill) fill.style.width = `${pct}%`;
 
       if (prev) prev.disabled = idx === 0;
-      if (next) next.disabled = idx === cards.length - 1;
 
-      // Keep accordion panel height correct as cards change
+      // if last card, change button label + mark complete
+      const isLast = idx === cards.length - 1;
+      if (next) {
+        next.disabled = isLast;
+        next.textContent = isLast ? "Completed" : "Next";
+      }
+
+      if (opts.write) {
+        const patch = { step: idx };
+        if (isLast) patch.complete = true;
+        setLessonState(lessonId, patch);
+        paintCompletionUI();
+      }
+
+      // keep accordion height correct
       if (lesson && lesson.classList.contains("is-open")) {
         const body = lesson.querySelector(".lesson-body");
         if (body) body.style.maxHeight = body.scrollHeight + "px";
@@ -1238,21 +1298,25 @@
     if (prev) prev.addEventListener("click", () => go(-1));
     if (next) next.addEventListener("click", () => go(1));
 
-    // Keyboard support when focused inside the track
     track.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
       if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
     });
 
-    // Make track focusable for keyboard navigation (no visible change)
     if (!track.hasAttribute("tabindex")) track.setAttribute("tabindex", "0");
 
-    set(idx);
+    // expose a safe external setter for “resume on open”
+    track._setStepFromOutside = (stepIdx) => set(stepIdx, { write: false });
+
+    // initialize at saved step
+    set(idx, { write: false });
   }
 
-  // Initialize all tracks
   const tracks = Array.from(article.querySelectorAll("[data-lesson-track]"));
   tracks.forEach(initLessonTrack);
+
+  // apply completion UI after init
+  paintCompletionUI();
 
   // Default open first lesson unless hash
   if (location.hash) openFromHash();
@@ -1260,13 +1324,13 @@
 
   window.addEventListener("hashchange", openFromHash);
 
-  // Recalculate open panel height on resize
   window.addEventListener("resize", () => {
     const open = article.querySelector(".lesson.is-open .lesson-body");
     if (open) open.style.maxHeight = open.scrollHeight + "px";
   });
 })();
 </script>
+
 
 </body>
 </html>
