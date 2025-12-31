@@ -480,62 +480,79 @@
             </div>
           </div>
 
-          <aside class="hero-card panel" aria-label="Expanded Map overview">
-            <div class="panel-top">
-              <div>
-                <h3>How to use this page</h3>
-                <p>
-                  Read slowly. Come back often. Use the headings to find what you need.
-                  Nothing here asks you to rush.
-                </p>
-              </div>
-              <span class="pill" style="margin-top:2px;">
-                <span class="dot" aria-hidden="true"></span>
-                Calm digital book
-              </span>
-            </div>
+          <aside class="hero-card panel lesson-track in-hero" aria-label="Expanded Map overview" data-track>
+  <div class="panel-top">
+    <div>
+      <h3>How to use this page</h3>
+      <p>
+        Read slowly. Come back often. Use the headings to find what you need.
+        Nothing here asks you to rush.
+      </p>
+    </div>
+    <span class="pill" style="margin-top:2px;">
+      <span class="dot" aria-hidden="true"></span>
+      Calm digital book
+    </span>
+  </div>
 
-            <div class="panel-cards">
-              <div class="mini">
-                <div class="title">
-                  <span>Designed for</span>
-                  <b>Re-reading + real life</b>
-                </div>
-                <ul>
-                  <li>Moments of self-doubt</li>
-                  <li>Decision points</li>
-                  <li>Emotional overwhelm or numbness</li>
-                </ul>
-              </div>
+  <!-- Progress -->
+  <div class="track-progress" aria-label="Reading guide progress">
+    <div class="track-progress-meta">
+      <span class="track-step" data-step-label>1 / 3</span>
+      <span class="track-percent" data-percent-label>0%</span>
+    </div>
+    <div class="track-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="track-progress-fill" data-progress-fill></div>
+    </div>
+  </div>
 
-              <div class="mini">
-                <div class="title">
-                  <span>Best practice</span>
-                  <b>One section at a time</b>
-                </div>
-                <ul>
-                  <li>Don’t memorize</li>
-                  <li>Don’t force resonance</li>
-                  <li>Let what lands settle</li>
-                </ul>
-              </div>
-
-              <div class="mini">
-                <div class="title">
-                  <span>Return paths</span>
-                  <b>Apply + integrate</b>
-                </div>
-                <ul>
-                  <li>Side Quests for real-life tests</li>
-                  <li>Practice for ongoing integration</li>
-                  <li>The Path when you need orientation</li>
-                </ul>
-              </div>
-            </div>
-          </aside>
-        </div>
+  <!-- Cards -->
+  <div class="track-cards" data-cards>
+    <article class="track-card mini" data-card>
+      <div class="title">
+        <span>Designed for</span>
+        <b>Re-reading + real life</b>
       </div>
-    </section>
+      <ul>
+        <li>Moments of self-doubt</li>
+        <li>Decision points</li>
+        <li>Emotional overwhelm or numbness</li>
+      </ul>
+    </article>
+
+    <article class="track-card mini" data-card hidden>
+      <div class="title">
+        <span>Best practice</span>
+        <b>One section at a time</b>
+      </div>
+      <ul>
+        <li>Don’t memorize</li>
+        <li>Don’t force resonance</li>
+        <li>Let what lands settle</li>
+      </ul>
+    </article>
+
+    <article class="track-card mini" data-card hidden>
+      <div class="title">
+        <span>Return paths</span>
+        <b>Apply + integrate</b>
+      </div>
+      <ul>
+        <li>Side Quests for real-life tests</li>
+        <li>Practice for ongoing integration</li>
+        <li>The Path when you need orientation</li>
+      </ul>
+    </article>
+  </div>
+
+  <!-- Controls -->
+  <div class="track-controls">
+    <button class="btn ghost" type="button" data-prev disabled>Back</button>
+    <div class="track-dots" aria-label="Guide steps" data-dots></div>
+    <button class="btn" type="button" data-next>Next</button>
+  </div>
+</aside>
+
 
     <!-- FULL MAP (exact text, unchanged) -->
     <section id="full-map">
